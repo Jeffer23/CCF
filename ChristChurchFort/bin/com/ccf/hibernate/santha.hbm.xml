@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="com.ccf.persistence.classes.Santha" table="santha">
+      <meta attribute="class-description">
+         This class contains the Santha detail. 
+      </meta>
+      <id name="santhaId" type="int" column="santha_id">
+          <generator class="native"/>
+      </id>
+      <many-to-one name="member" class="com.ccf.persistence.classes.Member"
+			fetch="select" >
+			<column name="member_id" not-null="true" />
+		</many-to-one>
+      <!-- <property name="memberId" column="member_id" type="int"/> -->
+      <property name="paidDate" column="paid_date" type="date"/>
+      <property name="paidForDate" column="paid_for_date" type="date"/>
+      <property name="harvestFestival" column="harvest_festival" type="float"/>
+      <property name="missionary" column="missionary" type="float"/>
+      <property name="mensFellowship" column="mens_fellowship" type="float"/>
+      <property name="womensFellowship" column="womens_fellowship" type="float"/>
+      <property name="educationHelp" column="education_help" type="float"/>
+      <property name="primarySchool" column="primary_school" type="float"/>
+      <property name="youth" column="youth" type="float"/>
+      <property name="poorHelp" column="poor_help" type="float"/>
+      <property name="churchRenovation" column="church_renovation" type="float"/>
+      <property name="graveyard" column="graveyard" type="float"/>
+      <property name="bagOffer" column="bag_offer" type="float"/>
+      <property name="thanksOffer" column="thanks_offer" type="float"/>
+      <property name="sto" column="sto" type="float"/>
+      <property name="other1" column="other1" type="float"/>
+      <property name="other2" column="other2" type="float"/>
+      <property name="total" column="total" type="float"/>
+   </class>
+</hibernate-mapping>

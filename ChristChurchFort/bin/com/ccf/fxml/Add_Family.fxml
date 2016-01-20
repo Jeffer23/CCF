@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ccf.controller.FamilyController">
+   <children>
+     <AnchorPane prefHeight="775.0" prefWidth="1280.0" style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
+         <children>
+          <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0" pickOnBounds="true" preserveRatio="true" style="-fx-box-shadow: 10px 10px 5px #888888;">
+               <image>
+                  <Image url="/com/ccf/images/logo.png" />
+               </image>
+            </ImageView>
+            <HBox layoutX="254.0" layoutY="214.0" prefHeight="30.0" prefWidth="175.0">
+               <children>
+                  <Label layoutX="25.0" layoutY="33.0" style="-fx-text-fill: BLACK;" text="Family No : " textFill="BLACK">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="familyNo" layoutX="88.0" layoutY="29.0" prefHeight="25.0" prefWidth="94.0">
+                     
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="470.0" layoutY="193.0" prefHeight="72.0" prefWidth="247.0">	
+               <children>
+                  <Label layoutX="179.0" layoutY="33.0" text="Address : " textFill="BLACK">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="address" layoutX="240.0" layoutY="12.0" prefHeight="82.0" prefWidth="168.0" wrapText="true">
+                     
+                  </TextArea>
+               </children>
+            </HBox>
+            <HBox layoutX="741.0" layoutY="216.0">
+               <children>
+                  <Label layoutX="394.0" layoutY="33.0" text="Phone No : " textFill="BLACK">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="phoneNo" layoutX="458.0" layoutY="29.0" prefHeight="24.0" prefWidth="133.0">
+                  </TextField>
+               </children>
+            </HBox>
+            <TableView fx:id="members" layoutX="257.0" layoutY="281.0" prefHeight="200.0" prefWidth="694.0">
+              <columns>
+                <TableColumn editable="false" prefWidth="169.0" text="Name">
+                	<cellValueFactory>
+						<PropertyValueFactory property="name" />
+					</cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" prefWidth="100.0" text="Subscription Amount">
+                	<cellValueFactory>
+						<PropertyValueFactory property="subscriptionAmount" />
+					</cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" prefWidth="115.0" text="D.O.B">
+                	<cellValueFactory>
+						<PropertyValueFactory property="dob" />
+					</cellValueFactory>
+                </TableColumn>
+                  <TableColumn editable="false" prefWidth="66.0" text="Age">
+                  	<cellValueFactory>
+						<PropertyValueFactory property="age" />
+					</cellValueFactory>
+                  </TableColumn>
+                  <TableColumn editable="false" prefWidth="102.0" text="Eligibility">
+                  		<cellValueFactory>
+							<PropertyValueFactory property="eligibility" />
+						</cellValueFactory>
+                  </TableColumn>
+                  <TableColumn editable="false" prefWidth="102.0" text="Lived Till">
+                  		<cellValueFactory>
+							<PropertyValueFactory property="livedTill" />
+						</cellValueFactory>
+                  </TableColumn>
+                 <!--  <TableColumn editable="false" prefWidth="120.0" text="Edit" >
+                  	<Button onAction="#editMember" text="Edit" textAlignment="CENTER"></Button>
+                  </TableColumn>
+                  <TableColumn editable="false" prefWidth="120.0" text="Delete" >
+                  		<Button onAction="#deleteMember" text="Delete" textAlignment="CENTER"></Button>
+                  </TableColumn> -->
+              </columns>
+              <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      	<MenuItem mnemonicParsing="false" onAction="#editMember" text="Edit" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteMember" text="Delete" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+            </TableView>
+            <Button layoutX="257.0" layoutY="507.0" mnemonicParsing="false" onAction="#addMember" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Add Member" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button layoutX="853.0" layoutY="534.0" mnemonicParsing="false" onAction="#saveFamily" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Label fx:id="message" layoutX="379.0" layoutY="534.0" prefHeight="27.0" prefWidth="460.0" textFill="BLACK">
+               <font>
+                  <Font name="Comic Sans MS" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="error" layoutX="254.0" layoutY="253.0" prefHeight="25.0" prefWidth="175.0" textFill="RED" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="61.0" prefHeight="66.0" prefWidth="533.0" text="Add New Family" textAlignment="CENTER">
+               <font>
+                  <Font name="Times New Roman" size="36.0" />
+               </font>
+            </Label>
+           
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
