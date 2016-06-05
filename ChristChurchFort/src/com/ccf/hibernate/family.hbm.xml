@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="com.ccf.persistence.classes.Family" table="family">
+      <meta attribute="class-description">
+         This class contains the family detail. 
+      </meta>
+      <id name="no" type="int" column="no">
+         
+      </id>
+      <property name="address" column="address" type="string"/>
+      <property name="phoneNo" column="phone_no" type="long"/>
+    	<set name="members" table="member" 
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.Member" />
+        </set>
+   </class>
+</hibernate-mapping>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ccf.controller.AddIncomeController">
+   <children>
+     <AnchorPane prefHeight="775.0" prefWidth="1280.0" style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
+         <children>
+          <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0" pickOnBounds="true" preserveRatio="true" style="-fx-box-shadow: 10px 10px 5px #888888;">
+               <image>
+                  <Image url="/com/ccf/images/logo.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="894.0" layoutY="388.0" mnemonicParsing="false" onAction="#saveIncome" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" layoutY="67.0" prefHeight="66.0" prefWidth="533.0" text="Add Income" textAlignment="CENTER">
+               <font>
+                  <Font name="Times New Roman" size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="message" layoutX="379.0" layoutY="534.0" prefHeight="27.0" prefWidth="460.0" textFill="BLACK">
+               <font>
+                  <Font name="Comic Sans MS" size="12.0" />
+               </font>
+            </Label>
+            <HBox layoutX="241.0" layoutY="225.0" prefHeight="123.0" prefWidth="862.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="102.0" text="Amount : ">
+                     <font>
+                        <Font name="Comic Sans MS" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="35.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="amount" alignment="CENTER" prefHeight="37.0" prefWidth="149.0" promptText="INR">
+                     <HBox.margin>
+                        <Insets top="35.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="96.0" text="Reason : ">
+                     <font>
+                        <Font name="Comic Sans MS" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="35.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextArea fx:id="reason" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="96.0" text="Account : ">
+                     <font>
+                        <Font name="Comic Sans MS" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="35.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="accounts" prefHeight="36.0" prefWidth="219.0">
+                     <HBox.margin>
+                        <Insets top="35.0" />
+                     </HBox.margin>
+                  </ChoiceBox>
+               </children>
+            </HBox>
+           
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

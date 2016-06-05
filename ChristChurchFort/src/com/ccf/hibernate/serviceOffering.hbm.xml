@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.ccf.persistence.classes.ServiceOffering" table="service_offering">
+		<meta attribute="class-description">
+			This class contains the Service Offering account details.
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="identity" />
+		</id>
+		<property name="date" column="date" type="date" />
+		<property name="time" column="time" type="string" />
+		<property name="serviceOffering" column="service_offering" type="float" />
+		<property name="thanksOffering" column="thanks_offering" type="float" />
+		<property name="specialThanksOffering" column="special_thanks_offering" type="float" />
+		<property name="missionary" column="missionary" type="float" />
+		<property name="auction" column="auction" type="float" />
+		<property name="confirmation" column="confirmation" type="float" />
+		<property name="sundaySchool" column="sunday_school" type="float" />
+		<property name="marriage" column="marriage" type="float" />
+		<property name="others" column="others" type="float" />
+		<property name="otherReason" column="others_reason" type="string" />
+		
+		
+		
+		<set name="pcAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="service_id"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.PCAccount"/>
+		</set>
+		
+		<set name="missionaryAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="service_id" unique="true"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.MissionaryAccount"/>
+		</set>
+		
+		<!-- <one-to-one name="sundaySchoolAccount" class="com.ccf.persistence.classes.SundaySchoolAccount" cascade="all" lazy="false"></one-to-one> -->
+		<set name="sundaySchoolAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="service_id" unique="true"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.SundaySchoolAccount"/>
+		</set>
+		<set name="specialThanksOfferingAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="service_id"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.SpecialThanksOfferingAccount"/>
+		</set>
+		
+		
+	</class>
+</hibernate-mapping>
