@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 
 public class Main extends Application {
 	
-	private static Stage globalStage;
+	public static Stage globalStage;
 	
 	public Stage getPrimaryStage(){
 		return globalStage;

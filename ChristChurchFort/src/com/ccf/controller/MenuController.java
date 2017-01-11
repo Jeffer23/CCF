@@ -115,6 +115,18 @@ public class MenuController {
 		logger.debug("showBirthdayReportPage method Ends...");
 	}
 	
+	public void showMarriageReportPage(){
+		logger.debug("showMarriageReportPage method Starts...");
+		try {
+			replaceSceneContent("/com/ccf/fxml/Template.fxml",
+					"/com/ccf/fxml/Marriage_Report.fxml");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.debug("showMarriageReportPage method Ends...");
+	}
+	
 	public void showMonthReportPage(){
 		logger.debug("showMonthReportPage method Starts...");
 		try {
@@ -172,6 +184,26 @@ public class MenuController {
 		logger.info("showAddIncomePage method Ends...");
 	}
 	
+	public void loadAccountStatement(){
+		logger.info("loadAccountStatement method Starts...");
+		try {
+			replaceSceneContent("/com/ccf/fxml/Template.fxml",
+					"/com/ccf/fxml/Account_Statement.fxml");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("loadAccountStatement method Ends...");
+	}
+	public void showMemberSanthaReport(){
+		logger.info("showMemberSanthaReport method Starts...");
+		try {
+			replaceSceneContent("/com/ccf/fxml/Template.fxml",
+					"/com/ccf/fxml/Member_Santha_Report.fxml");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("showMemberSanthaReport method Ends...");
+	}
 	/**
 	 * This method is used to replace the content on the UI. i.e., for
 	 * Templating.

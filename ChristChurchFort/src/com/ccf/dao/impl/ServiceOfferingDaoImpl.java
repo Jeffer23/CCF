@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.ccf.doa.ServiceOfferingDao;
+import com.ccf.dao.ServiceOfferingDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.ServiceOffering;
 import com.ccf.util.HibernateSessionFactory;

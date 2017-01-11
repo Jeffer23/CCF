@@ -10,7 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 
-import com.ccf.doa.AccountsDao;
+import com.ccf.dao.AccountsDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.GraveyardAccount;
 import com.ccf.persistence.classes.MensAccount;

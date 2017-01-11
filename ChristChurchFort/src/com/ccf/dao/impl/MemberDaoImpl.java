@@ -1,6 +1,7 @@
 package com.ccf.dao.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -14,8 +15,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
-import com.ccf.doa.FamilyDao;
-import com.ccf.doa.MemberDao;
+import com.ccf.dao.FamilyDao;
+import com.ccf.dao.MemberDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.Family;
 import com.ccf.persistence.classes.GraveyardAccount;
@@ -59,11 +60,12 @@ public class MemberDaoImpl implements MemberDao {
 			logger.info("Member DOB : " + member.getDob());
 			logger.info("Member Eligibility : " + member.getEligibility());
 			logger.info("Member Lived Till : " + member.getLivedTill());
+			logger.info("Member Marriage Date : " + member.getMarriageDate());
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			Transaction transaction = session.beginTransaction();
-			String hql = "UPDATE Member set name = :name, dob = :dob, eligibility = :eligibility, lived_till = :livedTill, subscription_amount = :subscriptionAmount "
+			String hql = "UPDATE Member set name = :name, dob = :dob, eligibility = :eligibility, lived_till = :livedTill, subscription_amount = :subscriptionAmount, marriage_date = :marriageDate "
 					+ "WHERE id = :id";
 			Query query = session.createQuery(hql);
 			query.setParameter("name", member.getName());
@@ -73,6 +75,8 @@ public class MemberDaoImpl implements MemberDao {
 			query.setParameter("id", member.getId());
 			query.setParameter("subscriptionAmount",
 					member.getSubscriptionAmount());
+			query.setParameter("marriageDate",
+					member.getMarriageDate());
 			int result = query.executeUpdate();
 			System.out.println("Update Status : " + result);
 			transaction.commit();
@@ -201,20 +205,23 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Member> getBirthdayMembers(Date fromDate, Date toDate,
-			Session session) throws CcfException {
+	public List<Member> getBirthdayMembers(Date fromDate, Date toDate) throws CcfException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			logger.info("From Date : " + fromDate);
 			logger.info("To Date : " + toDate);
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
 			Transaction transaction = session.beginTransaction();
 			List<Member> birthdayMembers = session.createQuery(
-					"FROM Member WHERE DATE_FORMAT(dob, '%c-%d') BETWEEN DATE_FORMAT('"
+					"FROM Member m join fetch m.family  WHERE DATE_FORMAT(dob, '%m-%d') BETWEEN DATE_FORMAT('"
 							+ sdf.format(fromDate)
-							+ "', '%c-%d')  AND DATE_FORMAT('"
+							+ "', '%m-%d')  AND DATE_FORMAT('"
 							+ sdf.format(toDate)
-							+ "', '%c-%d') AND lived_till is null").list();
+							+ "', '%m-%d') AND lived_till is null order by MONTH(dob), Date(dob)").list();
 			transaction.commit();
+			session.close();
 			return birthdayMembers;
 		} catch (Exception e) {
 			throw new CcfException(e.getMessage());
@@ -222,12 +229,14 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Member> getNonPaidMember(Date fromDate, Date toDate,
-			Session session) throws CcfException {
+	public List<Member> getNonPaidMember(Date fromDate, Date toDate) throws CcfException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			logger.info("From Date : " + fromDate);
 			logger.info("To Date : " + toDate);
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
 			Transaction transaction = session.beginTransaction();
 			List<Member> members = session.createQuery(
 					"from Member where eligibility='yes'").list();
@@ -243,48 +252,81 @@ public class MemberDaoImpl implements MemberDao {
 				}
 			}
 			transaction.commit();
+			session.close();
 			return members;
 		} catch (Exception e) {
 			throw new CcfException(e.getMessage());
 		}
 	}
 
-	public static void main(String[] args) {
+	
+
+	@Override
+	public List<Member> getMarriedMembers(Date fromDate, Date toDate)
+			throws CcfException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			
+			logger.info("From Date : " + fromDate);
+			logger.info("To Date : " + toDate);
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			Transaction transaction = session.beginTransaction();
-			
-			
-			Santha santha = (Santha) session.load(Santha.class, 1);
-			
-			ServiceOffering so = new ServiceOffering();
-			so.setDate(new Date());
-			so.setTime("Test");
-			
-			
-			SpecialThanksOfferingAccount ma = new SpecialThanksOfferingAccount();
-			ma.setAmount(34);
-			ma.setBalance(34);
-			ma.setCr_dr("cr");
-			ma.setDescription("Test Data");
-			ma.setServiceOffering(so);
-			ma.setSantha(santha);
-			
-			so.getSpecialThanksOfferingAccounts().add(ma);
-			santha.getSpecialThanksOfferingAccounts().add(ma);
-			//so.setSundaySchoolAccount(ma);
-			
-			
-			session.save(so);
-			//session.save(pc);
+			List<Member> birthdayMembers = session.createQuery(
+					"FROM Member m join fetch m.family f WHERE DATE_FORMAT(marriage_date, '%m-%d') BETWEEN DATE_FORMAT('"
+							+ sdf.format(fromDate)
+							+ "', '%m-%d')  AND DATE_FORMAT('"
+							+ sdf.format(toDate)
+							+ "', '%m-%d') AND lived_till is null order by MONTH(marriage_date), Date(marriage_date),f.no").list();
 			transaction.commit();
 			session.close();
+			return birthdayMembers;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new CcfException(e.getMessage());
 		}
 	}
 
+	@Override
+	public List<Santha> getMemberSanthaDetails(Date fromDate, Date toDate, Member member)
+			throws CcfException {
+		try{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SessionFactory sessionFactory = HibernateSessionFactory
+				.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		Query query = session.createQuery("from Santha s join fetch s.member where member_id=:memberId and s.paidForDate between '" + sdf.format(fromDate) + "' and '" + sdf.format(toDate) + "'");
+		query.setParameter("memberId", member.getId());
+		List<Santha> santhas = query.list();
+				//session.createQuery("From Santha where paidForDate between '" + sdf.format(fromDate) + "' and '" + sdf.format(toDate) + "'").list();
+		transaction.commit();
+		session.close();		
+		return santhas;
+		} catch(Exception e) {
+			throw new CcfException(e.getMessage());
+		}
+	}
+
+	public static void main(String[] args) {
+		MemberDaoImpl dao = new MemberDaoImpl();
+		Calendar fromDate = Calendar.getInstance();
+		fromDate.set(2016, 3, 25);
+		Calendar toDate = Calendar.getInstance();
+		toDate.set(2016, 11, 31);
+		Member member = new Member();
+		member.setId(1);
+		Date startDate = new Date();
+		try {
+			List<Member> santhas= dao.getBirthdayMembers(fromDate.getTime(), toDate.getTime());
+			System.out.println(santhas.size());
+			for(Member santha : santhas){
+				System.out.println("Total : " + santha.getFamily().getNo());
+			}
+		} catch (CcfException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Date endDate = new Date();
+		System.out.println(endDate.getTime() - startDate.getTime());
+	}
 }

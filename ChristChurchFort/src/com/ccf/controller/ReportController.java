@@ -6,23 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -32,15 +24,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import com.ccf.dao.MemberDao;
+import com.ccf.dao.SanthaDao;
 import com.ccf.dao.impl.MemberDaoImpl;
 import com.ccf.dao.impl.SanthaDaoImpl;
-import com.ccf.doa.MemberDao;
-import com.ccf.doa.SanthaDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.Member;
 import com.ccf.persistence.classes.Santha;
 import com.ccf.util.AgeCalculator;
-import com.ccf.util.HibernateSessionFactory;
 import com.ccf.vo.BirthdayMember;
 import com.ccf.vo.NonPaidMember;
 import com.ccf.vo.Report;
@@ -89,12 +80,8 @@ public class ReportController extends Application {
 				throw new CcfException("Select From date");
 			if(toDate.getSelectedDate() == null)
 				throw new CcfException("Select To date");
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
 			List<Santha> santhas = santhaDaoImpl.getReport(
-					fromDate.getSelectedDate(), toDate.getSelectedDate(),
-					session);
+					fromDate.getSelectedDate(), toDate.getSelectedDate());
 			Report report = null;
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			reports.getItems().clear();
@@ -110,15 +97,13 @@ public class ReportController extends Application {
 					report.setMensFellowship(santha.getMensFellowship());
 					report.setMissionary(santha.getMissionary());
 					report.setName(santha.getMember().getName());
-					report.setOther1(santha.getOther1());
-					report.setOther2(santha.getOther2());
+					report.setSubscription(santha.getSubscriptionAmount());
 					report.setPaidDate(sdf.format(santha.getPaidDate()));
 					report.setPaidForDate(sdf.format(santha.getPaidForDate()));
 					report.setPoorHelp(santha.getPoorHelp());
 					report.setPrimarySchool(santha.getPrimarySchool());
 					report.setSto(santha.getSto());
-					report.setSubscription(santha.getMember()
-							.getSubscriptionAmount());
+					report.setSubscription(santha.getSubscriptionAmount());
 					report.setThanksOffer(santha.getThanksOffer());
 					report.setTotal(santha.getTotal());
 					report.setWomensFellowship(santha.getWomensFellowship());
@@ -127,7 +112,6 @@ public class ReportController extends Application {
 					reports.getItems().add(report);
 				}
 			}
-			session.close();
 			message.setText("Found " + reports.getItems().size() + " Records");
 			logger.info("Found " + reports.getItems().size() + " Records");
 		} catch (CcfException e) {
@@ -154,12 +138,8 @@ public class ReportController extends Application {
 				throw new CcfException("Select From date");
 			if(toDate.getSelectedDate() == null)
 				throw new CcfException("Select To date");
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
 			List<Member> nonPaidmembersList = memberDaoImpl.getNonPaidMember(
-					fromDate.getSelectedDate(), toDate.getSelectedDate(),
-					session);
+					fromDate.getSelectedDate(), toDate.getSelectedDate());
 			NonPaidMember nonPaidMember = null;
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			nonPaidMembers.getItems().clear();
@@ -176,7 +156,6 @@ public class ReportController extends Application {
 					nonPaidMembers.getItems().add(nonPaidMember);
 				}
 			}
-			session.close();
 			message.setText("Found " + nonPaidMembers.getItems().size()
 					+ " Records");
 			logger.info("Found " + nonPaidMembers.getItems().size()
@@ -214,8 +193,7 @@ public class ReportController extends Application {
 			float totalBagOfferAmt = 0.0f;
 			float totalThanksOffer = 0.0f;
 			float totalStoAmt = 0.0f;
-			float totalOther1Amt = 0.0f;
-			float totalOther2Amt = 0.0f;
+			float totalSubscriptionAmt = 0.0f;
 			float grandTotal = 0.0f;
 
 			int rownum = 0;
@@ -273,8 +251,7 @@ public class ReportController extends Application {
 				row.createCell(16).setCellValue(report.getBagOffer());
 				row.createCell(17).setCellValue(report.getThanksOffer());
 				row.createCell(18).setCellValue(report.getSto());
-				row.createCell(19).setCellValue(report.getOther1());
-				row.createCell(20).setCellValue(report.getOther2());
+				row.createCell(19).setCellValue(report.getSubscription());
 				row.createCell(21).setCellValue(report.getTotal());
 
 				totalHarvestAmt = totalHarvestAmt + report.getHarvestFestival();
@@ -296,8 +273,7 @@ public class ReportController extends Application {
 				totalBagOfferAmt = totalBagOfferAmt + report.getBagOffer();
 				totalThanksOffer = totalThanksOffer + report.getThanksOffer();
 				totalStoAmt = totalStoAmt + report.getSto();
-				totalOther1Amt = totalOther1Amt + report.getOther1();
-				totalOther2Amt = totalOther2Amt + report.getOther2();
+				totalSubscriptionAmt = totalSubscriptionAmt + report.getSubscription();
 				grandTotal = grandTotal + report.getTotal();
 			}
 
@@ -317,8 +293,7 @@ public class ReportController extends Application {
 			row.createCell(16).setCellValue(totalBagOfferAmt);
 			row.createCell(17).setCellValue(totalThanksOffer);
 			row.createCell(18).setCellValue(totalStoAmt);
-			row.createCell(19).setCellValue(totalOther1Amt);
-			row.createCell(20).setCellValue(totalOther2Amt);
+			row.createCell(19).setCellValue(totalSubscriptionAmt);
 			row.createCell(21).setCellValue(grandTotal);
 			
 			sheet.createRow(rownum++);
@@ -364,10 +339,8 @@ public class ReportController extends Application {
 			row.createCell(11).setCellValue(totalStoAmt);
 			row = sheet.createRow(rownum++);
 			row.createCell(10).setCellValue("Other1 Amount");
-			row.createCell(11).setCellValue(totalOther1Amt);
+			row.createCell(11).setCellValue(totalSubscriptionAmt);
 			row = sheet.createRow(rownum++);
-			row.createCell(10).setCellValue("Other2 Amount");
-			row.createCell(11).setCellValue(totalOther2Amt);
 			sheet.createRow(rownum++);
 			row = sheet.createRow(rownum++);
 			row.createCell(10).setCellValue("Total Amount");
@@ -478,12 +451,8 @@ public class ReportController extends Application {
 				throw new CcfException("Select From date");
 			if(toDate.getSelectedDate() == null)
 				throw new CcfException("Select To date");
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
 			List<Member> members = memberDaoImpl.getBirthdayMembers(
-					fromDate.getSelectedDate(), toDate.getSelectedDate(),
-					session);
+					fromDate.getSelectedDate(), toDate.getSelectedDate());
 			BirthdayMember bDayMember = null;
 			birthdayReports.getItems().clear();
 			for (Member member : members) {
@@ -497,7 +466,6 @@ public class ReportController extends Application {
 						.getPhoneNo()));
 				birthdayReports.getItems().add(bDayMember);
 			}
-			session.close();
 			message.setText(birthdayReports.getItems().size()
 					+ " members celebrating their birthday");
 			logger.info(birthdayReports.getItems().size()

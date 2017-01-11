@@ -10,7 +10,7 @@
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
-		<many-to-one name="family" class="com.ccf.persistence.classes.Family"
+		<many-to-one name="family" class="com.ccf.persistence.classes.Family" 
 			fetch="select">
 			<column name="no" not-null="true" />
 		</many-to-one>
@@ -20,6 +20,7 @@
 		<property name="subscriptionAmount" column="subscription_amount"
 			type="float" />
 		<property name="eligibility" column="eligibility" type="string" />
+		<property name="marriageDate" column="marriage_date" type="date" />
 		<property name="livedTill" column="lived_till" type="date" />
 		<set name="santhas" table="santha" 
 				inverse="true" lazy="true" fetch="select">

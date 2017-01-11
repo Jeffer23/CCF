@@ -8,7 +8,6 @@ import java.util.Set;
 public class Santha {
 
 	private int santhaId;
-	//private int memberId;
 	private Date paidDate;
 	private Date paidForDate;
 	private float harvestFestival;
@@ -24,8 +23,7 @@ public class Santha {
 	private float bagOffer;
 	private float thanksOffer;
 	private float sto;
-	private float other1;
-	private float other2;
+	private float subscriptionAmount;
 	private float total;
 	private Member member;
 	private Set<PCAccount> pcAccounts = new LinkedHashSet<PCAccount>();
@@ -127,17 +125,12 @@ public class Santha {
 	public void setSto(float sto) {
 		this.sto = sto;
 	}
-	public float getOther1() {
-		return other1;
+	
+	public float getSubscriptionAmount() {
+		return subscriptionAmount;
 	}
-	public void setOther1(float other1) {
-		this.other1 = other1;
-	}
-	public float getOther2() {
-		return other2;
-	}
-	public void setOther2(float other2) {
-		this.other2 = other2;
+	public void setSubscriptionAmount(float subscriptionAmount) {
+		this.subscriptionAmount = subscriptionAmount;
 	}
 	public float getTotal() {
 		return total;

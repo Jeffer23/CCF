@@ -9,6 +9,7 @@ public class Member {
 	private int id;
 	private String name;
 	private Date dob;
+	private Date marriageDate;
 	private Date livedTill;
 	private String eligibility;
 	private float subscriptionAmount;
@@ -63,6 +64,16 @@ public class Member {
 	}
 	public void setLivedTill(Date livedTill) {
 		this.livedTill = livedTill;
+	}
+	public Date getMarriageDate() {
+		return marriageDate;
+	}
+	public void setMarriageDate(Date marriageDate) {
+		this.marriageDate = marriageDate;
+	}
+	@Override
+	public String toString() {
+		return this.name;
 	}
 	
 	

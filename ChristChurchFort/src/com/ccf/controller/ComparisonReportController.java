@@ -7,19 +7,15 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
+import com.ccf.dao.SanthaDao;
 import com.ccf.dao.impl.SanthaDaoImpl;
-import com.ccf.doa.SanthaDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.Santha;
-import com.ccf.util.HibernateSessionFactory;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
@@ -86,7 +82,7 @@ public class ComparisonReportController extends Application {
 					.<String> observableArrayList(Arrays.asList("Bag Offer",
 							"Church Re.", "Edu. Help", "Graveyard",
 							"Har. Fest.", "MF",
-							"Missionary", "Other1", "Other2", "Poor",
+							"Missionary", "Subscription", "Poor",
 							"Pri. School", "STO", "Thanks Offer",
 							"WF", "Youth")));
 			yAxis.setLabel("INR.");
@@ -107,9 +103,6 @@ public class ComparisonReportController extends Application {
 
 			do {
 				SanthaDao santhaDaoImpl = new SanthaDaoImpl();
-				SessionFactory sessionFactory = HibernateSessionFactory
-						.getSessionFactory();
-				Session session = sessionFactory.openSession();
 				float bagOffer = 0;
 				float churchRenovation = 0;
 				float educationHelp = 0;
@@ -117,8 +110,7 @@ public class ComparisonReportController extends Application {
 				float harvestFestival = 0;
 				float mensFellowship = 0;
 				float missionary = 0;
-				float other1 = 0;
-				float other2 = 0;
+				float subscription = 0;
 				float poorHelp = 0;
 				float primarySchool = 0;
 				float sto = 0;
@@ -127,7 +119,7 @@ public class ComparisonReportController extends Application {
 				float youth = 0;
 				SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy");
 				List<Santha> santhas = santhaDaoImpl.getReport(tempFromDate,
-						tempToDate, session);
+						tempToDate);
 				for (Santha santha : santhas) {
 					bagOffer += santha.getBagOffer();
 					churchRenovation += santha.getChurchRenovation();
@@ -136,8 +128,7 @@ public class ComparisonReportController extends Application {
 					harvestFestival += santha.getHarvestFestival();
 					mensFellowship += santha.getMensFellowship();
 					missionary += santha.getMissionary();
-					other1 += santha.getOther1();
-					other2 += santha.getOther2();
+					subscription += santha.getSubscriptionAmount();
 					poorHelp += santha.getPoorHelp();
 					primarySchool += santha.getPrimarySchool();
 					sto += santha.getSto();
@@ -169,9 +160,7 @@ public class ComparisonReportController extends Application {
 						.add(new XYChart.Data<String, Number>("Missionary",
 								missionary));
 				series.getData().add(
-						new XYChart.Data<String, Number>("Other1", other1));
-				series.getData().add(
-						new XYChart.Data<String, Number>("Other2", other2));
+						new XYChart.Data<String, Number>("subscription", subscription));
 				series.getData().add(
 						new XYChart.Data<String, Number>("Poor", poorHelp));
 				series.getData().add(
@@ -188,7 +177,6 @@ public class ComparisonReportController extends Application {
 				series.getData().add(
 						new XYChart.Data<String, Number>("Youth", youth));
 				chart.getData().add(series);
-				session.close();
 
 				cal.add(cal.MONTH, 1);
 				int monthDays = cal.getActualMaximum(cal.DAY_OF_MONTH);

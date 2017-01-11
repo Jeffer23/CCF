@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import eu.schudt.javafx.controls.calendar.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -8,95 +9,68 @@
 <?import eu.schudt.javafx.controls.calendar.DatePicker?>
 <?import javafx.scene.control.cell.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-	minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0"
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.ccf.controller.ReportController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ccf.controller.ReportController">
 	<children>
-		<AnchorPane prefHeight="700.0" prefWidth="1285.0"
-			style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
+		<AnchorPane prefHeight="700.0" prefWidth="1285.0" style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
 			<children>
-				<ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0"
-					pickOnBounds="true" preserveRatio="true"
-					style="-fx-box-shadow: 10px 10px 5px #888888;">
+				<ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0" pickOnBounds="true" preserveRatio="true" style="-fx-box-shadow: 10px 10px 5px #888888;">
 					<image>
 						<Image url="/com/ccf/images/logo.png" />
 					</image>
 				</ImageView>
-				<Label layoutX="15.0" layoutY="75.0" prefHeight="30.0"
-					prefWidth="150.0" text="Birthday Report" textFill="Black">
+				<Label layoutX="137.0" layoutY="110.0" prefHeight="30.0" prefWidth="150.0" text="Birthday Report" textFill="Black">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="18.0" />
 					</font>
 				</Label>
-				<ImageView fitHeight="60.0" fitWidth="100.0" layoutX="1150.0"
-					layoutY="60.0" pickOnBounds="true" preserveRatio="true"
-					onMouseClicked="#exportBirthdayReport">
-					<image>
-						<Image url="/com/ccf/images/download_Excel.jpeg" />
-					</image>
-				</ImageView>
-				<TableView fx:id="birthdayReports" layoutX="14.0" layoutY="110.0"
-					prefHeight="550.0" prefWidth="1258.0">
+				
+				<TableView fx:id="birthdayReports" layoutX="137.0" layoutY="145.0" prefHeight="515.0" prefWidth="910.0">
 					<columns>
-						<TableColumn editable="false" prefWidth="63.0"
-							resizable="false" text="Family No">
+						<TableColumn editable="false" prefWidth="63.0" resizable="false" text="Family No">
 							<cellValueFactory>
 								<PropertyValueFactory property="familyNo" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="112.0"
-							resizable="false" text="Name">
+						<TableColumn editable="false" prefWidth="112.0" resizable="false" text="Name">
 							<cellValueFactory>
 								<PropertyValueFactory property="name" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="100.0"
-							resizable="false" text="D.O.B.">
+						<TableColumn editable="false" prefWidth="100.0" resizable="false" text="D.O.B.">
 							<cellValueFactory>
 								<PropertyValueFactory property="dob" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="49.0"
-							resizable="false" text="Age">
+						<TableColumn editable="false" prefWidth="49.0" resizable="false" text="Age">
 							<cellValueFactory>
 								<PropertyValueFactory property="age" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="500.0"
-							resizable="false" text="Address">
+						<TableColumn editable="false" prefWidth="500.0" resizable="false" text="Address">
 							<cellValueFactory>
 								<PropertyValueFactory property="address" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="82.0"
-							resizable="false" text="Phone No">
+						<TableColumn editable="false" prefWidth="82.0" resizable="false" text="Phone No">
 							<cellValueFactory>
 								<PropertyValueFactory property="phoneNo" />
 							</cellValueFactory>
 						</TableColumn>
 					</columns>
 				</TableView>
-				<Label layoutX="180.0" layoutY="35.0" prefHeight="25.0"
-					prefWidth="96.0" text="From : " textFill="BLACK">
+				<Label layoutX="180.0" layoutY="35.0" prefHeight="25.0" prefWidth="96.0" text="From : " textFill="BLACK">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
 				</Label>
-				<DatePicker fx:id="fromDate" layoutX="284.0" layoutY="35.0"
-					stylesheets="/com/ccf/css/DatePicker.css" />
-				<Label layoutX="497.0" layoutY="35.0" prefHeight="25.0"
-					prefWidth="96.0" text="To : " textFill="BLACK">
+				<DatePicker fx:id="fromDate" layoutX="284.0" layoutY="35.0" stylesheets="/com/ccf/css/DatePicker.css" />
+				<Label layoutX="497.0" layoutY="35.0" prefHeight="25.0" prefWidth="96.0" text="To : " textFill="BLACK">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
 				</Label>
-				<DatePicker fx:id="toDate" layoutX="557.0" layoutY="35.0"
-					stylesheets="/com/ccf/css/DatePicker.css" />
-				<Button textFill="WHITE" onAction="#getBirthdays" alignment="CENTER" layoutX="820.0"
-					layoutY="35.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0"
-					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
-					text="Get Birthdays">
+				<DatePicker fx:id="toDate" layoutX="557.0" layoutY="35.0" stylesheets="/com/ccf/css/DatePicker.css" />
+				<Button alignment="CENTER" layoutX="820.0" layoutY="35.0" mnemonicParsing="false" onAction="#getBirthdays" prefHeight="27.0" prefWidth="161.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Get Birthdays" textFill="WHITE">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
@@ -106,12 +80,16 @@
 					pink; -fx-background-radius: 5;" text="Export"> <font> <Font name="Arial 
 					Rounded MT Bold" size="14.0" /> </font> </Button> -->
 				
-				<Label fx:id="message" alignment="CENTER" layoutX="520.0"
-					layoutY="83.0" prefHeight="27.0" prefWidth="621.0" textFill="BLACK">
+				<Label fx:id="message" alignment="CENTER" layoutX="520.0" layoutY="83.0" prefHeight="27.0" prefWidth="621.0" textFill="BLACK">
 					<font>
 						<Font name="Comic Sans MS" size="14.0" />
 					</font>
 				</Label>
+            <Button alignment="CENTER"  layoutX="1070.0" layoutY="220.0" mnemonicParsing="false" onAction="#exportBirthdayReport" prefHeight="27.0" prefWidth="161.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Button>
 			</children>
 		</AnchorPane>
 	</children>

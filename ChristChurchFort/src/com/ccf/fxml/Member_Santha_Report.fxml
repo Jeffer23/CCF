@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import eu.schudt.javafx.controls.calendar.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import eu.schudt.javafx.controls.calendar.DatePicker?>
+<?import javafx.scene.control.cell.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ccf.controller.MemberSanthaController">
+	<children>
+		<AnchorPane prefHeight="778.0" prefWidth="1280.0" style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
+			<children>
+				
+				<HBox layoutX="31.0" layoutY="23.0">
+					<children>
+						<Label layoutX="361.0" layoutY="28.0" text="Family No:" textFill="BLACK">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<ComboBox fx:id="familyNos" editable="true" onKeyTyped="#filterFamilyNos" prefWidth="150.0" />
+					</children>
+				</HBox>
+				<HBox layoutX="584.0" layoutY="23.0">
+					<children>
+						<Label layoutX="333.0" layoutY="71.0" text="From Date : " textFill="BLACK">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<DatePicker fx:id="fromDate" layoutX="386.0" layoutY="63.0" stylesheets="/com/ccf/css/DatePicker.css" />
+					</children>
+				</HBox>
+				
+				<HBox layoutX="290.0" layoutY="23.0">
+					<children>
+						<Label layoutX="422.0" layoutY="114.0" text="Family Member :" textFill="BLACK">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<ChoiceBox fx:id="familyMembers" layoutX="521.0" layoutY="109.0" prefWidth="150.0" />
+					</children>
+				</HBox>
+				<HBox layoutX="847.0" layoutY="23.0">
+					<children>
+						<Label layoutX="441.0" layoutY="201.0" text="To Date : " textFill="BLACK">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<DatePicker fx:id="toDate" layoutX="547.0" layoutY="196.0" stylesheets="/com/ccf/css/DatePicker.css" />
+					</children>
+				</HBox>
+				
+				<TableView fx:id="membersSantha" layoutX="17.0" layoutY="87.0" prefHeight="537.0" prefWidth="1249.0">
+					<columns>
+						<TableColumn editable="false" prefWidth="112.0" resizable="false" text="Name">
+							<cellValueFactory>
+								<PropertyValueFactory property="name" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" resizable="false" text="Subscription">
+							<cellValueFactory>
+								<PropertyValueFactory property="subscription" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="76.0" resizable="false" text="Harvest Festival">
+							<cellValueFactory>
+								<PropertyValueFactory property="harvestFestival" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="70.0" resizable="false" text="Missionary">
+							<cellValueFactory>
+								<PropertyValueFactory property="missionary" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="59.0" resizable="false" text="MF">
+							<cellValueFactory>
+								<PropertyValueFactory property="mensFellowship" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="55.0" resizable="false" text="WF">
+							<cellValueFactory>
+								<PropertyValueFactory property="womensFellowship" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="67.0" resizable="false" text="Edu. Help">
+							<cellValueFactory>
+								<PropertyValueFactory property="educationHelp" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="70.0" resizable="false" text="Primary School">
+							<cellValueFactory>
+								<PropertyValueFactory property="primarySchool" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="58.0" resizable="false" text="Youth">
+							<cellValueFactory>
+								<PropertyValueFactory property="youth" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="62.0" resizable="false" text="Poor Help">
+							<cellValueFactory>
+								<PropertyValueFactory property="poorHelp" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="78.0" resizable="false" text="Church Renovation">
+							<cellValueFactory>
+								<PropertyValueFactory property="churchRenovation" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="64.0" resizable="false" text="Graveyard">
+							<cellValueFactory>
+								<PropertyValueFactory property="graveyard" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="59.0" resizable="false" text="Bag Offer">
+							<cellValueFactory>
+								<PropertyValueFactory property="bagOffer" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="74.0" resizable="false" text="Thanks Offer">
+							<cellValueFactory>
+								<PropertyValueFactory property="thanksOffer" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="44.0" resizable="false" text="STO">
+							<cellValueFactory>
+								<PropertyValueFactory property="sto" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="73.0" resizable="false" text="Paid Date">
+							<cellValueFactory>
+								<PropertyValueFactory property="paidDate" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="82.0" resizable="false" text="Paid For Date">
+							<cellValueFactory>
+								<PropertyValueFactory property="paidForDate" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn editable="false" prefWidth="67.0" resizable="false" text="Total">
+							<cellValueFactory>
+								<PropertyValueFactory property="total" />
+							</cellValueFactory>
+						</TableColumn>
+					</columns>
+					
+				</TableView>
+				
+				<Label fx:id="error" layoutX="31.0" layoutY="50.0" prefHeight="17.0" prefWidth="222.0" textFill="RED">
+					<font>
+						<Font name="Comic Sans MS" size="16.0" />
+					</font>
+				</Label>
+				<Label fx:id="message" layoutX="370.0" layoutY="629.0" prefHeight="38.0" prefWidth="568.0" textFill="BLACK">
+					<font>
+						<Font name="Comic Sans MS" size="17.0" />
+					</font>
+				</Label>
+				
+            <Button fx:id="getDetailsButton" alignment="CENTER" layoutX="1100.0" layoutY="22.0" mnemonicParsing="false" onAction="#getDetails" prefHeight="25.0" prefWidth="138.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Get Details" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Button>
+			</children>
+		</AnchorPane>
+	</children>
+</VBox>

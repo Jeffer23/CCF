@@ -3,6 +3,7 @@ package com.ccf.dao.impl;
 import java.awt.image.RescaleOp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -15,7 +16,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import com.ccf.doa.SanthaDao;
+import com.ccf.dao.SanthaDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.Family;
 import com.ccf.persistence.classes.Member;
@@ -45,11 +46,14 @@ public class SanthaDaoImpl implements SanthaDao {
 
 	@Override
 	public List<Santha> getPaidMembers(int familyNo, Date fromDate,
-			Date toDate, Session session) throws CcfException {
+			Date toDate) throws CcfException {
 		try {
 			logger.info("Family No : " + familyNo);
 			logger.info("From Date : " + fromDate);
 			logger.info("To Date : " + toDate);
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
 			Transaction transaction = session.beginTransaction();
 
 			List<Santha> paidMembers = session
@@ -63,7 +67,7 @@ public class SanthaDaoImpl implements SanthaDao {
 											.add(Restrictions.eq("family.no",
 													familyNo)).list()))).list();
 			transaction.commit();
-
+			session.close();
 			return paidMembers;
 		} catch (Exception e) {
 			throw new CcfException(e.getMessage());
@@ -80,8 +84,7 @@ public class SanthaDaoImpl implements SanthaDao {
 			logger.info("harvestFestival" + santha.getHarvestFestival());
 			logger.info("mensFellowship" + santha.getMensFellowship());
 			logger.info("missionary" + santha.getMissionary());
-			logger.info("other1" + santha.getOther1());
-			logger.info("other2" + santha.getOther2());
+			logger.info("Subscription" + santha.getSubscriptionAmount());
 			logger.info("poorHelp" + santha.getPoorHelp());
 			logger.info("primarySchool" + santha.getPrimarySchool());
 			logger.info("sto" + santha.getSto());
@@ -95,7 +98,7 @@ public class SanthaDaoImpl implements SanthaDao {
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			Transaction transaction = session.beginTransaction();
-			String hql = "UPDATE Santha set bagOffer = :bagOffer, churchRenovation = :churchRenovation , educationHelp = :educationHelp, graveyard = :graveyard, harvestFestival = :harvestFestival, mensFellowship = :mensFellowship, missionary = :missionary, other1 = :other1, other2 = :other2, poorHelp = :poorHelp, primarySchool = :primarySchool, sto = :sto, thanksOffer = :thanksOffer, womensFellowship = :womensFellowship, youth = :youth, total = :total "
+			String hql = "UPDATE Santha set bagOffer = :bagOffer, churchRenovation = :churchRenovation , educationHelp = :educationHelp, graveyard = :graveyard, harvestFestival = :harvestFestival, mensFellowship = :mensFellowship, missionary = :missionary,subscriptionAmount = :subscription, poorHelp = :poorHelp, primarySchool = :primarySchool, sto = :sto, thanksOffer = :thanksOffer, womensFellowship = :womensFellowship, youth = :youth, total = :total "
 					+ "WHERE santhaId = :santhaId";
 			Query query = session.createQuery(hql);
 			query.setParameter("bagOffer", santha.getBagOffer());
@@ -105,8 +108,7 @@ public class SanthaDaoImpl implements SanthaDao {
 			query.setParameter("harvestFestival", santha.getHarvestFestival());
 			query.setParameter("mensFellowship", santha.getMensFellowship());
 			query.setParameter("missionary", santha.getMissionary());
-			query.setParameter("other1", santha.getOther1());
-			query.setParameter("other2", santha.getOther2());
+			query.setParameter("subscription", santha.getSubscriptionAmount());
 			query.setParameter("poorHelp", santha.getPoorHelp());
 			query.setParameter("primarySchool", santha.getPrimarySchool());
 			query.setParameter("sto", santha.getSto());
@@ -176,20 +178,25 @@ public class SanthaDaoImpl implements SanthaDao {
 	}
 
 	@Override
-	public List<Santha> getReport(Date fromDate, Date toDate, Session session)
+	public List<Santha> getReport(Date fromDate, Date toDate)
 			throws CcfException {
 		List<Santha> santhas = null;
 		try {
 			logger.info("From Date : " + fromDate);
 			logger.info("To Date : " + toDate);
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
 			Transaction transaction = session.beginTransaction();
 			Criteria cr = session.createCriteria(Santha.class);
 
 			cr.add(Restrictions.ge("paidForDate", fromDate));
 			cr.add(Restrictions.le("paidForDate", toDate));
+			//cr.createAlias("member", "member");
+			//cr.createAlias("member.family", "family");
 			santhas = cr.list();
 			transaction.commit();
-
+			session.close();
 			return santhas;
 		} catch (Exception e) {
 			throw new CcfException(e.getMessage());
@@ -222,5 +229,26 @@ public class SanthaDaoImpl implements SanthaDao {
 		return santha;
 	}
 
-	
+	public static void main(String[] args) throws CcfException {
+		SanthaDaoImpl dao = new SanthaDaoImpl();
+		Calendar fromDate = Calendar.getInstance();
+		fromDate.set(2016, 3, 25);
+		Calendar toDate = Calendar.getInstance();
+		toDate.set(2016, 11, 31);
+		Member member = new Member();
+		member.setId(1);
+		Date startDate = new Date();
+		try {
+			List<Santha> santhas= dao.getPaidMembers(145,fromDate.getTime(), toDate.getTime());
+			System.out.println(santhas.size());
+			for(Santha santha : santhas){
+				System.out.println("Total : " + santha.getMember().getFamily().getNo());
+			}
+		} catch (CcfException e) {
+			e.printStackTrace();
+		}
+		Date endDate = new Date();
+		System.out.println(endDate.getTime() - startDate.getTime());
+		
+	}
 }

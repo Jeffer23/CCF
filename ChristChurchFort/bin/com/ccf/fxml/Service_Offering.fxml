@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
@@ -10,138 +11,265 @@
 <?import javafx.scene.control.cell.*?>
 <?import eu.schudt.javafx.controls.calendar.DatePicker?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ccf.controller.ServiceOfferingController">
-   <children>
-      <AnchorPane prefHeight="775.0" prefWidth="1280.0" style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
-         <children>
-         <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0" pickOnBounds="true" preserveRatio="true" style="-fx-box-shadow: 10px 10px 5px #888888;">
-               <image>
-                  <Image url="/com/ccf/images/logo.png" />
-               </image>
-            </ImageView>
-            <Button layoutX="662.0" layoutY="591.0" mnemonicParsing="false" onAction="#save" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="14.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="338.0" layoutY="55.0" prefHeight="72.0" prefWidth="532.0" text="Service Offering" textAlignment="CENTER">
-               <font>
-                  <Font name="Times New Roman" size="36.0" />
-               </font>
-            </Label>
-            <GridPane layoutX="406.0" layoutY="216.0" prefHeight="326.0" prefWidth="416.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Service Offering" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Thanks Offering" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label contentDisplay="CENTER" prefHeight="33.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Missionary" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Special Thanks Offering" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label contentDisplay="CENTER" prefHeight="31.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Auction " textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="4">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Marriage" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="7">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label contentDisplay="CENTER" prefHeight="31.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Sunday School" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="6">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label contentDisplay="CENTER" prefHeight="31.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Confirmation" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="5">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Others" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="8">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="serviceOffering" prefHeight="32.0" prefWidth="208.0" promptText="Service Offering" GridPane.columnIndex="1" />
-                  <TextField fx:id="thanksOffering" prefHeight="32.0" prefWidth="208.0" promptText="Thanks Offering" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="sto" prefHeight="32.0" prefWidth="208.0" promptText="Special Thanks Offering" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="missionary" prefHeight="32.0" prefWidth="208.0" promptText="Missionary" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="auctionAmt" prefHeight="32.0" prefWidth="208.0" promptText="Auction Amount" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="confirmation" prefHeight="32.0" prefWidth="208.0" promptText="Confirmation" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField fx:id="sundaySchool" prefHeight="32.0" prefWidth="208.0" promptText="Sunday School" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <TextField fx:id="marriage" prefHeight="32.0" prefWidth="208.0" promptText="Marriage" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                     <children>
-                        <TextField fx:id="otherAmt" prefHeight="39.0" prefWidth="77.0" promptText="Amount" />
-                        <TextField fx:id="otherReason" prefHeight="40.0" prefWidth="130.0" promptText="Reason" />
-                     </children>
-                  </HBox>
-               </children>
-            </GridPane>
-            <HBox layoutX="349.0" layoutY="136.0" prefHeight="39.0" prefWidth="255.0">
-               <children>
-                  <Label prefHeight="25.0" prefWidth="58.0" text="Date : ">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font></Label>
-                  <DatePicker fx:id="date" layoutX="386.0" layoutY="63.0"
-							stylesheets="/com/ccf/css/DatePicker.css" />
-               </children>
-            </HBox>
-            <HBox layoutX="640.0" layoutY="136.0" prefHeight="39.0" prefWidth="225.0">
-               <children>
-                  <Label prefHeight="25.0" prefWidth="65.0" text="Time : ">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font></Label>
-                  <ChoiceBox fx:id="time" prefWidth="150.0" />
-               </children>
-            </HBox>
-            <Button layoutX="502.0" layoutY="591.0" mnemonicParsing="false" onAction="#clear" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Clear" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="14.0" />
-               </font>
-            </Button>
-            <Label fx:id="message" layoutX="850.0" layoutY="342.0" prefHeight="33.0" prefWidth="400.0">
-               <font>
-                  <Font name="Comic Sans MS" size="16.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </children>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+	minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.ccf.controller.ServiceOfferingController">
+	<children>
+		<AnchorPane prefHeight="775.0" prefWidth="1280.0"
+			style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
+			<children>
+				<ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0"
+					pickOnBounds="true" preserveRatio="true"
+					style="-fx-box-shadow: 10px 10px 5px #888888;">
+					<image>
+						<Image url="/com/ccf/images/logo.png" />
+					</image>
+				</ImageView>
+				<Button layoutX="662.0" layoutY="591.0" mnemonicParsing="false"
+					onAction="#save" prefHeight="22.0" prefWidth="91.0"
+					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
+					text="Save" textFill="WHITE">
+					<font>
+						<Font name="Arial Rounded MT Bold" size="14.0" />
+					</font>
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+				</Button>
+				<Label alignment="CENTER" contentDisplay="CENTER" layoutX="348.0"
+					layoutY="14.0" prefHeight="72.0" prefWidth="532.0" text="Service Offering"
+					textAlignment="CENTER">
+					<font>
+						<Font name="Times New Roman" size="36.0" />
+					</font>
+				</Label>
+				<GridPane layoutX="406.0" layoutY="216.0" prefHeight="326.0"
+					prefWidth="416.0">
+					<columnConstraints>
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+							prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+							prefWidth="100.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Service Offering"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Thanks Offering"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="1">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Missionary"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="3">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Special Thanks Offering"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="2">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Auction "
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="4">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Marriage"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="7">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Sunday School"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="6">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Confirmation"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="5">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Others"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="8">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<TextField fx:id="serviceOffering" prefHeight="32.0"
+							prefWidth="208.0" promptText="Service Offering"
+							GridPane.columnIndex="1" />
+						<TextField fx:id="thanksOffering" prefHeight="32.0"
+							prefWidth="208.0" promptText="Thanks Offering"
+							GridPane.columnIndex="1" GridPane.rowIndex="1" />
+						<TextField fx:id="sto" prefHeight="32.0" prefWidth="208.0"
+							promptText="Special Thanks Offering" GridPane.columnIndex="1"
+							GridPane.rowIndex="2" />
+						<TextField fx:id="missionary" prefHeight="32.0"
+							prefWidth="208.0" promptText="Missionary" GridPane.columnIndex="1"
+							GridPane.rowIndex="3" />
+						<TextField fx:id="auctionAmt" prefHeight="32.0"
+							prefWidth="208.0" promptText="Auction Amount"
+							GridPane.columnIndex="1" GridPane.rowIndex="4" />
+						<TextField fx:id="confirmation" prefHeight="32.0"
+							prefWidth="208.0" promptText="Confirmation" GridPane.columnIndex="1"
+							GridPane.rowIndex="5" />
+						<TextField fx:id="sundaySchool" prefHeight="32.0"
+							prefWidth="208.0" promptText="Sunday School"
+							GridPane.columnIndex="1" GridPane.rowIndex="6" />
+						<TextField fx:id="marriage" prefHeight="32.0" prefWidth="208.0"
+							promptText="Marriage" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+						<HBox prefHeight="100.0" prefWidth="200.0"
+							GridPane.columnIndex="1" GridPane.rowIndex="8">
+							<children>
+								<TextField fx:id="otherAmt" prefHeight="39.0"
+									prefWidth="77.0" promptText="Amount" />
+								<TextField fx:id="otherReason" prefHeight="40.0"
+									prefWidth="130.0" promptText="Reason" />
+							</children>
+						</HBox>
+					</children>
+				</GridPane>
+				<HBox layoutX="270.0" layoutY="93.0">
+					<children>
+						<HBox layoutX="302.0" layoutY="86.0" prefHeight="39.0"
+							prefWidth="208.0">
+							<children>
+								<Label prefHeight="25.0" prefWidth="58.0" text="Date : ">
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+								</Label>
+								<DatePicker fx:id="date" layoutX="386.0" layoutY="63.0"
+									stylesheets="/com/ccf/css/DatePicker.css" />
+							</children>
+						</HBox>
+						<HBox layoutX="528.0" layoutY="86.0" prefHeight="39.0"
+							prefWidth="225.0">
+							<children>
+								<Label prefHeight="25.0" prefWidth="65.0" text="Time : ">
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+								</Label>
+								<ChoiceBox fx:id="time" prefWidth="150.0" />
+							</children>
+						</HBox>
+						<HBox layoutX="762.0" layoutY="81.0" prefHeight="39.0"
+							prefWidth="255.0">
+							<children>
+								<Label prefHeight="25.0" prefWidth="123.0" text="Account Type : ">
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+								</Label>
+								<RadioButton fx:id="cash" onAction="#onCashButtonPressed"
+									onMouseClicked="#onCashButtonPressed" mnemonicParsing="false"
+									text="Cash" style="-fx-padding: 6px;" selected="true">
+								</RadioButton>
+								<RadioButton fx:id="cheque" onAction="#onChequeButtonPressed"
+									onMouseClicked="#onChequeButtonPressed" mnemonicParsing="false"
+									text="Cheque" style="-fx-padding:6px 0px 0px 10px;">
+								</RadioButton>
+							</children>
+						</HBox>
+					</children>
+				</HBox>
+				<Button layoutX="502.0" layoutY="591.0" mnemonicParsing="false"
+					onAction="#clear" prefHeight="22.0" prefWidth="91.0"
+					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
+					text="Clear" textFill="WHITE">
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<font>
+						<Font name="Arial Rounded MT Bold" size="14.0" />
+					</font>
+				</Button>
+				<Label fx:id="message" layoutX="850.0" layoutY="342.0"
+					prefHeight="33.0" prefWidth="400.0">
+					<font>
+						<Font name="Comic Sans MS" size="16.0" />
+					</font>
+				</Label>
+				<HBox fx:id="chequeDetails" visible="false" layoutX="270.0"
+					layoutY="147.0">
+					<children>
+						<HBox layoutX="634.0" layoutY="139.0" prefHeight="39.0"
+							prefWidth="255.0">
+							<children>
+								<Label prefHeight="25.0" prefWidth="108.0" text="Cheque Date : ">
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+								</Label>
+								<DatePicker fx:id="chequeDate" layoutX="386.0"
+									layoutY="63.0" stylesheets="/com/ccf/css/DatePicker.css" />
+							</children>
+						</HBox>
+						<HBox layoutX="882.0" layoutY="139.0" prefHeight="39.0"
+							prefWidth="455.0">
+							<children>
+								<Label prefHeight="25.0" prefWidth="130.0" text="Cheque Number : ">
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+								</Label>
+								<TextField fx:id="chequeNumber" prefHeight="25.0"
+									prefWidth="300.0" promptText="Cheque Number" />
+							</children>
+						</HBox>
+					</children>
+				</HBox>
+			</children>
+		</AnchorPane>
+	</children>
 </VBox>

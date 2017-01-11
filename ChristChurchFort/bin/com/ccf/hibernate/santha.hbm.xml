@@ -10,7 +10,7 @@
 			<generator class="native" />
 		</id>
 		<many-to-one name="member" class="com.ccf.persistence.classes.Member"
-			fetch="select">
+			fetch="join">
 			<column name="member_id" not-null="true" />
 		</many-to-one>
 		<!-- <property name="memberId" column="member_id" type="int"/> -->
@@ -33,18 +33,17 @@
 		<property name="bagOffer" column="bag_offer" type="float" />
 		<property name="thanksOffer" column="thanks_offer" type="float" />
 		<property name="sto" column="sto" type="float" />
-		<property name="other1" column="other1" type="float" />
-		<property name="other2" column="other2" type="float" />
+		<property name="subscriptionAmount" column="subscriptionAmount" type="float" />
 		<property name="total" column="total" type="float" />
 		
-		<set name="pcAccounts" cascade="all" lazy="false">
+		<set name="pcAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id"></column>
 			</key>
 			<one-to-many class="com.ccf.persistence.classes.PCAccount" />
 		</set>
 		
-		<set name="missionaryAccounts" cascade="all" lazy="false">
+		<set name="missionaryAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" not-null="false" unique="true"></column>
 			</key>
@@ -52,42 +51,42 @@
 		</set>
 	
 		
-		<set name="specialThanksOfferingAccounts" cascade="all" lazy="false">
+		<set name="specialThanksOfferingAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id"></column>
 			</key>
 			<one-to-many class="com.ccf.persistence.classes.SpecialThanksOfferingAccount" />
 		</set>
 		
-		<set name="mensAccounts" cascade="all" lazy="false">
+		<set name="mensAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" unique="true"></column>
 			</key>
 			<one-to-many class="com.ccf.persistence.classes.MensAccount" />
 		</set>
 		
-		<set name="womensAccounts" cascade="all" lazy="false">
+		<set name="womensAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" unique="true"></column>
 			</key>
 			<one-to-many class="com.ccf.persistence.classes.WomensAccount" />
 		</set>
 		
-		<set name="youthAccounts" cascade="all" lazy="false">
+		<set name="youthAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" unique="true"></column>
 			</key>
 			<one-to-many class="com.ccf.persistence.classes.YouthAccount" />
 		</set>
 		
-		<set name="graveyardAccounts" cascade="all" lazy="false">
+		<set name="graveyardAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" unique="true"></column>
 			</key>
 			<one-to-many class="com.ccf.persistence.classes.GraveyardAccount" />
 		</set>
 		
-		<set name="primarySchoolAccounts" cascade="all" lazy="false">
+		<set name="primarySchoolAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" unique="true"></column>
 			</key>

@@ -30,7 +30,9 @@
           <Menu mnemonicParsing="false" text="Report">
             <items>
               <MenuItem mnemonicParsing="false" text="Birthday" onAction="#showBirthdayReportPage"/>
+              <MenuItem mnemonicParsing="false" text="Marriage" onAction="#showMarriageReportPage"/>
               <MenuItem mnemonicParsing="false" text="Santha" onAction="#showReportPage"/>
+              <MenuItem mnemonicParsing="false" text="Member Santha" onAction="#showMemberSanthaReport"/>
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Offering">
@@ -43,6 +45,7 @@
               <Menu mnemonicParsing="false" text="Accounts">
               <items>
               <MenuItem mnemonicParsing="false" text="Account Details" onAction="#loadAccountDetails"/>
+              <MenuItem mnemonicParsing="false" text="Account Statement" onAction="#loadAccountStatement"/>
               	<MenuItem mnemonicParsing="false" text="Add Expense" onAction="#loadExpensePage"/>
               </items>
             </Menu>

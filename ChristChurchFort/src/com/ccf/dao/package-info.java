@@ -6,4 +6,4 @@
  *
  *	This package contains all interfaces for persistence.
  */
-package com.ccf.doa;
+package com.ccf.dao;

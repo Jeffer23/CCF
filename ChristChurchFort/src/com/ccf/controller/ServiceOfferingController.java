@@ -4,10 +4,10 @@ import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 
+import com.ccf.dao.AccountsDao;
+import com.ccf.dao.ServiceOfferingDao;
 import com.ccf.dao.impl.AccountsDaoImpl;
 import com.ccf.dao.impl.ServiceOfferingDaoImpl;
-import com.ccf.doa.AccountsDao;
-import com.ccf.doa.ServiceOfferingDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
@@ -18,7 +18,9 @@ import com.ccf.persistence.classes.SundaySchoolAccount;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 
@@ -61,6 +63,21 @@ public class ServiceOfferingController {
 
 	@FXML
 	private TextField otherReason;
+	
+	@FXML
+	private RadioButton cash;
+	
+	@FXML
+	private RadioButton cheque;
+	
+	@FXML
+	private HBox chequeDetails;
+	
+	@FXML
+	private DatePicker chequeDate;
+	
+	@FXML
+	private TextField chequeNumber;
 
 	@FXML
 	private Label message;
@@ -94,6 +111,10 @@ public class ServiceOfferingController {
 		logger.debug("Marriage Offering Amount : " + marriage.getText());
 		logger.debug("Other Offering Amount : " + otherAmt.getText());
 		logger.debug("Other Offering Reason : " + otherReason.getText());
+		logger.debug("Cash : " + cash.isSelected());
+		logger.debug("Cheque : " + cheque.isSelected());
+		logger.debug("Cheque Date : " + chequeDate.getSelectedDate());
+		logger.debug("Cheque Number : " + chequeNumber.getText());
 
 		try {
 			/**
@@ -351,6 +372,18 @@ public class ServiceOfferingController {
 		logger.info("Save method Ends...");
 	}
 
+	public void onCashButtonPressed(){
+		this.cash.setSelected(true);
+		this.cheque.setSelected(false);
+		this.chequeDetails.setVisible(false);
+	}
+	
+	public void onChequeButtonPressed(){
+		this.cash.setSelected(false);
+		this.cheque.setSelected(true);
+		this.chequeDetails.setVisible(true);
+	}
+	
 	public void clear() {
 		logger.info("clear method Starts...");
 		date.setSelectedDate(null);

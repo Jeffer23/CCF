@@ -11,7 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.ccf.controller.FamilyController;
-import com.ccf.doa.FamilyDao;
+import com.ccf.dao.FamilyDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.Family;
 import com.ccf.util.HibernateSessionFactory;

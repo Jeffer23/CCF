@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import eu.schudt.javafx.controls.calendar.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -8,15 +9,15 @@
 <?import eu.schudt.javafx.controls.calendar.DatePicker?>
 <?import javafx.scene.control.cell.*?>
 
-<VBox fx:controller="com.ccf.controller.SanthaController"
-	maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
 	minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0"
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.ccf.controller.SanthaController">
 	<children>
 		<AnchorPane prefHeight="778.0" prefWidth="1280.0"
 			style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
 			<children>
-				
+
 				<HBox layoutX="31.0" layoutY="23.0">
 					<children>
 						<Label layoutX="361.0" layoutY="28.0" text="Family No:"
@@ -25,8 +26,8 @@
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<ComboBox fx:id="familyNos" editable="true" prefWidth="150.0"
-							onKeyTyped="#filterFamilyNos" />
+						<ComboBox fx:id="familyNos" editable="true" onKeyTyped="#filterFamilyNos"
+							prefWidth="150.0" />
 					</children>
 				</HBox>
 				<HBox layoutX="330.0" layoutY="23.0">
@@ -41,8 +42,8 @@
 							stylesheets="/com/ccf/css/DatePicker.css" />
 					</children>
 				</HBox>
-				<Label fx:id="paidDateError" layoutX="386.0" layoutY="50.0" prefHeight="17.0"
-					prefWidth="222.0" textFill="RED" >
+				<Label fx:id="paidDateError" layoutX="386.0" layoutY="50.0"
+					prefHeight="17.0" prefWidth="222.0" textFill="RED">
 					<font>
 						<Font name="Comic Sans MS" size="16.0" />
 					</font>
@@ -71,8 +72,8 @@
 							layoutY="196.0" stylesheets="/com/ccf/css/DatePicker.css" />
 					</children>
 				</HBox>
-				<Label fx:id="paidForDateError" layoutX="1020.0" layoutY="50.0" prefHeight="17.0"
-					prefWidth="222.0" textFill="RED" >
+				<Label fx:id="paidForDateError" layoutX="1020.0" layoutY="50.0"
+					prefHeight="17.0" prefWidth="222.0" textFill="RED">
 					<font>
 						<Font name="Comic Sans MS" size="16.0" />
 					</font>
@@ -242,23 +243,13 @@
 							GridPane.rowIndex="6">
 						</TextField>
 						<Label alignment="CENTER" prefHeight="17.0" prefWidth="151.0"
-							text="Other 1 : " textFill="BLACK" GridPane.columnIndex="3"
-							GridPane.rowIndex="6">
+							text="Subscription Amount : " textFill="BLACK"
+							GridPane.columnIndex="3" GridPane.rowIndex="6">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="other1" GridPane.columnIndex="4"
-							GridPane.rowIndex="6">
-						</TextField>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="119.0"
-							text="Other 2 : " textFill="BLACK" GridPane.columnIndex="6"
-							GridPane.rowIndex="6">
-							<font>
-								<Font name="Arial Rounded MT Bold" size="14.0" />
-							</font>
-						</Label>
-						<TextField fx:id="other2" GridPane.columnIndex="7"
+						<TextField fx:id="subscriptionAmt" GridPane.columnIndex="4"
 							GridPane.rowIndex="6">
 						</TextField>
 						<Label alignment="CENTER" prefHeight="24.0" prefWidth="140.0"
@@ -268,17 +259,17 @@
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<Label fx:id="memberTotal" alignment="CENTER" prefHeight="24.0" prefWidth="140.0"
-							text="0.00" textFill="BLACK" GridPane.columnIndex="10"
-							GridPane.rowIndex="6">
+						<Label fx:id="memberTotal" alignment="CENTER" prefHeight="24.0"
+							prefWidth="140.0" text="0.00" textFill="BLACK"
+							GridPane.columnIndex="10" GridPane.rowIndex="6">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
 					</children>
 				</GridPane>
-				<TableView fx:id="membersSantha" layoutX="14.0" layoutY="87.0"
-					prefHeight="235.0" prefWidth="1252.0">
+				<TableView fx:id="membersSantha" layoutX="14.0" layoutY="153.0"
+					prefHeight="175.0" prefWidth="1252.0">
 					<columns>
 						<TableColumn editable="false" prefWidth="112.0"
 							resizable="false" text="Name">
@@ -321,67 +312,56 @@
 								<PropertyValueFactory property="educationHelp" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="70.0"
+						<TableColumn editable="false" prefWidth="94.0"
 							resizable="false" text="Primary School">
 							<cellValueFactory>
 								<PropertyValueFactory property="primarySchool" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="58.0"
+						<TableColumn editable="false" prefWidth="60.0"
 							resizable="false" text="Youth">
 							<cellValueFactory>
 								<PropertyValueFactory property="youth" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="62.0"
+						<TableColumn editable="false" prefWidth="71.0"
 							resizable="false" text="Poor Help">
 							<cellValueFactory>
 								<PropertyValueFactory property="poorHelp" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="93.0"
+						<TableColumn editable="false" prefWidth="95.0"
 							resizable="false" text="Church Renovation">
 							<cellValueFactory>
 								<PropertyValueFactory property="churchRenovation" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="64.0"
+						<TableColumn editable="false" prefWidth="79.0"
 							resizable="false" text="Graveyard">
 							<cellValueFactory>
 								<PropertyValueFactory property="graveyard" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="62.0"
+						<TableColumn editable="false" prefWidth="77.0"
 							resizable="false" text="Bag Offer">
 							<cellValueFactory>
 								<PropertyValueFactory property="bagOffer" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="79.0"
+						<TableColumn editable="false" prefWidth="84.0"
 							resizable="false" text="Thanks Offer">
 							<cellValueFactory>
 								<PropertyValueFactory property="thanksOffer" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="64.0"
+						<TableColumn editable="false" prefWidth="90.0"
 							resizable="false" text="STO">
 							<cellValueFactory>
 								<PropertyValueFactory property="sto" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="59.0"
-							resizable="false" text="Other 1">
-							<cellValueFactory>
-								<PropertyValueFactory property="other1" />
-							</cellValueFactory>
-						</TableColumn>
-						<TableColumn editable="false" prefWidth="53.0"
-							resizable="false" text="Other 2">
-							<cellValueFactory>
-								<PropertyValueFactory property="other2" />
-							</cellValueFactory>
-						</TableColumn>
-						<TableColumn editable="false" prefWidth="67.0"
+
+						<TableColumn editable="false" prefWidth="78.0"
 							resizable="false" text="Total">
 							<cellValueFactory>
 								<PropertyValueFactory property="total" />
@@ -391,10 +371,10 @@
 					<contextMenu>
 						<ContextMenu>
 							<items>
-								<MenuItem mnemonicParsing="false" text="Edit"
-									onAction="#editPaidMember" />
-								<MenuItem mnemonicParsing="false" text="Delete"
-									onAction="#deletePaidMember" />
+								<MenuItem mnemonicParsing="false" onAction="#editPaidMember"
+									text="Edit" />
+								<MenuItem mnemonicParsing="false" onAction="#deletePaidMember"
+									text="Delete" />
 							</items>
 						</ContextMenu>
 					</contextMenu>
@@ -408,35 +388,35 @@
 						<Font size="18.0" />
 					</font>
 				</Label>
-				<Button textFill="WHITE" fx:id="saveButton" onAction="#save" alignment="CENTER"
-					layoutX="1069.0" layoutY="624.0" mnemonicParsing="false"
+				<Button fx:id="saveButton" alignment="CENTER" layoutX="1069.0"
+					layoutY="624.0" mnemonicParsing="false" onAction="#save"
 					prefHeight="25.0" prefWidth="138.0"
 					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
-					text="Save">
+					text="Save" textFill="WHITE">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
 				</Button>
-				<Button textFill="WHITE" fx:id="updateButton" onAction="#updatePayment"
-					alignment="CENTER" layoutX="1000.0" layoutY="624.0"
-					mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0"
+				<Button fx:id="updateButton" alignment="CENTER" layoutX="1000.0"
+					layoutY="624.0" mnemonicParsing="false" onAction="#updatePayment"
+					prefHeight="25.0" prefWidth="100.0"
 					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
-					text="Update" visible="false">
+					text="Update" textFill="WHITE" visible="false">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
 				</Button>
-				<Button textFill="WHITE" fx:id="cancelButton" onAction="#cancelEditSantha"
-					alignment="CENTER" layoutX="1125.0" layoutY="624.0"
-					mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0"
+				<Button fx:id="cancelButton" alignment="CENTER" layoutX="1125.0"
+					layoutY="624.0" mnemonicParsing="false" onAction="#cancelEditSantha"
+					prefHeight="25.0" prefWidth="75.0"
 					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
-					text="Cancel" visible="false">
+					text="Cancel" textFill="WHITE" visible="false">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
 				</Button>
 				<Label fx:id="error" layoutX="31.0" layoutY="50.0" prefHeight="17.0"
-					prefWidth="222.0" textFill="RED" >
+					prefWidth="222.0" textFill="RED">
 					<font>
 						<Font name="Comic Sans MS" size="16.0" />
 					</font>
@@ -447,12 +427,56 @@
 						<Font name="Comic Sans MS" size="17.0" />
 					</font>
 				</Label>
-				<Label fx:id="familyMemberError" layoutX="623.0" layoutY="50.0"
+				<Label fx:id="familyMemberError" layoutX="70.0" layoutY="50.0"
 					prefHeight="25.0" prefWidth="262.0" textFill="RED">
 					<font>
 						<Font name="Comic Sans MS" size="16.0" />
 					</font>
 				</Label>
+				<HBox layoutX="29.0" layoutY="95.0" prefHeight="17.0"
+					prefWidth="275.0">
+					<children>
+						<Label layoutX="333.0" layoutY="71.0" text="Account Type : "
+							textFill="BLACK">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<RadioButton fx:id="cash" onAction="#onCashButtonPressed" onMouseClicked="#onCashButtonPressed"
+							selected="true" mnemonicParsing="false" text="Cash" />
+						<RadioButton fx:id="cheque" onAction="#onChequeButtonPressed" onMouseClicked="#onChequeButtonPressed"
+							mnemonicParsing="false" text="Cheque"
+							style="-fx-padding:0px 0px 0px 10px;" />
+					</children>
+				</HBox>
+				<HBox fx:id="chequeDetails" visible="false" layoutX="325.0" layoutY="91.0">
+					<children>
+						<HBox layoutX="330.0" layoutY="91.0">
+							<children>
+								<Label layoutX="333.0" layoutY="71.0" text="Cheque Date : "
+									textFill="BLACK">
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+								</Label>
+								<DatePicker fx:id="paidDate1" layoutX="386.0"
+									layoutY="63.0" stylesheets="/com/ccf/css/DatePicker.css" />
+							</children>
+						</HBox>
+						<HBox style="-fx-padding:6px 0px 0px 50px;" layoutX="623.0" layoutY="91.0">
+							<children>
+								<Label layoutX="623.0" layoutY="91.0" text="Cheque Number : "
+									textFill="BLACK">
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+								</Label>
+								<TextField layoutX="754.0" layoutY="91.0" prefHeight="25.0"
+									prefWidth="425.0" />
+							</children>
+						</HBox>
+					</children>
+				</HBox>
 			</children>
 		</AnchorPane>
 	</children>

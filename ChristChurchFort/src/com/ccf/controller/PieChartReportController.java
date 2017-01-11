@@ -1,25 +1,19 @@
 package com.ccf.controller;
 
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
+import com.ccf.dao.MemberDao;
+import com.ccf.dao.SanthaDao;
 import com.ccf.dao.impl.MemberDaoImpl;
 import com.ccf.dao.impl.SanthaDaoImpl;
-import com.ccf.doa.MemberDao;
-import com.ccf.doa.SanthaDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.Member;
 import com.ccf.persistence.classes.Santha;
-import com.ccf.util.HibernateSessionFactory;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import javafx.application.Application;
@@ -60,9 +54,6 @@ public class PieChartReportController extends Application {
 			data.clear();
 			MemberDao memberDaoImpl = new MemberDaoImpl();
 			SanthaDao santhaDaoImpl = new SanthaDaoImpl();
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
 			Calendar cal = Calendar.getInstance();
 			if (date.getSelectedDate() == null
 					|| date.getSelectedDate().equals(""))
@@ -75,9 +66,8 @@ public class PieChartReportController extends Application {
 
 			Date toDate = cal.getTime();
 			toDate.setDate(days);
-			List<Member> totalNonPaidMembers = memberDaoImpl.getNonPaidMember(fromDate, toDate, session);
-			List<Santha> santhas = santhaDaoImpl.getReport(fromDate, toDate,
-					session);
+			List<Member> totalNonPaidMembers = memberDaoImpl.getNonPaidMember(fromDate, toDate);
+			List<Santha> santhas = santhaDaoImpl.getReport(fromDate, toDate);
 			int paidMembers = santhas.size();
 			int nonPaidMembers = totalNonPaidMembers.size();
 			int totalMembers = paidMembers + nonPaidMembers;
@@ -101,8 +91,7 @@ public class PieChartReportController extends Application {
 			float harvestFestival = 0;
 			float mensFellowship = 0;
 			float missionary = 0;
-			float other1 = 0;
-			float other2 = 0;
+			float subscription = 0;
 			float poorHelp = 0;
 			float primarySchool = 0;
 			float sto = 0;
@@ -117,8 +106,7 @@ public class PieChartReportController extends Application {
 				harvestFestival += santha.getHarvestFestival();
 				mensFellowship += santha.getMensFellowship();
 				missionary += santha.getMissionary();
-				other1 += santha.getOther1();
-				other2 += santha.getOther2();
+				subscription += santha.getSubscriptionAmount();
 				poorHelp += santha.getPoorHelp();
 				primarySchool += santha.getPrimarySchool();
 				sto += santha.getSto();
@@ -140,8 +128,7 @@ public class PieChartReportController extends Application {
 					+ mensFellowship + ")", mensFellowship));
 			monthData.add(new PieChart.Data("Missionary (" + missionary + ")",
 					missionary));
-			monthData.add(new PieChart.Data("Other1 (" + other1 + ")", other1));
-			monthData.add(new PieChart.Data("Other2 (" + other2 + ")", other2));
+			monthData.add(new PieChart.Data("subcription (" + subscription + ")", subscription));
 			monthData.add(new PieChart.Data("Poor Help (" + poorHelp + ")",
 					poorHelp));
 			monthData.add(new PieChart.Data("Primary School (" + primarySchool
@@ -155,12 +142,11 @@ public class PieChartReportController extends Application {
 
 			float total = bagOffer + churchRenovation + educationHelp
 					+ graveyard + harvestFestival + mensFellowship + missionary
-					+ other1 + other2 + poorHelp + primarySchool + sto
+					+ subscription + poorHelp + primarySchool + sto
 					+ thanksOffer + womensFelloShip + youth;
 			monthChart.setData(monthData);
 			monthChart.setTitle("Total Amount : Rs." + total);
 			monthChart.setLegendSide(Side.TOP);
-			session.close();
 		} catch (CcfException e) {
 			logger.error(e.getMessage());
 			error.setText(e.getMessage());

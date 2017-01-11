@@ -1,13 +1,24 @@
 package com.ccf.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
 
+import com.ccf.dao.AccountsDao;
 import com.ccf.dao.impl.AccountsDaoImpl;
-import com.ccf.doa.AccountsDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
@@ -16,6 +27,7 @@ import com.ccf.vo.AccStatement;
 import com.ccf.vo.Account;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -138,5 +150,85 @@ public class AccountStatement {
 		}
 
 		logger.debug("getDetails method ends...");
+	}
+	
+	public void exportToExcel(){
+		logger.debug("exportToExcel method Starts...");
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		HSSFSheet sheet = workbook.createSheet("Accounts Statement Report");
+		int rownum = 0;
+		sheet.createRow(rownum++);
+		sheet.createRow(rownum++);
+		
+		Row title = sheet.createRow(rownum++);
+		title.createCell(2).setCellValue("Income");
+		sheet.createRow(rownum++);
+		
+		Row IncomeHeader = sheet.createRow(rownum++);
+		IncomeHeader.createCell(1).setCellValue("Date");
+		IncomeHeader.createCell(2).setCellValue("Description");
+		IncomeHeader.createCell(3).setCellValue("Amount");
+		
+		Row row = null;
+		AccStatement accStmt = null;
+		ObservableList<AccStatement> incomeStmt = income.getItems();
+		for(int i = 0; i<incomeStmt.size(); i++){
+			accStmt = incomeStmt.get(i);
+			row = sheet.createRow(rownum++);
+			row.createCell(1).setCellValue(accStmt.getDate());
+			row.createCell(2).setCellValue(accStmt.getDescription());
+			row.createCell(3).setCellValue(accStmt.getAmount());
+			
+		}
+		row = sheet.createRow(rownum++);
+		row.createCell(2).setCellValue("Total : ");
+		row.createCell(3).setCellValue(totalIncomeLbl.getText());
+		
+		sheet.createRow(rownum++);
+		sheet.createRow(rownum++);
+		sheet.createRow(rownum++);
+		title = sheet.createRow(rownum++);
+		title.createCell(2).setCellValue("expense");
+		sheet.createRow(rownum++);
+		
+		Row expenseHeader = sheet.createRow(rownum++);
+		expenseHeader.createCell(1).setCellValue("Date");
+		expenseHeader.createCell(2).setCellValue("Description");
+		expenseHeader.createCell(3).setCellValue("Amount");
+		
+		ObservableList<AccStatement> expenseStmt = expense.getItems();
+		for(int i = 0; i<expenseStmt.size(); i++){
+			accStmt = expenseStmt.get(i);
+			row = sheet.createRow(rownum++);
+			row.createCell(1).setCellValue(accStmt.getDate());
+			row.createCell(2).setCellValue(accStmt.getDescription());
+			row.createCell(3).setCellValue(accStmt.getAmount());
+			
+		}
+		row = sheet.createRow(rownum++);
+		row.createCell(2).setCellValue("Total : ");
+		row.createCell(3).setCellValue(totalExpenseLbl.getText());
+		
+		try{
+		Properties prop = new Properties();
+		InputStream input = null;
+		input = new FileInputStream("c://CCF//ccf.properties");
+		// load a properties file
+		prop.load(input);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		File file = new File(prop.getProperty("export_path")
+				+ "Christ Church Fort - Account Statement Details - " + sdf.format(new Date()) + ".xls");
+
+		FileOutputStream out = new FileOutputStream(file);
+		workbook.write(out);
+		out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.debug("exportToExcel method Ends...");
 	}
 }

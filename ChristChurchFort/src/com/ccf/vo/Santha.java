@@ -22,9 +22,10 @@ public class Santha {
 	SimpleFloatProperty bagOffer = new SimpleFloatProperty();
 	SimpleFloatProperty thanksOffer = new SimpleFloatProperty();
 	SimpleFloatProperty sto = new SimpleFloatProperty();
-	SimpleFloatProperty other1 = new SimpleFloatProperty();
-	SimpleFloatProperty other2 = new SimpleFloatProperty();
 	SimpleFloatProperty total = new SimpleFloatProperty();
+	
+	SimpleStringProperty paidDate = new SimpleStringProperty("");
+	SimpleStringProperty paidForDate = new SimpleStringProperty("");
 	
 	
 	public String getName() {
@@ -117,18 +118,6 @@ public class Santha {
 	public void setSto(float sto) {
 		this.sto.setValue(sto);
 	}
-	public float getOther1() {
-		return other1.getValue();
-	}
-	public void setOther1(float other1) {
-		this.other1.setValue(other1);
-	}
-	public float getOther2() {
-		return other2.getValue();
-	}
-	public void setOther2(float other2) {
-		this.other2.setValue(other2);
-	}
 	public float getTotal() {
 		return total.getValue();
 	}
@@ -140,6 +129,18 @@ public class Santha {
 	}
 	public void setSanthaId(int santhaId) {
 		this.santhaId.setValue(santhaId);
+	}
+	public String getPaidDate() {
+		return this.paidDate.getValue();
+	}
+	public void setPaidDate(String paidDate) {
+		this.paidDate.setValue(paidDate);
+	}
+	public String getPaidForDate() {
+		return this.paidForDate.getValue();
+	}
+	public void setPaidForDate(String paidForDate) {
+		this.paidForDate.setValue(paidForDate);
 	}
 	
 	

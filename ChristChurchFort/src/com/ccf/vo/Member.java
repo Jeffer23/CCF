@@ -10,6 +10,7 @@ public class Member {
 	private SimpleStringProperty name = new SimpleStringProperty("");
 	private SimpleStringProperty dob = new SimpleStringProperty("");
 	private SimpleStringProperty livedTill = new SimpleStringProperty("");
+	private SimpleStringProperty marriageDate = new SimpleStringProperty("");
 	private SimpleStringProperty eligibility = new SimpleStringProperty("");
 	private SimpleIntegerProperty age = new SimpleIntegerProperty();
 	private SimpleFloatProperty subscriptionAmount = new SimpleFloatProperty();
@@ -55,6 +56,12 @@ public class Member {
 	}
 	public void setLivedTill(String livedTill) {
 		this.livedTill.setValue(livedTill);
+	}
+	public String getMarriageDate() {
+		return marriageDate.getValue();
+	}
+	public void setMarriageDate(String marriageDate) {
+		this.marriageDate.setValue(marriageDate);
 	}
 	
 	

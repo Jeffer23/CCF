@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import sun.rmi.transport.LiveRef;
 
+import com.ccf.exception.CcfException;
 import com.ccf.util.AgeCalculator;
 import com.ccf.vo.Member;
 
@@ -46,6 +47,10 @@ public class MemberController extends Application{
 	@FXML
 	private Label labelLivedTill;
 	
+	
+	@FXML
+	private DatePicker marriageDate;
+	
 	@FXML
 	private RadioButton yesButton;
 	
@@ -62,6 +67,12 @@ public class MemberController extends Application{
 	@FXML
 	void initialize(){
 		logger.debug("Initialize method starts...");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			memberDob.setSelectedDate(sdf.parse(sdf.format(new Date())));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		livedTill.selectedDateProperty().addListener(new InvalidationListener() {
 			public void invalidated(Observable observable) {
 				System.out.println("livedTill set date method Starts...");
@@ -111,6 +122,10 @@ public class MemberController extends Application{
 				livedTill.setSelectedDate(null);
 			else
 				livedTill.setSelectedDate(sdf.parse(member.getLivedTill()));
+			if(member.getMarriageDate() == null || member.getMarriageDate() == "")
+				marriageDate.setSelectedDate(null);
+			else
+				marriageDate.setSelectedDate(sdf.parse(member.getMarriageDate()));
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -127,7 +142,14 @@ public class MemberController extends Application{
 		try{
 		
 		String name = memberName.getText();
-		String dob = sdf.format(memberDob.getSelectedDate());
+		String dob = null;
+		if(memberDob.getSelectedDate() !=null)
+			dob = sdf.format(memberDob.getSelectedDate());
+		else
+			throw new CcfException("Select Date of Birth");
+		String mgeDate = null;
+		if(marriageDate.getSelectedDate() != null)
+			mgeDate = sdf.format(marriageDate.getSelectedDate());
 		int age = AgeCalculator.calculateAge(memberDob.getSelectedDate());
 		String eligibility = null;
 		if(yesButton.isSelected()){
@@ -143,6 +165,7 @@ public class MemberController extends Application{
 		logger.info("Eligibility : " + eligibility);
 		logger.info("Age : " + age);
 		logger.info("Subscription Amount : " + subscriptionAmount);
+		logger.info("Marriage Date : " + marriageDate.getSelectedDate());
 		logger.info("Lived Till : " + livedTill.getSelectedDate());
 		
 		Member member = new Member();
@@ -151,6 +174,7 @@ public class MemberController extends Application{
 		member.setEligibility(eligibility);
 		member.setAge(age);
 		member.setSubscriptionAmount(subscriptionAmount);
+		member.setMarriageDate(mgeDate);
 		if(livedTill.getSelectedDate() == null)
 			livedTill.setSelectedDate(null);
 		else

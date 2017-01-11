@@ -73,12 +73,12 @@
 						<PropertyValueFactory property="age" />
 					</cellValueFactory>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="102.0" text="Eligibility">
+                  <TableColumn editable="false" prefWidth="68.0" text="Eligibility">
                   		<cellValueFactory>
 							<PropertyValueFactory property="eligibility" />
 						</cellValueFactory>
                   </TableColumn>
-                   <TableColumn editable="false" prefWidth="102.0" text="Lived Till">
+                   <TableColumn editable="false" prefWidth="106.0" text="Lived Till">
                   		<cellValueFactory>
 							<PropertyValueFactory property="livedTill" />
 						</cellValueFactory>
@@ -99,14 +99,14 @@
                   </ContextMenu>
                </contextMenu>
             </TableView>
-            <Button layoutX="257.0" layoutY="501.0" textFill="WHITE" mnemonicParsing="false" onAction="#addMember" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Add Member" textAlignment="CENTER">
+            <Button layoutX="257.0" layoutY="501.0" mnemonicParsing="false" onAction="#addMember" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Add Member" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button layoutX="860.0" layoutY="528.0" textFill="WHITE" mnemonicParsing="false" onAction="#updateFamily" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save">
+            <Button layoutX="860.0" layoutY="528.0" mnemonicParsing="false" onAction="#updateFamily" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>

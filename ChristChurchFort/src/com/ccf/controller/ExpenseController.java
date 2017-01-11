@@ -4,8 +4,8 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
+import com.ccf.dao.AccountsDao;
 import com.ccf.dao.impl.AccountsDaoImpl;
-import com.ccf.doa.AccountsDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.GraveyardAccount;
 import com.ccf.persistence.classes.MensAccount;

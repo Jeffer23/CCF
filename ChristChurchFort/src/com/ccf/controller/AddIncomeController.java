@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.ccf.dao.AccountsDao;
 import com.ccf.dao.impl.AccountsDaoImpl;
-import com.ccf.doa.AccountsDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.GraveyardAccount;
 import com.ccf.persistence.classes.MensAccount;
@@ -20,11 +20,15 @@ import com.ccf.persistence.classes.WomensAccount;
 import com.ccf.persistence.classes.YouthAccount;
 import com.ccf.vo.Account;
 
+import eu.schudt.javafx.controls.calendar.DatePicker;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
 
 public class AddIncomeController {
 
@@ -41,6 +45,21 @@ public class AddIncomeController {
 	
 	@FXML
 	private Label message;
+	
+	@FXML
+	private RadioButton cash;
+	
+	@FXML
+	private RadioButton cheque;
+	
+	@FXML
+	private DatePicker chequeDate;
+	
+	@FXML
+	private TextField chequeNumber;
+	
+	@FXML
+	private GridPane grid;
 
 	@FXML
 	void initialize() {
@@ -63,6 +82,14 @@ public class AddIncomeController {
 		AccountsDao dao = new AccountsDaoImpl();
 		Account account = null;
 		try {
+			/*
+			 * Validation
+			 */
+			if(amount.getText() == null || amount.getText().trim().equals("")){
+				throw new CcfException("Amount cannot be empty");
+			} else if(reason.getText() == null || reason.getText().trim().equals("")){
+				throw new CcfException("Reason cannot be empty");
+			}
 			float balance = 0;
 			logger.debug("Account Name : " + accounts.getValue());
 			if (accounts.getValue().equals("PC Account")) {
@@ -111,11 +138,43 @@ public class AddIncomeController {
 				account.setDate(new Date());
 				dao.addIncomeorExpense(account);
 			
+				message.setTextFill(Paint.valueOf("Green"));
 				message.setText("Income added Successfully");
+				
+				/*
+				 * Clearing the Fields
+				 */
+				amount.setText(null);
+				reason.setText(null);
 		} catch (CcfException e) {
+			message.setTextFill(Paint.valueOf("Red"));
 			message.setText(e.getMessage());
 			e.printStackTrace();
 		}
 		logger.info("Save Income method Ends..");
+	}
+	
+	public void onCashButtonPressed(){
+		this.cash.setSelected(true);
+		this.cheque.setSelected(false);
+		//this.chequeDetails.setVisible(false);
+	}
+	
+	public void onChequeButtonPressed(){
+		this.cash.setSelected(false);
+		this.cheque.setSelected(true);
+		//this.chequeDetails.setVisible(true);
+	}
+	
+	public void clear() {
+		logger.info("clear method Starts...");
+		amount.setText("");
+		reason.setText("");
+		accounts.setValue("PC Account");
+		cash.setSelected(true);
+		chequeDate.setSelectedDate(null);
+		chequeNumber.setText("");
+		message.setText("");
+		logger.info("clear method Ends...");
 	}
 }

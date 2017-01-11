@@ -1,4 +1,4 @@
-package com.ccf.doa;
+package com.ccf.dao;
 
 import java.util.Date;
 

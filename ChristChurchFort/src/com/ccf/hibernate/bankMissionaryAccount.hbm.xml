@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="com.ccf.persistence.classes.BankMissionaryAccount" table="bank_missionary_account">
+		<meta attribute="class-description">
+			This class contains the Missionary account details.
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+		<property name="amount" column="amount" type="float" />
+		<property name="balance" column="balance" type="float" />
+		<property name="description" column="description" type="string" />
+		<property name="cr_dr" column="cr_dr" type="string" />
+		<property name="date" column="date" type="date" />
+		<many-to-one name="serviceOffering" class="com.ccf.persistence.classes.ServiceOffering" column="service_id" not-null="false" unique="true"></many-to-one>
+		<many-to-one name="santha" class="com.ccf.persistence.classes.Santha" column="santha_id" not-null="false" unique="true"></many-to-one>
+	</class>
+</hibernate-mapping>

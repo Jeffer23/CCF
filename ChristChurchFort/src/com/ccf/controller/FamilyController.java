@@ -11,10 +11,10 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import com.ccf.dao.FamilyDao;
+import com.ccf.dao.MemberDao;
 import com.ccf.dao.impl.FamilyDaoImpl;
 import com.ccf.dao.impl.MemberDaoImpl;
-import com.ccf.doa.FamilyDao;
-import com.ccf.doa.MemberDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.Family;
 import com.ccf.util.AgeCalculator;
@@ -58,6 +58,7 @@ public class FamilyController extends Application {
 
 	@FXML
 	public TableView<Member> members;
+	
 
 	@FXML
 	public Label message;
@@ -70,6 +71,8 @@ public class FamilyController extends Application {
 	@FXML
 	void initialize() {
 		logger.debug("init method Starts...");
+		phoneNo.setText("00000");
+		
 		/*
 		 * If familyNo is null, it means "Edit Family" menu is selected. Is
 		 * FamilyNos is null, it means "Add New Family menu is selected"
@@ -169,6 +172,10 @@ public class FamilyController extends Application {
 													else
 														member.setLivedTill(sdf.format(mem
 																.getLivedTill()));
+													if(mem.getMarriageDate() == null)
+														member.setMarriageDate(null);
+													else
+														member.setMarriageDate(sdf.format(mem.getMarriageDate()));
 													member.setId(mem.getId());
 													members.getItems().add(
 															member);
@@ -328,10 +335,10 @@ public class FamilyController extends Application {
 				throw new CcfException("Enter Family no");
 			if(address.getText() == null)
 				throw new CcfException("Enter the address");
-			if(phoneNo.getText() == null)
+			/*if(phoneNo.getText() == null)
 				throw new CcfException("Enter the Phone No");
 			if(phoneNo.getText().length() != 10 || !Pattern.matches("[0-9]+", phoneNo.getText()))
-				throw new CcfException("Enter correct Phone No.");
+				throw new CcfException("Enter correct Phone No.");*/
 			if(address.getText().length() >=100)
 				throw new CcfException("Address is too long.");
 			
@@ -352,6 +359,10 @@ public class FamilyController extends Application {
 				member = new com.ccf.persistence.classes.Member();
 				member.setName(memberVO.getName());
 				member.setDob(sdf.parse(memberVO.getDob()));
+				if(memberVO.getMarriageDate() != null)
+					member.setMarriageDate(sdf.parse(memberVO.getMarriageDate()));
+				else
+					member.setMarriageDate(null);
 				member.setEligibility(memberVO.getEligibility());
 				member.setSubscriptionAmount(memberVO.getSubscriptionAmount());
 				member.setFamily(family);
@@ -442,6 +453,10 @@ public class FamilyController extends Application {
 					member.setLivedTill(null);
 				else
 					member.setLivedTill(sdf.parse(mem.getLivedTill()));
+				if(mem.getMarriageDate() == null || mem.getMarriageDate() == "")
+					member.setMarriageDate(null);
+				else
+					member.setMarriageDate(sdf.parse(mem.getMarriageDate()));
 				if (mem.getId() != 0) {
 					member.setId(mem.getId());
 					memberDaoImpl.updateMember(member);
@@ -469,6 +484,10 @@ public class FamilyController extends Application {
 						memberUI.setLivedTill(null);
 					else
 						memberUI.setLivedTill(sdf.format(mem.getLivedTill()));
+					if(mem.getMarriageDate() == null)
+						memberUI.setMarriageDate(null);
+					else
+						memberUI.setMarriageDate(sdf.format(mem.getMarriageDate()));
 					members.getItems().add(memberUI);
 				}
 			}

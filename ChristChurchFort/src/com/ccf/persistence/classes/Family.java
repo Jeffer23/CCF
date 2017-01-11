@@ -7,7 +7,7 @@ public class Family {
 
 	private int no;
 	private String address;
-	private long phoneNo;
+	private long phoneNo = 00000;
 	private Set<Member> members = new HashSet<Member>(0);
 	public int getNo() {
 		return no;
