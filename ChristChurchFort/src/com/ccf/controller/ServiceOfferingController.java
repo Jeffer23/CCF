@@ -141,6 +141,7 @@ public class ServiceOfferingController {
 				throw new CcfException("Marriage Offering can contain only numbers.");
 			if (otherAmt.getText().matches(".*[a-zA-Z]+.*"))
 				throw new CcfException("Other Offering can contain only numbers.");
+			
 			ServiceOfferingDao serviceImpl = new ServiceOfferingDaoImpl();
 			boolean isAlreadyExists = serviceImpl.isAlreadyExists(
 					date.getSelectedDate(), time.getValue());
@@ -170,6 +171,7 @@ public class ServiceOfferingController {
 				sundaySchool.setText("0");
 			if (thanksOffering.getText().equals(""))
 				thanksOffering.setText("0");
+			
 			AccountsDao impl = new AccountsDaoImpl();
 			ServiceOffering so = new ServiceOffering();
 			so.setAuction(Float.parseFloat(auctionAmt.getText()));
