@@ -9,11 +9,19 @@ import com.ccf.dao.ServiceOfferingDao;
 import com.ccf.dao.impl.AccountsDaoImpl;
 import com.ccf.dao.impl.ServiceOfferingDaoImpl;
 import com.ccf.exception.CcfException;
+import com.ccf.persistence.classes.BankMissionaryAccount;
+import com.ccf.persistence.classes.BankPCAccount;
+import com.ccf.persistence.classes.BankSpecialThanksOfferingAccount;
+import com.ccf.persistence.classes.BankSundaySchoolAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
 import com.ccf.persistence.classes.ServiceOffering;
 import com.ccf.persistence.classes.SpecialThanksOfferingAccount;
 import com.ccf.persistence.classes.SundaySchoolAccount;
+import com.ccf.persistence.interfaces.IMissionaryAccount;
+import com.ccf.persistence.interfaces.IPCAccount;
+import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
+import com.ccf.persistence.interfaces.ISundaySchoolAccount;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -187,10 +195,13 @@ public class ServiceOfferingController {
 			so.setThanksOffering(Float.parseFloat(thanksOffering.getText()));
 			so.setTime(time.getValue());
 
-			MissionaryAccount missionaryAccount = null;
+			IMissionaryAccount missionaryAccount = null;
 			if (missionary.getText() != null
 					&& !missionary.getText().equals("0")) {
-				missionaryAccount = new MissionaryAccount();
+				if(cash.isSelected())
+					missionaryAccount = new MissionaryAccount();
+				else if(cheque.isSelected())
+					missionaryAccount = new BankMissionaryAccount();
 				missionaryAccount.setAmount(Float.parseFloat(missionary
 						.getText()));
 				float currentBalance = impl.getMissionaryAccountBalance();
@@ -203,12 +214,19 @@ public class ServiceOfferingController {
 				so.getMissionaryAccounts().add(missionaryAccount);
 			}
 
-			PCAccount pcAccount = null;
+			IPCAccount pcAccount = null;
 			if (serviceOffering.getText() != null
 					&& !serviceOffering.getText().equals("0")) {
-				pcAccount = new PCAccount();
-				pcAccount
-						.setAmount(Float.parseFloat(serviceOffering.getText()));
+				if(cash.isSelected()){
+					pcAccount = new PCAccount();
+					so.getPcAccounts().add(pcAccount);
+				}
+				else if(cheque.isSelected()){
+					pcAccount = new BankPCAccount();
+					so.getBankPCAccounts().add(pcAccount);
+				}
+				
+				pcAccount.setAmount(Float.parseFloat(serviceOffering.getText()));
 				float currentBalance = impl.getPCAccountBalance();
 				float balance = pcAccount.getAmount() + currentBalance;
 				pcAccount.setBalance(balance);
@@ -216,17 +234,25 @@ public class ServiceOfferingController {
 				pcAccount.setDescription("Service Offering");
 				pcAccount.setServiceOffering(so);
 				pcAccount.setDate(date.getSelectedDate());
-				so.getPcAccounts().add(pcAccount);
+				//so.getPcAccounts().add(pcAccount);
 			}
 
 			if (auctionAmt.getText() != null
 					&& !auctionAmt.getText().equals("0")) {
-				pcAccount = new PCAccount();
+				if(cash.isSelected()){
+					pcAccount = new PCAccount();
+					so.getPcAccounts().add(pcAccount);
+				}
+				else if(cheque.isSelected()){
+					pcAccount = new BankPCAccount();
+					so.getBankPCAccounts().add(pcAccount);
+				}
+				
 				pcAccount.setAmount(Float.parseFloat(auctionAmt.getText()));
 				float currentBalance = 0.0f;
 				if (so.getPcAccounts().size() == 0)
 					currentBalance = impl.getPCAccountBalance();
-				Iterator<PCAccount> pcAccounts = so.getPcAccounts().iterator();
+				Iterator<IPCAccount> pcAccounts = so.getPcAccounts().iterator();
 				while (pcAccounts.hasNext()) {
 					currentBalance = pcAccounts.next().getBalance();
 				}
@@ -237,16 +263,24 @@ public class ServiceOfferingController {
 				pcAccount.setDescription("Auction Offering");
 				pcAccount.setServiceOffering(so);
 				pcAccount.setDate(date.getSelectedDate());
-				so.getPcAccounts().add(pcAccount);
+				//so.getPcAccounts().add(pcAccount);
 			}
 
 			if (marriage.getText() != null && !marriage.getText().equals("0")) {
-				pcAccount = new PCAccount();
+				if(cash.isSelected()){
+					pcAccount = new PCAccount();
+					so.getPcAccounts().add(pcAccount);
+				}
+				else if(cheque.isSelected()){
+					pcAccount = new BankPCAccount();
+					so.getBankPCAccounts().add(pcAccount);
+				}
+				
 				pcAccount.setAmount(Float.parseFloat(marriage.getText()));
 				float currentBalance = 0.0f;
 				if (so.getPcAccounts().size() == 0)
 					currentBalance = impl.getPCAccountBalance();
-				Iterator<PCAccount> pcAccounts = so.getPcAccounts().iterator();
+				Iterator<IPCAccount> pcAccounts = so.getPcAccounts().iterator();
 				while (pcAccounts.hasNext()) {
 					currentBalance = pcAccounts.next().getBalance();
 				}
@@ -257,17 +291,25 @@ public class ServiceOfferingController {
 				pcAccount.setDescription("Marriage Offering");
 				pcAccount.setDate(date.getSelectedDate());
 				pcAccount.setServiceOffering(so);
-				so.getPcAccounts().add(pcAccount);
+				//so.getPcAccounts().add(pcAccount);
 			}
 
 			if (confirmation.getText() != null
 					&& !confirmation.getText().equals("0")) {
-				pcAccount = new PCAccount();
+				if(cash.isSelected()){
+					pcAccount = new PCAccount();
+					so.getPcAccounts().add(pcAccount);
+				}
+				else if(cheque.isSelected()){
+					pcAccount = new BankPCAccount();
+					so.getBankPCAccounts().add(pcAccount);
+				}
+				
 				pcAccount.setAmount(Float.parseFloat(confirmation.getText()));
 				float currentBalance = 0.0f;
 				if (so.getPcAccounts().size() == 0)
 					currentBalance = impl.getPCAccountBalance();
-				Iterator<PCAccount> pcAccounts = so.getPcAccounts().iterator();
+				Iterator<IPCAccount> pcAccounts = so.getPcAccounts().iterator();
 				while (pcAccounts.hasNext()) {
 					currentBalance = pcAccounts.next().getBalance();
 				}
@@ -278,13 +320,17 @@ public class ServiceOfferingController {
 				pcAccount.setDescription("Confirmation Offering");
 				pcAccount.setDate(date.getSelectedDate());
 				pcAccount.setServiceOffering(so);
-				so.getPcAccounts().add(pcAccount);
+				//so.getPcAccounts().add(pcAccount);
 			}
 
-			SpecialThanksOfferingAccount sto = null;
+			ISpecialThanksOfferingAccount sto = null;
 			if (thanksOffering.getText() != null
 					&& !thanksOffering.getText().equals("0")) {
-				sto = new SpecialThanksOfferingAccount();
+				if(cash.isSelected())
+					sto = new SpecialThanksOfferingAccount();
+				else if(cheque.isSelected())
+					sto = new BankSpecialThanksOfferingAccount();
+				
 				sto.setAmount(Float.parseFloat(thanksOffering.getText()));
 				float currentBalance = impl
 						.getSpecialThanksOfferingAccountBalance();
@@ -298,13 +344,17 @@ public class ServiceOfferingController {
 			}
 
 			if (this.sto.getText() != null && !this.sto.getText().equals("0")) {
-				sto = new SpecialThanksOfferingAccount();
+				if(cash.isSelected())
+					sto = new SpecialThanksOfferingAccount();
+				else if(cheque.isSelected())
+					sto = new BankSpecialThanksOfferingAccount();
+				
 				sto.setAmount(Float.parseFloat(this.sto.getText()));
 				float currentBalance = 0.0f;
 				if (so.getSpecialThanksOfferingAccounts().size() == 0)
 					currentBalance = impl
 							.getSpecialThanksOfferingAccountBalance();
-				Iterator<SpecialThanksOfferingAccount> stoAccounts = so
+				Iterator<ISpecialThanksOfferingAccount> stoAccounts = so
 						.getSpecialThanksOfferingAccounts().iterator();
 				while (stoAccounts.hasNext()) {
 					currentBalance = stoAccounts.next().getBalance();
@@ -319,13 +369,17 @@ public class ServiceOfferingController {
 			}
 
 			if (otherAmt.getText() != null && !otherAmt.getText().equals("0")) {
-				sto = new SpecialThanksOfferingAccount();
+				if(cash.isSelected())
+					sto = new SpecialThanksOfferingAccount();
+				else if(cheque.isSelected())
+					sto = new BankSpecialThanksOfferingAccount();
+				
 				sto.setAmount(Float.parseFloat(otherAmt.getText()));
 				float currentBalance = 0.0f;
 				if (so.getSpecialThanksOfferingAccounts().size() == 0)
 					currentBalance = impl
 							.getSpecialThanksOfferingAccountBalance();
-				Iterator<SpecialThanksOfferingAccount> stoAccounts = so
+				Iterator<ISpecialThanksOfferingAccount> stoAccounts = so
 						.getSpecialThanksOfferingAccounts().iterator();
 				while (stoAccounts.hasNext()) {
 					currentBalance = stoAccounts.next().getBalance();
@@ -341,7 +395,12 @@ public class ServiceOfferingController {
 
 			if (sundaySchool.getText() != null
 					&& !sundaySchool.getText().equals("0")) {
-				SundaySchoolAccount ssa = new SundaySchoolAccount();
+				ISundaySchoolAccount ssa = null;
+				if(cash.isSelected())
+					ssa = new SundaySchoolAccount();
+				else if(cheque.isSelected())
+					ssa = new BankSundaySchoolAccount();
+				
 				ssa.setAmount(Float.parseFloat(sundaySchool.getText()));
 				float currentBalance = impl.getSundaySchoolAccountBalance();
 				float balance = ssa.getAmount() + currentBalance;

@@ -2,9 +2,10 @@ package com.ccf.persistence.classes;
 
 import java.util.Date;
 
+import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
 import com.ccf.vo.Account;
 
-public class BankSpecialThanksOfferingAccount implements Account {
+public class BankSpecialThanksOfferingAccount implements Account,ISpecialThanksOfferingAccount {
 
 	private int id;
 	private float amount;

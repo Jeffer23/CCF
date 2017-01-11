@@ -20,8 +20,7 @@
 			style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
 			<children>
 				<ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0"
-					pickOnBounds="true" preserveRatio="true"
-					style="-fx-box-shadow: 10px 10px 5px #888888;">
+					pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="/com/ccf/images/logo.png" />
 					</image>
@@ -192,7 +191,7 @@
 									stylesheets="/com/ccf/css/DatePicker.css" />
 							</children>
 						</HBox>
-						<HBox layoutX="528.0" layoutY="86.0" prefHeight="39.0"
+						<HBox layoutX="535.0" layoutY="86.0" prefHeight="39.0"
 							prefWidth="225.0">
 							<children>
 								<Label prefHeight="25.0" prefWidth="65.0" text="Time : ">
@@ -256,7 +255,7 @@
 							</children>
 						</HBox>
 						<HBox layoutX="882.0" layoutY="139.0" prefHeight="39.0"
-							prefWidth="455.0">
+							prefWidth="455.0" style="-fx-padding: 0px 0px 0px 10px;">
 							<children>
 								<Label prefHeight="25.0" prefWidth="130.0" text="Cheque Number : ">
 									<font>

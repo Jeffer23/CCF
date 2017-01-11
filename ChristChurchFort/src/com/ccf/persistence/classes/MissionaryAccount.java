@@ -2,9 +2,10 @@ package com.ccf.persistence.classes;
 
 import java.util.Date;
 
+import com.ccf.persistence.interfaces.IMissionaryAccount;
 import com.ccf.vo.Account;
 
-public class MissionaryAccount implements Account {
+public class MissionaryAccount implements Account, IMissionaryAccount {
 
 	private float amount;
 	private float balance;

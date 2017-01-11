@@ -6,7 +6,7 @@
     <session-factory>
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">admin</property>
+        <property name="hibernate.connection.password">Password123</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ccf</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
@@ -24,6 +24,15 @@
         <mapping resource="com/ccf/hibernate/specialThanksOfferingAccount.hbm.xml"></mapping>
         <mapping resource="com/ccf/hibernate/graveyardAccount.hbm.xml"></mapping>
         <mapping resource="com/ccf/hibernate/primarySchoolAccount.hbm.xml"></mapping>
+        <mapping resource="com/ccf/hibernate/bankPcAccount.hbm.xml"></mapping>
+        <mapping resource="com/ccf/hibernate/bankMissionaryAccount.hbm.xml"></mapping>
+        <mapping resource="com/ccf/hibernate/bankMensAccount.hbm.xml"></mapping>
+        <mapping resource="com/ccf/hibernate/bankWomensAccount.hbm.xml"></mapping>
+        <mapping resource="com/ccf/hibernate/bankSundaySchoolAccount.hbm.xml"></mapping>
+        <mapping resource="com/ccf/hibernate/bankYouthAccount.hbm.xml"></mapping>
+        <mapping resource="com/ccf/hibernate/bankSpecialThanksOfferingAccount.hbm.xml"></mapping>
+        <mapping resource="com/ccf/hibernate/bankGraveyardAccount.hbm.xml"></mapping>
+        <mapping resource="com/ccf/hibernate/bankPrimarySchoolAccount.hbm.xml"></mapping>
         
     </session-factory>
 </hibernate-configuration>

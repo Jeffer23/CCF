@@ -31,6 +31,13 @@
 			<one-to-many class="com.ccf.persistence.classes.PCAccount"/>
 		</set>
 		
+		<set name="bankPCAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="service_id"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankPCAccount"/>
+		</set>
+		
 		<set name="missionaryAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="service_id" unique="true"></column>
