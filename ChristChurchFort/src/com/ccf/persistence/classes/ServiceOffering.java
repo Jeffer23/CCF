@@ -32,9 +32,11 @@ public class ServiceOffering {
 	private Set<IPCAccount> pcAccounts = new LinkedHashSet<>();
 	private Set<IPCAccount> bankPCAccounts = new LinkedHashSet<>();
 	private Set<IMissionaryAccount> missionaryAccounts = new LinkedHashSet<>();
+	private Set<IMissionaryAccount> bankMissionaryAccounts = new LinkedHashSet<>();
 	private Set<ISundaySchoolAccount> sundaySchoolAccounts = new LinkedHashSet<>();
+	private Set<ISundaySchoolAccount> bankSundaySchoolAccounts = new LinkedHashSet<>();
 	private Set<ISpecialThanksOfferingAccount> specialThanksOfferingAccounts = new LinkedHashSet<>();
-	
+	private Set<ISpecialThanksOfferingAccount> bankSpecialThanksOfferingAccounts = new LinkedHashSet<>();
 	
 	public int getId() {
 		return id;
@@ -144,6 +146,27 @@ public class ServiceOffering {
 	}
 	public void setBankPCAccounts(Set<IPCAccount> bankPCAccounts) {
 		this.bankPCAccounts = bankPCAccounts;
+	}
+	public Set<IMissionaryAccount> getBankMissionaryAccounts() {
+		return bankMissionaryAccounts;
+	}
+	public void setBankMissionaryAccounts(
+			Set<IMissionaryAccount> bankMissionaryAccounts) {
+		this.bankMissionaryAccounts = bankMissionaryAccounts;
+	}
+	public Set<ISundaySchoolAccount> getBankSundaySchoolAccounts() {
+		return bankSundaySchoolAccounts;
+	}
+	public void setBankSundaySchoolAccounts(
+			Set<ISundaySchoolAccount> bankSundaySchoolAccounts) {
+		this.bankSundaySchoolAccounts = bankSundaySchoolAccounts;
+	}
+	public Set<ISpecialThanksOfferingAccount> getBankSpecialThanksOfferingAccounts() {
+		return bankSpecialThanksOfferingAccounts;
+	}
+	public void setBankSpecialThanksOfferingAccounts(
+			Set<ISpecialThanksOfferingAccount> bankSpecialThanksOfferingAccounts) {
+		this.bankSpecialThanksOfferingAccounts = bankSpecialThanksOfferingAccounts;
 	}
 	
 	

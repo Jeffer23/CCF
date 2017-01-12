@@ -198,10 +198,15 @@ public class ServiceOfferingController {
 			IMissionaryAccount missionaryAccount = null;
 			if (missionary.getText() != null
 					&& !missionary.getText().equals("0")) {
-				if(cash.isSelected())
+				if(cash.isSelected()){
 					missionaryAccount = new MissionaryAccount();
-				else if(cheque.isSelected())
+					so.getMissionaryAccounts().add(missionaryAccount);
+				}
+				else if(cheque.isSelected()){
 					missionaryAccount = new BankMissionaryAccount();
+					so.getBankMissionaryAccounts().add(missionaryAccount);
+				}
+					
 				missionaryAccount.setAmount(Float.parseFloat(missionary
 						.getText()));
 				float currentBalance = impl.getMissionaryAccountBalance();
@@ -211,7 +216,6 @@ public class ServiceOfferingController {
 				missionaryAccount.setDescription("Missionary Offering");
 				missionaryAccount.setServiceOffering(so);
 				missionaryAccount.setDate(date.getSelectedDate());
-				so.getMissionaryAccounts().add(missionaryAccount);
 			}
 
 			IPCAccount pcAccount = null;
@@ -326,10 +330,14 @@ public class ServiceOfferingController {
 			ISpecialThanksOfferingAccount sto = null;
 			if (thanksOffering.getText() != null
 					&& !thanksOffering.getText().equals("0")) {
-				if(cash.isSelected())
+				if(cash.isSelected()){
 					sto = new SpecialThanksOfferingAccount();
-				else if(cheque.isSelected())
+					so.getSpecialThanksOfferingAccounts().add(sto);
+				}
+				else if(cheque.isSelected()){
 					sto = new BankSpecialThanksOfferingAccount();
+					so.getBankSpecialThanksOfferingAccounts().add(sto);
+				}
 				
 				sto.setAmount(Float.parseFloat(thanksOffering.getText()));
 				float currentBalance = impl
@@ -340,14 +348,18 @@ public class ServiceOfferingController {
 				sto.setDescription("Thanks Offering");
 				sto.setDate(date.getSelectedDate());
 				sto.setServiceOffering(so);
-				so.getSpecialThanksOfferingAccounts().add(sto);
+				
 			}
 
 			if (this.sto.getText() != null && !this.sto.getText().equals("0")) {
-				if(cash.isSelected())
+				if(cash.isSelected()){
 					sto = new SpecialThanksOfferingAccount();
-				else if(cheque.isSelected())
+					so.getSpecialThanksOfferingAccounts().add(sto);
+				}
+				else if(cheque.isSelected()) {
 					sto = new BankSpecialThanksOfferingAccount();
+					so.getBankSpecialThanksOfferingAccounts().add(sto);
+				}
 				
 				sto.setAmount(Float.parseFloat(this.sto.getText()));
 				float currentBalance = 0.0f;
@@ -365,14 +377,17 @@ public class ServiceOfferingController {
 				sto.setDescription("Special Thanks Offering");
 				sto.setDate(date.getSelectedDate());
 				sto.setServiceOffering(so);
-				so.getSpecialThanksOfferingAccounts().add(sto);
 			}
 
 			if (otherAmt.getText() != null && !otherAmt.getText().equals("0")) {
-				if(cash.isSelected())
+				if(cash.isSelected()){
 					sto = new SpecialThanksOfferingAccount();
-				else if(cheque.isSelected())
+					so.getSpecialThanksOfferingAccounts().add(sto);
+				}
+				else if(cheque.isSelected()) {
 					sto = new BankSpecialThanksOfferingAccount();
+					so.getBankSpecialThanksOfferingAccounts().add(sto);
+				}
 				
 				sto.setAmount(Float.parseFloat(otherAmt.getText()));
 				float currentBalance = 0.0f;
@@ -390,16 +405,19 @@ public class ServiceOfferingController {
 				sto.setDescription("Other Offering - " + otherReason.getText());
 				sto.setDate(date.getSelectedDate());
 				sto.setServiceOffering(so);
-				so.getSpecialThanksOfferingAccounts().add(sto);
 			}
 
 			if (sundaySchool.getText() != null
 					&& !sundaySchool.getText().equals("0")) {
 				ISundaySchoolAccount ssa = null;
-				if(cash.isSelected())
+				if(cash.isSelected()){
 					ssa = new SundaySchoolAccount();
-				else if(cheque.isSelected())
+					so.getSundaySchoolAccounts().add(ssa);
+				}
+				else if(cheque.isSelected()){
 					ssa = new BankSundaySchoolAccount();
+					so.getBankSundaySchoolAccounts().add(ssa); 
+				}
 				
 				ssa.setAmount(Float.parseFloat(sundaySchool.getText()));
 				float currentBalance = impl.getSundaySchoolAccountBalance();
@@ -409,7 +427,6 @@ public class ServiceOfferingController {
 				ssa.setDescription("Sunday School Offering");
 				ssa.setDate(date.getSelectedDate());
 				ssa.setServiceOffering(so);
-				so.getSundaySchoolAccounts().add(ssa);
 			}
 
 			/*

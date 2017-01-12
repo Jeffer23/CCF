@@ -45,6 +45,13 @@
 			<one-to-many class="com.ccf.persistence.classes.MissionaryAccount"/>
 		</set>
 		
+		<set name="bankMissionaryAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="service_id" unique="true"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankMissionaryAccount"/>
+		</set>
+		
 		<!-- <one-to-one name="sundaySchoolAccount" class="com.ccf.persistence.classes.SundaySchoolAccount" cascade="all" lazy="false"></one-to-one> -->
 		<set name="sundaySchoolAccounts" cascade="all" lazy="true">
 			<key>
@@ -52,6 +59,14 @@
 			</key>
 			<one-to-many class="com.ccf.persistence.classes.SundaySchoolAccount"/>
 		</set>
+		
+		<set name="bankSundaySchoolAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="service_id" unique="true"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankSundaySchoolAccount"/>
+		</set>
+		
 		<set name="specialThanksOfferingAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="service_id"></column>
@@ -59,6 +74,12 @@
 			<one-to-many class="com.ccf.persistence.classes.SpecialThanksOfferingAccount"/>
 		</set>
 		
+		<set name="bankSpecialThanksOfferingAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="service_id"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankSpecialThanksOfferingAccount"/>
+		</set>
 		
 	</class>
 </hibernate-mapping>
