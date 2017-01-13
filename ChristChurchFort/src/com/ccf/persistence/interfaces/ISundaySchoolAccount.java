@@ -19,10 +19,6 @@ public interface ISundaySchoolAccount {
 
 	public void setAmount(float amount);
 
-	public float getBalance();
-
-	public void setBalance(float balance);
-
 	public String getDescription();
 
 	public void setDescription(String description);

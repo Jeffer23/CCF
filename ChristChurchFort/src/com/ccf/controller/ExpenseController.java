@@ -87,41 +87,39 @@ public class ExpenseController {
 			Account account = null;
 			if (this.account.getValue().equals("PC Account")) {
 				account = new PCAccount();
-				currentBalance = impl.getPCAccountBalance();
+				currentBalance = impl.getAccountBalance("PC Account");
 			} else if (this.account.getValue().equals("Missionary Account")) {
 				account = new MissionaryAccount();
-				currentBalance = impl.getMissionaryAccountBalance();
+				currentBalance = impl.getAccountBalance("Missionary Account");
 			} else if (this.account.getValue().equals("Men's Account")) {
 				account = new MensAccount();
-				currentBalance = impl.getMensAccountBalance();
+				currentBalance = impl.getAccountBalance("Mens Account");
 			} else if (this.account.getValue().equals("Women's Account")) {
 				account = new WomensAccount();
-				currentBalance = impl.getWomensAccountBalance();
+				currentBalance = impl.getAccountBalance("Womens Account");
 			} else if (this.account.getValue().equals("Sunday School Account")) {
 				account = new SundaySchoolAccount();
-				currentBalance = impl.getSundaySchoolAccountBalance();
+				currentBalance = impl.getAccountBalance("Sunday School Account");
 			} else if (this.account.getValue().equals("Youth Account")) {
 				account = new YouthAccount();
-				currentBalance = impl.getYouthAccountBalance();
+				currentBalance = impl.getAccountBalance("Youth Account");
 			} else if (this.account.getValue().equals(
 					"Special Thanks Offering Account")) {
 				account = new SpecialThanksOfferingAccount();
-				currentBalance = impl.getSpecialThanksOfferingAccountBalance();
+				currentBalance = impl.getAccountBalance("STO Account");
 			} else if (this.account.getValue().equals("Graveyard Account")) {
 				account = new GraveyardAccount();
-				currentBalance = impl.getGraveyardAccountBalance();
+				currentBalance = impl.getAccountBalance("Graveyard Account");
 			} else if (this.account.getValue().equals("Primary Account")) {
 				account = new PrimarySchoolAccount();
-				currentBalance = impl.getPrimarySchoolAccountBalance();
+				currentBalance = impl.getAccountBalance("Primary School Account");
 			}
 
 			float amount = Float.parseFloat(this.amount.getText());
-			float balance = currentBalance - amount;
-			if (balance < 0.0f) {
+			if (currentBalance < amount) {
 				throw new CcfException("Sorry!! No Enough Money to withdraw (Balance : " + currentBalance + ")");
 			}
 			account.setAmount(amount);
-			account.setBalance(balance);
 			account.setCr_dr("DR");
 			account.setDescription(description.getText());
 			account.setDate(new Date());

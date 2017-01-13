@@ -11,7 +11,6 @@
 			</generator>
 		</id>
 		<property name="amount" column="amount" type="float" />
-		<property name="balance" column="balance" type="float" />
 		<property name="description" column="description" type="string" />
 		<property name="cr_dr" column="cr_dr" type="string" />
 		<property name="date" column="date" type="date" />

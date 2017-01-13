@@ -17,15 +17,7 @@ import com.ccf.vo.Account;
 
 public interface AccountsDao {
 
-	public float getPCAccountBalance() throws CcfException;
-	public float getMissionaryAccountBalance() throws CcfException;
-	public float getMensAccountBalance() throws CcfException;
-	public float getWomensAccountBalance() throws CcfException;
-	public float getSundaySchoolAccountBalance() throws CcfException;
-	public float getYouthAccountBalance() throws CcfException;
-	public float getSpecialThanksOfferingAccountBalance() throws CcfException;
-	public float getGraveyardAccountBalance() throws CcfException;
-	public float getPrimarySchoolAccountBalance() throws CcfException;
+	public float getAccountBalance(String accountName) throws CcfException;
 	public void addIncomeorExpense(Account account) throws CcfException;
 	public List<PCAccount> getPCAccountsAfter(int id) throws CcfException;
 	public List<MissionaryAccount> getMissionaryAccountsAfter(int id) throws CcfException;

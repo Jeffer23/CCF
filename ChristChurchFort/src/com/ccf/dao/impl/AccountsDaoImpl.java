@@ -29,16 +29,15 @@ public class AccountsDaoImpl implements AccountsDao {
 	final static Logger logger = Logger.getLogger(AccountsDaoImpl.class);
 
 	@Override
-	public float getPCAccountBalance() throws CcfException {
+	public float getAccountBalance(String accountName) throws CcfException {
 		logger.info("getPCAccountBalance method start...");
 		float balance = 0.0f;
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
-			String hql = "Select balance from PCAccount order by id desc";
+			String hql = "Select balance from AccountsBalance where accountName='"+ accountName +"'";
 			Query query = session.createQuery(hql);
-			query.setMaxResults(1);
 			Object result = query.uniqueResult();
 			if (result != null)
 				balance = (float) result;
@@ -48,174 +47,6 @@ public class AccountsDaoImpl implements AccountsDao {
 			throw new CcfException(e.getMessage());
 		}
 		logger.info("getPCAccountBalance method Ends");
-		return balance;
-	}
-
-	@Override
-	public float getMissionaryAccountBalance() throws CcfException {
-		float balance = 0.0f;
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "Select balance from MissionaryAccount order by id desc";
-			Query query = session.createQuery(hql);
-			query.setMaxResults(1);
-			Object result = query.uniqueResult();
-			if (result != null)
-				balance = (float) result;
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-		return balance;
-	}
-
-	@Override
-	public float getMensAccountBalance() throws CcfException {
-		float balance = 0.0f;
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "Select balance from MensAccount order by id desc";
-			Query query = session.createQuery(hql);
-			query.setMaxResults(1);
-			Object result = query.uniqueResult();
-			if (result != null)
-				balance = (float) result;
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-		return balance;
-	}
-
-	@Override
-	public float getWomensAccountBalance() throws CcfException {
-		float balance = 0.0f;
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "Select balance from WomensAccount order by id desc";
-			Query query = session.createQuery(hql);
-			query.setMaxResults(1);
-			Object result = query.uniqueResult();
-			if (result != null)
-				balance = (float) result;
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-		return balance;
-	}
-
-	@Override
-	public float getSundaySchoolAccountBalance() throws CcfException {
-		float balance = 0.0f;
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "Select balance from SundaySchoolAccount order by id desc";
-			Query query = session.createQuery(hql);
-			query.setMaxResults(1);
-			Object result = query.uniqueResult();
-			if (result != null)
-				balance = (float) result;
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-		return balance;
-	}
-
-	@Override
-	public float getYouthAccountBalance() throws CcfException {
-		float balance = 0.0f;
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "Select balance from YouthAccount order by id desc";
-			Query query = session.createQuery(hql);
-			query.setMaxResults(1);
-			Object result = query.uniqueResult();
-			if (result != null)
-				balance = (float) result;
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-		return balance;
-	}
-
-	@Override
-	public float getSpecialThanksOfferingAccountBalance() throws CcfException {
-		float balance = 0.0f;
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "Select balance from SpecialThanksOfferingAccount order by id desc";
-			Query query = session.createQuery(hql);
-			query.setMaxResults(1);
-			Object result = query.uniqueResult();
-			if (result != null)
-				balance = (float) result;
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-		return balance;
-	}
-
-	@Override
-	public float getGraveyardAccountBalance() throws CcfException {
-		float balance = 0.0f;
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "Select balance from GraveyardAccount order by id desc";
-			Query query = session.createQuery(hql);
-			query.setMaxResults(1);
-			Object result = query.uniqueResult();
-			if (result != null)
-				balance = (float) result;
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-		return balance;
-	}
-
-	@Override
-	public float getPrimarySchoolAccountBalance() throws CcfException {
-		float balance = 0.0f;
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "Select balance from PrimarySchoolAccount order by id desc";
-			Query query = session.createQuery(hql);
-			query.setMaxResults(1);
-			Object result = query.uniqueResult();
-			if (result != null)
-				balance = (float) result;
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
 		return balance;
 	}
 
@@ -563,13 +394,8 @@ public class AccountsDaoImpl implements AccountsDao {
 	public static void main(String[] args) {
 		AccountsDaoImpl impl = new AccountsDaoImpl();
 		try {
-			Date from = new Date();
-			from.setDate(1);
 			
-			Date to = new Date();
-			to.setDate(31);
-			List<SpecialThanksOfferingAccount> pcs = impl.getSTOStatement(from, to);
-			System.out.println(pcs.size());
+			System.out.println(impl.getAccountBalance("Bank Graveyard Account"));
 		} catch (CcfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

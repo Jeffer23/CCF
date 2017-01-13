@@ -8,7 +8,6 @@ public class GraveyardAccount implements Account {
 
 	private int id;
 	private float amount;
-	private float balance;
 	private String description;
 	private String cr_dr;
 	private Santha santha;
@@ -34,12 +33,7 @@ public class GraveyardAccount implements Account {
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
-	public float getBalance() {
-		return balance;
-	}
-	public void setBalance(float balance) {
-		this.balance = balance;
-	}
+	
 	public String getDescription() {
 		return description;
 	}

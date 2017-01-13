@@ -180,7 +180,6 @@ public class ServiceOfferingController {
 			if (thanksOffering.getText().equals(""))
 				thanksOffering.setText("0");
 			
-			AccountsDao impl = new AccountsDaoImpl();
 			ServiceOffering so = new ServiceOffering();
 			so.setAuction(Float.parseFloat(auctionAmt.getText()));
 			so.setConfirmation(Float.parseFloat(confirmation.getText()));
@@ -209,9 +208,6 @@ public class ServiceOfferingController {
 					
 				missionaryAccount.setAmount(Float.parseFloat(missionary
 						.getText()));
-				float currentBalance = impl.getMissionaryAccountBalance();
-				float balance = missionaryAccount.getAmount() + currentBalance;
-				missionaryAccount.setBalance(balance);
 				missionaryAccount.setCr_dr("CR");
 				missionaryAccount.setDescription("Missionary Offering");
 				missionaryAccount.setServiceOffering(so);
@@ -231,9 +227,6 @@ public class ServiceOfferingController {
 				}
 				
 				pcAccount.setAmount(Float.parseFloat(serviceOffering.getText()));
-				float currentBalance = impl.getPCAccountBalance();
-				float balance = pcAccount.getAmount() + currentBalance;
-				pcAccount.setBalance(balance);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Service Offering");
 				pcAccount.setServiceOffering(so);
@@ -253,16 +246,6 @@ public class ServiceOfferingController {
 				}
 				
 				pcAccount.setAmount(Float.parseFloat(auctionAmt.getText()));
-				float currentBalance = 0.0f;
-				if (so.getPcAccounts().size() == 0)
-					currentBalance = impl.getPCAccountBalance();
-				Iterator<IPCAccount> pcAccounts = so.getPcAccounts().iterator();
-				while (pcAccounts.hasNext()) {
-					currentBalance = pcAccounts.next().getBalance();
-				}
-
-				float balance = pcAccount.getAmount() + currentBalance;
-				pcAccount.setBalance(balance);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Auction Offering");
 				pcAccount.setServiceOffering(so);
@@ -281,16 +264,6 @@ public class ServiceOfferingController {
 				}
 				
 				pcAccount.setAmount(Float.parseFloat(marriage.getText()));
-				float currentBalance = 0.0f;
-				if (so.getPcAccounts().size() == 0)
-					currentBalance = impl.getPCAccountBalance();
-				Iterator<IPCAccount> pcAccounts = so.getPcAccounts().iterator();
-				while (pcAccounts.hasNext()) {
-					currentBalance = pcAccounts.next().getBalance();
-				}
-
-				float balance = pcAccount.getAmount() + currentBalance;
-				pcAccount.setBalance(balance);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Marriage Offering");
 				pcAccount.setDate(date.getSelectedDate());
@@ -310,16 +283,6 @@ public class ServiceOfferingController {
 				}
 				
 				pcAccount.setAmount(Float.parseFloat(confirmation.getText()));
-				float currentBalance = 0.0f;
-				if (so.getPcAccounts().size() == 0)
-					currentBalance = impl.getPCAccountBalance();
-				Iterator<IPCAccount> pcAccounts = so.getPcAccounts().iterator();
-				while (pcAccounts.hasNext()) {
-					currentBalance = pcAccounts.next().getBalance();
-				}
-
-				float balance = pcAccount.getAmount() + currentBalance;
-				pcAccount.setBalance(balance);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Confirmation Offering");
 				pcAccount.setDate(date.getSelectedDate());
@@ -340,10 +303,6 @@ public class ServiceOfferingController {
 				}
 				
 				sto.setAmount(Float.parseFloat(thanksOffering.getText()));
-				float currentBalance = impl
-						.getSpecialThanksOfferingAccountBalance();
-				float balance = sto.getAmount() + currentBalance;
-				sto.setBalance(balance);
 				sto.setCr_dr("CR");
 				sto.setDescription("Thanks Offering");
 				sto.setDate(date.getSelectedDate());
@@ -362,17 +321,6 @@ public class ServiceOfferingController {
 				}
 				
 				sto.setAmount(Float.parseFloat(this.sto.getText()));
-				float currentBalance = 0.0f;
-				if (so.getSpecialThanksOfferingAccounts().size() == 0)
-					currentBalance = impl
-							.getSpecialThanksOfferingAccountBalance();
-				Iterator<ISpecialThanksOfferingAccount> stoAccounts = so
-						.getSpecialThanksOfferingAccounts().iterator();
-				while (stoAccounts.hasNext()) {
-					currentBalance = stoAccounts.next().getBalance();
-				}
-				float balance = sto.getAmount() + currentBalance;
-				sto.setBalance(balance);
 				sto.setCr_dr("CR");
 				sto.setDescription("Special Thanks Offering");
 				sto.setDate(date.getSelectedDate());
@@ -390,17 +338,6 @@ public class ServiceOfferingController {
 				}
 				
 				sto.setAmount(Float.parseFloat(otherAmt.getText()));
-				float currentBalance = 0.0f;
-				if (so.getSpecialThanksOfferingAccounts().size() == 0)
-					currentBalance = impl
-							.getSpecialThanksOfferingAccountBalance();
-				Iterator<ISpecialThanksOfferingAccount> stoAccounts = so
-						.getSpecialThanksOfferingAccounts().iterator();
-				while (stoAccounts.hasNext()) {
-					currentBalance = stoAccounts.next().getBalance();
-				}
-				float balance = sto.getAmount() + currentBalance;
-				sto.setBalance(balance);
 				sto.setCr_dr("CR");
 				sto.setDescription("Other Offering - " + otherReason.getText());
 				sto.setDate(date.getSelectedDate());
@@ -420,9 +357,6 @@ public class ServiceOfferingController {
 				}
 				
 				ssa.setAmount(Float.parseFloat(sundaySchool.getText()));
-				float currentBalance = impl.getSundaySchoolAccountBalance();
-				float balance = ssa.getAmount() + currentBalance;
-				ssa.setBalance(balance);
 				ssa.setCr_dr("CR");
 				ssa.setDescription("Sunday School Offering");
 				ssa.setDate(date.getSelectedDate());

@@ -94,45 +94,44 @@ public class AddIncomeController {
 			logger.debug("Account Name : " + accounts.getValue());
 			if (accounts.getValue().equals("PC Account")) {
 				account = new PCAccount();
-				balance = dao.getPCAccountBalance()
+				balance = dao.getAccountBalance("PC Account")
 						+ Float.valueOf(amount.getText());
 			} else if(accounts.getValue().equals("Missionary Account")){
 				account = new MissionaryAccount();
-				balance = dao.getMissionaryAccountBalance()
+				balance = dao.getAccountBalance("Missionary Account")
 						+ Float.valueOf(amount.getText());
 			} else if(accounts.getValue().equals("Men's Account")){
 				account = new MensAccount();
-				balance = dao.getMensAccountBalance()
+				balance = dao.getAccountBalance("Mens Account")
 						+ Float.valueOf(amount.getText());
 			} else if(accounts.getValue().equals("Women's Account")){
 				account = new WomensAccount();
-				balance = dao.getWomensAccountBalance()
+				balance = dao.getAccountBalance("Womens Account")
 						+ Float.valueOf(amount.getText());
 			} else if(accounts.getValue().equals("Sunday School Account")){
 				account = new SundaySchoolAccount();
-				balance = dao.getSundaySchoolAccountBalance()
+				balance = dao.getAccountBalance("Sunday School Account")
 						+ Float.valueOf(amount.getText());
 			} else if(accounts.getValue().equals("Youth Account")){
 				account = new YouthAccount();
-				balance = dao.getYouthAccountBalance()
+				balance = dao.getAccountBalance("Youth Account")
 						+ Float.valueOf(amount.getText());
 			} else if(accounts.getValue().equals("STO Account")){
 				account = new SpecialThanksOfferingAccount();
-				balance = dao.getSpecialThanksOfferingAccountBalance()
+				balance = dao.getAccountBalance("STO Account")
 						+ Float.valueOf(amount.getText());
 			} else if(accounts.getValue().equals("Graveyard Account")){
 				account = new GraveyardAccount();
-				balance = dao.getGraveyardAccountBalance()
+				balance = dao.getAccountBalance("Graveyard Account")
 						+ Float.valueOf(amount.getText());
 			} else if(accounts.getValue().equals("Primary School Account")){
 				account = new PrimarySchoolAccount();
-				balance = dao.getPrimarySchoolAccountBalance()
+				balance = dao.getAccountBalance("Primary School Account")
 						+ Float.valueOf(amount.getText());
 			}
 				logger.debug(amount.getText());
 				logger.debug(account);
 				account.setAmount(Float.valueOf(amount.getText()));
-				account.setBalance(balance);
 				account.setDescription(reason.getText());
 				account.setCr_dr("CR");
 				account.setDate(new Date());

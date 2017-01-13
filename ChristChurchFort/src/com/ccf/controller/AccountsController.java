@@ -77,27 +77,27 @@ public class AccountsController {
 		logger.debug("init method Starts...");
 		AccountsDao impl = new AccountsDaoImpl();
 		try {
-			float pcAccBalance = impl.getPCAccountBalance();
+			float pcAccBalance = impl.getAccountBalance("PC Account");
 			pcAccountBalance.setText(String.valueOf(pcAccBalance));
-			float missionaryAccBalance = impl.getMissionaryAccountBalance();
+			float missionaryAccBalance = impl.getAccountBalance("Missionary Account");
 			missionaryAccountBalance.setText(String
 					.valueOf(missionaryAccBalance));
-			float mensAccBalance = impl.getMensAccountBalance();
+			float mensAccBalance = impl.getAccountBalance("Mens Account");
 			mensAccountBalance.setText(String.valueOf(mensAccBalance));
-			float womensAccBalance = impl.getWomensAccountBalance();
+			float womensAccBalance = impl.getAccountBalance("Womens Account");
 			womensAccountBalance.setText(String.valueOf(womensAccBalance));
-			float sundaySchoolAccbalance = impl.getSundaySchoolAccountBalance();
+			float sundaySchoolAccbalance = impl.getAccountBalance("Sunday School Account");
 			sundaySchoolAccountBalance.setText(String
 					.valueOf(sundaySchoolAccbalance));
-			float youthAccBalance = impl.getYouthAccountBalance();
+			float youthAccBalance = impl.getAccountBalance("Youth Account");
 			youthAccountBalance.setText(String.valueOf(youthAccBalance));
-			float stoAccBalance = impl.getSpecialThanksOfferingAccountBalance();
+			float stoAccBalance = impl.getAccountBalance("STO Account");
 			stoAccountBalance.setText(String.valueOf(stoAccBalance));
-			float graveyardAccBalance = impl.getGraveyardAccountBalance();
+			float graveyardAccBalance = impl.getAccountBalance("Graveyard Account");
 			graveyardAccountBalance
 					.setText(String.valueOf(graveyardAccBalance));
 			float primarySchoolAccBalance = impl
-					.getPrimarySchoolAccountBalance();
+					.getAccountBalance("Primary School Account");
 			primarySchoolAccountBalance.setText(String
 					.valueOf(primarySchoolAccBalance));
 			float overAllBalance = pcAccBalance + missionaryAccBalance
@@ -199,15 +199,15 @@ public class AccountsController {
 		
 		AccountsDao impl = new AccountsDaoImpl();
 		Map<String, Float> accountBalance = new HashMap<>();
-		accountBalance.put("PC Account", impl.getPCAccountBalance());
-		accountBalance.put("Missionary Account", impl.getMissionaryAccountBalance());
-		accountBalance.put("Men's Account", impl.getMensAccountBalance());
-		accountBalance.put("Women's Account", impl.getWomensAccountBalance());
-		accountBalance.put("Sunday School Account", impl.getSundaySchoolAccountBalance());
-		accountBalance.put("Youth Account", impl.getYouthAccountBalance());
-		accountBalance.put("Special Thanks Offering Account", impl.getSpecialThanksOfferingAccountBalance());
-		accountBalance.put("Graveyard Account", impl.getGraveyardAccountBalance());
-		accountBalance.put("primary School Account", impl.getPrimarySchoolAccountBalance());
+		accountBalance.put("PC Account", impl.getAccountBalance("PC Account"));
+		accountBalance.put("Missionary Account", impl.getAccountBalance("Missionary Account"));
+		accountBalance.put("Men's Account", impl.getAccountBalance("Mens Account"));
+		accountBalance.put("Women's Account", impl.getAccountBalance("Womens Account"));
+		accountBalance.put("Sunday School Account", impl.getAccountBalance("Sunday School Account"));
+		accountBalance.put("Youth Account", impl.getAccountBalance("Youth Account"));
+		accountBalance.put("Special Thanks Offering Account", impl.getAccountBalance("STO Account"));
+		accountBalance.put("Graveyard Account", impl.getAccountBalance("Graveyard Account"));
+		accountBalance.put("primary School Account", impl.getAccountBalance("Primary School Account"));
 		
 		Row row = null;
 		int rowCount = 1;

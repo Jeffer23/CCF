@@ -33,6 +33,6 @@
         <mapping resource="com/ccf/hibernate/bankSpecialThanksOfferingAccount.hbm.xml"></mapping>
         <mapping resource="com/ccf/hibernate/bankGraveyardAccount.hbm.xml"></mapping>
         <mapping resource="com/ccf/hibernate/bankPrimarySchoolAccount.hbm.xml"></mapping>
-        
+        <mapping resource="com/ccf/hibernate/accountsBalance.hbm.xml"></mapping>
     </session-factory>
 </hibernate-configuration>

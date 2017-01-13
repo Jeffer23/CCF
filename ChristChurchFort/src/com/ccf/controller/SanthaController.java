@@ -746,9 +746,6 @@ public class SanthaController extends Application {
 			 */
 			pcAccount = new PCAccount();
 			pcAccount.setAmount(subscriptionAmount);
-			float currentBal = impl.getPCAccountBalance();
-			float bal = pcAccount.getAmount() + currentBal;
-			pcAccount.setBalance(bal);
 			pcAccount.setCr_dr("CR");
 			pcAccount.setDescription("Santha - Subscription Amount");
 			pcAccount.setSantha(santha);
@@ -758,18 +755,6 @@ public class SanthaController extends Application {
 			if (harvestFestival != 0.0f) {
 				pcAccount = new PCAccount();
 				pcAccount.setAmount(harvestFestival);
-				float currentBalance = 0;
-				if (santha.getPcAccounts().size() == 0) {
-					currentBalance = impl.getPCAccountBalance();
-				} else {
-					Iterator<PCAccount> pcAccounts = santha.getPcAccounts()
-							.iterator();
-					while (pcAccounts.hasNext()) {
-						currentBalance = pcAccounts.next().getBalance();
-					}
-				}
-				float balance = pcAccount.getAmount() + currentBalance;
-				pcAccount.setBalance(balance);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Santha - Harvest Festival");
 				pcAccount.setSantha(santha);
@@ -780,18 +765,6 @@ public class SanthaController extends Application {
 			if (educationHelp != 0.0f) {
 				pcAccount = new PCAccount();
 				pcAccount.setAmount(educationHelp);
-				float currentBalance = 0.0f;
-				if (santha.getPcAccounts().size() == 0) {
-					currentBalance = impl.getPCAccountBalance();
-				} else {
-					Iterator<PCAccount> pcAccounts = santha.getPcAccounts()
-							.iterator();
-					while (pcAccounts.hasNext()) {
-						currentBalance = pcAccounts.next().getBalance();
-					}
-				}
-				float balance = pcAccount.getAmount() + currentBalance;
-				pcAccount.setBalance(balance);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Santha - Education Help");
 				pcAccount.setSantha(santha);
@@ -802,18 +775,6 @@ public class SanthaController extends Application {
 			if (poorHelp != 0.0f) {
 				pcAccount = new PCAccount();
 				pcAccount.setAmount(poorHelp);
-				float currentBalance = 0.0f;
-				if (santha.getPcAccounts().size() == 0) {
-					currentBalance = impl.getPCAccountBalance();
-				} else {
-					Iterator<PCAccount> pcAccounts = santha.getPcAccounts()
-							.iterator();
-					while (pcAccounts.hasNext()) {
-						currentBalance = pcAccounts.next().getBalance();
-					}
-				}
-				float balance = pcAccount.getAmount() + currentBalance;
-				pcAccount.setBalance(balance);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Santha - Poor Help");
 				pcAccount.setSantha(santha);
@@ -824,18 +785,6 @@ public class SanthaController extends Application {
 			if (bagOffer != 0.0f) {
 				pcAccount = new PCAccount();
 				pcAccount.setAmount(bagOffer);
-				float currentBalance = 0.0f;
-				if (santha.getPcAccounts().size() == 0) {
-					currentBalance = impl.getPCAccountBalance();
-				} else {
-					Iterator<PCAccount> pcAccounts = santha.getPcAccounts()
-							.iterator();
-					while (pcAccounts.hasNext()) {
-						currentBalance = pcAccounts.next().getBalance();
-					}
-				}
-				float balance = pcAccount.getAmount() + currentBalance;
-				pcAccount.setBalance(balance);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Santha - Bag Offer");
 				pcAccount.setSantha(santha);
@@ -847,10 +796,6 @@ public class SanthaController extends Application {
 			if (thanksOffer != 0.0f) {
 				stoAccount = new SpecialThanksOfferingAccount();
 				stoAccount.setAmount(thanksOffer);
-				float currentBalance = impl
-						.getSpecialThanksOfferingAccountBalance();
-				float balance = stoAccount.getAmount() + currentBalance;
-				stoAccount.setBalance(balance);
 				stoAccount.setCr_dr("CR");
 				stoAccount.setDescription("Santha - Thanks Offering");
 				stoAccount.setSantha(santha);
@@ -861,19 +806,6 @@ public class SanthaController extends Application {
 			if (sto != 0.0f) {
 				stoAccount = new SpecialThanksOfferingAccount();
 				stoAccount.setAmount(sto);
-				float currentBalance = 0.0f;
-				if (santha.getSpecialThanksOfferingAccounts().size() == 0) {
-					currentBalance = impl
-							.getSpecialThanksOfferingAccountBalance();
-				} else {
-					Iterator<SpecialThanksOfferingAccount> stoAccounts = santha
-							.getSpecialThanksOfferingAccounts().iterator();
-					while (stoAccounts.hasNext()) {
-						currentBalance = stoAccounts.next().getBalance();
-					}
-				}
-				float balance = stoAccount.getAmount() + currentBalance;
-				stoAccount.setBalance(balance);
 				stoAccount.setCr_dr("CR");
 				stoAccount.setDescription("Santha - Special Thanks Offering");
 				stoAccount.setSantha(santha);
@@ -884,19 +816,6 @@ public class SanthaController extends Application {
 			if (churchRenovation != 0.0f) {
 				stoAccount = new SpecialThanksOfferingAccount();
 				stoAccount.setAmount(churchRenovation);
-				float currentBalance = 0.0f;
-				if (santha.getSpecialThanksOfferingAccounts().size() == 0) {
-					currentBalance = impl
-							.getSpecialThanksOfferingAccountBalance();
-				} else {
-					Iterator<SpecialThanksOfferingAccount> stoAccounts = santha
-							.getSpecialThanksOfferingAccounts().iterator();
-					while (stoAccounts.hasNext()) {
-						currentBalance = stoAccounts.next().getBalance();
-					}
-				}
-				float balance = stoAccount.getAmount() + currentBalance;
-				stoAccount.setBalance(balance);
 				stoAccount.setCr_dr("CR");
 				stoAccount.setDescription("Santha - Church Renovation");
 				stoAccount.setSantha(santha);
@@ -908,9 +827,6 @@ public class SanthaController extends Application {
 			if (missionary != 0.0f) {
 				missionaryAccount = new MissionaryAccount();
 				missionaryAccount.setAmount(missionary);
-				float currentBalance = impl.getMissionaryAccountBalance();
-				float balance = missionaryAccount.getAmount() + currentBalance;
-				missionaryAccount.setBalance(balance);
 				missionaryAccount.setCr_dr("CR");
 				missionaryAccount
 						.setDescription("Santha - Missionary Offering");
@@ -923,9 +839,6 @@ public class SanthaController extends Application {
 			if (mensFellowship != 0.0f) {
 				mensAccount = new MensAccount();
 				mensAccount.setAmount(mensFellowship);
-				float currentBalance = impl.getMensAccountBalance();
-				float balance = mensAccount.getAmount() + currentBalance;
-				mensAccount.setBalance(balance);
 				mensAccount.setCr_dr("CR");
 				mensAccount.setDescription("Santha - Men's Fellowship");
 				mensAccount.setSantha(santha);
@@ -937,9 +850,6 @@ public class SanthaController extends Application {
 			if (womensFellowship != 0.0f) {
 				womensAccount = new WomensAccount();
 				womensAccount.setAmount(womensFellowship);
-				float currentBalance = impl.getWomensAccountBalance();
-				float balance = womensAccount.getAmount() + currentBalance;
-				womensAccount.setBalance(balance);
 				womensAccount.setCr_dr("CR");
 				womensAccount.setDescription("Santha - Women's Fellowship");
 				womensAccount.setSantha(santha);
@@ -951,10 +861,6 @@ public class SanthaController extends Application {
 			if (primarySchool != 0.0f) {
 				primarySchoolAccount = new PrimarySchoolAccount();
 				primarySchoolAccount.setAmount(primarySchool);
-				float currentBalance = impl.getPrimarySchoolAccountBalance();
-				float balance = primarySchoolAccount.getAmount()
-						+ currentBalance;
-				primarySchoolAccount.setBalance(balance);
 				primarySchoolAccount.setCr_dr("CR");
 				primarySchoolAccount.setDescription("Santha - Primary School");
 				primarySchoolAccount.setSantha(santha);
@@ -966,9 +872,6 @@ public class SanthaController extends Application {
 			if (youth != 0.0f) {
 				youthAccount = new YouthAccount();
 				youthAccount.setAmount(youth);
-				float currentBalance = impl.getYouthAccountBalance();
-				float balance = youthAccount.getAmount() + currentBalance;
-				youthAccount.setBalance(balance);
 				youthAccount.setCr_dr("CR");
 				youthAccount.setDescription("Santha - Youth");
 				youthAccount.setSantha(santha);
@@ -980,9 +883,6 @@ public class SanthaController extends Application {
 			if (graveyard != 0.0f) {
 				graveyardAccount = new GraveyardAccount();
 				graveyardAccount.setAmount(graveyard);
-				float currentBalance = impl.getGraveyardAccountBalance();
-				float balance = graveyardAccount.getAmount() + currentBalance;
-				graveyardAccount.setBalance(balance);
 				graveyardAccount.setCr_dr("CR");
 				graveyardAccount.setDescription("Santha - Graveyard");
 				graveyardAccount.setSantha(santha);
@@ -1443,182 +1343,7 @@ public class SanthaController extends Application {
 			/*
 			 * Calculating and Updating the balance of other affected records.
 			 */
-			AccountsDao accountsImpl = new AccountsDaoImpl();
-			if (santhaAmount.getPcAccounts().size() > 0) {
-				Iterator<PCAccount> pcAccIterator = santhaAmount
-						.getPcAccounts().iterator();
-				float pcAccDiff = 0.0f;
-				int smallestId = 0;
-				while (pcAccIterator.hasNext()) {
-					PCAccount pcAccount = pcAccIterator.next();
-					pcAccDiff = pcAccDiff + pcAccount.getAmount();
-					if (smallestId == 0 || pcAccount.getId() < smallestId) {
-						smallestId = pcAccount.getId();
-					}
-				}
-				List<PCAccount> pcAccounts = accountsImpl
-						.getPCAccountsAfter(smallestId);
-				for (PCAccount pcAccount : pcAccounts) {
-					pcAccount.setBalance(pcAccount.getBalance() - pcAccDiff);
-				}
-				accountsImpl.updatePCAccount(pcAccounts);
-			}
-
-			if (santhaAmount.getSpecialThanksOfferingAccounts().size() > 0) {
-				Iterator<SpecialThanksOfferingAccount> stoAccIterator = santhaAmount
-						.getSpecialThanksOfferingAccounts().iterator();
-				float stoAccDiff = 0.0f;
-				int smallestId = 0;
-				while (stoAccIterator.hasNext()) {
-					SpecialThanksOfferingAccount stoAccount = stoAccIterator
-							.next();
-					stoAccDiff = stoAccDiff + stoAccount.getAmount();
-					if (smallestId == 0 || stoAccount.getId() < smallestId) {
-						smallestId = stoAccount.getId();
-					}
-				}
-				List<SpecialThanksOfferingAccount> stoAccounts = accountsImpl
-						.getSTOAccountsAfter(smallestId);
-				for (SpecialThanksOfferingAccount stoAccount : stoAccounts) {
-					stoAccount.setBalance(stoAccount.getBalance() - stoAccDiff);
-				}
-				accountsImpl.updateSpecialThanksOfferingAccount(stoAccounts);
-			}
-
-			if (santhaAmount.getMissionaryAccounts().size() > 0) {
-				Iterator<MissionaryAccount> MissionaryAccIterator = santhaAmount
-						.getMissionaryAccounts().iterator();
-				float missionaryAccDiff = 0.0f;
-				int smallestId = 0;
-				while (MissionaryAccIterator.hasNext()) {
-					MissionaryAccount missionaryAccount = MissionaryAccIterator
-							.next();
-					missionaryAccDiff = missionaryAccDiff
-							+ missionaryAccount.getAmount();
-					if (smallestId == 0
-							|| missionaryAccount.getId() < smallestId) {
-						smallestId = missionaryAccount.getId();
-					}
-				}
-				List<MissionaryAccount> missionaryAccounts = accountsImpl
-						.getMissionaryAccountsAfter(smallestId);
-				for (MissionaryAccount missionaryAccount : missionaryAccounts) {
-					missionaryAccount.setBalance(missionaryAccount.getBalance()
-							- missionaryAccDiff);
-				}
-				accountsImpl.updateMissionaryAccount(missionaryAccounts);
-			}
-
-			if (santhaAmount.getMensAccounts().size() > 0) {
-				Iterator<MensAccount> MensAccIterator = santhaAmount
-						.getMensAccounts().iterator();
-				float mensAccDiff = 0.0f;
-				int smallestId = 0;
-				while (MensAccIterator.hasNext()) {
-					MensAccount mensAccount = MensAccIterator.next();
-					mensAccDiff = mensAccDiff + mensAccount.getAmount();
-					if (smallestId == 0 || mensAccount.getId() < smallestId) {
-						smallestId = mensAccount.getId();
-					}
-				}
-				List<MensAccount> mensAccounts = accountsImpl
-						.getMensAccountsAfter(smallestId);
-				for (MensAccount mensAccount : mensAccounts) {
-					mensAccount.setBalance(mensAccount.getBalance()
-							- mensAccDiff);
-				}
-				accountsImpl.updateMensAccount(mensAccounts);
-			}
-
-			if (santhaAmount.getWomensAccounts().size() > 0) {
-				Iterator<WomensAccount> womensAccIterator = santhaAmount
-						.getWomensAccounts().iterator();
-				float womensAccDiff = 0.0f;
-				int smallestId = 0;
-				while (womensAccIterator.hasNext()) {
-					WomensAccount womensAccount = womensAccIterator.next();
-					womensAccDiff = womensAccDiff + womensAccount.getAmount();
-					if (smallestId == 0 || womensAccount.getId() < smallestId) {
-						smallestId = womensAccount.getId();
-					}
-				}
-				List<WomensAccount> womensAccounts = accountsImpl
-						.getWomensAccountsAfter(smallestId);
-				for (WomensAccount womensAccount : womensAccounts) {
-					womensAccount.setBalance(womensAccount.getBalance()
-							- womensAccDiff);
-				}
-				accountsImpl.updateWomensAccount(womensAccounts);
-			}
-
-			if (santhaAmount.getPrimarySchoolAccounts().size() > 0) {
-				Iterator<PrimarySchoolAccount> primarySchoolAccIterator = santhaAmount
-						.getPrimarySchoolAccounts().iterator();
-				float primarySchoolAccDiff = 0.0f;
-				int smallestId = 0;
-				while (primarySchoolAccIterator.hasNext()) {
-					PrimarySchoolAccount primarySchoolAccount = primarySchoolAccIterator
-							.next();
-					primarySchoolAccDiff = primarySchoolAccDiff
-							+ primarySchoolAccount.getAmount();
-					if (smallestId == 0
-							|| primarySchoolAccount.getId() < smallestId) {
-						smallestId = primarySchoolAccount.getId();
-					}
-				}
-				List<PrimarySchoolAccount> primarySchoolAccounts = accountsImpl
-						.getPrimarySchoolAccountsAfter(smallestId);
-				for (PrimarySchoolAccount primarySchoolAccount : primarySchoolAccounts) {
-					primarySchoolAccount.setBalance(primarySchoolAccount
-							.getBalance() - primarySchoolAccDiff);
-				}
-				accountsImpl.updatePrimarySchoolAccount(primarySchoolAccounts);
-			}
-
-			if (santhaAmount.getYouthAccounts().size() > 0) {
-				Iterator<YouthAccount> youthAccIterator = santhaAmount
-						.getYouthAccounts().iterator();
-				float youthAccDiff = 0.0f;
-				int smallestId = 0;
-				while (youthAccIterator.hasNext()) {
-					YouthAccount youthAccount = youthAccIterator.next();
-					youthAccDiff = youthAccDiff + youthAccount.getAmount();
-					if (smallestId == 0 || youthAccount.getId() < smallestId) {
-						smallestId = youthAccount.getId();
-					}
-				}
-				List<YouthAccount> youthAccounts = accountsImpl
-						.getYouthAccountsAfter(smallestId);
-				for (YouthAccount youthAccount : youthAccounts) {
-					youthAccount.setBalance(youthAccount.getBalance()
-							- youthAccDiff);
-				}
-				accountsImpl.updateYouthAccount(youthAccounts);
-			}
-
-			if (santhaAmount.getGraveyardAccounts().size() > 0) {
-				Iterator<GraveyardAccount> graveyardAccIterator = santhaAmount
-						.getGraveyardAccounts().iterator();
-				float graveyardAccDiff = 0.0f;
-				int smallestId = 0;
-				while (graveyardAccIterator.hasNext()) {
-					GraveyardAccount graveyardAccount = graveyardAccIterator
-							.next();
-					graveyardAccDiff = graveyardAccDiff
-							+ graveyardAccount.getAmount();
-					if (smallestId == 0
-							|| graveyardAccount.getId() < smallestId) {
-						smallestId = graveyardAccount.getId();
-					}
-				}
-				List<GraveyardAccount> graveyardAccounts = accountsImpl
-						.getGraveyardAccountsAfter(smallestId);
-				for (GraveyardAccount graveyardAccount : graveyardAccounts) {
-					graveyardAccount.setBalance(graveyardAccount.getBalance()
-							- graveyardAccDiff);
-				}
-				accountsImpl.updateGraveyardAccount(graveyardAccounts);
-			}
+			
 
 			// Removing From UI
 			membersSantha.getItems().remove(santha);
