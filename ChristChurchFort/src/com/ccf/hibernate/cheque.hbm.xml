@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+   <class name="com.ccf.persistence.classes.Cheque" table="cheque">
+      <meta attribute="class-description">
+         This class contains the cheque detail. 
+      </meta>
+      <id name="chequeId" type="int" column="cheque_id">
+      	<generator class="native" />
+	  </id>
+      <property name="chequeDate" column="cheque_date" type="date"/>
+      <property name="chequeNumber" column="cheque_number" type="string"/>
+      <property name="chequeAmount" column="cheque_amount" type="float"/>
+      
+      <set name="bankPCAccounts" fetch="join" table="cheque_bank_pc" cascade="all" lazy="true" inverse="true">
+			<key>
+				<column name="cheque_id"></column>
+			</key>
+			<many-to-many entity-name="com.ccf.persistence.classes.BankPCAccount" >
+				<column name="bank_pc_account_id"></column>
+			</many-to-many>
+		</set>
+		
+		<set name="bankSTOAccounts" fetch="join" table="cheque_bank_sto" cascade="all" lazy="true" inverse="true">
+			<key>
+				<column name="cheque_id"></column>
+			</key>
+			<many-to-many entity-name="com.ccf.persistence.classes.BankSpecialThanksOfferingAccount" >
+				<column name="id"></column>
+			</many-to-many>
+		</set>
+      
+   </class>
+</hibernate-mapping>

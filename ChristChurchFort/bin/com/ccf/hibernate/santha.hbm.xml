@@ -36,6 +36,7 @@
 		<property name="subscriptionAmount" column="subscriptionAmount" type="float" />
 		<property name="total" column="total" type="float" />
 		
+		
 		<set name="pcAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id"></column>
@@ -43,11 +44,25 @@
 			<one-to-many class="com.ccf.persistence.classes.PCAccount" />
 		</set>
 		
+		<set name="bankPCAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="santha_id"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankPCAccount" />
+		</set>
+		
 		<set name="missionaryAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" not-null="false" unique="true"></column>
 			</key>
 			<one-to-many class="com.ccf.persistence.classes.MissionaryAccount"/>
+		</set>
+		
+		<set name="bankMissionaryAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="santha_id" not-null="false" unique="true"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankMissionaryAccount"/>
 		</set>
 	
 		
@@ -58,11 +73,25 @@
 			<one-to-many class="com.ccf.persistence.classes.SpecialThanksOfferingAccount" />
 		</set>
 		
+		<set name="bankSpecialThanksOfferingAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="santha_id"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankSpecialThanksOfferingAccount" />
+		</set>
+		
 		<set name="mensAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" unique="true"></column>
 			</key>
 			<one-to-many class="com.ccf.persistence.classes.MensAccount" />
+		</set>
+		
+		<set name="bankMensAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="santha_id" unique="true"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankMensAccount" />
 		</set>
 		
 		<set name="womensAccounts" cascade="all" lazy="true">
@@ -72,11 +101,25 @@
 			<one-to-many class="com.ccf.persistence.classes.WomensAccount" />
 		</set>
 		
+		<set name="bankWomensAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="santha_id" unique="true"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankWomensAccount" />
+		</set>
+		
 		<set name="youthAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" unique="true"></column>
 			</key>
 			<one-to-many class="com.ccf.persistence.classes.YouthAccount" />
+		</set>
+		
+		<set name="bankYouthAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="santha_id" unique="true"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankYouthAccount" />
 		</set>
 		
 		<set name="graveyardAccounts" cascade="all" lazy="true">
@@ -86,11 +129,25 @@
 			<one-to-many class="com.ccf.persistence.classes.GraveyardAccount" />
 		</set>
 		
+		<set name="bankGraveyardAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="santha_id" unique="true"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankGraveyardAccount" />
+		</set>
+		
 		<set name="primarySchoolAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" unique="true"></column>
 			</key>
 			<one-to-many class="com.ccf.persistence.classes.PrimarySchoolAccount" />
+		</set>
+		
+		<set name="bankPrimarySchoolAccounts" cascade="all" lazy="true">
+			<key>
+				<column name="santha_id" unique="true"></column>
+			</key>
+			<one-to-many class="com.ccf.persistence.classes.BankPrimarySchoolAccount" />
 		</set>
 		
 		

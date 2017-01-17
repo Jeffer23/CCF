@@ -14,5 +14,6 @@
 		<property name="cr_dr" column="cr_dr" type="string" />
 		<property name="date" column="date" type="date" />
 		<many-to-one name="serviceOffering" class="com.ccf.persistence.classes.ServiceOffering" column="service_id"></many-to-one>
+		
 	</class>
 </hibernate-mapping>

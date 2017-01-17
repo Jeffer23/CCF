@@ -459,7 +459,7 @@
 										<Font name="Arial Rounded MT Bold" size="14.0" />
 									</font>
 								</Label>
-								<DatePicker fx:id="paidDate1" layoutX="386.0"
+								<DatePicker fx:id="chequeDate" layoutX="386.0"
 									layoutY="63.0" stylesheets="/com/ccf/css/DatePicker.css" />
 							</children>
 						</HBox>
@@ -471,7 +471,7 @@
 										<Font name="Arial Rounded MT Bold" size="14.0" />
 									</font>
 								</Label>
-								<TextField layoutX="754.0" layoutY="91.0" prefHeight="25.0"
+								<TextField fx:id="chequeNumber" layoutX="754.0" layoutY="91.0" prefHeight="25.0"
 									prefWidth="425.0" />
 							</children>
 						</HBox>

@@ -25,6 +25,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 
+import com.ccf.util.AccountNames;
+
 public class ExpenseController {
 
 	final static Logger logger = Logger.getLogger(MenuController.class);
@@ -44,16 +46,16 @@ public class ExpenseController {
 	@FXML
 	void initialize() {
 		logger.debug("init method Starts...");
-		account.getItems().add("PC Account");
-		account.getItems().add("Missionary Account");
-		account.getItems().add("Men's Account");
-		account.getItems().add("Women's Account");
-		account.getItems().add("Sunday School Account");
-		account.getItems().add("Youth Account");
-		account.getItems().add("Special Thanks Offering Account");
-		account.getItems().add("Graveyard Account");
-		account.getItems().add("Primary Account");
-		account.setValue("PC Account");
+		account.getItems().add(AccountNames.PCAccount);
+		account.getItems().add(AccountNames.MissionaryAccount);
+		account.getItems().add(AccountNames.MensAccount);
+		account.getItems().add(AccountNames.WomensAccount);
+		account.getItems().add(AccountNames.SundaySchoolAccount);
+		account.getItems().add(AccountNames.YouthAccount);
+		account.getItems().add(AccountNames.STOAccount);
+		account.getItems().add(AccountNames.GraveyardAccount);
+		account.getItems().add(AccountNames.PrimarySchoolAccount);
+		account.setValue(AccountNames.PCAccount);
 		logger.debug("initialize method Ends...");
 	}
 
@@ -85,34 +87,34 @@ public class ExpenseController {
 			AccountsDao impl = new AccountsDaoImpl();
 			float currentBalance = 0.0f;
 			Account account = null;
-			if (this.account.getValue().equals("PC Account")) {
+			if (this.account.getValue().equals(AccountNames.PCAccount)) {
 				account = new PCAccount();
-				currentBalance = impl.getAccountBalance("PC Account");
-			} else if (this.account.getValue().equals("Missionary Account")) {
+				currentBalance = impl.getAccountBalance(AccountNames.PCAccount);
+			} else if (this.account.getValue().equals(AccountNames.MissionaryAccount)) {
 				account = new MissionaryAccount();
-				currentBalance = impl.getAccountBalance("Missionary Account");
-			} else if (this.account.getValue().equals("Men's Account")) {
+				currentBalance = impl.getAccountBalance(AccountNames.MissionaryAccount);
+			} else if (this.account.getValue().equals(AccountNames.MensAccount)) {
 				account = new MensAccount();
-				currentBalance = impl.getAccountBalance("Mens Account");
-			} else if (this.account.getValue().equals("Women's Account")) {
+				currentBalance = impl.getAccountBalance(AccountNames.MensAccount);
+			} else if (this.account.getValue().equals(AccountNames.WomensAccount)) {
 				account = new WomensAccount();
-				currentBalance = impl.getAccountBalance("Womens Account");
-			} else if (this.account.getValue().equals("Sunday School Account")) {
+				currentBalance = impl.getAccountBalance(AccountNames.WomensAccount);
+			} else if (this.account.getValue().equals(AccountNames.SundaySchoolAccount)) {
 				account = new SundaySchoolAccount();
-				currentBalance = impl.getAccountBalance("Sunday School Account");
-			} else if (this.account.getValue().equals("Youth Account")) {
+				currentBalance = impl.getAccountBalance(AccountNames.SundaySchoolAccount);
+			} else if (this.account.getValue().equals(AccountNames.YouthAccount)) {
 				account = new YouthAccount();
-				currentBalance = impl.getAccountBalance("Youth Account");
+				currentBalance = impl.getAccountBalance(AccountNames.YouthAccount);
 			} else if (this.account.getValue().equals(
-					"Special Thanks Offering Account")) {
+					AccountNames.STOAccount)) {
 				account = new SpecialThanksOfferingAccount();
-				currentBalance = impl.getAccountBalance("STO Account");
-			} else if (this.account.getValue().equals("Graveyard Account")) {
+				currentBalance = impl.getAccountBalance(AccountNames.STOAccount);
+			} else if (this.account.getValue().equals(AccountNames.GraveyardAccount)) {
 				account = new GraveyardAccount();
-				currentBalance = impl.getAccountBalance("Graveyard Account");
-			} else if (this.account.getValue().equals("Primary Account")) {
+				currentBalance = impl.getAccountBalance(AccountNames.GraveyardAccount);
+			} else if (this.account.getValue().equals(AccountNames.PrimarySchoolAccount)) {
 				account = new PrimarySchoolAccount();
-				currentBalance = impl.getAccountBalance("Primary School Account");
+				currentBalance = impl.getAccountBalance(AccountNames.PrimarySchoolAccount);
 			}
 
 			float amount = Float.parseFloat(this.amount.getText());
@@ -123,7 +125,7 @@ public class ExpenseController {
 			account.setCr_dr("DR");
 			account.setDescription(description.getText());
 			account.setDate(new Date());
-			impl.addIncomeorExpense(account);
+			impl.addIncomeorExpense(account,this.account.getValue() ,amount);
 
 			message.setText("Expense Added Successfully..");
 			message.setTextFill(Paint.valueOf("GREEN"));

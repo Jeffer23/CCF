@@ -34,6 +34,7 @@ import application.Main;
 import com.ccf.dao.AccountsDao;
 import com.ccf.dao.impl.AccountsDaoImpl;
 import com.ccf.exception.CcfException;
+import com.ccf.util.AccountNames;
 
 public class AccountsController {
 
@@ -67,8 +68,68 @@ public class AccountsController {
 	private Label primarySchoolAccountBalance;
 
 	@FXML
-	private Label overAllBalance;
-	
+	private Label bankPCAccountBalance;
+
+	@FXML
+	private Label bankMissionaryAccountBalance;
+
+	@FXML
+	private Label bankMensAccountBalance;
+
+	@FXML
+	private Label bankWomensAccountBalance;
+
+	@FXML
+	private Label bankSundaySchoolAccountBalance;
+
+	@FXML
+	private Label bankYouthAccountBalance;
+
+	@FXML
+	private Label bankStoAccountBalance;
+
+	@FXML
+	private Label bankGraveyardAccountBalance;
+
+	@FXML
+	private Label bankPrimarySchoolAccountBalance;
+
+	@FXML
+	private Label totalPCAccountBalance;
+
+	@FXML
+	private Label totalMissionaryAccountBalance;
+
+	@FXML
+	private Label totalMensAccountBalance;
+
+	@FXML
+	private Label totalWomenAccountBalance;
+
+	@FXML
+	private Label totalSundaySchoolAccountBalance;
+
+	@FXML
+	private Label totalYouthAccountBalance;
+
+	@FXML
+	private Label totalStoAccountBalance;
+
+	@FXML
+	private Label totalGraveyardAccountBalance;
+
+	@FXML
+	private Label totalPrimarySchoolAccountBalance;
+
+	@FXML
+	private Label overAllCashBalance;
+
+	@FXML
+	private Label overAllBankBalance;
+
+	@FXML
+	private Label overAllTotalBalance;
+
 	@FXML
 	private Label message;
 
@@ -77,34 +138,93 @@ public class AccountsController {
 		logger.debug("init method Starts...");
 		AccountsDao impl = new AccountsDaoImpl();
 		try {
-			float pcAccBalance = impl.getAccountBalance("PC Account");
-			pcAccountBalance.setText(String.valueOf(pcAccBalance));
-			float missionaryAccBalance = impl.getAccountBalance("Missionary Account");
-			missionaryAccountBalance.setText(String
+			// Cash Balance
+			float pcAccBalance = impl.getAccountBalance(AccountNames.PCAccount);
+			this.pcAccountBalance.setText(String.valueOf(pcAccBalance));
+			float missionaryAccBalance = impl
+					.getAccountBalance(AccountNames.MissionaryAccount);
+			this.missionaryAccountBalance.setText(String
 					.valueOf(missionaryAccBalance));
-			float mensAccBalance = impl.getAccountBalance("Mens Account");
-			mensAccountBalance.setText(String.valueOf(mensAccBalance));
-			float womensAccBalance = impl.getAccountBalance("Womens Account");
-			womensAccountBalance.setText(String.valueOf(womensAccBalance));
-			float sundaySchoolAccbalance = impl.getAccountBalance("Sunday School Account");
-			sundaySchoolAccountBalance.setText(String
+			float mensAccBalance = impl
+					.getAccountBalance(AccountNames.MensAccount);
+			this.mensAccountBalance.setText(String.valueOf(mensAccBalance));
+			float womensAccBalance = impl
+					.getAccountBalance(AccountNames.WomensAccount);
+			this.womensAccountBalance.setText(String.valueOf(womensAccBalance));
+			float sundaySchoolAccbalance = impl
+					.getAccountBalance(AccountNames.SundaySchoolAccount);
+			this.sundaySchoolAccountBalance.setText(String
 					.valueOf(sundaySchoolAccbalance));
-			float youthAccBalance = impl.getAccountBalance("Youth Account");
-			youthAccountBalance.setText(String.valueOf(youthAccBalance));
-			float stoAccBalance = impl.getAccountBalance("STO Account");
-			stoAccountBalance.setText(String.valueOf(stoAccBalance));
-			float graveyardAccBalance = impl.getAccountBalance("Graveyard Account");
-			graveyardAccountBalance
+			float youthAccBalance = impl
+					.getAccountBalance(AccountNames.YouthAccount);
+			this.youthAccountBalance.setText(String.valueOf(youthAccBalance));
+			float stoAccBalance = impl
+					.getAccountBalance(AccountNames.STOAccount);
+			this.stoAccountBalance.setText(String.valueOf(stoAccBalance));
+			float graveyardAccBalance = impl
+					.getAccountBalance(AccountNames.GraveyardAccount);
+			this.graveyardAccountBalance
 					.setText(String.valueOf(graveyardAccBalance));
 			float primarySchoolAccBalance = impl
-					.getAccountBalance("Primary School Account");
-			primarySchoolAccountBalance.setText(String
+					.getAccountBalance(AccountNames.PrimarySchoolAccount);
+			this.primarySchoolAccountBalance.setText(String
 					.valueOf(primarySchoolAccBalance));
 			float overAllBalance = pcAccBalance + missionaryAccBalance
 					+ mensAccBalance + womensAccBalance
 					+ sundaySchoolAccbalance + youthAccBalance + stoAccBalance
 					+ graveyardAccBalance + primarySchoolAccBalance;
-			this.overAllBalance.setText(String.valueOf(overAllBalance));
+			this.overAllCashBalance.setText(String.valueOf(overAllBalance));
+
+			//Bank Balance
+			float bankPcAccBalance = impl
+					.getAccountBalance(AccountNames.BankPCAccount);
+			this.bankPCAccountBalance.setText(String.valueOf(bankPcAccBalance));
+			float bankMissionaryAccBalance = impl
+					.getAccountBalance(AccountNames.BankMissionaryAccount);
+			this.bankMissionaryAccountBalance.setText(String
+					.valueOf(bankMissionaryAccBalance));
+			float bankMensAccBalance = impl
+					.getAccountBalance(AccountNames.BankMensAccount);
+			this.bankMensAccountBalance.setText(String.valueOf(bankMensAccBalance));
+			float bankWomensAccBalance = impl
+					.getAccountBalance(AccountNames.BankWomensAccount);
+			this.bankWomensAccountBalance.setText(String.valueOf(bankWomensAccBalance));
+			float bankSundaySchoolAccbalance = impl
+					.getAccountBalance(AccountNames.BankSundaySchoolAccount);
+			this.bankSundaySchoolAccountBalance.setText(String
+					.valueOf(bankSundaySchoolAccbalance));
+			float bankYouthAccBalance = impl
+					.getAccountBalance(AccountNames.BankYouthAccount);
+			this.bankYouthAccountBalance.setText(String.valueOf(bankYouthAccBalance));
+			float bankStoAccBalance = impl
+					.getAccountBalance(AccountNames.BankSTOAccount);
+			this.bankStoAccountBalance.setText(String.valueOf(bankStoAccBalance));
+			float bankGraveyardAccBalance = impl
+					.getAccountBalance(AccountNames.BankGraveyardAccount);
+			this.bankGraveyardAccountBalance.setText(String
+					.valueOf(bankGraveyardAccBalance));
+			float bankPrimarySchoolAccBalance = impl
+					.getAccountBalance(AccountNames.BankPrimarySchoolAccount);
+			this.bankPrimarySchoolAccountBalance.setText(String
+					.valueOf(bankPrimarySchoolAccBalance));
+			float overAllBankBalance = bankPcAccBalance
+					+ bankMissionaryAccBalance + bankMensAccBalance
+					+ bankWomensAccBalance + bankSundaySchoolAccbalance
+					+ bankYouthAccBalance + bankStoAccBalance
+					+ bankGraveyardAccBalance + bankPrimarySchoolAccBalance;
+			this.overAllBankBalance.setText(String.valueOf(overAllBankBalance));
+			
+			this.totalGraveyardAccountBalance.setText(String.valueOf(graveyardAccBalance + bankGraveyardAccBalance));
+			this.totalMensAccountBalance.setText(String.valueOf(mensAccBalance + bankMensAccBalance));
+			this.totalMissionaryAccountBalance.setText(String.valueOf(missionaryAccBalance + bankMissionaryAccBalance));
+			this.totalPCAccountBalance.setText(String.valueOf(pcAccBalance + bankPcAccBalance));
+			this.totalPrimarySchoolAccountBalance.setText(String.valueOf(primarySchoolAccBalance + bankPrimarySchoolAccBalance));
+			this.totalStoAccountBalance.setText(String.valueOf(stoAccBalance + bankStoAccBalance));
+			this.totalSundaySchoolAccountBalance.setText(String.valueOf(sundaySchoolAccbalance + bankSundaySchoolAccbalance));
+			this.totalWomenAccountBalance.setText(String.valueOf(womensAccBalance + bankWomensAccBalance));
+			this.totalYouthAccountBalance.setText(String.valueOf(youthAccBalance + bankYouthAccBalance));
+			this.overAllTotalBalance.setText(String.valueOf(overAllBalance + overAllBankBalance));
+
 		} catch (CcfException e) {
 			e.printStackTrace();
 		}
@@ -176,90 +296,128 @@ public class AccountsController {
 		 */
 		logger.debug("replaceSceneContent ends...");
 	}
-	
-	public void exportToExcel(){
+
+	public void exportToExcel() {
 		logger.debug("exportToExcel method Starts...");
-		try{
-		HSSFWorkbook workbook = new HSSFWorkbook();
-		HSSFSheet sheet = workbook.createSheet("Accounts Report");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		int rownum = 0;
-		sheet.createRow(rownum++);
-		sheet.createRow(rownum++);
-		
-		Row title = sheet.createRow(rownum++);
-		title.createCell(2).setCellValue("Accounts Report");
-		sheet.createRow(rownum++);
-		Row header = sheet.createRow(rownum++);
-		header.createCell(1).setCellValue("NO");
-		header.createCell(2).setCellValue("Account Name");
-		header.createCell(3).setCellValue("CCY");
-		header.createCell(4).setCellValue("Account Balance");
-		
-		
-		AccountsDao impl = new AccountsDaoImpl();
-		Map<String, Float> accountBalance = new HashMap<>();
-		accountBalance.put("PC Account", impl.getAccountBalance("PC Account"));
-		accountBalance.put("Missionary Account", impl.getAccountBalance("Missionary Account"));
-		accountBalance.put("Men's Account", impl.getAccountBalance("Mens Account"));
-		accountBalance.put("Women's Account", impl.getAccountBalance("Womens Account"));
-		accountBalance.put("Sunday School Account", impl.getAccountBalance("Sunday School Account"));
-		accountBalance.put("Youth Account", impl.getAccountBalance("Youth Account"));
-		accountBalance.put("Special Thanks Offering Account", impl.getAccountBalance("STO Account"));
-		accountBalance.put("Graveyard Account", impl.getAccountBalance("Graveyard Account"));
-		accountBalance.put("primary School Account", impl.getAccountBalance("Primary School Account"));
-		
-		Row row = null;
-		int rowCount = 1;
-		float totalBalance = 0;
-		Set<Entry<String, Float>> entrySet = accountBalance.entrySet();
-		Iterator<Entry<String, Float>> iterator = entrySet.iterator();
-		while(iterator.hasNext()){
-			Entry<String, Float> entry = iterator.next();
-			row = sheet.createRow(rownum++);
-			row.createCell(1).setCellValue(rowCount++);
-			row.createCell(2).setCellValue(entry.getKey());
-			row.createCell(3).setCellValue("INR");
-			row.createCell(4).setCellValue(entry.getValue());
+		try {
+			HSSFWorkbook workbook = new HSSFWorkbook();
+			HSSFSheet sheet = workbook.createSheet("Accounts Report");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			int rownum = 0;
+			sheet.createRow(rownum++);
+			sheet.createRow(rownum++);
+
+			Row title = sheet.createRow(rownum++);
+			title.createCell(2).setCellValue("Accounts Report");
+			sheet.createRow(rownum++);
+			Row header = sheet.createRow(rownum++);
+			header.createCell(1).setCellValue("NO");
+			header.createCell(2).setCellValue("Account Name");
+			header.createCell(3).setCellValue("CCY");
+			header.createCell(4).setCellValue("Cach Balance");
+			header.createCell(5).setCellValue("Bank Balance");
+			header.createCell(6).setCellValue("Total Balance");
+
+			AccountsDao impl = new AccountsDaoImpl();
+			Map<String, Float> accountBalance = new HashMap<>();
+			accountBalance.put("PC Account",
+					impl.getAccountBalance(AccountNames.PCAccount));
+			accountBalance.put("Missionary Account",
+					impl.getAccountBalance(AccountNames.MissionaryAccount));
+			accountBalance.put("Men's Account",
+					impl.getAccountBalance(AccountNames.MensAccount));
+			accountBalance.put("Women's Account",
+					impl.getAccountBalance(AccountNames.WomensAccount));
+			accountBalance.put("Sunday School Account",
+					impl.getAccountBalance(AccountNames.SundaySchoolAccount));
+			accountBalance.put("Youth Account",
+					impl.getAccountBalance(AccountNames.YouthAccount));
+			accountBalance.put("Special Thanks Offering Account",
+					impl.getAccountBalance(AccountNames.STOAccount));
+			accountBalance.put("Graveyard Account",
+					impl.getAccountBalance(AccountNames.GraveyardAccount));
+			accountBalance.put("Primary School Account",
+					impl.getAccountBalance(AccountNames.PrimarySchoolAccount));
 			
-			totalBalance = totalBalance + entry.getValue();
-		}
-		
-		sheet.createRow(rownum++);
-		Row allAccount = sheet.createRow(rownum++);
-		allAccount.createCell(1).setCellValue(rowCount);
-		allAccount.createCell(2).setCellValue("All Account");
-		allAccount.createCell(3).setCellValue("INR");
-		allAccount.createCell(4).setCellValue(totalBalance);
-		
-		Properties prop = new Properties();
-		InputStream input = null;
-		input = new FileInputStream("c://CCF//ccf.properties");
-		// load a properties file
-		prop.load(input);
-		File file = new File(prop.getProperty("export_path")
-				+ "Christ Church Fort - Account Details - " + sdf.format(new Date()) + ".xls");
+			Map<String, Float> bankAccountBalance = new HashMap<>();
+			bankAccountBalance.put("PC Account",
+					impl.getAccountBalance(AccountNames.BankPCAccount));
+			bankAccountBalance.put("Missionary Account",
+					impl.getAccountBalance(AccountNames.BankMissionaryAccount));
+			bankAccountBalance.put("Men's Account",
+					impl.getAccountBalance(AccountNames.BankMensAccount));
+			bankAccountBalance.put("Women's Account",
+					impl.getAccountBalance(AccountNames.BankWomensAccount));
+			bankAccountBalance.put("Sunday School Account",
+					impl.getAccountBalance(AccountNames.BankSundaySchoolAccount));
+			bankAccountBalance.put("Youth Account",
+					impl.getAccountBalance(AccountNames.BankYouthAccount));
+			bankAccountBalance.put("Special Thanks Offering Account",
+					impl.getAccountBalance(AccountNames.BankSTOAccount));
+			bankAccountBalance.put("Graveyard Account",
+					impl.getAccountBalance(AccountNames.BankGraveyardAccount));
+			bankAccountBalance.put("Primary School Account",
+					impl.getAccountBalance(AccountNames.BankPrimarySchoolAccount));
 
-		FileOutputStream out = new FileOutputStream(file);
-		workbook.write(out);
-		out.close();
+			Row row = null;
+			int rowCount = 1;
+			float totalCashBalance = 0;
+			float totalBankBalance = 0;
+			Set<Entry<String, Float>> entrySet = accountBalance.entrySet();
+			Iterator<Entry<String, Float>> iterator = entrySet.iterator();
+			while (iterator.hasNext()) {
+				Entry<String, Float> entry = iterator.next();
+				float bankBalance = bankAccountBalance.get(entry.getKey());
+				row = sheet.createRow(rownum++);
+				row.createCell(1).setCellValue(rowCount++);
+				row.createCell(2).setCellValue(entry.getKey());
+				row.createCell(3).setCellValue("INR");
+				row.createCell(4).setCellValue(entry.getValue());
+				row.createCell(5).setCellValue(bankBalance);
+				row.createCell(6).setCellValue(entry.getValue() + bankBalance);
 
-		message.setTextFill(Paint.valueOf("Green"));
-		message.setText("Saved at " + prop.getProperty("export_path"));
-		
-		} catch(CcfException e){
+				totalCashBalance = totalCashBalance + entry.getValue();
+				totalBankBalance = totalBankBalance + bankBalance;
+			}
+
+			sheet.createRow(rownum++);
+			Row allAccount = sheet.createRow(rownum++);
+			allAccount.createCell(1).setCellValue(rowCount);
+			allAccount.createCell(2).setCellValue("All Account");
+			allAccount.createCell(3).setCellValue("INR");
+			allAccount.createCell(4).setCellValue(totalCashBalance);
+			allAccount.createCell(5).setCellValue(totalBankBalance);
+			allAccount.createCell(6).setCellValue(totalCashBalance + totalBankBalance);
+
+			Properties prop = new Properties();
+			InputStream input = null;
+			input = new FileInputStream("c://CCF//ccf.properties");
+			// load a properties file
+			prop.load(input);
+			File file = new File(prop.getProperty("export_path")
+					+ "Christ Church Fort - Account Details - "
+					+ sdf.format(new Date()) + ".xls");
+
+			FileOutputStream out = new FileOutputStream(file);
+			workbook.write(out);
+			out.close();
+
+			message.setTextFill(Paint.valueOf("Green"));
+			message.setText("Saved at " + prop.getProperty("export_path"));
+
+		} catch (CcfException e) {
 			message.setTextFill(Paint.valueOf("RED"));
 			message.setText("Error in DB execution");
 		} catch (FileNotFoundException e) {
 			message.setTextFill(Paint.valueOf("RED"));
-			message.setText("Looking for File at \"c://CCF//ccf.properties\" not found" );
+			message.setText("Looking for File at \"c://CCF//ccf.properties\" not found");
 			e.printStackTrace();
 		} catch (IOException e) {
 			message.setTextFill(Paint.valueOf("RED"));
 			message.setText("Error loading property File");
 			e.printStackTrace();
 		}
-		
+
 		logger.debug("exportToExcel method Ends...");
 	}
 }

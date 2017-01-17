@@ -13,6 +13,7 @@ import com.ccf.persistence.classes.BankMissionaryAccount;
 import com.ccf.persistence.classes.BankPCAccount;
 import com.ccf.persistence.classes.BankSpecialThanksOfferingAccount;
 import com.ccf.persistence.classes.BankSundaySchoolAccount;
+import com.ccf.persistence.classes.Cheque;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
 import com.ccf.persistence.classes.ServiceOffering;
@@ -71,19 +72,19 @@ public class ServiceOfferingController {
 
 	@FXML
 	private TextField otherReason;
-	
+
 	@FXML
 	private RadioButton cash;
-	
+
 	@FXML
 	private RadioButton cheque;
-	
+
 	@FXML
 	private HBox chequeDetails;
-	
+
 	@FXML
 	private DatePicker chequeDate;
-	
+
 	@FXML
 	private TextField chequeNumber;
 
@@ -132,24 +133,33 @@ public class ServiceOfferingController {
 			if (date.getSelectedDate() == null)
 				throw new CcfException("Please select the date.");
 			if (serviceOffering.getText().matches(".*[a-zA-Z]+.*"))
-				throw new CcfException("Service Offering can contain only numbers.");
+				throw new CcfException(
+						"Service Offering can contain only numbers.");
 			if (thanksOffering.getText().matches(".*[a-zA-Z]+.*"))
-				throw new CcfException("Thanks Offering can contain only numbers.");
+				throw new CcfException(
+						"Thanks Offering can contain only numbers.");
 			if (sto.getText().matches(".*[a-zA-Z]+.*"))
-				throw new CcfException("Special Thanks Offering can contain only numbers.");
+				throw new CcfException(
+						"Special Thanks Offering can contain only numbers.");
 			if (missionary.getText().matches(".*[a-zA-Z]+.*"))
-				throw new CcfException("Missionary Offering can contain only numbers.");
+				throw new CcfException(
+						"Missionary Offering can contain only numbers.");
 			if (auctionAmt.getText().matches(".*[a-zA-Z]+.*"))
-				throw new CcfException("Auction Offering can contain only numbers.");
+				throw new CcfException(
+						"Auction Offering can contain only numbers.");
 			if (confirmation.getText().matches(".*[a-zA-Z]+.*"))
-				throw new CcfException("Confirmation Offering can contain only numbers.");
+				throw new CcfException(
+						"Confirmation Offering can contain only numbers.");
 			if (sundaySchool.getText().matches(".*[a-zA-Z]+.*"))
-				throw new CcfException("Sunday School Offering can contain only numbers.");
+				throw new CcfException(
+						"Sunday School Offering can contain only numbers.");
 			if (marriage.getText().matches(".*[a-zA-Z]+.*"))
-				throw new CcfException("Marriage Offering can contain only numbers.");
+				throw new CcfException(
+						"Marriage Offering can contain only numbers.");
 			if (otherAmt.getText().matches(".*[a-zA-Z]+.*"))
-				throw new CcfException("Other Offering can contain only numbers.");
-			
+				throw new CcfException(
+						"Other Offering can contain only numbers.");
+
 			ServiceOfferingDao serviceImpl = new ServiceOfferingDaoImpl();
 			boolean isAlreadyExists = serviceImpl.isAlreadyExists(
 					date.getSelectedDate(), time.getValue());
@@ -179,7 +189,7 @@ public class ServiceOfferingController {
 				sundaySchool.setText("0");
 			if (thanksOffering.getText().equals(""))
 				thanksOffering.setText("0");
-			
+
 			ServiceOffering so = new ServiceOffering();
 			so.setAuction(Float.parseFloat(auctionAmt.getText()));
 			so.setConfirmation(Float.parseFloat(confirmation.getText()));
@@ -197,15 +207,21 @@ public class ServiceOfferingController {
 			IMissionaryAccount missionaryAccount = null;
 			if (missionary.getText() != null
 					&& !missionary.getText().equals("0")) {
-				if(cash.isSelected()){
+				if (cash.isSelected()) {
 					missionaryAccount = new MissionaryAccount();
 					so.getMissionaryAccounts().add(missionaryAccount);
-				}
-				else if(cheque.isSelected()){
+				} else if (cheque.isSelected()) {
 					missionaryAccount = new BankMissionaryAccount();
 					so.getBankMissionaryAccounts().add(missionaryAccount);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(chequeDate.getSelectedDate());
+					BankMissionaryAccount bankMissionaryAcc = (BankMissionaryAccount) missionaryAccount;
+					bankMissionaryAcc.getCheques().add(cheque);
+					cheque.setBankMissionaryAccount(bankMissionaryAcc);
+
 				}
-					
+
 				missionaryAccount.setAmount(Float.parseFloat(missionary
 						.getText()));
 				missionaryAccount.setCr_dr("CR");
@@ -217,109 +233,140 @@ public class ServiceOfferingController {
 			IPCAccount pcAccount = null;
 			if (serviceOffering.getText() != null
 					&& !serviceOffering.getText().equals("0")) {
-				if(cash.isSelected()){
+				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
-				}
-				else if(cheque.isSelected()){
+				} else if (cheque.isSelected()) {
 					pcAccount = new BankPCAccount();
 					so.getBankPCAccounts().add(pcAccount);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(chequeDate.getSelectedDate());
+					BankPCAccount bankPCAcc = (BankPCAccount) pcAccount;
+					bankPCAcc.getCheques().add(cheque);
+					cheque.setBankPCAccount(bankPCAcc);
 				}
-				
-				pcAccount.setAmount(Float.parseFloat(serviceOffering.getText()));
+
+				pcAccount
+						.setAmount(Float.parseFloat(serviceOffering.getText()));
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Service Offering");
 				pcAccount.setServiceOffering(so);
 				pcAccount.setDate(date.getSelectedDate());
-				//so.getPcAccounts().add(pcAccount);
+				// so.getPcAccounts().add(pcAccount);
 			}
 
 			if (auctionAmt.getText() != null
 					&& !auctionAmt.getText().equals("0")) {
-				if(cash.isSelected()){
+				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
-				}
-				else if(cheque.isSelected()){
+				} else if (cheque.isSelected()) {
 					pcAccount = new BankPCAccount();
 					so.getBankPCAccounts().add(pcAccount);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(chequeDate.getSelectedDate());
+					BankPCAccount bankPCAcc = (BankPCAccount) pcAccount;
+					bankPCAcc.getCheques().add(cheque);
+					cheque.setBankPCAccount(bankPCAcc);
 				}
-				
+
 				pcAccount.setAmount(Float.parseFloat(auctionAmt.getText()));
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Auction Offering");
 				pcAccount.setServiceOffering(so);
 				pcAccount.setDate(date.getSelectedDate());
-				//so.getPcAccounts().add(pcAccount);
+				// so.getPcAccounts().add(pcAccount);
 			}
 
 			if (marriage.getText() != null && !marriage.getText().equals("0")) {
-				if(cash.isSelected()){
+				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
-				}
-				else if(cheque.isSelected()){
+				} else if (cheque.isSelected()) {
 					pcAccount = new BankPCAccount();
 					so.getBankPCAccounts().add(pcAccount);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(chequeDate.getSelectedDate());
+					BankPCAccount bankPCAcc = (BankPCAccount) pcAccount;
+					bankPCAcc.getCheques().add(cheque);
+					cheque.setBankPCAccount(bankPCAcc);
 				}
-				
+
 				pcAccount.setAmount(Float.parseFloat(marriage.getText()));
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Marriage Offering");
 				pcAccount.setDate(date.getSelectedDate());
 				pcAccount.setServiceOffering(so);
-				//so.getPcAccounts().add(pcAccount);
+				// so.getPcAccounts().add(pcAccount);
 			}
 
 			if (confirmation.getText() != null
 					&& !confirmation.getText().equals("0")) {
-				if(cash.isSelected()){
+				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
-				}
-				else if(cheque.isSelected()){
+				} else if (cheque.isSelected()) {
 					pcAccount = new BankPCAccount();
 					so.getBankPCAccounts().add(pcAccount);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(chequeDate.getSelectedDate());
+					BankPCAccount bankPCAcc = (BankPCAccount) pcAccount;
+					bankPCAcc.getCheques().add(cheque);
+					cheque.setBankPCAccount(bankPCAcc);
 				}
-				
+
 				pcAccount.setAmount(Float.parseFloat(confirmation.getText()));
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Confirmation Offering");
 				pcAccount.setDate(date.getSelectedDate());
 				pcAccount.setServiceOffering(so);
-				//so.getPcAccounts().add(pcAccount);
+				// so.getPcAccounts().add(pcAccount);
 			}
 
 			ISpecialThanksOfferingAccount sto = null;
 			if (thanksOffering.getText() != null
 					&& !thanksOffering.getText().equals("0")) {
-				if(cash.isSelected()){
+				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
-				}
-				else if(cheque.isSelected()){
+				} else if (cheque.isSelected()) {
 					sto = new BankSpecialThanksOfferingAccount();
 					so.getBankSpecialThanksOfferingAccounts().add(sto);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(chequeDate.getSelectedDate());
+					BankSpecialThanksOfferingAccount bankSTOAcc = (BankSpecialThanksOfferingAccount) sto;
+					bankSTOAcc.getCheques().add(cheque);
+					cheque.setBankSTOAccount(bankSTOAcc);
 				}
-				
+
 				sto.setAmount(Float.parseFloat(thanksOffering.getText()));
 				sto.setCr_dr("CR");
 				sto.setDescription("Thanks Offering");
 				sto.setDate(date.getSelectedDate());
 				sto.setServiceOffering(so);
-				
+
 			}
 
 			if (this.sto.getText() != null && !this.sto.getText().equals("0")) {
-				if(cash.isSelected()){
+				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
-				}
-				else if(cheque.isSelected()) {
+				} else if (cheque.isSelected()) {
 					sto = new BankSpecialThanksOfferingAccount();
 					so.getBankSpecialThanksOfferingAccounts().add(sto);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(chequeDate.getSelectedDate());
+					BankSpecialThanksOfferingAccount bankSTOAcc = (BankSpecialThanksOfferingAccount) sto;
+					bankSTOAcc.getCheques().add(cheque);
+					cheque.setBankSTOAccount(bankSTOAcc);
 				}
-				
+
 				sto.setAmount(Float.parseFloat(this.sto.getText()));
 				sto.setCr_dr("CR");
 				sto.setDescription("Special Thanks Offering");
@@ -328,15 +375,20 @@ public class ServiceOfferingController {
 			}
 
 			if (otherAmt.getText() != null && !otherAmt.getText().equals("0")) {
-				if(cash.isSelected()){
+				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
-				}
-				else if(cheque.isSelected()) {
+				} else if (cheque.isSelected()) {
 					sto = new BankSpecialThanksOfferingAccount();
 					so.getBankSpecialThanksOfferingAccounts().add(sto);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(chequeDate.getSelectedDate());
+					BankSpecialThanksOfferingAccount bankSTOAcc = (BankSpecialThanksOfferingAccount) sto;
+					bankSTOAcc.getCheques().add(cheque);
+					cheque.setBankSTOAccount(bankSTOAcc);
 				}
-				
+
 				sto.setAmount(Float.parseFloat(otherAmt.getText()));
 				sto.setCr_dr("CR");
 				sto.setDescription("Other Offering - " + otherReason.getText());
@@ -347,15 +399,20 @@ public class ServiceOfferingController {
 			if (sundaySchool.getText() != null
 					&& !sundaySchool.getText().equals("0")) {
 				ISundaySchoolAccount ssa = null;
-				if(cash.isSelected()){
+				if (cash.isSelected()) {
 					ssa = new SundaySchoolAccount();
 					so.getSundaySchoolAccounts().add(ssa);
-				}
-				else if(cheque.isSelected()){
+				} else if (cheque.isSelected()) {
 					ssa = new BankSundaySchoolAccount();
-					so.getBankSundaySchoolAccounts().add(ssa); 
+					so.getBankSundaySchoolAccounts().add(ssa);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(chequeDate.getSelectedDate());
+					BankSundaySchoolAccount bankSsaAcc = (BankSundaySchoolAccount) ssa;
+					bankSsaAcc.getCheques().add(cheque);
+					cheque.setBankSundaySchoolAccount(bankSsaAcc);
 				}
-				
+
 				ssa.setAmount(Float.parseFloat(sundaySchool.getText()));
 				ssa.setCr_dr("CR");
 				ssa.setDescription("Sunday School Offering");
@@ -384,18 +441,18 @@ public class ServiceOfferingController {
 		logger.info("Save method Ends...");
 	}
 
-	public void onCashButtonPressed(){
+	public void onCashButtonPressed() {
 		this.cash.setSelected(true);
 		this.cheque.setSelected(false);
 		this.chequeDetails.setVisible(false);
 	}
-	
-	public void onChequeButtonPressed(){
+
+	public void onChequeButtonPressed() {
 		this.cash.setSelected(false);
 		this.cheque.setSelected(true);
 		this.chequeDetails.setVisible(true);
 	}
-	
+
 	public void clear() {
 		logger.info("clear method Starts...");
 		date.setSelectedDate(null);

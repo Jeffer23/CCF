@@ -1,11 +1,14 @@
 package com.ccf.persistence.classes;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
 import com.ccf.vo.Account;
 
-public class BankSpecialThanksOfferingAccount implements Account,ISpecialThanksOfferingAccount {
+public class BankSpecialThanksOfferingAccount implements Account,
+		ISpecialThanksOfferingAccount {
 
 	private int id;
 	private float amount;
@@ -14,6 +17,17 @@ public class BankSpecialThanksOfferingAccount implements Account,ISpecialThanksO
 	private ServiceOffering serviceOffering;
 	private Santha santha;
 	private Date date;
+	private Set<Cheque> cheques = new HashSet<>();
+	
+	
+
+	public Set<Cheque> getCheques() {
+		return cheques;
+	}
+
+	public void setCheques(Set<Cheque> cheques) {
+		this.cheques = cheques;
+	}
 
 	public Date getDate() {
 		return date;
@@ -38,7 +52,6 @@ public class BankSpecialThanksOfferingAccount implements Account,ISpecialThanksO
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
-
 
 	public String getDescription() {
 		return description;

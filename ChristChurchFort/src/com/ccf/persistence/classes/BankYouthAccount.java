@@ -1,10 +1,13 @@
 package com.ccf.persistence.classes;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import com.ccf.persistence.interfaces.IYouthAccount;
 import com.ccf.vo.Account;
 
-public class BankYouthAccount implements Account {
+public class BankYouthAccount implements Account,IYouthAccount {
 
 	private int id;
 	private float amount;
@@ -12,6 +15,7 @@ public class BankYouthAccount implements Account {
 	private String cr_dr;
 	private Santha santha;
 	private Date date;
+	
 
 	public Date getDate() {
 		return date;

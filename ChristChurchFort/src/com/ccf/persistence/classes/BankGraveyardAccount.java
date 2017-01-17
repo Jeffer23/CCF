@@ -1,10 +1,13 @@
 package com.ccf.persistence.classes;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import com.ccf.persistence.interfaces.IGraveyardAccount;
 import com.ccf.vo.Account;
 
-public class BankGraveyardAccount implements Account {
+public class BankGraveyardAccount implements Account,IGraveyardAccount {
 
 	private int id;
 	private float amount;
@@ -52,4 +55,5 @@ public class BankGraveyardAccount implements Account {
 	public void setSantha(Santha santha) {
 		this.santha = santha;
 	}
+	
 }

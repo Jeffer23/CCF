@@ -18,7 +18,7 @@ import com.ccf.vo.Account;
 public interface AccountsDao {
 
 	public float getAccountBalance(String accountName) throws CcfException;
-	public void addIncomeorExpense(Account account) throws CcfException;
+	public void addIncomeorExpense(Account account, String accountName, float amount) throws CcfException;
 	public List<PCAccount> getPCAccountsAfter(int id) throws CcfException;
 	public List<MissionaryAccount> getMissionaryAccountsAfter(int id) throws CcfException;
 	public List<MensAccount> getMensAccountsAfter(int id) throws CcfException;
@@ -44,6 +44,7 @@ public interface AccountsDao {
 	public List<SpecialThanksOfferingAccount> getSTOStatement(Date from, Date to ) throws CcfException;
 	public List<GraveyardAccount> getGraveyardStatement(Date from, Date to ) throws CcfException;
 	public List<PrimarySchoolAccount> getPrimarySchoolStatement(Date from, Date to ) throws CcfException;
+	
 	
 	
 }

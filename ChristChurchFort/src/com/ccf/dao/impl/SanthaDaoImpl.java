@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -18,10 +19,20 @@ import org.hibernate.criterion.Restrictions;
 
 import com.ccf.dao.SanthaDao;
 import com.ccf.exception.CcfException;
+import com.ccf.persistence.classes.AccountsBalance;
 import com.ccf.persistence.classes.Family;
 import com.ccf.persistence.classes.Member;
 import com.ccf.persistence.classes.PCAccount;
 import com.ccf.persistence.classes.Santha;
+import com.ccf.persistence.interfaces.IGraveyardAccount;
+import com.ccf.persistence.interfaces.IMensAccount;
+import com.ccf.persistence.interfaces.IMissionaryAccount;
+import com.ccf.persistence.interfaces.IPCAccount;
+import com.ccf.persistence.interfaces.IPrimarySchoolAccount;
+import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
+import com.ccf.persistence.interfaces.IWomensAccount;
+import com.ccf.persistence.interfaces.IYouthAccount;
+import com.ccf.util.AccountNames;
 import com.ccf.util.HibernateSessionFactory;
 
 public class SanthaDaoImpl implements SanthaDao {
@@ -36,6 +47,212 @@ public class SanthaDaoImpl implements SanthaDao {
 			Session session = sessionFactory.openSession();
 			Transaction transaction = session.beginTransaction();
 			int key = (int) session.save(santha);
+
+			AccountsBalance accBalance = null;
+			// PC Account
+			if (santha.getPcAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.PCAccount);
+				Set<IPCAccount> pcAccounts = santha.getPcAccounts();
+				for (IPCAccount account : pcAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Bank PC Account
+			if (santha.getBankPCAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.BankPCAccount);
+				Set<IPCAccount> pcAccounts = santha.getBankPCAccounts();
+				for (IPCAccount account : pcAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Missionary Account
+			if (santha.getMissionaryAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.MissionaryAccount);
+				Set<IMissionaryAccount> missionaryAccounts = santha
+						.getMissionaryAccounts();
+				for (IMissionaryAccount account : missionaryAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Bank Missionary Account
+			if (santha.getBankMissionaryAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class,
+						AccountNames.BankMissionaryAccount);
+				Set<IMissionaryAccount> missionaryAccounts = santha
+						.getBankMissionaryAccounts();
+				for (IMissionaryAccount account : missionaryAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Men's Account
+			if (santha.getMensAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.MensAccount);
+				Set<IMensAccount> mensAccounts = santha.getMensAccounts();
+				for (IMensAccount account : mensAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Bank Mens's Account
+			if (santha.getBankMensAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.BankMensAccount);
+				Set<IMensAccount> mensAccounts = santha.getBankMensAccounts();
+				for (IMensAccount account : mensAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Womens's Account
+			if (santha.getWomensAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.WomensAccount);
+				Set<IWomensAccount> womensAccounts = santha.getWomensAccounts();
+				for (IWomensAccount account : womensAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Bank womens's Account
+			if (santha.getBankWomensAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.BankWomensAccount);
+				Set<IWomensAccount> womensAccounts = santha
+						.getBankWomensAccounts();
+				for (IWomensAccount account : womensAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Youth Account
+			if (santha.getYouthAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.YouthAccount);
+				Set<IYouthAccount> youthAccounts = santha.getYouthAccounts();
+				for (IYouthAccount account : youthAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+			// Bank Youth Account
+			if (santha.getBankYouthAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.BankYouthAccount);
+				Set<IYouthAccount> youthAccounts = santha
+						.getBankYouthAccounts();
+				for (IYouthAccount account : youthAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Graveyard Account
+			if (santha.getGraveyardAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.GraveyardAccount);
+				Set<IGraveyardAccount> graveyardAccounts = santha
+						.getGraveyardAccounts();
+				for (IGraveyardAccount account : graveyardAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Bank Graveyard Account
+			if (santha.getBankGraveyardAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class,
+						AccountNames.BankGraveyardAccount);
+				Set<IGraveyardAccount> graveyardAccounts = santha
+						.getBankGraveyardAccounts();
+				for (IGraveyardAccount account : graveyardAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Primary School Account
+			if (santha.getPrimarySchoolAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class,
+						AccountNames.PrimarySchoolAccount);
+				Set<IPrimarySchoolAccount> primarySchoolAccounts = santha
+						.getPrimarySchoolAccounts();
+				for (IPrimarySchoolAccount account : primarySchoolAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Bank Primary School Account
+			if (santha.getBankPrimarySchoolAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class,
+						AccountNames.BankPrimarySchoolAccount);
+				Set<IPrimarySchoolAccount> primarySchoolAccounts = santha
+						.getBankPrimarySchoolAccounts();
+				for (IPrimarySchoolAccount account : primarySchoolAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Special Thanks Offering Account
+			if (santha.getSpecialThanksOfferingAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.STOAccount);
+				Set<ISpecialThanksOfferingAccount> stoAccounts = santha
+						.getSpecialThanksOfferingAccounts();
+				for (ISpecialThanksOfferingAccount account : stoAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
+
+			// Bank Special Thanks Offering Account
+			if (santha.getBankSpecialThanksOfferingAccounts().size() > 0) {
+				accBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.BankSTOAccount);
+				Set<ISpecialThanksOfferingAccount> stoAccounts = santha
+						.getBankSpecialThanksOfferingAccounts();
+				for (ISpecialThanksOfferingAccount account : stoAccounts) {
+					accBalance.setBalance(accBalance.getBalance()
+							+ account.getAmount());
+				}
+				session.update(accBalance);
+			}
 			transaction.commit();
 			session.close();
 			return key;
@@ -45,8 +262,8 @@ public class SanthaDaoImpl implements SanthaDao {
 	}
 
 	@Override
-	public List<Santha> getPaidMembers(int familyNo, Date fromDate,
-			Date toDate) throws CcfException {
+	public List<Santha> getPaidMembers(int familyNo, Date fromDate, Date toDate)
+			throws CcfException {
 		try {
 			logger.info("Family No : " + familyNo);
 			logger.info("From Date : " + fromDate);
@@ -136,6 +353,78 @@ public class SanthaDaoImpl implements SanthaDao {
 			Session session = sessionFactory.openSession();
 			Transaction transaction = session.beginTransaction();
 			session.delete(santha);
+			float pcAmount = santha.getHarvestFestival()
+					+ santha.getEducationHelp() + santha.getPoorHelp()
+					+ santha.getBagOffer() + santha.getSubscriptionAmount();
+			float stoAmount = santha.getThanksOffer() + santha.getSto()
+					+ santha.getChurchRenovation();
+
+			AccountsBalance accountsBalance = null;
+			if (pcAmount > 0.0f) {
+				accountsBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.PCAccount);
+				accountsBalance.setBalance(accountsBalance.getBalance()
+						- pcAmount);
+				session.update(accountsBalance);
+			}
+
+			if (stoAmount > 0.0f) {
+				accountsBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.STOAccount);
+				accountsBalance.setBalance(accountsBalance.getBalance()
+						- stoAmount);
+				session.update(accountsBalance);
+			}
+
+			if (santha.getMissionary() > 0.0f) {
+				accountsBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.MissionaryAccount);
+				accountsBalance.setBalance(accountsBalance.getBalance()
+						- santha.getMissionary());
+				session.update(accountsBalance);
+			}
+
+			if (santha.getMensFellowship() > 0.0f) {
+				accountsBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.MensAccount);
+				accountsBalance.setBalance(accountsBalance.getBalance()
+						- santha.getMensFellowship());
+				session.update(accountsBalance);
+			}
+
+			if (santha.getWomensFellowship() > 0.0f) {
+				accountsBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.WomensAccount);
+				accountsBalance.setBalance(accountsBalance.getBalance()
+						- santha.getWomensFellowship());
+				session.update(accountsBalance);
+			}
+
+			if (santha.getPrimarySchool() > 0.0f) {
+				accountsBalance = (AccountsBalance) session.get(
+						AccountsBalance.class,
+						AccountNames.PrimarySchoolAccount);
+				accountsBalance.setBalance(accountsBalance.getBalance()
+						- santha.getPrimarySchool());
+				session.update(accountsBalance);
+			}
+
+			if (santha.getYouth() > 0.0f) {
+				accountsBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.YouthAccount);
+				accountsBalance.setBalance(accountsBalance.getBalance()
+						- santha.getYouth());
+				session.update(accountsBalance);
+			}
+
+			if (santha.getGraveyard() > 0.0f) {
+				accountsBalance = (AccountsBalance) session.get(
+						AccountsBalance.class, AccountNames.GraveyardAccount);
+				accountsBalance.setBalance(accountsBalance.getBalance()
+						- santha.getGraveyard());
+				session.update(accountsBalance);
+			}
+
 			transaction.commit();
 			session.close();
 		} catch (Exception e) {
@@ -192,8 +481,8 @@ public class SanthaDaoImpl implements SanthaDao {
 
 			cr.add(Restrictions.ge("paidForDate", fromDate));
 			cr.add(Restrictions.le("paidForDate", toDate));
-			//cr.createAlias("member", "member");
-			//cr.createAlias("member.family", "family");
+			// cr.createAlias("member", "member");
+			// cr.createAlias("member.family", "family");
 			santhas = cr.list();
 			transaction.commit();
 			session.close();
@@ -239,16 +528,18 @@ public class SanthaDaoImpl implements SanthaDao {
 		member.setId(1);
 		Date startDate = new Date();
 		try {
-			List<Santha> santhas= dao.getPaidMembers(145,fromDate.getTime(), toDate.getTime());
+			List<Santha> santhas = dao.getPaidMembers(145, fromDate.getTime(),
+					toDate.getTime());
 			System.out.println(santhas.size());
-			for(Santha santha : santhas){
-				System.out.println("Total : " + santha.getMember().getFamily().getNo());
+			for (Santha santha : santhas) {
+				System.out.println("Total : "
+						+ santha.getMember().getFamily().getNo());
 			}
 		} catch (CcfException e) {
 			e.printStackTrace();
 		}
 		Date endDate = new Date();
 		System.out.println(endDate.getTime() - startDate.getTime());
-		
+
 	}
 }

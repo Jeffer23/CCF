@@ -18,6 +18,15 @@ import com.ccf.dao.impl.FamilyDaoImpl;
 import com.ccf.dao.impl.MemberDaoImpl;
 import com.ccf.dao.impl.SanthaDaoImpl;
 import com.ccf.exception.CcfException;
+import com.ccf.persistence.classes.BankGraveyardAccount;
+import com.ccf.persistence.classes.BankMensAccount;
+import com.ccf.persistence.classes.BankMissionaryAccount;
+import com.ccf.persistence.classes.BankPCAccount;
+import com.ccf.persistence.classes.BankPrimarySchoolAccount;
+import com.ccf.persistence.classes.BankSpecialThanksOfferingAccount;
+import com.ccf.persistence.classes.BankWomensAccount;
+import com.ccf.persistence.classes.BankYouthAccount;
+import com.ccf.persistence.classes.Cheque;
 import com.ccf.persistence.classes.GraveyardAccount;
 import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
@@ -27,6 +36,14 @@ import com.ccf.persistence.classes.Santha;
 import com.ccf.persistence.classes.SpecialThanksOfferingAccount;
 import com.ccf.persistence.classes.WomensAccount;
 import com.ccf.persistence.classes.YouthAccount;
+import com.ccf.persistence.interfaces.IGraveyardAccount;
+import com.ccf.persistence.interfaces.IMensAccount;
+import com.ccf.persistence.interfaces.IMissionaryAccount;
+import com.ccf.persistence.interfaces.IPCAccount;
+import com.ccf.persistence.interfaces.IPrimarySchoolAccount;
+import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
+import com.ccf.persistence.interfaces.IWomensAccount;
+import com.ccf.persistence.interfaces.IYouthAccount;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import javafx.application.Application;
@@ -148,6 +165,12 @@ public class SanthaController extends Application {
 
 	@FXML
 	private Label paidDateError;
+	
+	@FXML
+	private DatePicker chequeDate;
+
+	@FXML
+	private TextField chequeNumber;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -266,7 +289,7 @@ public class SanthaController extends Application {
 							getPreviouslyPaidAmount();
 							MemberDao dao = new MemberDaoImpl();
 							try {
-								if(familyMembers.getValue() !=null) // Temporary fix
+								if(familyMembers.getValue() !=null && subscriptionAmt.getText().equals("") ) // Temporary fix
 								subscriptionAmt.setText(String.valueOf(dao.getSubscriptionAmount(Integer.parseInt(familyNos.getEditor().getText()), familyMembers.getValue())));
 							} catch (NumberFormatException e) {
 								error.setText("Only numbers are allowed");
@@ -699,7 +722,7 @@ public class SanthaController extends Application {
 			float youth = Float.parseFloat(this.youth.getText());
 
 			// get subscription amount of this person
-			float subscriptionAmount = Float.parseFloat(subscriptionAmt.getText());
+			float subscriptionAmount = Float.parseFloat(this.subscriptionAmt.getText());
 					
 				/*
 				 * Delete getSubscriptionAmount method from memberDao interface.
@@ -739,7 +762,7 @@ public class SanthaController extends Application {
 			santha.setTotal(memberTotal);
 
 			AccountsDao impl = new AccountsDaoImpl();
-			PCAccount pcAccount = null;
+			IPCAccount pcAccount = null;
 			
 			/*
 			 * Adding Subscription amount to PC Account
@@ -753,141 +776,251 @@ public class SanthaController extends Application {
 			santha.getPcAccounts().add(pcAccount);
 			
 			if (harvestFestival != 0.0f) {
-				pcAccount = new PCAccount();
+				if(this.cash.isSelected()){
+					pcAccount = new PCAccount();
+					santha.getPcAccounts().add(pcAccount);
+				} else if(this.cheque.isSelected()){
+					pcAccount = new BankPCAccount();
+					santha.getBankPCAccounts().add(pcAccount);
+					addChequetoBankPCAcc(pcAccount);
+				}
 				pcAccount.setAmount(harvestFestival);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Santha - Harvest Festival");
 				pcAccount.setSantha(santha);
 				pcAccount.setDate(paidDate.getSelectedDate());
-				santha.getPcAccounts().add(pcAccount);
+				
 			}
 
 			if (educationHelp != 0.0f) {
-				pcAccount = new PCAccount();
+				if(this.cash.isSelected()){
+					pcAccount = new PCAccount();
+					santha.getPcAccounts().add(pcAccount);
+				} else if(this.cheque.isSelected()){
+					pcAccount = new BankPCAccount();
+					santha.getBankPCAccounts().add(pcAccount);
+					addChequetoBankPCAcc(pcAccount);
+				}
 				pcAccount.setAmount(educationHelp);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Santha - Education Help");
 				pcAccount.setSantha(santha);
 				pcAccount.setDate(paidDate.getSelectedDate());
-				santha.getPcAccounts().add(pcAccount);
 			}
 
 			if (poorHelp != 0.0f) {
-				pcAccount = new PCAccount();
+				if(this.cash.isSelected()){
+					pcAccount = new PCAccount();
+					santha.getPcAccounts().add(pcAccount);
+				} else if(this.cheque.isSelected()){
+					pcAccount = new BankPCAccount();
+					santha.getBankPCAccounts().add(pcAccount);
+					addChequetoBankPCAcc(pcAccount);
+				}
 				pcAccount.setAmount(poorHelp);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Santha - Poor Help");
 				pcAccount.setSantha(santha);
 				pcAccount.setDate(paidDate.getSelectedDate());
-				santha.getPcAccounts().add(pcAccount);
 			}
 
 			if (bagOffer != 0.0f) {
-				pcAccount = new PCAccount();
+				if(this.cash.isSelected()){
+					pcAccount = new PCAccount();
+					santha.getPcAccounts().add(pcAccount);
+				} else if(this.cheque.isSelected()){
+					pcAccount = new BankPCAccount();
+					santha.getBankPCAccounts().add(pcAccount);
+					addChequetoBankPCAcc(pcAccount);
+				}
 				pcAccount.setAmount(bagOffer);
 				pcAccount.setCr_dr("CR");
 				pcAccount.setDescription("Santha - Bag Offer");
 				pcAccount.setSantha(santha);
 				pcAccount.setDate(paidDate.getSelectedDate());
-				santha.getPcAccounts().add(pcAccount);
 			}
 
-			SpecialThanksOfferingAccount stoAccount = null;
+			ISpecialThanksOfferingAccount stoAccount = null;
 			if (thanksOffer != 0.0f) {
-				stoAccount = new SpecialThanksOfferingAccount();
+				if(this.cash.isSelected()){
+					stoAccount = new SpecialThanksOfferingAccount();
+					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
+				} else if(this.cheque.isSelected()){
+					stoAccount = new BankSpecialThanksOfferingAccount();
+					santha.getBankSpecialThanksOfferingAccounts().add(stoAccount);
+					addChequeToStoAcc(stoAccount);
+				}
 				stoAccount.setAmount(thanksOffer);
 				stoAccount.setCr_dr("CR");
 				stoAccount.setDescription("Santha - Thanks Offering");
 				stoAccount.setSantha(santha);
 				stoAccount.setDate(paidDate.getSelectedDate());
-				santha.getSpecialThanksOfferingAccounts().add(stoAccount);
 			}
 
 			if (sto != 0.0f) {
-				stoAccount = new SpecialThanksOfferingAccount();
+				if(this.cash.isSelected()){
+					stoAccount = new SpecialThanksOfferingAccount();
+					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
+				} else if(this.cheque.isSelected()){
+					stoAccount = new BankSpecialThanksOfferingAccount();
+					santha.getBankSpecialThanksOfferingAccounts().add(stoAccount);
+					addChequeToStoAcc(stoAccount);
+				}
 				stoAccount.setAmount(sto);
 				stoAccount.setCr_dr("CR");
 				stoAccount.setDescription("Santha - Special Thanks Offering");
 				stoAccount.setSantha(santha);
 				stoAccount.setDate(paidDate.getSelectedDate());
-				santha.getSpecialThanksOfferingAccounts().add(stoAccount);
 			}
 
 			if (churchRenovation != 0.0f) {
-				stoAccount = new SpecialThanksOfferingAccount();
+				if(this.cash.isSelected()){
+					stoAccount = new SpecialThanksOfferingAccount();
+					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
+				} else if(this.cheque.isSelected()){
+					stoAccount = new BankSpecialThanksOfferingAccount();
+					santha.getBankSpecialThanksOfferingAccounts().add(stoAccount);
+					addChequeToStoAcc(stoAccount);
+				}
 				stoAccount.setAmount(churchRenovation);
 				stoAccount.setCr_dr("CR");
 				stoAccount.setDescription("Santha - Church Renovation");
 				stoAccount.setSantha(santha);
 				stoAccount.setDate(paidDate.getSelectedDate());
-				santha.getSpecialThanksOfferingAccounts().add(stoAccount);
 			}
 
-			MissionaryAccount missionaryAccount = null;
+			IMissionaryAccount missionaryAccount = null;
 			if (missionary != 0.0f) {
-				missionaryAccount = new MissionaryAccount();
+				if(this.cash.isSelected()){
+					missionaryAccount = new MissionaryAccount();
+					santha.getMissionaryAccounts().add(missionaryAccount);
+				} else if(this.cheque.isSelected()){
+					missionaryAccount = new BankMissionaryAccount();
+					santha.getBankMissionaryAccounts().add(missionaryAccount);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(this.chequeDate.getSelectedDate());
+					BankMissionaryAccount bankMissionaryAcc = (BankMissionaryAccount) missionaryAccount;
+					bankMissionaryAcc.getCheques().add(cheque);
+					cheque.setBankMissionaryAccount(bankMissionaryAcc);
+				}
 				missionaryAccount.setAmount(missionary);
 				missionaryAccount.setCr_dr("CR");
 				missionaryAccount
 						.setDescription("Santha - Missionary Offering");
 				missionaryAccount.setSantha(santha);
 				missionaryAccount.setDate(paidDate.getSelectedDate());
-				santha.getMissionaryAccounts().add(missionaryAccount);
 			}
 
-			MensAccount mensAccount = null;
+			IMensAccount mensAccount = null;
 			if (mensFellowship != 0.0f) {
-				mensAccount = new MensAccount();
+				if(this.cash.isSelected()){
+					mensAccount = new MensAccount();
+					santha.getMensAccounts().add(mensAccount);
+				} else if(this.cheque.isSelected()){
+					mensAccount = new BankMensAccount();
+					santha.getBankMensAccounts().add(mensAccount);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(this.chequeDate.getSelectedDate());
+					BankMensAccount bankMensAcc = (BankMensAccount) mensAccount;
+					bankMensAcc.getCheques().add(cheque);
+					cheque.setBankMensAccount(bankMensAcc);
+				}
 				mensAccount.setAmount(mensFellowship);
 				mensAccount.setCr_dr("CR");
 				mensAccount.setDescription("Santha - Men's Fellowship");
 				mensAccount.setSantha(santha);
 				mensAccount.setDate(paidDate.getSelectedDate());
-				santha.getMensAccounts().add(mensAccount);
 			}
 
-			WomensAccount womensAccount = null;
+			IWomensAccount womensAccount = null;
 			if (womensFellowship != 0.0f) {
-				womensAccount = new WomensAccount();
+				if(this.cash.isSelected()){
+					womensAccount = new WomensAccount();
+					santha.getWomensAccounts().add(womensAccount);
+				} else if(this.cheque.isSelected()){
+					womensAccount = new BankWomensAccount();
+					santha.getBankWomensAccounts().add(womensAccount);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(this.chequeDate.getSelectedDate());
+					BankWomensAccount bankWomensAcc = (BankWomensAccount) womensAccount;
+					bankWomensAcc.getCheques().add(cheque);
+					cheque.setBankWomensAccount(bankWomensAcc);
+				}
 				womensAccount.setAmount(womensFellowship);
 				womensAccount.setCr_dr("CR");
 				womensAccount.setDescription("Santha - Women's Fellowship");
 				womensAccount.setSantha(santha);
 				womensAccount.setDate(paidDate.getSelectedDate());
-				santha.getWomensAccounts().add(womensAccount);
 			}
 
-			PrimarySchoolAccount primarySchoolAccount = null;
+			IPrimarySchoolAccount primarySchoolAccount = null;
 			if (primarySchool != 0.0f) {
-				primarySchoolAccount = new PrimarySchoolAccount();
+				if(this.cash.isSelected()){
+					primarySchoolAccount = new PrimarySchoolAccount();
+					santha.getPrimarySchoolAccounts().add(primarySchoolAccount);
+				} else if(this.cheque.isSelected()){
+					primarySchoolAccount = new BankPrimarySchoolAccount();
+					santha.getBankPrimarySchoolAccounts().add(primarySchoolAccount);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(this.chequeDate.getSelectedDate());
+					BankPrimarySchoolAccount bankPrimaryAcc = (BankPrimarySchoolAccount) primarySchoolAccount;
+					bankPrimaryAcc.getCheques().add(cheque);
+					cheque.setBankPrimarySchoolAccount(bankPrimaryAcc);
+				}
+				
 				primarySchoolAccount.setAmount(primarySchool);
 				primarySchoolAccount.setCr_dr("CR");
 				primarySchoolAccount.setDescription("Santha - Primary School");
 				primarySchoolAccount.setSantha(santha);
 				primarySchoolAccount.setDate(paidDate.getSelectedDate());
-				santha.getPrimarySchoolAccounts().add(primarySchoolAccount);
 			}
 
-			YouthAccount youthAccount = null;
+			IYouthAccount youthAccount = null;
 			if (youth != 0.0f) {
-				youthAccount = new YouthAccount();
+				if(this.cash.isSelected()){
+					youthAccount = new YouthAccount();
+					santha.getYouthAccounts().add(youthAccount);
+				} else if(this.cheque.isSelected()){
+					youthAccount = new BankYouthAccount();
+					santha.getBankYouthAccounts().add(youthAccount);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(this.chequeDate.getSelectedDate());
+					BankYouthAccount bankYouthAccount = (BankYouthAccount) youthAccount;
+					bankYouthAccount.getCheques().add(cheque);
+					cheque.setBankYouthAccount(bankYouthAccount);
+				}
 				youthAccount.setAmount(youth);
 				youthAccount.setCr_dr("CR");
 				youthAccount.setDescription("Santha - Youth");
 				youthAccount.setSantha(santha);
 				youthAccount.setDate(paidDate.getSelectedDate());
-				santha.getYouthAccounts().add(youthAccount);
 			}
 
-			GraveyardAccount graveyardAccount = null;
+			IGraveyardAccount graveyardAccount = null;
 			if (graveyard != 0.0f) {
-				graveyardAccount = new GraveyardAccount();
+				if(this.cash.isSelected()){
+					graveyardAccount = new GraveyardAccount();
+					santha.getGraveyardAccounts().add(graveyardAccount);
+				} else if(this.cheque.isSelected()){
+					graveyardAccount = new BankGraveyardAccount();
+					santha.getBankGraveyardAccounts().add(graveyardAccount);
+					Cheque cheque = new Cheque();
+					cheque.setChequeNumber(this.chequeNumber.getText());
+					cheque.setChequeDate(this.chequeDate.getSelectedDate());
+					BankGraveyardAccount bankGraveyardAcc = (BankGraveyardAccount) graveyardAccount;
+					bankGraveyardAcc.getCheques().add(cheque);
+					cheque.setBankGraveyardAccount(bankGraveyardAcc);
+				}
 				graveyardAccount.setAmount(graveyard);
 				graveyardAccount.setCr_dr("CR");
 				graveyardAccount.setDescription("Santha - Graveyard");
 				graveyardAccount.setSantha(santha);
 				graveyardAccount.setDate(paidDate.getSelectedDate());
-				santha.getGraveyardAccounts().add(graveyardAccount);
 			}
 
 			// Inserting into DB
@@ -1373,21 +1506,26 @@ public class SanthaController extends Application {
 	}
 	
 	public void onChequeButtonPressed(){
-		/*Scene currentScene = application.Main.globalStage.getScene();
-		VBox content = new VBox();
-		ProgressIndicator pi = new ProgressIndicator(50);
-		content.getChildren().add(pi);
-		Scene scene = new Scene(content);
-		application.Main.globalStage.setScene(scene);
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		application.Main.globalStage.setScene(currentScene);*/
 		this.cash.setSelected(false);
 		this.cheque.setSelected(true);
 		this.chequeDetails.setVisible(true);
+	}
+	
+	private void addChequetoBankPCAcc(IPCAccount pcAccount){
+		Cheque cheque = new Cheque();
+		cheque.setChequeNumber(this.chequeNumber.getText());
+		cheque.setChequeDate(this.chequeDate.getSelectedDate());
+		BankPCAccount bankPCAcc = (BankPCAccount) pcAccount;
+		bankPCAcc.getCheques().add(cheque);
+		cheque.setBankPCAccount(bankPCAcc);
+	}
+	
+	private void addChequeToStoAcc(ISpecialThanksOfferingAccount ISTOAcc){
+		Cheque cheque = new Cheque();
+		cheque.setChequeNumber(this.chequeNumber.getText());
+		cheque.setChequeDate(this.chequeDate.getSelectedDate());
+		BankSpecialThanksOfferingAccount bankSTOAcc = (BankSpecialThanksOfferingAccount) ISTOAcc;
+		bankSTOAcc.getCheques().add(cheque);
+		cheque.setBankSTOAccount(bankSTOAcc);
 	}
 }

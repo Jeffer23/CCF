@@ -22,8 +22,6 @@
 		<property name="others" column="others" type="float" />
 		<property name="otherReason" column="others_reason" type="string" />
 		
-		
-		
 		<set name="pcAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="service_id"></column>

@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import com.ccf.persistence.interfaces.*;
+
 public class Santha {
 
 	private int santhaId;
@@ -26,14 +28,23 @@ public class Santha {
 	private float subscriptionAmount;
 	private float total;
 	private Member member;
-	private Set<PCAccount> pcAccounts = new LinkedHashSet<PCAccount>();
-	private Set<MissionaryAccount> missionaryAccounts = new LinkedHashSet<MissionaryAccount>();
-	private Set<MensAccount> mensAccounts = new LinkedHashSet<>();
-	private Set<WomensAccount> womensAccounts = new LinkedHashSet<>();
-	private Set<YouthAccount> youthAccounts =  new LinkedHashSet<>();
-	private Set<GraveyardAccount> graveyardAccounts = new LinkedHashSet<>();
-	private Set<PrimarySchoolAccount> primarySchoolAccounts = new LinkedHashSet<>();
-	private Set<SpecialThanksOfferingAccount> specialThanksOfferingAccounts = new LinkedHashSet<>();
+	private Set<IPCAccount> pcAccounts = new LinkedHashSet<>();
+	private Set<IPCAccount> bankPCAccounts = new LinkedHashSet<>();
+	private Set<IMissionaryAccount> missionaryAccounts = new LinkedHashSet<>();
+	private Set<IMissionaryAccount> bankMissionaryAccounts = new LinkedHashSet<>();
+	private Set<IMensAccount> mensAccounts = new LinkedHashSet<>();
+	private Set<IMensAccount> bankMensAccounts = new LinkedHashSet<>();
+	private Set<IWomensAccount> womensAccounts = new LinkedHashSet<>();
+	private Set<IWomensAccount> bankWomensAccounts = new LinkedHashSet<>();
+	private Set<IYouthAccount> youthAccounts =  new LinkedHashSet<>();
+	private Set<IYouthAccount> bankYouthAccounts =  new LinkedHashSet<>();
+	private Set<IGraveyardAccount> graveyardAccounts = new LinkedHashSet<>();
+	private Set<IGraveyardAccount> bankGraveyardAccounts = new LinkedHashSet<>();
+	private Set<IPrimarySchoolAccount> primarySchoolAccounts = new LinkedHashSet<>();
+	private Set<IPrimarySchoolAccount> bankPrimarySchoolAccounts = new LinkedHashSet<>();
+	private Set<ISpecialThanksOfferingAccount> specialThanksOfferingAccounts = new LinkedHashSet<>();
+	private Set<ISpecialThanksOfferingAccount> bankSpecialThanksOfferingAccounts = new LinkedHashSet<>();
+	
 	
 	public int getSanthaId() {
 		return santhaId;
@@ -156,59 +167,108 @@ public class Santha {
 	public void setMember(Member member) {
 		this.member = member;
 	}
-	public Set<PCAccount> getPcAccounts() {
+	public Set<IPCAccount> getPcAccounts() {
 		return pcAccounts;
 	}
-	public void setPcAccounts(Set<PCAccount> pcAccounts) {
+	public void setPcAccounts(Set<IPCAccount> pcAccounts) {
 		this.pcAccounts = pcAccounts;
 	}
-	public Set<MissionaryAccount> getMissionaryAccounts() {
+	public Set<IPCAccount> getBankPCAccounts() {
+		return bankPCAccounts;
+	}
+	public void setBankPCAccounts(Set<IPCAccount> bankPCAccounts) {
+		this.bankPCAccounts = bankPCAccounts;
+	}
+	public Set<IMissionaryAccount> getMissionaryAccounts() {
 		return missionaryAccounts;
 	}
-	public void setMissionaryAccounts(Set<MissionaryAccount> missionaryAccounts) {
+	public void setMissionaryAccounts(Set<IMissionaryAccount> missionaryAccounts) {
 		this.missionaryAccounts = missionaryAccounts;
 	}
-	
-	public Set<MensAccount> getMensAccounts() {
+	public Set<IMissionaryAccount> getBankMissionaryAccounts() {
+		return bankMissionaryAccounts;
+	}
+	public void setBankMissionaryAccounts(
+			Set<IMissionaryAccount> bankMissionaryAccounts) {
+		this.bankMissionaryAccounts = bankMissionaryAccounts;
+	}
+	public Set<IMensAccount> getMensAccounts() {
 		return mensAccounts;
 	}
-	public void setMensAccounts(Set<MensAccount> mensAccounts) {
+	public void setMensAccounts(Set<IMensAccount> mensAccounts) {
 		this.mensAccounts = mensAccounts;
 	}
-	public Set<WomensAccount> getWomensAccounts() {
+	public Set<IMensAccount> getBankMensAccounts() {
+		return bankMensAccounts;
+	}
+	public void setBankMensAccounts(Set<IMensAccount> bankMensAccounts) {
+		this.bankMensAccounts = bankMensAccounts;
+	}
+	public Set<IWomensAccount> getWomensAccounts() {
 		return womensAccounts;
 	}
-	public void setWomensAccounts(Set<WomensAccount> womensAccounts) {
+	public void setWomensAccounts(Set<IWomensAccount> womensAccounts) {
 		this.womensAccounts = womensAccounts;
 	}
-	public Set<YouthAccount> getYouthAccounts() {
+	public Set<IWomensAccount> getBankWomensAccounts() {
+		return bankWomensAccounts;
+	}
+	public void setBankWomensAccounts(Set<IWomensAccount> bankWomensAccounts) {
+		this.bankWomensAccounts = bankWomensAccounts;
+	}
+	public Set<IYouthAccount> getYouthAccounts() {
 		return youthAccounts;
 	}
-	public void setYouthAccounts(Set<YouthAccount> youthAccounts) {
+	public void setYouthAccounts(Set<IYouthAccount> youthAccounts) {
 		this.youthAccounts = youthAccounts;
 	}
-	public Set<GraveyardAccount> getGraveyardAccounts() {
+	public Set<IYouthAccount> getBankYouthAccounts() {
+		return bankYouthAccounts;
+	}
+	public void setBankYouthAccounts(Set<IYouthAccount> bankYouthAccounts) {
+		this.bankYouthAccounts = bankYouthAccounts;
+	}
+	public Set<IGraveyardAccount> getGraveyardAccounts() {
 		return graveyardAccounts;
 	}
-	public void setGraveyardAccounts(Set<GraveyardAccount> graveyardAccounts) {
+	public void setGraveyardAccounts(Set<IGraveyardAccount> graveyardAccounts) {
 		this.graveyardAccounts = graveyardAccounts;
 	}
-	public Set<PrimarySchoolAccount> getPrimarySchoolAccounts() {
+	public Set<IGraveyardAccount> getBankGraveyardAccounts() {
+		return bankGraveyardAccounts;
+	}
+	public void setBankGraveyardAccounts(
+			Set<IGraveyardAccount> bankGraveyardAccounts) {
+		this.bankGraveyardAccounts = bankGraveyardAccounts;
+	}
+	public Set<IPrimarySchoolAccount> getPrimarySchoolAccounts() {
 		return primarySchoolAccounts;
 	}
 	public void setPrimarySchoolAccounts(
-			Set<PrimarySchoolAccount> primarySchoolAccounts) {
+			Set<IPrimarySchoolAccount> primarySchoolAccounts) {
 		this.primarySchoolAccounts = primarySchoolAccounts;
 	}
-	public Set<SpecialThanksOfferingAccount> getSpecialThanksOfferingAccounts() {
+	public Set<IPrimarySchoolAccount> getBankPrimarySchoolAccounts() {
+		return bankPrimarySchoolAccounts;
+	}
+	public void setBankPrimarySchoolAccounts(
+			Set<IPrimarySchoolAccount> bankPrimarySchoolAccounts) {
+		this.bankPrimarySchoolAccounts = bankPrimarySchoolAccounts;
+	}
+	public Set<ISpecialThanksOfferingAccount> getSpecialThanksOfferingAccounts() {
 		return specialThanksOfferingAccounts;
 	}
 	public void setSpecialThanksOfferingAccounts(
-			Set<SpecialThanksOfferingAccount> specialThanksOfferingAccounts) {
+			Set<ISpecialThanksOfferingAccount> specialThanksOfferingAccounts) {
 		this.specialThanksOfferingAccounts = specialThanksOfferingAccounts;
 	}
-	
-	
+	public Set<ISpecialThanksOfferingAccount> getBankSpecialThanksOfferingAccounts() {
+		return bankSpecialThanksOfferingAccounts;
+	}
+	public void setBankSpecialThanksOfferingAccounts(
+			Set<ISpecialThanksOfferingAccount> bankSpecialThanksOfferingAccounts) {
+		this.bankSpecialThanksOfferingAccounts = bankSpecialThanksOfferingAccounts;
+	}
 	
 	
 }

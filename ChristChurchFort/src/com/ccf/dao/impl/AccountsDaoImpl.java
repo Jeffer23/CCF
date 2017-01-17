@@ -12,6 +12,9 @@ import org.hibernate.criterion.Order;
 
 import com.ccf.dao.AccountsDao;
 import com.ccf.exception.CcfException;
+import com.ccf.persistence.classes.AccountsBalance;
+import com.ccf.persistence.classes.BankPCAccount;
+import com.ccf.persistence.classes.Cheque;
 import com.ccf.persistence.classes.GraveyardAccount;
 import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
@@ -36,7 +39,8 @@ public class AccountsDaoImpl implements AccountsDao {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
-			String hql = "Select balance from AccountsBalance where accountName='"+ accountName +"'";
+			String hql = "Select balance from AccountsBalance where accountName='"
+					+ accountName + "'";
 			Query query = session.createQuery(hql);
 			Object result = query.uniqueResult();
 			if (result != null)
@@ -50,14 +54,32 @@ public class AccountsDaoImpl implements AccountsDao {
 		return balance;
 	}
 
+	/*
+	 * Helper method to update the Account balance.
+	 */
+	public static void updateAccountBalance(Session session,Account account, String accountName,
+			float amount) {
+
+		AccountsBalance accountsBalance = (AccountsBalance) session.get(
+				AccountsBalance.class, accountName);
+		if(account.getCr_dr().equals("CR"))
+			accountsBalance.setBalance(accountsBalance.getBalance() + amount);
+		else if(account.getCr_dr().equals("DR"))
+			accountsBalance.setBalance(accountsBalance.getBalance() - amount);
+		session.update(accountsBalance);
+
+	}
+
 	@Override
-	public void addIncomeorExpense(Account account) throws CcfException {
+	public void addIncomeorExpense(Account account, String accountName,
+			float amount) throws CcfException {
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.getTransaction().begin();
 			session.save(account);
+			updateAccountBalance(session, account, accountName, amount);
 			session.getTransaction().commit();
 			session.close();
 		} catch (Exception e) {
@@ -66,7 +88,6 @@ public class AccountsDaoImpl implements AccountsDao {
 		}
 	}
 
-	
 	@Override
 	public List<PCAccount> getPCAccountsAfter(int id) throws CcfException {
 		logger.debug("PC Account Id : " + id);
@@ -176,7 +197,8 @@ public class AccountsDaoImpl implements AccountsDao {
 			String hql = "From PrimarySchoolAccount where id>:id";
 			Query query = session.createQuery(hql);
 			query.setInteger("id", id);
-			List<PrimarySchoolAccount> primarySchoolAccountAccounts = query.list();
+			List<PrimarySchoolAccount> primarySchoolAccountAccounts = query
+					.list();
 			session.close();
 			return primarySchoolAccountAccounts;
 		} catch (Exception e) {
@@ -226,13 +248,13 @@ public class AccountsDaoImpl implements AccountsDao {
 
 	@Override
 	public void updatePCAccount(List<PCAccount> pcAccounts) throws CcfException {
-		
+
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.getTransaction().begin();
-			for(PCAccount pcAccount : pcAccounts){
+			for (PCAccount pcAccount : pcAccounts) {
 				logger.debug("PC Account Id : " + pcAccount.getId());
 				session.update(pcAccount);
 			}
@@ -242,20 +264,21 @@ public class AccountsDaoImpl implements AccountsDao {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
-	public void updateMissionaryAccount(List<MissionaryAccount> missionaryAccounts)
-			throws CcfException {
-		
+	public void updateMissionaryAccount(
+			List<MissionaryAccount> missionaryAccounts) throws CcfException {
+
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.getTransaction().begin();
-			for(MissionaryAccount missionaryAccount : missionaryAccounts){
-				logger.debug("Missionary Account Id : " + missionaryAccount.getId());
+			for (MissionaryAccount missionaryAccount : missionaryAccounts) {
+				logger.debug("Missionary Account Id : "
+						+ missionaryAccount.getId());
 				session.update(missionaryAccount);
 			}
 			session.getTransaction().commit();
@@ -267,14 +290,15 @@ public class AccountsDaoImpl implements AccountsDao {
 	}
 
 	@Override
-	public void updateMensAccount(List<MensAccount> mensAccounts) throws CcfException {
-		
+	public void updateMensAccount(List<MensAccount> mensAccounts)
+			throws CcfException {
+
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.getTransaction().begin();
-			for(MensAccount mensAccount : mensAccounts){
+			for (MensAccount mensAccount : mensAccounts) {
 				logger.debug("Men's Account Id : " + mensAccount.getId());
 				session.update(mensAccount);
 			}
@@ -289,13 +313,13 @@ public class AccountsDaoImpl implements AccountsDao {
 	@Override
 	public void updateWomensAccount(List<WomensAccount> womensAccounts)
 			throws CcfException {
-		
+
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.getTransaction().begin();
-			for(WomensAccount womensAccount : womensAccounts){
+			for (WomensAccount womensAccount : womensAccounts) {
 				logger.debug("Women's Account Id : " + womensAccount.getId());
 				session.update(womensAccount);
 			}
@@ -310,14 +334,15 @@ public class AccountsDaoImpl implements AccountsDao {
 	@Override
 	public void updateSpecialThanksOfferingAccount(
 			List<SpecialThanksOfferingAccount> stoAccounts) throws CcfException {
-		
+
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.getTransaction().begin();
-			for(SpecialThanksOfferingAccount stoAccount : stoAccounts){
-				logger.debug("Special Thanks Offering Account Id : " + stoAccount.getId());
+			for (SpecialThanksOfferingAccount stoAccount : stoAccounts) {
+				logger.debug("Special Thanks Offering Account Id : "
+						+ stoAccount.getId());
 				session.update(stoAccount);
 			}
 			session.getTransaction().commit();
@@ -330,15 +355,17 @@ public class AccountsDaoImpl implements AccountsDao {
 
 	@Override
 	public void updatePrimarySchoolAccount(
-			List<PrimarySchoolAccount> primarySchoolAccounts) throws CcfException {
-		
+			List<PrimarySchoolAccount> primarySchoolAccounts)
+			throws CcfException {
+
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.getTransaction().begin();
-			for(PrimarySchoolAccount primarySchoolAccount : primarySchoolAccounts){
-				logger.debug("Primary School Account Id : " + primarySchoolAccount.getId());
+			for (PrimarySchoolAccount primarySchoolAccount : primarySchoolAccounts) {
+				logger.debug("Primary School Account Id : "
+						+ primarySchoolAccount.getId());
 				session.update(primarySchoolAccount);
 			}
 			session.getTransaction().commit();
@@ -352,13 +379,13 @@ public class AccountsDaoImpl implements AccountsDao {
 	@Override
 	public void updateYouthAccount(List<YouthAccount> youthAccounts)
 			throws CcfException {
-		
+
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.getTransaction().begin();
-			for(YouthAccount youthAccount : youthAccounts){
+			for (YouthAccount youthAccount : youthAccounts) {
 				logger.debug("Youth Account Id : " + youthAccount.getId());
 				session.update(youthAccount);
 			}
@@ -373,15 +400,16 @@ public class AccountsDaoImpl implements AccountsDao {
 	@Override
 	public void updateGraveyardAccount(List<GraveyardAccount> graveyardAccounts)
 			throws CcfException {
-		
+
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.getTransaction().begin();
-			for(GraveyardAccount graveyardAccount : graveyardAccounts){
-				logger.debug("graveyard Account Id : " + graveyardAccount.getId());
-				session.update(graveyardAccount);	
+			for (GraveyardAccount graveyardAccount : graveyardAccounts) {
+				logger.debug("graveyard Account Id : "
+						+ graveyardAccount.getId());
+				session.update(graveyardAccount);
 			}
 			session.getTransaction().commit();
 			session.close();
@@ -390,12 +418,44 @@ public class AccountsDaoImpl implements AccountsDao {
 			throw new CcfException(e.getMessage());
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		AccountsDaoImpl impl = new AccountsDaoImpl();
 		try {
+			Cheque cheque1 = new Cheque();
+			cheque1.setChequeNumber("223334334");
+			cheque1.setChequeDate(new Date());
+			cheque1.setChequeAmount(500f);
 			
-			System.out.println(impl.getAccountBalance("Bank Graveyard Account"));
+			Cheque cheque2 = new Cheque();
+			cheque2.setChequeNumber("223334335");
+			cheque2.setChequeDate(new Date());
+			cheque2.setChequeAmount(300f);
+			
+			BankPCAccount account1 = new BankPCAccount();
+			account1.setAmount(100.0f);
+			account1.setDescription("Test");
+			account1.setCr_dr("CR");
+			account1.setDate(new Date());
+			
+			cheque1.getBankPCAccounts().add(account1);
+			account1.getCheques().add(cheque1);
+			
+			cheque2.getBankPCAccounts().add(account1);
+			account1.getCheques().add(cheque2);
+			
+			try {
+				SessionFactory sessionFactory = HibernateSessionFactory
+						.getSessionFactory();
+				Session session = sessionFactory.openSession();
+				session.getTransaction().begin();
+				session.save(account1);
+				session.getTransaction().commit();
+				session.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new CcfException(e.getMessage());
+			}
 		} catch (CcfException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -403,7 +463,8 @@ public class AccountsDaoImpl implements AccountsDao {
 	}
 
 	@Override
-	public List<PCAccount> getPCAccountStatement(Date from, Date to) throws CcfException {
+	public List<PCAccount> getPCAccountStatement(Date from, Date to)
+			throws CcfException {
 		logger.debug("getPCAccountStatement method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
@@ -421,11 +482,12 @@ public class AccountsDaoImpl implements AccountsDao {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
-	public List<MissionaryAccount> getMissionaryStatement(Date from, Date to) throws CcfException {
+	public List<MissionaryAccount> getMissionaryStatement(Date from, Date to)
+			throws CcfException {
 		logger.debug("getMissionaryStatement method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
@@ -443,11 +505,12 @@ public class AccountsDaoImpl implements AccountsDao {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
-	public List<MensAccount> getMensStatement(Date from, Date to) throws CcfException {
+	public List<MensAccount> getMensStatement(Date from, Date to)
+			throws CcfException {
 		logger.debug("getMensStatement method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
@@ -465,11 +528,12 @@ public class AccountsDaoImpl implements AccountsDao {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
-	public List<WomensAccount> getWomensStatement(Date from, Date to) throws CcfException {
+	public List<WomensAccount> getWomensStatement(Date from, Date to)
+			throws CcfException {
 		logger.debug("getWomensStatement method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
@@ -487,7 +551,7 @@ public class AccountsDaoImpl implements AccountsDao {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
@@ -510,11 +574,12 @@ public class AccountsDaoImpl implements AccountsDao {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
-	public List<YouthAccount> getYouthStatement(Date from, Date to) throws CcfException {
+	public List<YouthAccount> getYouthStatement(Date from, Date to)
+			throws CcfException {
 		logger.debug("getYouthStatement method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
@@ -532,11 +597,12 @@ public class AccountsDaoImpl implements AccountsDao {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
-	public List<SpecialThanksOfferingAccount> getSTOStatement(Date from, Date to) throws CcfException {
+	public List<SpecialThanksOfferingAccount> getSTOStatement(Date from, Date to)
+			throws CcfException {
 		logger.debug("getSTOStatement method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
@@ -546,7 +612,8 @@ public class AccountsDaoImpl implements AccountsDao {
 			Query query = session.createQuery(hql);
 			query.setDate("from", from);
 			query.setDate("to", to);
-			List<SpecialThanksOfferingAccount> specialThanksOfferingAccounts = query.list();
+			List<SpecialThanksOfferingAccount> specialThanksOfferingAccounts = query
+					.list();
 			session.close();
 			logger.debug("getSTOStatement method Ends...");
 			return specialThanksOfferingAccounts;
@@ -554,11 +621,12 @@ public class AccountsDaoImpl implements AccountsDao {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
-	public List<GraveyardAccount> getGraveyardStatement(Date from, Date to) throws CcfException {
+	public List<GraveyardAccount> getGraveyardStatement(Date from, Date to)
+			throws CcfException {
 		logger.debug("getGraveyardStatement method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
@@ -576,12 +644,12 @@ public class AccountsDaoImpl implements AccountsDao {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
-	public List<PrimarySchoolAccount> getPrimarySchoolStatement(Date from, Date to)
-			throws CcfException {
+	public List<PrimarySchoolAccount> getPrimarySchoolStatement(Date from,
+			Date to) throws CcfException {
 		logger.debug("getPrimarySchoolStatement method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
@@ -599,9 +667,7 @@ public class AccountsDaoImpl implements AccountsDao {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-		
+
 	}
-	
-	
 
 }

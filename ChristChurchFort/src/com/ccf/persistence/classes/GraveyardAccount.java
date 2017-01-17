@@ -2,9 +2,10 @@ package com.ccf.persistence.classes;
 
 import java.util.Date;
 
+import com.ccf.persistence.interfaces.IGraveyardAccount;
 import com.ccf.vo.Account;
 
-public class GraveyardAccount implements Account {
+public class GraveyardAccount implements Account, IGraveyardAccount {
 
 	private int id;
 	private float amount;
