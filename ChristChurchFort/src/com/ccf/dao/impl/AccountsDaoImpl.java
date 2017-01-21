@@ -13,6 +13,7 @@ import org.hibernate.criterion.Order;
 import com.ccf.dao.AccountsDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.AccountsBalance;
+import com.ccf.persistence.classes.BankGraveyardAccount;
 import com.ccf.persistence.classes.BankPCAccount;
 import com.ccf.persistence.classes.Cheque;
 import com.ccf.persistence.classes.GraveyardAccount;
@@ -423,7 +424,7 @@ public class AccountsDaoImpl implements AccountsDao {
 		AccountsDaoImpl impl = new AccountsDaoImpl();
 		try {
 			Cheque cheque1 = new Cheque();
-			cheque1.setChequeNumber("223334334");
+			cheque1.setChequeNumber("223334334546");
 			cheque1.setChequeDate(new Date());
 			cheque1.setChequeAmount(500f);
 			
@@ -432,16 +433,25 @@ public class AccountsDaoImpl implements AccountsDao {
 			cheque2.setChequeDate(new Date());
 			cheque2.setChequeAmount(300f);
 			
-			BankPCAccount account1 = new BankPCAccount();
+			BankGraveyardAccount account1 = new BankGraveyardAccount();
 			account1.setAmount(100.0f);
 			account1.setDescription("Test");
 			account1.setCr_dr("CR");
 			account1.setDate(new Date());
 			
-			cheque1.getBankPCAccounts().add(account1);
+			cheque1.getBankGraveyardAccounts().add(account1);
 			account1.getCheques().add(cheque1);
 			
-			cheque2.getBankPCAccounts().add(account1);
+			/*BankGraveyardAccount account2 = new BankGraveyardAccount();
+			account2.setAmount(100.0f);
+			account2.setDescription("Test");
+			account2.setCr_dr("CR");
+			account2.setDate(new Date());
+			
+			cheque1.getBankGraveyardAccounts().add(account2);
+			account2.getCheques().add(cheque1);*/
+			
+			cheque2.getBankGraveyardAccounts().add(account1);
 			account1.getCheques().add(cheque2);
 			
 			try {
@@ -450,6 +460,7 @@ public class AccountsDaoImpl implements AccountsDao {
 				Session session = sessionFactory.openSession();
 				session.getTransaction().begin();
 				session.save(account1);
+				//session.save(account2);
 				session.getTransaction().commit();
 				session.close();
 			} catch (Exception e) {

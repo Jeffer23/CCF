@@ -15,7 +15,7 @@
 		<property name="date" column="date" type="date" />
 		<many-to-one name="santha" class="com.ccf.persistence.classes.Santha" column="santha_id"></many-to-one>
 		<many-to-one name="serviceOffering" class="com.ccf.persistence.classes.ServiceOffering" column="service_id"></many-to-one>
-		<set name="cheques" fetch="join" table="cheque_bank_sto" cascade="all" lazy="true" inverse="true">
+		<set name="cheques" fetch="join" table="cheque_bank_sto" cascade="all" lazy="true" inverse="false">
 			<key>
 				<column name="bank_sto_account_id"></column>
 			</key>

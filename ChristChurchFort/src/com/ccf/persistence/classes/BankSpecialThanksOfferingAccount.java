@@ -18,8 +18,6 @@ public class BankSpecialThanksOfferingAccount implements Account,
 	private Santha santha;
 	private Date date;
 	private Set<Cheque> cheques = new HashSet<>();
-	
-	
 
 	public Set<Cheque> getCheques() {
 		return cheques;

@@ -123,13 +123,13 @@ public class SanthaController extends Application {
 
 	@FXML
 	private TextField womensFellowship;
-	
+
 	@FXML
 	private RadioButton cash;
-	
+
 	@FXML
-	private RadioButton cheque;
-	
+	private RadioButton chequeBtn;
+
 	@FXML
 	private HBox chequeDetails;
 
@@ -165,12 +165,14 @@ public class SanthaController extends Application {
 
 	@FXML
 	private Label paidDateError;
-	
+
 	@FXML
 	private DatePicker chequeDate;
 
 	@FXML
 	private TextField chequeNumber;
+	
+	Cheque cheque = null;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -193,8 +195,9 @@ public class SanthaController extends Application {
 				if (!arg2) {
 					logger.debug("Family No focus change listener method starts...");
 					try {
-						if (familyNos.getEditor().getText().trim().equals("") || familyNos.getEditor().getText()
-								.matches(".*[a-zA-Z]+.*")) {
+						if (familyNos.getEditor().getText().trim().equals("")
+								|| familyNos.getEditor().getText()
+										.matches(".*[a-zA-Z]+.*")) {
 							familyMemberError.setText("Enter Only the number");
 							throw new CcfException("Enter Only the number");
 						}
@@ -289,8 +292,15 @@ public class SanthaController extends Application {
 							getPreviouslyPaidAmount();
 							MemberDao dao = new MemberDaoImpl();
 							try {
-								if(familyMembers.getValue() !=null && subscriptionAmt.getText().equals("") ) // Temporary fix
-								subscriptionAmt.setText(String.valueOf(dao.getSubscriptionAmount(Integer.parseInt(familyNos.getEditor().getText()), familyMembers.getValue())));
+								if (familyMembers.getValue() != null
+										&& subscriptionAmt.getText().equals("")) // Temporary
+																					// fix
+									subscriptionAmt.setText(String.valueOf(dao
+											.getSubscriptionAmount(Integer
+													.parseInt(familyNos
+															.getEditor()
+															.getText()),
+													familyMembers.getValue())));
 							} catch (NumberFormatException e) {
 								error.setText("Only numbers are allowed");
 								logger.error(e.getMessage());
@@ -329,17 +339,21 @@ public class SanthaController extends Application {
 						if (familyMembers.getItems().size() != membersSantha
 								.getItems().size()) {
 							getPreviouslyPaidAmount();
-							/*MemberDao impl = new MemberDaoImpl();
-							try {
-								logger.debug("Member Name : " + familyMembers.getValue());
-								logger.debug("Family No : " + familyNos.getValue());
-								int memberId = impl.getMemberId(familyMembers.getValue(), familyNos.getValue());
-								logger.debug("member Id : " + memberId);
-								com.ccf.persistence.classes.Member member = impl.getMember(memberId);
-								subscriptionAmt.setText(String.valueOf(member.getSubscriptionAmount()));
-							} catch (CcfException e) {
-								e.printStackTrace();
-							}*/
+							/*
+							 * MemberDao impl = new MemberDaoImpl(); try {
+							 * logger.debug("Member Name : " +
+							 * familyMembers.getValue());
+							 * logger.debug("Family No : " +
+							 * familyNos.getValue()); int memberId =
+							 * impl.getMemberId(familyMembers.getValue(),
+							 * familyNos.getValue());
+							 * logger.debug("member Id : " + memberId);
+							 * com.ccf.persistence.classes.Member member =
+							 * impl.getMember(memberId);
+							 * subscriptionAmt.setText(
+							 * String.valueOf(member.getSubscriptionAmount()));
+							 * } catch (CcfException e) { e.printStackTrace(); }
+							 */
 						}
 						logger.debug("paidForDate set date method Ends...");
 					}
@@ -437,31 +451,31 @@ public class SanthaController extends Application {
 				}
 			}
 		});
-				
-		subscriptionAmt.textProperty().addListener(new ChangeListener<String>() {
 
-			@Override
-			public void changed(ObservableValue<? extends String> observable,
-					String oldValue, String newValue) {
-				logger.debug("on change of subscription Amount Starts...");
-				float total = calculateTotal();
-				memberTotal.setText(String.valueOf(total));
-				logger.debug("on change of subscription Amount Ends...");
-				
-			}
-		});
-		/*subscriptionAmt.focusedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> arg0,
-					Boolean onBlur, Boolean onFocus) {
-				if (onBlur) {
-					logger.debug("on Blur of other2 starts...");
-					float total = calculateTotal();
-					memberTotal.setText(String.valueOf(total));
-					logger.debug("on Blur of other2 Ends...");
-				}
-			}
-		});*/
+		subscriptionAmt.textProperty().addListener(
+				new ChangeListener<String>() {
+
+					@Override
+					public void changed(
+							ObservableValue<? extends String> observable,
+							String oldValue, String newValue) {
+						logger.debug("on change of subscription Amount Starts...");
+						float total = calculateTotal();
+						memberTotal.setText(String.valueOf(total));
+						logger.debug("on change of subscription Amount Ends...");
+
+					}
+				});
+		/*
+		 * subscriptionAmt.focusedProperty().addListener(new
+		 * ChangeListener<Boolean>() {
+		 * 
+		 * @Override public void changed(ObservableValue<? extends Boolean>
+		 * arg0, Boolean onBlur, Boolean onFocus) { if (onBlur) {
+		 * logger.debug("on Blur of other2 starts..."); float total =
+		 * calculateTotal(); memberTotal.setText(String.valueOf(total));
+		 * logger.debug("on Blur of other2 Ends..."); } } });
+		 */
 		poorHelp.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0,
@@ -658,8 +672,9 @@ public class SanthaController extends Application {
 				throw new CcfException("STO amount cannot contain alphabets");
 			}
 			if (subscriptionAmt.getText().matches(".*[a-zA-Z]+.*")) {
-				throw new CcfException("Subscription amount cannot contain alphabets");
-			} else if(subscriptionAmt.getText().equals("")) {
+				throw new CcfException(
+						"Subscription amount cannot contain alphabets");
+			} else if (subscriptionAmt.getText().equals("")) {
 				throw new CcfException("Subscription amount cannot be empty.");
 			}
 
@@ -722,16 +737,18 @@ public class SanthaController extends Application {
 			float youth = Float.parseFloat(this.youth.getText());
 
 			// get subscription amount of this person
-			float subscriptionAmount = Float.parseFloat(this.subscriptionAmt.getText());
-					
-				/*
-				 * Delete getSubscriptionAmount method from memberDao interface.
-				 */
-				/*	memberDaoImpl.getSubscriptionAmount(
-				Integer.parseInt(familyNos.getEditor().getText()),
-				familyMembers.getValue()); */
+			float subscriptionAmount = Float.parseFloat(this.subscriptionAmt
+					.getText());
 
-						
+			/*
+			 * Delete getSubscriptionAmount method from memberDao interface.
+			 */
+			/*
+			 * memberDaoImpl.getSubscriptionAmount(
+			 * Integer.parseInt(familyNos.getEditor().getText()),
+			 * familyMembers.getValue());
+			 */
+
 			com.ccf.persistence.classes.Member member = new com.ccf.persistence.classes.Member();
 			member.setId(membetId);
 			santha.setMember(member);
@@ -755,15 +772,26 @@ public class SanthaController extends Application {
 					+ santha.getChurchRenovation() + santha.getEducationHelp()
 					+ santha.getGraveyard() + santha.getHarvestFestival()
 					+ santha.getMensFellowship() + santha.getMissionary()
-					+ santha.getSubscriptionAmount()
-					+ santha.getPoorHelp() + santha.getPrimarySchool()
-					+ santha.getSto() + santha.getThanksOffer()
-					+ santha.getWomensFellowship() + santha.getYouth();
+					+ santha.getSubscriptionAmount() + santha.getPoorHelp()
+					+ santha.getPrimarySchool() + santha.getSto()
+					+ santha.getThanksOffer() + santha.getWomensFellowship()
+					+ santha.getYouth();
 			santha.setTotal(memberTotal);
 
 			AccountsDao impl = new AccountsDaoImpl();
 			IPCAccount pcAccount = null;
+
+			/*
+			 * Creating cheque object
+			 */
 			
+			if (this.chequeBtn.isSelected()) {
+				cheque = new Cheque();
+				cheque.setChequeNumber(this.chequeNumber.getText());
+				cheque.setChequeDate(this.chequeDate.getSelectedDate());
+				cheque.setChequeAmount(memberTotal);
+			}
+
 			/*
 			 * Adding Subscription amount to PC Account
 			 */
@@ -774,12 +802,12 @@ public class SanthaController extends Application {
 			pcAccount.setSantha(santha);
 			pcAccount.setDate(paidDate.getSelectedDate());
 			santha.getPcAccounts().add(pcAccount);
-			
+
 			if (harvestFestival != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					santha.getBankPCAccounts().add(pcAccount);
 					addChequetoBankPCAcc(pcAccount);
@@ -789,14 +817,14 @@ public class SanthaController extends Application {
 				pcAccount.setDescription("Santha - Harvest Festival");
 				pcAccount.setSantha(santha);
 				pcAccount.setDate(paidDate.getSelectedDate());
-				
+
 			}
 
 			if (educationHelp != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					santha.getBankPCAccounts().add(pcAccount);
 					addChequetoBankPCAcc(pcAccount);
@@ -809,10 +837,10 @@ public class SanthaController extends Application {
 			}
 
 			if (poorHelp != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					santha.getBankPCAccounts().add(pcAccount);
 					addChequetoBankPCAcc(pcAccount);
@@ -825,10 +853,10 @@ public class SanthaController extends Application {
 			}
 
 			if (bagOffer != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					santha.getBankPCAccounts().add(pcAccount);
 					addChequetoBankPCAcc(pcAccount);
@@ -842,12 +870,13 @@ public class SanthaController extends Application {
 
 			ISpecialThanksOfferingAccount stoAccount = null;
 			if (thanksOffer != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					stoAccount = new SpecialThanksOfferingAccount();
 					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					stoAccount = new BankSpecialThanksOfferingAccount();
-					santha.getBankSpecialThanksOfferingAccounts().add(stoAccount);
+					santha.getBankSpecialThanksOfferingAccounts().add(
+							stoAccount);
 					addChequeToStoAcc(stoAccount);
 				}
 				stoAccount.setAmount(thanksOffer);
@@ -858,12 +887,13 @@ public class SanthaController extends Application {
 			}
 
 			if (sto != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					stoAccount = new SpecialThanksOfferingAccount();
 					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					stoAccount = new BankSpecialThanksOfferingAccount();
-					santha.getBankSpecialThanksOfferingAccounts().add(stoAccount);
+					santha.getBankSpecialThanksOfferingAccounts().add(
+							stoAccount);
 					addChequeToStoAcc(stoAccount);
 				}
 				stoAccount.setAmount(sto);
@@ -874,12 +904,13 @@ public class SanthaController extends Application {
 			}
 
 			if (churchRenovation != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					stoAccount = new SpecialThanksOfferingAccount();
 					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					stoAccount = new BankSpecialThanksOfferingAccount();
-					santha.getBankSpecialThanksOfferingAccounts().add(stoAccount);
+					santha.getBankSpecialThanksOfferingAccounts().add(
+							stoAccount);
 					addChequeToStoAcc(stoAccount);
 				}
 				stoAccount.setAmount(churchRenovation);
@@ -891,18 +922,15 @@ public class SanthaController extends Application {
 
 			IMissionaryAccount missionaryAccount = null;
 			if (missionary != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					missionaryAccount = new MissionaryAccount();
 					santha.getMissionaryAccounts().add(missionaryAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					missionaryAccount = new BankMissionaryAccount();
 					santha.getBankMissionaryAccounts().add(missionaryAccount);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(this.chequeDate.getSelectedDate());
 					BankMissionaryAccount bankMissionaryAcc = (BankMissionaryAccount) missionaryAccount;
 					bankMissionaryAcc.getCheques().add(cheque);
-					cheque.setBankMissionaryAccount(bankMissionaryAcc);
+					cheque.getBankMissionaryAccounts().add(bankMissionaryAcc);
 				}
 				missionaryAccount.setAmount(missionary);
 				missionaryAccount.setCr_dr("CR");
@@ -914,18 +942,15 @@ public class SanthaController extends Application {
 
 			IMensAccount mensAccount = null;
 			if (mensFellowship != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					mensAccount = new MensAccount();
 					santha.getMensAccounts().add(mensAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					mensAccount = new BankMensAccount();
 					santha.getBankMensAccounts().add(mensAccount);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(this.chequeDate.getSelectedDate());
 					BankMensAccount bankMensAcc = (BankMensAccount) mensAccount;
 					bankMensAcc.getCheques().add(cheque);
-					cheque.setBankMensAccount(bankMensAcc);
+					cheque.getBankMensAccounts().add(bankMensAcc);
 				}
 				mensAccount.setAmount(mensFellowship);
 				mensAccount.setCr_dr("CR");
@@ -936,18 +961,15 @@ public class SanthaController extends Application {
 
 			IWomensAccount womensAccount = null;
 			if (womensFellowship != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					womensAccount = new WomensAccount();
 					santha.getWomensAccounts().add(womensAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					womensAccount = new BankWomensAccount();
 					santha.getBankWomensAccounts().add(womensAccount);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(this.chequeDate.getSelectedDate());
 					BankWomensAccount bankWomensAcc = (BankWomensAccount) womensAccount;
 					bankWomensAcc.getCheques().add(cheque);
-					cheque.setBankWomensAccount(bankWomensAcc);
+					cheque.getBankWomensAccounts().add(bankWomensAcc);
 				}
 				womensAccount.setAmount(womensFellowship);
 				womensAccount.setCr_dr("CR");
@@ -958,20 +980,18 @@ public class SanthaController extends Application {
 
 			IPrimarySchoolAccount primarySchoolAccount = null;
 			if (primarySchool != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					primarySchoolAccount = new PrimarySchoolAccount();
 					santha.getPrimarySchoolAccounts().add(primarySchoolAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					primarySchoolAccount = new BankPrimarySchoolAccount();
-					santha.getBankPrimarySchoolAccounts().add(primarySchoolAccount);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(this.chequeDate.getSelectedDate());
+					santha.getBankPrimarySchoolAccounts().add(
+							primarySchoolAccount);
 					BankPrimarySchoolAccount bankPrimaryAcc = (BankPrimarySchoolAccount) primarySchoolAccount;
 					bankPrimaryAcc.getCheques().add(cheque);
-					cheque.setBankPrimarySchoolAccount(bankPrimaryAcc);
+					cheque.getBankPrimarySchoolAccounts().add(bankPrimaryAcc);
 				}
-				
+
 				primarySchoolAccount.setAmount(primarySchool);
 				primarySchoolAccount.setCr_dr("CR");
 				primarySchoolAccount.setDescription("Santha - Primary School");
@@ -981,18 +1001,15 @@ public class SanthaController extends Application {
 
 			IYouthAccount youthAccount = null;
 			if (youth != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					youthAccount = new YouthAccount();
 					santha.getYouthAccounts().add(youthAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					youthAccount = new BankYouthAccount();
 					santha.getBankYouthAccounts().add(youthAccount);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(this.chequeDate.getSelectedDate());
 					BankYouthAccount bankYouthAccount = (BankYouthAccount) youthAccount;
 					bankYouthAccount.getCheques().add(cheque);
-					cheque.setBankYouthAccount(bankYouthAccount);
+					cheque.getBankYouthAccounts().add(bankYouthAccount);
 				}
 				youthAccount.setAmount(youth);
 				youthAccount.setCr_dr("CR");
@@ -1003,18 +1020,15 @@ public class SanthaController extends Application {
 
 			IGraveyardAccount graveyardAccount = null;
 			if (graveyard != 0.0f) {
-				if(this.cash.isSelected()){
+				if (this.cash.isSelected()) {
 					graveyardAccount = new GraveyardAccount();
 					santha.getGraveyardAccounts().add(graveyardAccount);
-				} else if(this.cheque.isSelected()){
+				} else if (this.chequeBtn.isSelected()) {
 					graveyardAccount = new BankGraveyardAccount();
 					santha.getBankGraveyardAccounts().add(graveyardAccount);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(this.chequeDate.getSelectedDate());
 					BankGraveyardAccount bankGraveyardAcc = (BankGraveyardAccount) graveyardAccount;
 					bankGraveyardAcc.getCheques().add(cheque);
-					cheque.setBankGraveyardAccount(bankGraveyardAcc);
+					cheque.getBankGraveyardAccounts().add(bankGraveyardAcc);
 				}
 				graveyardAccount.setAmount(graveyard);
 				graveyardAccount.setCr_dr("CR");
@@ -1033,7 +1047,6 @@ public class SanthaController extends Application {
 			logger.info("Payment added successfully for"
 					+ santha.getMember().getId());
 
-			
 			// Adding data to the table.
 			com.ccf.vo.Santha santhaPayment = new com.ccf.vo.Santha();
 			santhaPayment.setSanthaId(key);
@@ -1199,7 +1212,6 @@ public class SanthaController extends Application {
 			SanthaDao santhaDaoImpl = new SanthaDaoImpl();
 			MemberDao memberDaoImpl = new MemberDaoImpl();
 
-
 			List<Santha> membersPayment = santhaDaoImpl.getPaidMembers(
 					Integer.parseInt(familyNos.getEditor().getText()),
 					fromDate, toDate);
@@ -1209,7 +1221,7 @@ public class SanthaController extends Application {
 			for (Santha santha : membersPayment) {
 				paidMember = new com.ccf.vo.Santha();
 				paidMember.setSanthaId(santha.getSanthaId());
-			
+
 				/*
 				 * com.ccf.persistence.classes.Member member = memberDaoImpl
 				 * .getMember(santha.getMember().getId());
@@ -1291,7 +1303,7 @@ public class SanthaController extends Application {
 					santha = santhaDaoImpl.getLastPaidAmount(
 							Integer.parseInt(familyNos.getEditor().getText()),
 							familyMembers.getValue(), fromDate, toDate);
-					
+
 					if (santha != null) {
 						this.bagOffer.setText(String.valueOf(santha
 								.getBagOffer()));
@@ -1307,7 +1319,7 @@ public class SanthaController extends Application {
 								.getMensFellowship()));
 						this.missionary.setText(String.valueOf(santha
 								.getMissionary()));
-						
+
 						this.poorHelp.setText(String.valueOf(santha
 								.getPoorHelp()));
 						this.primarySchool.setText(String.valueOf(santha
@@ -1318,11 +1330,13 @@ public class SanthaController extends Application {
 						this.womensFellowship.setText(String.valueOf(santha
 								.getWomensFellowship()));
 						this.youth.setText(String.valueOf(santha.getYouth()));
-						com.ccf.persistence.classes.Member member = santha.getMember();
+						com.ccf.persistence.classes.Member member = santha
+								.getMember();
 						this.memberTotal.setText(String.valueOf(santha
 								.getTotal()));
-						this.subscriptionAmt.setText(String.valueOf(member.getSubscriptionAmount()));
-						
+						this.subscriptionAmt.setText(String.valueOf(member
+								.getSubscriptionAmount()));
+
 						this.saveButton.setVisible(true);
 						this.updateButton.setVisible(false);
 						this.cancelButton.setVisible(false);
@@ -1395,9 +1409,9 @@ public class SanthaController extends Application {
 		float youth = Float.parseFloat(this.youth.getText());
 
 		float total = bagOffer + churchRenovation + educationHelp + graveyard
-				+ harvestFestival + mensFellowship + missionary
-				+ poorHelp + primarySchool + sto + thanksOffer
-				+ womensFellowship + youth + Float.valueOf(subscriptionAmt.getText());
+				+ harvestFestival + mensFellowship + missionary + poorHelp
+				+ primarySchool + sto + thanksOffer + womensFellowship + youth
+				+ Float.valueOf(subscriptionAmt.getText());
 
 		logger.info("calculateTotal method Ends...");
 		return total;
@@ -1437,12 +1451,11 @@ public class SanthaController extends Application {
 		logger.info("Update Payment method Starts...");
 		deletePaidMember();
 		save();
-		
+
 		this.saveButton.setVisible(true);
 		this.updateButton.setVisible(false);
 		this.cancelButton.setVisible(false);
-		
-		
+
 		this.message.setText("Payment for " + familyMembers.getValue()
 				+ " updated Successfully.");
 		logger.info("Payment for " + familyMembers.getValue()
@@ -1476,7 +1489,6 @@ public class SanthaController extends Application {
 			/*
 			 * Calculating and Updating the balance of other affected records.
 			 */
-			
 
 			// Removing From UI
 			membersSantha.getItems().remove(santha);
@@ -1498,34 +1510,28 @@ public class SanthaController extends Application {
 		}
 		logger.debug("Delete Paid Member method Ends...");
 	}
-	
-	public void onCashButtonPressed(){
+
+	public void onCashButtonPressed() {
 		this.cash.setSelected(true);
-		this.cheque.setSelected(false);
+		this.chequeBtn.setSelected(false);
 		this.chequeDetails.setVisible(false);
 	}
-	
-	public void onChequeButtonPressed(){
+
+	public void onChequeButtonPressed() {
 		this.cash.setSelected(false);
-		this.cheque.setSelected(true);
+		this.chequeBtn.setSelected(true);
 		this.chequeDetails.setVisible(true);
 	}
-	
-	private void addChequetoBankPCAcc(IPCAccount pcAccount){
-		Cheque cheque = new Cheque();
-		cheque.setChequeNumber(this.chequeNumber.getText());
-		cheque.setChequeDate(this.chequeDate.getSelectedDate());
+
+	private void addChequetoBankPCAcc(IPCAccount pcAccount) {
 		BankPCAccount bankPCAcc = (BankPCAccount) pcAccount;
 		bankPCAcc.getCheques().add(cheque);
-		cheque.setBankPCAccount(bankPCAcc);
+		cheque.getBankPCAccounts().add(bankPCAcc);
 	}
-	
-	private void addChequeToStoAcc(ISpecialThanksOfferingAccount ISTOAcc){
-		Cheque cheque = new Cheque();
-		cheque.setChequeNumber(this.chequeNumber.getText());
-		cheque.setChequeDate(this.chequeDate.getSelectedDate());
+
+	private void addChequeToStoAcc(ISpecialThanksOfferingAccount ISTOAcc) {
 		BankSpecialThanksOfferingAccount bankSTOAcc = (BankSpecialThanksOfferingAccount) ISTOAcc;
 		bankSTOAcc.getCheques().add(cheque);
-		cheque.setBankSTOAccount(bankSTOAcc);
+		cheque.getBankSTOAccounts().add(bankSTOAcc);
 	}
 }

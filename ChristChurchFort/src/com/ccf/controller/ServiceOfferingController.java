@@ -77,7 +77,7 @@ public class ServiceOfferingController {
 	private RadioButton cash;
 
 	@FXML
-	private RadioButton cheque;
+	private RadioButton chequeBtn;
 
 	@FXML
 	private HBox chequeDetails;
@@ -90,6 +90,8 @@ public class ServiceOfferingController {
 
 	@FXML
 	private Label message;
+	
+	Cheque cheque = null;
 
 	@FXML
 	void initialize() {
@@ -121,7 +123,7 @@ public class ServiceOfferingController {
 		logger.debug("Other Offering Amount : " + otherAmt.getText());
 		logger.debug("Other Offering Reason : " + otherReason.getText());
 		logger.debug("Cash : " + cash.isSelected());
-		logger.debug("Cheque : " + cheque.isSelected());
+		logger.debug("Cheque : " + chequeBtn.isSelected());
 		logger.debug("Cheque Date : " + chequeDate.getSelectedDate());
 		logger.debug("Cheque Number : " + chequeNumber.getText());
 
@@ -203,6 +205,12 @@ public class ServiceOfferingController {
 			so.setSundaySchool(Float.parseFloat(sundaySchool.getText()));
 			so.setThanksOffering(Float.parseFloat(thanksOffering.getText()));
 			so.setTime(time.getValue());
+			
+			if(this.chequeBtn.isSelected()){
+				cheque = new Cheque();
+				cheque.setChequeNumber(this.chequeNumber.getText());
+				cheque.setChequeDate(chequeDate.getSelectedDate());
+			}
 
 			IMissionaryAccount missionaryAccount = null;
 			if (missionary.getText() != null
@@ -210,15 +218,12 @@ public class ServiceOfferingController {
 				if (cash.isSelected()) {
 					missionaryAccount = new MissionaryAccount();
 					so.getMissionaryAccounts().add(missionaryAccount);
-				} else if (cheque.isSelected()) {
+				} else if (chequeBtn.isSelected()) {
 					missionaryAccount = new BankMissionaryAccount();
 					so.getBankMissionaryAccounts().add(missionaryAccount);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(chequeDate.getSelectedDate());
 					BankMissionaryAccount bankMissionaryAcc = (BankMissionaryAccount) missionaryAccount;
 					bankMissionaryAcc.getCheques().add(cheque);
-					cheque.setBankMissionaryAccount(bankMissionaryAcc);
+					cheque.getBankMissionaryAccounts().add(bankMissionaryAcc);
 
 				}
 
@@ -236,15 +241,12 @@ public class ServiceOfferingController {
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
-				} else if (cheque.isSelected()) {
+				} else if (chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					so.getBankPCAccounts().add(pcAccount);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(chequeDate.getSelectedDate());
 					BankPCAccount bankPCAcc = (BankPCAccount) pcAccount;
 					bankPCAcc.getCheques().add(cheque);
-					cheque.setBankPCAccount(bankPCAcc);
+					cheque.getBankPCAccounts().add(bankPCAcc);
 				}
 
 				pcAccount
@@ -261,15 +263,12 @@ public class ServiceOfferingController {
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
-				} else if (cheque.isSelected()) {
+				} else if (chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					so.getBankPCAccounts().add(pcAccount);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(chequeDate.getSelectedDate());
 					BankPCAccount bankPCAcc = (BankPCAccount) pcAccount;
 					bankPCAcc.getCheques().add(cheque);
-					cheque.setBankPCAccount(bankPCAcc);
+					cheque.getBankPCAccounts().add(bankPCAcc);
 				}
 
 				pcAccount.setAmount(Float.parseFloat(auctionAmt.getText()));
@@ -284,15 +283,12 @@ public class ServiceOfferingController {
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
-				} else if (cheque.isSelected()) {
+				} else if (chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					so.getBankPCAccounts().add(pcAccount);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(chequeDate.getSelectedDate());
 					BankPCAccount bankPCAcc = (BankPCAccount) pcAccount;
 					bankPCAcc.getCheques().add(cheque);
-					cheque.setBankPCAccount(bankPCAcc);
+					cheque.getBankPCAccounts().add(bankPCAcc);
 				}
 
 				pcAccount.setAmount(Float.parseFloat(marriage.getText()));
@@ -308,15 +304,12 @@ public class ServiceOfferingController {
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
-				} else if (cheque.isSelected()) {
+				} else if (chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					so.getBankPCAccounts().add(pcAccount);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(chequeDate.getSelectedDate());
 					BankPCAccount bankPCAcc = (BankPCAccount) pcAccount;
 					bankPCAcc.getCheques().add(cheque);
-					cheque.setBankPCAccount(bankPCAcc);
+					cheque.getBankPCAccounts().add(bankPCAcc);
 				}
 
 				pcAccount.setAmount(Float.parseFloat(confirmation.getText()));
@@ -333,15 +326,12 @@ public class ServiceOfferingController {
 				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
-				} else if (cheque.isSelected()) {
+				} else if (chequeBtn.isSelected()) {
 					sto = new BankSpecialThanksOfferingAccount();
 					so.getBankSpecialThanksOfferingAccounts().add(sto);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(chequeDate.getSelectedDate());
 					BankSpecialThanksOfferingAccount bankSTOAcc = (BankSpecialThanksOfferingAccount) sto;
 					bankSTOAcc.getCheques().add(cheque);
-					cheque.setBankSTOAccount(bankSTOAcc);
+					cheque.getBankSTOAccounts().add(bankSTOAcc);
 				}
 
 				sto.setAmount(Float.parseFloat(thanksOffering.getText()));
@@ -356,15 +346,12 @@ public class ServiceOfferingController {
 				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
-				} else if (cheque.isSelected()) {
+				} else if (chequeBtn.isSelected()) {
 					sto = new BankSpecialThanksOfferingAccount();
 					so.getBankSpecialThanksOfferingAccounts().add(sto);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(chequeDate.getSelectedDate());
 					BankSpecialThanksOfferingAccount bankSTOAcc = (BankSpecialThanksOfferingAccount) sto;
 					bankSTOAcc.getCheques().add(cheque);
-					cheque.setBankSTOAccount(bankSTOAcc);
+					cheque.getBankSTOAccounts().add(bankSTOAcc);
 				}
 
 				sto.setAmount(Float.parseFloat(this.sto.getText()));
@@ -378,15 +365,12 @@ public class ServiceOfferingController {
 				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
-				} else if (cheque.isSelected()) {
+				} else if (chequeBtn.isSelected()) {
 					sto = new BankSpecialThanksOfferingAccount();
 					so.getBankSpecialThanksOfferingAccounts().add(sto);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(chequeDate.getSelectedDate());
 					BankSpecialThanksOfferingAccount bankSTOAcc = (BankSpecialThanksOfferingAccount) sto;
 					bankSTOAcc.getCheques().add(cheque);
-					cheque.setBankSTOAccount(bankSTOAcc);
+					cheque.getBankSTOAccounts().add(bankSTOAcc);
 				}
 
 				sto.setAmount(Float.parseFloat(otherAmt.getText()));
@@ -402,15 +386,12 @@ public class ServiceOfferingController {
 				if (cash.isSelected()) {
 					ssa = new SundaySchoolAccount();
 					so.getSundaySchoolAccounts().add(ssa);
-				} else if (cheque.isSelected()) {
+				} else if (chequeBtn.isSelected()) {
 					ssa = new BankSundaySchoolAccount();
 					so.getBankSundaySchoolAccounts().add(ssa);
-					Cheque cheque = new Cheque();
-					cheque.setChequeNumber(this.chequeNumber.getText());
-					cheque.setChequeDate(chequeDate.getSelectedDate());
 					BankSundaySchoolAccount bankSsaAcc = (BankSundaySchoolAccount) ssa;
 					bankSsaAcc.getCheques().add(cheque);
-					cheque.setBankSundaySchoolAccount(bankSsaAcc);
+					cheque.getBankSundaySchoolAccounts().add(bankSsaAcc);
 				}
 
 				ssa.setAmount(Float.parseFloat(sundaySchool.getText()));
@@ -443,13 +424,13 @@ public class ServiceOfferingController {
 
 	public void onCashButtonPressed() {
 		this.cash.setSelected(true);
-		this.cheque.setSelected(false);
+		this.chequeBtn.setSelected(false);
 		this.chequeDetails.setVisible(false);
 	}
 
 	public void onChequeButtonPressed() {
 		this.cash.setSelected(false);
-		this.cheque.setSelected(true);
+		this.chequeBtn.setSelected(true);
 		this.chequeDetails.setVisible(true);
 	}
 

@@ -15,8 +15,16 @@ public class BankGraveyardAccount implements Account,IGraveyardAccount {
 	private String cr_dr;
 	private Santha santha;
 	private Date date;
+	private Set<Cheque> cheques = new HashSet<>();
 	
 	
+	
+	public Set<Cheque> getCheques() {
+		return cheques;
+	}
+	public void setCheques(Set<Cheque> cheques) {
+		this.cheques = cheques;
+	}
 	public Date getDate() {
 		return date;
 	}

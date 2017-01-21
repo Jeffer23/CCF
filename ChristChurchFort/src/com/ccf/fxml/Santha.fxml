@@ -444,7 +444,7 @@
 						</Label>
 						<RadioButton fx:id="cash" onAction="#onCashButtonPressed" onMouseClicked="#onCashButtonPressed"
 							selected="true" mnemonicParsing="false" text="Cash" />
-						<RadioButton fx:id="cheque" onAction="#onChequeButtonPressed" onMouseClicked="#onChequeButtonPressed"
+						<RadioButton fx:id="chequeBtn" onAction="#onChequeButtonPressed" onMouseClicked="#onChequeButtonPressed"
 							mnemonicParsing="false" text="Cheque"
 							style="-fx-padding:0px 0px 0px 10px;" />
 					</children>

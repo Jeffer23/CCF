@@ -109,9 +109,10 @@ public class AddIncomeController {
 				throw new CcfException("Reason cannot be empty");
 			}
 
-			Cheque cheque = new Cheque();
+			Cheque cheque = null;
 			String accName = null;
 			if (this.cheque.isSelected()) {
+				cheque = new Cheque();
 				cheque.setChequeNumber(this.chequeNumber.getText());
 				cheque.setChequeDate(chequeDate.getSelectedDate());
 			}
@@ -127,7 +128,7 @@ public class AddIncomeController {
 					account = new BankPCAccount();
 					BankPCAccount bankPCAccount = (BankPCAccount) account;
 					bankPCAccount.getCheques().add(cheque);
-					cheque.setBankPCAccount(bankPCAccount);
+					cheque.getBankPCAccounts().add(bankPCAccount);
 				}
 			} else if (accounts.getValue().equals(
 					AccountNames.MissionaryAccount)) {
@@ -139,7 +140,7 @@ public class AddIncomeController {
 					account = new BankMissionaryAccount();
 					BankMissionaryAccount bankMissionaryAccount = (BankMissionaryAccount) account;
 					bankMissionaryAccount.getCheques().add(cheque);
-					cheque.setBankMissionaryAccount(bankMissionaryAccount);
+					cheque.getBankMissionaryAccounts().add(bankMissionaryAccount);
 				}
 			} else if (accounts.getValue().equals(AccountNames.MensAccount)) {
 				if (this.cash.isSelected()) {
@@ -150,7 +151,7 @@ public class AddIncomeController {
 					account = new BankMensAccount();
 					BankMensAccount bankMensAccount = (BankMensAccount) account;
 					bankMensAccount.getCheques().add(cheque);
-					cheque.setBankMensAccount(bankMensAccount);
+					cheque.getBankMensAccounts().add(bankMensAccount);
 				}
 			} else if (accounts.getValue().equals(AccountNames.WomensAccount)) {
 				if (this.cash.isSelected()) {
@@ -161,7 +162,7 @@ public class AddIncomeController {
 					account = new BankWomensAccount();
 					BankWomensAccount bankWomensAccount = (BankWomensAccount) account;
 					bankWomensAccount.getCheques().add(cheque);
-					cheque.setBankWomensAccount(bankWomensAccount);
+					cheque.getBankWomensAccounts().add(bankWomensAccount);
 				}
 			} else if (accounts.getValue().equals(
 					AccountNames.SundaySchoolAccount)) {
@@ -173,7 +174,7 @@ public class AddIncomeController {
 					account = new BankSundaySchoolAccount();
 					BankSundaySchoolAccount bankSundaySchoolAccount = (BankSundaySchoolAccount) account;
 					bankSundaySchoolAccount.getCheques().add(cheque);
-					cheque.setBankSundaySchoolAccount(bankSundaySchoolAccount);
+					cheque.getBankSundaySchoolAccounts().add(bankSundaySchoolAccount);
 				}
 			} else if (accounts.getValue().equals(AccountNames.YouthAccount)) {
 				if (this.cash.isSelected()) {
@@ -184,7 +185,7 @@ public class AddIncomeController {
 					account = new BankYouthAccount();
 					BankYouthAccount bankYouthAccount = (BankYouthAccount) account;
 					bankYouthAccount.getCheques().add(cheque);
-					cheque.setBankYouthAccount(bankYouthAccount);
+					cheque.getBankYouthAccounts().add(bankYouthAccount);
 				}
 			} else if (accounts.getValue().equals(AccountNames.STOAccount)) {
 				if (this.cash.isSelected()) {
@@ -195,7 +196,7 @@ public class AddIncomeController {
 					account = new BankSpecialThanksOfferingAccount();
 					BankSpecialThanksOfferingAccount bankSTOAccount = (BankSpecialThanksOfferingAccount) account;
 					bankSTOAccount.getCheques().add(cheque);
-					cheque.setBankSTOAccount(bankSTOAccount);
+					cheque.getBankSTOAccounts().add(bankSTOAccount);
 				}
 			} else if (accounts.getValue()
 					.equals(AccountNames.GraveyardAccount)) {
@@ -207,7 +208,7 @@ public class AddIncomeController {
 					account = new BankGraveyardAccount();
 					BankGraveyardAccount bankGraveyardAccount = (BankGraveyardAccount) account;
 					bankGraveyardAccount.getCheques().add(cheque);
-					cheque.setBankGraveyardAccount(bankGraveyardAccount);
+					cheque.getBankGraveyardAccounts().add(bankGraveyardAccount);
 				}
 			} else if (accounts.getValue().equals(
 					AccountNames.PrimarySchoolAccount)) {
@@ -219,7 +220,7 @@ public class AddIncomeController {
 					account = new BankPrimarySchoolAccount();
 					BankPrimarySchoolAccount bankPrimarySchoolAccount = (BankPrimarySchoolAccount) account;
 					bankPrimarySchoolAccount.getCheques().add(cheque);
-					cheque.setBankPrimarySchoolAccount(bankPrimarySchoolAccount);
+					cheque.getBankPrimarySchoolAccounts().add(bankPrimarySchoolAccount);
 				}
 			}
 			logger.debug(amount.getText());

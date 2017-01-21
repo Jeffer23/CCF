@@ -7,7 +7,7 @@ import java.util.Set;
 import com.ccf.persistence.interfaces.IWomensAccount;
 import com.ccf.vo.Account;
 
-public class BankWomensAccount implements Account,IWomensAccount {
+public class BankWomensAccount implements Account, IWomensAccount {
 
 	private int id;
 	private float amount;
@@ -15,7 +15,15 @@ public class BankWomensAccount implements Account,IWomensAccount {
 	private String cr_dr;
 	private Santha santha;
 	private Date date;
-	
+	private Set<Cheque> cheques = new HashSet<>();
+
+	public Set<Cheque> getCheques() {
+		return cheques;
+	}
+
+	public void setCheques(Set<Cheque> cheques) {
+		this.cheques = cheques;
+	}
 
 	public Date getDate() {
 		return date;
