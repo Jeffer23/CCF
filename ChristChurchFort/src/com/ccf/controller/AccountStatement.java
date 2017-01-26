@@ -24,6 +24,7 @@ import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
 import com.ccf.util.AccountNames;
+import com.ccf.util.ProjectProperties;
 import com.ccf.vo.AccStatement;
 import com.ccf.vo.Account;
 
@@ -33,6 +34,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.paint.Paint;
 
 public class AccountStatement {
 
@@ -242,7 +244,7 @@ public class AccountStatement {
 		try{
 		Properties prop = new Properties();
 		InputStream input = null;
-		input = new FileInputStream("c://CCF//ccf.properties");
+		input = new FileInputStream(ProjectProperties.propertyFileLocation);
 		// load a properties file
 		prop.load(input);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -252,12 +254,19 @@ public class AccountStatement {
 		FileOutputStream out = new FileOutputStream(file);
 		workbook.write(out);
 		out.close();
+		
+		message.setTextFill(Paint.valueOf("Green"));
+		message.setText("Saved at " + file.getAbsolutePath());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.error(e.getMessage());
+			message.setTextFill(Paint.valueOf("Red"));
+			message.setText(e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.error(e.getMessage());
+			message.setTextFill(Paint.valueOf("Red"));
+			message.setText(e.getMessage());
 		}
 		logger.debug("exportToExcel method Ends...");
 	}
