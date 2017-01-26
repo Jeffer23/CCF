@@ -20,6 +20,15 @@ import org.hibernate.criterion.Restrictions;
 import com.ccf.dao.SanthaDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.AccountsBalance;
+import com.ccf.persistence.classes.BankGraveyardAccount;
+import com.ccf.persistence.classes.BankMensAccount;
+import com.ccf.persistence.classes.BankMissionaryAccount;
+import com.ccf.persistence.classes.BankPCAccount;
+import com.ccf.persistence.classes.BankPrimarySchoolAccount;
+import com.ccf.persistence.classes.BankSpecialThanksOfferingAccount;
+import com.ccf.persistence.classes.BankWomensAccount;
+import com.ccf.persistence.classes.BankYouthAccount;
+import com.ccf.persistence.classes.Cheque;
 import com.ccf.persistence.classes.Family;
 import com.ccf.persistence.classes.Member;
 import com.ccf.persistence.classes.PCAccount;
@@ -518,28 +527,76 @@ public class SanthaDaoImpl implements SanthaDao {
 		return santha;
 	}
 
-	public static void main(String[] args) throws CcfException {
-		SanthaDaoImpl dao = new SanthaDaoImpl();
-		Calendar fromDate = Calendar.getInstance();
-		fromDate.set(2016, 3, 25);
-		Calendar toDate = Calendar.getInstance();
-		toDate.set(2016, 11, 31);
-		Member member = new Member();
-		member.setId(1);
-		Date startDate = new Date();
+	@Override
+	public Cheque getCheque(int SanthaId) throws CcfException {
+		logger.info("getCheque method Starts...");
 		try {
-			List<Santha> santhas = dao.getPaidMembers(145, fromDate.getTime(),
-					toDate.getTime());
-			System.out.println(santhas.size());
-			for (Santha santha : santhas) {
-				System.out.println("Total : "
-						+ santha.getMember().getFamily().getNo());
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Criteria c = session.createCriteria(Santha.class);
+			c.add(Restrictions.eq("santhaId", SanthaId));
+			
+			
+			Santha santha = (Santha) c.uniqueResult();
+			Cheque cheque = null;
+			if (santha.getBankGraveyardAccounts().size() > 0
+					|| santha.getBankMensAccounts().size() > 0
+					|| santha.getBankMissionaryAccounts().size() > 0
+					|| santha.getBankPCAccounts().size() > 0
+					|| santha.getBankPrimarySchoolAccounts().size() > 0
+					|| santha.getBankSpecialThanksOfferingAccounts()
+							.size() > 0
+					|| santha.getBankWomensAccounts().size() > 0
+					|| santha.getBankYouthAccounts().size() > 0) {
+				
+				if(!santha.getBankGraveyardAccounts().isEmpty()){
+					BankGraveyardAccount bgAcc = (BankGraveyardAccount) santha.getBankGraveyardAccounts().iterator().next();
+					cheque = bgAcc.getCheques().iterator().next();
+				}
+				else if(!santha.getBankMensAccounts().isEmpty()){
+					BankMensAccount bmAcc = (BankMensAccount) santha.getBankMensAccounts().iterator().next();
+					cheque = bmAcc.getCheques().iterator().next();
+				}
+				else if(!santha.getBankMissionaryAccounts().isEmpty()){
+					BankMissionaryAccount bmAcc = (BankMissionaryAccount) santha.getBankMissionaryAccounts().iterator().next();
+					cheque = bmAcc.getCheques().iterator().next();
+				}
+				else if(!santha.getBankPCAccounts().isEmpty()){
+					BankPCAccount bpcAcc = (BankPCAccount) santha.getBankPCAccounts().iterator().next();
+					cheque = bpcAcc.getCheques().iterator().next();
+				}
+				else if(!santha.getBankPrimarySchoolAccounts().isEmpty()){
+					BankPrimarySchoolAccount bpsAcc = (BankPrimarySchoolAccount) santha.getBankPrimarySchoolAccounts().iterator().next();
+					cheque = bpsAcc.getCheques().iterator().next();
+				}
+				else if(!santha.getBankSpecialThanksOfferingAccounts().isEmpty()){
+					BankSpecialThanksOfferingAccount bstoAcc = (BankSpecialThanksOfferingAccount) santha.getBankSpecialThanksOfferingAccounts().iterator().next();
+					cheque = bstoAcc.getCheques().iterator().next();
+				}
+				else if(!santha.getBankWomensAccounts().isEmpty()){
+					BankWomensAccount bwAcc = (BankWomensAccount) santha.getBankWomensAccounts().iterator().next();
+					cheque = bwAcc.getCheques().iterator().next();
+				}
+				else if(!santha.getBankYouthAccounts().isEmpty()){
+					BankYouthAccount byAcc = (BankYouthAccount) santha.getBankYouthAccounts().iterator().next();
+					cheque = byAcc.getCheques().iterator().next();
+				}
 			}
-		} catch (CcfException e) {
-			e.printStackTrace();
+			
+			session.close();
+			logger.info("getCheque method Ends...");
+			return cheque;
+
+		} catch (Exception e) {
+			throw new CcfException(e.getMessage());
 		}
-		Date endDate = new Date();
-		System.out.println(endDate.getTime() - startDate.getTime());
+	}
+	public static void main(String[] args) throws CcfException {
+		SanthaDaoImpl impl = new SanthaDaoImpl();
+		Cheque cheque =impl.getCheque(48);
+
+		System.out.println(cheque.getChequeNumber());
 
 	}
 }
