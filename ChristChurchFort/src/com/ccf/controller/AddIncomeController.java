@@ -20,6 +20,7 @@ import com.ccf.persistence.classes.BankWomensAccount;
 import com.ccf.persistence.classes.BankYouthAccount;
 import com.ccf.persistence.classes.Cheque;
 import com.ccf.persistence.classes.GraveyardAccount;
+import com.ccf.persistence.classes.Ledger;
 import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
@@ -32,6 +33,7 @@ import com.ccf.vo.Account;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -53,6 +55,9 @@ public class AddIncomeController {
 	private ChoiceBox<String> accounts;
 
 	@FXML
+	private ChoiceBox<Ledger> ledgers;
+
+	@FXML
 	private TextArea reason;
 
 	@FXML
@@ -72,6 +77,15 @@ public class AddIncomeController {
 
 	@FXML
 	private GridPane grid;
+	
+	@FXML
+	private TextField ledgerName;
+	
+	@FXML
+	private Button addLedger;
+	
+	@FXML
+	private Button cancelLedger;
 
 	@FXML
 	void initialize() {
@@ -88,10 +102,27 @@ public class AddIncomeController {
 		accounts.setValue(AccountNames.PCAccount);
 		accounts.getItems().addAll(accountNames);
 
-		grid.getChildren().get(7).setVisible(false);
+		grid.getChildren().get(9).setVisible(false);
 		grid.getChildren().get(8).setVisible(false);
 		grid.getChildren().get(10).setVisible(false);
 		grid.getChildren().get(11).setVisible(false);
+		
+		this.ledgerName.setVisible(false);
+		this.addLedger.setVisible(false);
+		this.cancelLedger.setVisible(false);
+		
+		AccountsDao dao = new AccountsDaoImpl();
+		try {
+			List<Ledger> ledgers = dao.getAllLedgers();
+			if(ledgers.size() > 0)
+				this.ledgers.setValue(ledgers.get(0));
+			this.ledgers.getItems().addAll(ledgers);
+		} catch (CcfException e) {
+			message.setText(e.getMessage());
+			message.setTextFill(Paint.valueOf("RED"));
+		}
+		
+		this.cash.setSelected(true);
 	}
 
 	public void saveIncome() {
@@ -229,6 +260,7 @@ public class AddIncomeController {
 			account.setDescription(reason.getText());
 			account.setCr_dr("CR");
 			account.setDate(new Date());
+			account.setLedger(this.ledgers.getValue());
 			dao.addIncomeorExpense(account, accName, amt);
 
 			message.setTextFill(Paint.valueOf("Green"));
@@ -246,10 +278,46 @@ public class AddIncomeController {
 		logger.info("Save Income method Ends..");
 	}
 
+	public void addLedger(){
+		AccountsDao dao = new AccountsDaoImpl();
+		Ledger ledger = new Ledger();
+		ledger.setLedgerName(this.ledgerName.getText());
+		try {
+			dao.addLedger(ledger);
+			this.ledgers.getItems().clear();
+			List<Ledger> ledgers = dao.getAllLedgers();
+			this.ledgers.getItems().addAll(ledgers);
+			this.ledgers.setValue(ledgers.get(ledgers.size() - 1));
+			message.setText("Ledger Added");
+			message.setTextFill(Paint.valueOf("GREEN"));
+			
+			//Clear Text
+			this.ledgerName.setText("");
+		} catch (CcfException e) {
+			message.setText(e.getMessage());
+			message.setTextFill(Paint.valueOf("RED"));
+		}
+		this.ledgerName.setVisible(false);
+		this.addLedger.setVisible(false);
+		this.cancelLedger.setVisible(false);
+	}
+	
+	public void cancelLedger(){
+		this.ledgerName.setVisible(false);
+		this.addLedger.setVisible(false);
+		this.cancelLedger.setVisible(false);
+	}
+	
+	public void showLedgerDetails(){
+		this.ledgerName.setVisible(true);
+		this.addLedger.setVisible(true);
+		this.cancelLedger.setVisible(true);
+	}
+	
 	public void onCashButtonPressed() {
 		this.cash.setSelected(true);
 		this.cheque.setSelected(false);
-		grid.getChildren().get(7).setVisible(false);
+		grid.getChildren().get(9).setVisible(false);
 		grid.getChildren().get(8).setVisible(false);
 		grid.getChildren().get(10).setVisible(false);
 		grid.getChildren().get(11).setVisible(false);
@@ -258,7 +326,7 @@ public class AddIncomeController {
 	public void onChequeButtonPressed() {
 		this.cash.setSelected(false);
 		this.cheque.setSelected(true);
-		grid.getChildren().get(7).setVisible(true);
+		grid.getChildren().get(9).setVisible(true);
 		grid.getChildren().get(8).setVisible(true);
 		grid.getChildren().get(10).setVisible(true);
 		grid.getChildren().get(11).setVisible(true);
@@ -271,7 +339,7 @@ public class AddIncomeController {
 		accounts.setValue("PC Account");
 		cash.setSelected(true);
 		cheque.setSelected(false);
-		grid.getChildren().get(7).setVisible(false);
+		grid.getChildren().get(9).setVisible(false);
 		grid.getChildren().get(8).setVisible(false);
 		grid.getChildren().get(10).setVisible(false);
 		grid.getChildren().get(11).setVisible(false);

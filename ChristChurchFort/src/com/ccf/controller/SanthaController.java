@@ -28,6 +28,7 @@ import com.ccf.persistence.classes.BankWomensAccount;
 import com.ccf.persistence.classes.BankYouthAccount;
 import com.ccf.persistence.classes.Cheque;
 import com.ccf.persistence.classes.GraveyardAccount;
+import com.ccf.persistence.classes.Ledger;
 import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
@@ -44,6 +45,7 @@ import com.ccf.persistence.interfaces.IPrimarySchoolAccount;
 import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
 import com.ccf.persistence.interfaces.IWomensAccount;
 import com.ccf.persistence.interfaces.IYouthAccount;
+import com.ccf.vo.Account;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import javafx.application.Application;
@@ -780,7 +782,8 @@ public class SanthaController extends Application {
 
 			AccountsDao impl = new AccountsDaoImpl();
 			IPCAccount pcAccount = null;
-
+			Ledger ledger = null;
+			
 			/*
 			 * Creating cheque object
 			 */
@@ -795,21 +798,34 @@ public class SanthaController extends Application {
 			/*
 			 * Adding Subscription amount to PC Account
 			 */
-			pcAccount = new PCAccount();
+			ledger = impl.getLedger("Santha - Subscription Amount");
+			if (this.cash.isSelected()) {
+				pcAccount = new PCAccount();
+				santha.getPcAccounts().add(pcAccount);
+				//ledger.getPcAccounts().add((PCAccount)pcAccount);
+			} else if (this.chequeBtn.isSelected()) {
+				pcAccount = new BankPCAccount();
+				santha.getBankPCAccounts().add(pcAccount);
+				//ledger.getBankPCAccounts().add((BankPCAccount)pcAccount);
+				addChequetoBankPCAcc(pcAccount);
+			}
 			pcAccount.setAmount(subscriptionAmount);
 			pcAccount.setCr_dr("CR");
 			pcAccount.setDescription("Santha - Subscription Amount");
 			pcAccount.setSantha(santha);
 			pcAccount.setDate(paidDate.getSelectedDate());
-			santha.getPcAccounts().add(pcAccount);
+			((Account)pcAccount).setLedger(ledger);
 
 			if (harvestFestival != 0.0f) {
+				ledger = impl.getLedger("Santha - Harvest Festival");
 				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
+					//ledger.getPcAccounts().add((PCAccount)pcAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					santha.getBankPCAccounts().add(pcAccount);
+					//ledger.getBankPCAccounts().add((BankPCAccount)pcAccount);
 					addChequetoBankPCAcc(pcAccount);
 				}
 				pcAccount.setAmount(harvestFestival);
@@ -817,16 +833,20 @@ public class SanthaController extends Application {
 				pcAccount.setDescription("Santha - Harvest Festival");
 				pcAccount.setSantha(santha);
 				pcAccount.setDate(paidDate.getSelectedDate());
+				((Account)pcAccount).setLedger(ledger);
 
 			}
 
 			if (educationHelp != 0.0f) {
+				ledger = impl.getLedger("Santha - Education Help");
 				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
+					//ledger.getPcAccounts().add((PCAccount)pcAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					santha.getBankPCAccounts().add(pcAccount);
+					//ledger.getBankPCAccounts().add((BankPCAccount)pcAccount);
 					addChequetoBankPCAcc(pcAccount);
 				}
 				pcAccount.setAmount(educationHelp);
@@ -834,15 +854,19 @@ public class SanthaController extends Application {
 				pcAccount.setDescription("Santha - Education Help");
 				pcAccount.setSantha(santha);
 				pcAccount.setDate(paidDate.getSelectedDate());
+				((Account)pcAccount).setLedger(ledger);
 			}
 
 			if (poorHelp != 0.0f) {
+				ledger = impl.getLedger("Santha - Poor Help");
 				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
+					//ledger.getPcAccounts().add((PCAccount)pcAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					santha.getBankPCAccounts().add(pcAccount);
+					//ledger.getBankPCAccounts().add((BankPCAccount)pcAccount);
 					addChequetoBankPCAcc(pcAccount);
 				}
 				pcAccount.setAmount(poorHelp);
@@ -850,15 +874,19 @@ public class SanthaController extends Application {
 				pcAccount.setDescription("Santha - Poor Help");
 				pcAccount.setSantha(santha);
 				pcAccount.setDate(paidDate.getSelectedDate());
+				((Account)pcAccount).setLedger(ledger);
 			}
 
 			if (bagOffer != 0.0f) {
+				ledger = impl.getLedger("Santha - Bag Offer");
 				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
+					//ledger.getPcAccounts().add((PCAccount)pcAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					pcAccount = new BankPCAccount();
 					santha.getBankPCAccounts().add(pcAccount);
+					//ledger.getBankPCAccounts().add((BankPCAccount)pcAccount);
 					addChequetoBankPCAcc(pcAccount);
 				}
 				pcAccount.setAmount(bagOffer);
@@ -866,17 +894,21 @@ public class SanthaController extends Application {
 				pcAccount.setDescription("Santha - Bag Offer");
 				pcAccount.setSantha(santha);
 				pcAccount.setDate(paidDate.getSelectedDate());
+				((Account)pcAccount).setLedger(ledger);
 			}
 
 			ISpecialThanksOfferingAccount stoAccount = null;
 			if (thanksOffer != 0.0f) {
+				ledger = impl.getLedger("Santha - Thanks Offering");
 				if (this.cash.isSelected()) {
 					stoAccount = new SpecialThanksOfferingAccount();
 					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
+					//ledger.getStoAccounts().add((SpecialThanksOfferingAccount)stoAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					stoAccount = new BankSpecialThanksOfferingAccount();
 					santha.getBankSpecialThanksOfferingAccounts().add(
 							stoAccount);
+					//ledger.getBankSTOAccounts().add((BankSpecialThanksOfferingAccount)stoAccount);
 					addChequeToStoAcc(stoAccount);
 				}
 				stoAccount.setAmount(thanksOffer);
@@ -884,16 +916,20 @@ public class SanthaController extends Application {
 				stoAccount.setDescription("Santha - Thanks Offering");
 				stoAccount.setSantha(santha);
 				stoAccount.setDate(paidDate.getSelectedDate());
+				((Account)stoAccount).setLedger(ledger);
 			}
 
 			if (sto != 0.0f) {
+				ledger = impl.getLedger("Santha - Special Thanks Offering");
 				if (this.cash.isSelected()) {
 					stoAccount = new SpecialThanksOfferingAccount();
 					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
+					//ledger.getStoAccounts().add((SpecialThanksOfferingAccount)stoAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					stoAccount = new BankSpecialThanksOfferingAccount();
 					santha.getBankSpecialThanksOfferingAccounts().add(
 							stoAccount);
+					//ledger.getBankSTOAccounts().add((BankSpecialThanksOfferingAccount)stoAccount);
 					addChequeToStoAcc(stoAccount);
 				}
 				stoAccount.setAmount(sto);
@@ -901,16 +937,20 @@ public class SanthaController extends Application {
 				stoAccount.setDescription("Santha - Special Thanks Offering");
 				stoAccount.setSantha(santha);
 				stoAccount.setDate(paidDate.getSelectedDate());
+				((Account)stoAccount).setLedger(ledger);
 			}
 
 			if (churchRenovation != 0.0f) {
+				ledger = impl.getLedger("Santha - Church Renovation");
 				if (this.cash.isSelected()) {
 					stoAccount = new SpecialThanksOfferingAccount();
 					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
+					//ledger.getStoAccounts().add((SpecialThanksOfferingAccount)stoAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					stoAccount = new BankSpecialThanksOfferingAccount();
 					santha.getBankSpecialThanksOfferingAccounts().add(
 							stoAccount);
+					//ledger.getBankSTOAccounts().add((BankSpecialThanksOfferingAccount)stoAccount);
 					addChequeToStoAcc(stoAccount);
 				}
 				stoAccount.setAmount(churchRenovation);
@@ -918,16 +958,20 @@ public class SanthaController extends Application {
 				stoAccount.setDescription("Santha - Church Renovation");
 				stoAccount.setSantha(santha);
 				stoAccount.setDate(paidDate.getSelectedDate());
+				((Account)stoAccount).setLedger(ledger);
 			}
 
 			IMissionaryAccount missionaryAccount = null;
 			if (missionary != 0.0f) {
+				ledger = impl.getLedger("Santha - Missionary Offering");
 				if (this.cash.isSelected()) {
 					missionaryAccount = new MissionaryAccount();
 					santha.getMissionaryAccounts().add(missionaryAccount);
+					//ledger.getMissionaryAccounts().add((MissionaryAccount)missionaryAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					missionaryAccount = new BankMissionaryAccount();
 					santha.getBankMissionaryAccounts().add(missionaryAccount);
+					//ledger.getBankMissionaryAccounts().add((BankMissionaryAccount)missionaryAccount);
 					BankMissionaryAccount bankMissionaryAcc = (BankMissionaryAccount) missionaryAccount;
 					bankMissionaryAcc.getCheques().add(cheque);
 					cheque.getBankMissionaryAccounts().add(bankMissionaryAcc);
@@ -938,16 +982,20 @@ public class SanthaController extends Application {
 						.setDescription("Santha - Missionary Offering");
 				missionaryAccount.setSantha(santha);
 				missionaryAccount.setDate(paidDate.getSelectedDate());
+				((Account)missionaryAccount).setLedger(ledger);
 			}
 
 			IMensAccount mensAccount = null;
 			if (mensFellowship != 0.0f) {
+				ledger = impl.getLedger("Santha - Men's Fellowship");
 				if (this.cash.isSelected()) {
 					mensAccount = new MensAccount();
 					santha.getMensAccounts().add(mensAccount);
+					//ledger.getMensAccounts().add((MensAccount)mensAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					mensAccount = new BankMensAccount();
 					santha.getBankMensAccounts().add(mensAccount);
+					//ledger.getBankMensAccounts().add((BankMensAccount)mensAccount);
 					BankMensAccount bankMensAcc = (BankMensAccount) mensAccount;
 					bankMensAcc.getCheques().add(cheque);
 					cheque.getBankMensAccounts().add(bankMensAcc);
@@ -957,16 +1005,20 @@ public class SanthaController extends Application {
 				mensAccount.setDescription("Santha - Men's Fellowship");
 				mensAccount.setSantha(santha);
 				mensAccount.setDate(paidDate.getSelectedDate());
+				((Account)mensAccount).setLedger(ledger);
 			}
 
 			IWomensAccount womensAccount = null;
 			if (womensFellowship != 0.0f) {
+				ledger = impl.getLedger("Santha - Women's Fellowship");
 				if (this.cash.isSelected()) {
 					womensAccount = new WomensAccount();
 					santha.getWomensAccounts().add(womensAccount);
+					//ledger.getWomensAccounts().add((WomensAccount)womensAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					womensAccount = new BankWomensAccount();
 					santha.getBankWomensAccounts().add(womensAccount);
+					//ledger.getBankWomensAccounts().add((BankWomensAccount)womensAccount);
 					BankWomensAccount bankWomensAcc = (BankWomensAccount) womensAccount;
 					bankWomensAcc.getCheques().add(cheque);
 					cheque.getBankWomensAccounts().add(bankWomensAcc);
@@ -976,17 +1028,21 @@ public class SanthaController extends Application {
 				womensAccount.setDescription("Santha - Women's Fellowship");
 				womensAccount.setSantha(santha);
 				womensAccount.setDate(paidDate.getSelectedDate());
+				((Account)womensAccount).setLedger(ledger);
 			}
 
 			IPrimarySchoolAccount primarySchoolAccount = null;
 			if (primarySchool != 0.0f) {
+				ledger = impl.getLedger("Santha - Primary School");
 				if (this.cash.isSelected()) {
 					primarySchoolAccount = new PrimarySchoolAccount();
 					santha.getPrimarySchoolAccounts().add(primarySchoolAccount);
+					//ledger.getPrimarySchoolAccounts().add((PrimarySchoolAccount)primarySchoolAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					primarySchoolAccount = new BankPrimarySchoolAccount();
 					santha.getBankPrimarySchoolAccounts().add(
 							primarySchoolAccount);
+					//ledger.getBankPrimarySchoolAccounts().add((BankPrimarySchoolAccount)primarySchoolAccount);
 					BankPrimarySchoolAccount bankPrimaryAcc = (BankPrimarySchoolAccount) primarySchoolAccount;
 					bankPrimaryAcc.getCheques().add(cheque);
 					cheque.getBankPrimarySchoolAccounts().add(bankPrimaryAcc);
@@ -997,16 +1053,20 @@ public class SanthaController extends Application {
 				primarySchoolAccount.setDescription("Santha - Primary School");
 				primarySchoolAccount.setSantha(santha);
 				primarySchoolAccount.setDate(paidDate.getSelectedDate());
+				((Account)primarySchoolAccount).setLedger(ledger);
 			}
 
 			IYouthAccount youthAccount = null;
 			if (youth != 0.0f) {
+				ledger = impl.getLedger("Santha - Youth");
 				if (this.cash.isSelected()) {
 					youthAccount = new YouthAccount();
 					santha.getYouthAccounts().add(youthAccount);
+					//ledger.getYouthAccounts().add((YouthAccount)youthAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					youthAccount = new BankYouthAccount();
 					santha.getBankYouthAccounts().add(youthAccount);
+					//ledger.getBankYouthAccounts().add((BankYouthAccount)youthAccount);
 					BankYouthAccount bankYouthAccount = (BankYouthAccount) youthAccount;
 					bankYouthAccount.getCheques().add(cheque);
 					cheque.getBankYouthAccounts().add(bankYouthAccount);
@@ -1016,16 +1076,20 @@ public class SanthaController extends Application {
 				youthAccount.setDescription("Santha - Youth");
 				youthAccount.setSantha(santha);
 				youthAccount.setDate(paidDate.getSelectedDate());
+				((Account)youthAccount).setLedger(ledger);
 			}
 
 			IGraveyardAccount graveyardAccount = null;
 			if (graveyard != 0.0f) {
+				ledger = impl.getLedger("Santha - Graveyard");
 				if (this.cash.isSelected()) {
 					graveyardAccount = new GraveyardAccount();
 					santha.getGraveyardAccounts().add(graveyardAccount);
+					//ledger.getGraveyardAccounts().add((GraveyardAccount)graveyardAccount);
 				} else if (this.chequeBtn.isSelected()) {
 					graveyardAccount = new BankGraveyardAccount();
 					santha.getBankGraveyardAccounts().add(graveyardAccount);
+					//ledger.getBankGraveyardAccounts().add((BankGraveyardAccount)graveyardAccount);
 					BankGraveyardAccount bankGraveyardAcc = (BankGraveyardAccount) graveyardAccount;
 					bankGraveyardAcc.getCheques().add(cheque);
 					cheque.getBankGraveyardAccounts().add(bankGraveyardAcc);
@@ -1035,6 +1099,7 @@ public class SanthaController extends Application {
 				graveyardAccount.setDescription("Santha - Graveyard");
 				graveyardAccount.setSantha(santha);
 				graveyardAccount.setDate(paidDate.getSelectedDate());
+				((Account)graveyardAccount).setLedger(ledger);
 			}
 
 			// Inserting into DB
@@ -1486,9 +1551,6 @@ public class SanthaController extends Application {
 			 */
 			santhaDaoImpl.deleteSantha(santhaAmount);
 
-			/*
-			 * Calculating and Updating the balance of other affected records.
-			 */
 
 			// Removing From UI
 			membersSantha.getItems().remove(santha);

@@ -1,5 +1,6 @@
 package com.ccf.dao.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import com.ccf.dao.AccountsDao;
 import com.ccf.exception.CcfException;
@@ -17,6 +19,7 @@ import com.ccf.persistence.classes.BankGraveyardAccount;
 import com.ccf.persistence.classes.BankPCAccount;
 import com.ccf.persistence.classes.Cheque;
 import com.ccf.persistence.classes.GraveyardAccount;
+import com.ccf.persistence.classes.Ledger;
 import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
@@ -421,74 +424,48 @@ public class AccountsDaoImpl implements AccountsDao {
 	}
 
 	public static void main(String[] args) {
-		AccountsDaoImpl impl = new AccountsDaoImpl();
+		String accountName = "com.ccf.persistence.classes.PCAccount";
+		Calendar from = Calendar.getInstance();
+		from.set(2017, 0, 01);
+		Calendar to = Calendar.getInstance();
+		to.set(2017, 0, 31);
 		try {
-			Cheque cheque1 = new Cheque();
-			cheque1.setChequeNumber("223334334546");
-			cheque1.setChequeDate(new Date());
-			cheque1.setChequeAmount(500f);
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Criteria c = session.createCriteria(Class.forName(accountName));
+			c.add(Restrictions.ge("date", from.getTime()));
+			c.add(Restrictions.le("date", to.getTime()));
+			c.createAlias("ledger", "ledger");
 			
-			Cheque cheque2 = new Cheque();
-			cheque2.setChequeNumber("223334335");
-			cheque2.setChequeDate(new Date());
-			cheque2.setChequeAmount(300f);
+			List<Account> accounts = c.list();
+			session.close();
 			
-			BankGraveyardAccount account1 = new BankGraveyardAccount();
-			account1.setAmount(100.0f);
-			account1.setDescription("Test");
-			account1.setCr_dr("CR");
-			account1.setDate(new Date());
-			
-			cheque1.getBankGraveyardAccounts().add(account1);
-			account1.getCheques().add(cheque1);
-			
-			/*BankGraveyardAccount account2 = new BankGraveyardAccount();
-			account2.setAmount(100.0f);
-			account2.setDescription("Test");
-			account2.setCr_dr("CR");
-			account2.setDate(new Date());
-			
-			cheque1.getBankGraveyardAccounts().add(account2);
-			account2.getCheques().add(cheque1);*/
-			
-			cheque2.getBankGraveyardAccounts().add(account1);
-			account1.getCheques().add(cheque2);
-			
-			try {
-				SessionFactory sessionFactory = HibernateSessionFactory
-						.getSessionFactory();
-				Session session = sessionFactory.openSession();
-				session.getTransaction().begin();
-				session.save(account1);
-				//session.save(account2);
-				session.getTransaction().commit();
-				session.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new CcfException(e.getMessage());
-			}
-		} catch (CcfException e) {
-			// TODO Auto-generated catch block
+			System.out.println(accounts.get(1).getLedger().getLedgerName());
+			logger.debug("getPCAccountStatement method Ends...");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override
-	public List<PCAccount> getPCAccountStatement(Date from, Date to)
+	public List<Account> getAccountStatement(String accountName, Date from, Date to)
 			throws CcfException {
 		logger.debug("getPCAccountStatement method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
-			String hql = "From PCAccount where date>=:from and date<=:to";
-			Query query = session.createQuery(hql);
-			query.setDate("from", from);
-			query.setDate("to", to);
-			List<PCAccount> pcAccounts = query.list();
+			Criteria c = session.createCriteria(Class.forName(accountName));
+			c.add(Restrictions.ge("date", from));
+			c.add(Restrictions.le("date", to));
+			c.createAlias("ledger", "ledger");
+			
+			List<Account> accounts = c.list();
 			session.close();
 			logger.debug("getPCAccountStatement method Ends...");
-			return pcAccounts;
+			return accounts;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
@@ -496,189 +473,65 @@ public class AccountsDaoImpl implements AccountsDao {
 
 	}
 
+	
+	
 	@Override
-	public List<MissionaryAccount> getMissionaryStatement(Date from, Date to)
-			throws CcfException {
-		logger.debug("getMissionaryStatement method starts...");
+	public int addLedger(Ledger ledger) throws CcfException {
+		logger.debug("addLedger method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
-			String hql = "From MissionaryAccount where date>=:from and date<=:to";
-			Query query = session.createQuery(hql);
-			query.setDate("from", from);
-			query.setDate("to", to);
-			List<MissionaryAccount> missionaryAccounts = query.list();
+			session.getTransaction().begin();
+			int ledgerId = (int) session.save(ledger);
+			session.getTransaction().commit();
 			session.close();
-			logger.debug("getMissionaryStatement method Ends...");
-			return missionaryAccounts;
+			logger.debug("addLedger method ends...");
+			return ledgerId;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-
 	}
-
+	
 	@Override
-	public List<MensAccount> getMensStatement(Date from, Date to)
-			throws CcfException {
-		logger.debug("getMensStatement method starts...");
+	public List<Ledger> getAllLedgers() throws CcfException {
+		logger.debug("getAllLedgers method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
-			String hql = "From MensAccount where date>=:from and date<=:to";
+			String hql = "From Ledger";
 			Query query = session.createQuery(hql);
-			query.setDate("from", from);
-			query.setDate("to", to);
-			List<MensAccount> mensAccounts = query.list();
-			session.close();
-			logger.debug("getMensStatement method Ends...");
-			return mensAccounts;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-
-	}
-
-	@Override
-	public List<WomensAccount> getWomensStatement(Date from, Date to)
-			throws CcfException {
-		logger.debug("getWomensStatement method starts...");
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "From WomensAccount where date>=:from and date<=:to";
-			Query query = session.createQuery(hql);
-			query.setDate("from", from);
-			query.setDate("to", to);
-			List<WomensAccount> womensAccounts = query.list();
-			session.close();
-			logger.debug("getWomensStatement method Ends...");
-			return womensAccounts;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-
-	}
-
-	@Override
-	public List<SundaySchoolAccount> getSundaySchoolStatement(Date from, Date to)
-			throws CcfException {
-		logger.debug("getSundaySchoolStatement method starts...");
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "From SundaySchoolAccount where date>=:from and date<=:to";
-			Query query = session.createQuery(hql);
-			query.setDate("from", from);
-			query.setDate("to", to);
-			List<SundaySchoolAccount> sundaySchoolAccounts = query.list();
-			session.close();
-			logger.debug("getSundaySchoolStatement method Ends...");
-			return sundaySchoolAccounts;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-
-	}
-
-	@Override
-	public List<YouthAccount> getYouthStatement(Date from, Date to)
-			throws CcfException {
-		logger.debug("getYouthStatement method starts...");
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "From YouthAccount where date>=:from and date<=:to";
-			Query query = session.createQuery(hql);
-			query.setDate("from", from);
-			query.setDate("to", to);
-			List<YouthAccount> youthAccounts = query.list();
-			session.close();
-			logger.debug("getYouthStatement method Ends...");
-			return youthAccounts;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-
-	}
-
-	@Override
-	public List<SpecialThanksOfferingAccount> getSTOStatement(Date from, Date to)
-			throws CcfException {
-		logger.debug("getSTOStatement method starts...");
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "From SpecialThanksOfferingAccount where date>=:from and date<=:to";
-			Query query = session.createQuery(hql);
-			query.setDate("from", from);
-			query.setDate("to", to);
-			List<SpecialThanksOfferingAccount> specialThanksOfferingAccounts = query
-					.list();
-			session.close();
-			logger.debug("getSTOStatement method Ends...");
-			return specialThanksOfferingAccounts;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-
-	}
-
-	@Override
-	public List<GraveyardAccount> getGraveyardStatement(Date from, Date to)
-			throws CcfException {
-		logger.debug("getGraveyardStatement method starts...");
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "From GraveyardAccount where date>=:from and date<=:to";
-			Query query = session.createQuery(hql);
-			query.setDate("from", from);
-			query.setDate("to", to);
-			List<GraveyardAccount> graveyardAccounts = query.list();
-			session.close();
-			logger.debug("getGraveyardStatement method Ends...");
-			return graveyardAccounts;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-
-	}
-
-	@Override
-	public List<PrimarySchoolAccount> getPrimarySchoolStatement(Date from,
-			Date to) throws CcfException {
-		logger.debug("getPrimarySchoolStatement method starts...");
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "From PrimarySchoolAccount where date>=:from and date<=:to";
-			Query query = session.createQuery(hql);
-			query.setDate("from", from);
-			query.setDate("to", to);
-			List<PrimarySchoolAccount> primarySchoolAccounts = query.list();
+			List<Ledger> ledgers = query.list();
 			session.close();
 			logger.debug("getPrimarySchoolStatement method Ends...");
-			return primarySchoolAccounts;
+			return ledgers;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-
+	}
+	
+	@Override
+	public Ledger getLedger(String ledgerName) throws CcfException {
+		logger.debug("getLedger method Starts...");
+		try {
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			String hql = "From Ledger where ledgerName=:ledgerName";
+			Query query = session.createQuery(hql);
+			query.setString("ledgerName", ledgerName);
+			Ledger ledger = (Ledger) query.uniqueResult();
+			session.close();
+			logger.debug("getLedger method Ends...");
+			return ledger;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new CcfException(e.getMessage());
+		}
+		
 	}
 
 }

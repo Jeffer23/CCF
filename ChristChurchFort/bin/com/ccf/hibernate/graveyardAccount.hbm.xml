@@ -15,5 +15,6 @@
 		<property name="cr_dr" column="cr_dr" type="string" />
 		<property name="date" column="date" type="date" />
 		<many-to-one name="santha" class="com.ccf.persistence.classes.Santha" column="santha_id"></many-to-one>
+		<many-to-one name="ledger" class="com.ccf.persistence.classes.Ledger" column="ledger_id"></many-to-one>
 	</class>
 </hibernate-mapping>

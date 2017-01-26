@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.ccf.persistence.classes.Ledger" table="ledger">
+		<meta attribute="class-description">
+			This class contains the Ledger detail.
+		</meta>
+
+		<id name="ledgerId" type="int" column="ledger_id">
+			<generator class="native" />
+		</id>
+		<property name="ledgerName" column="ledger_name" type="string" />
+		<set name="bankGraveyardAccounts" table="bank_graveyard_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.BankGraveyardAccount" />
+        </set>
+        <set name="bankMensAccounts" table="bank_mens_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.BankMensAccount" />
+        </set>
+        <set name="bankMissionaryAccounts" table="bank_missionary_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.BankMissionaryAccount" />
+        </set>
+        <set name="bankPCAccounts" table="bank_pc_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.BankPCAccount" />
+        </set>
+        <set name="bankPrimarySchoolAccounts" table="bank_primary_school_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.BankPrimarySchoolAccount" />
+        </set>
+        <set name="bankSTOAccounts" table="bank_sto_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.BankSpecialThanksOfferingAccount" />
+        </set>
+        <set name="bankSundaySchoolAccounts" table="bank_sunday_school_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.BankSundaySchoolAccount" />
+        </set>
+        <set name="bankWomensAccounts" table="bank_womens_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.BankWomensAccount" />
+        </set>
+        <set name="bankYouthAccounts" table="bank_youth_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.BankYouthAccount" />
+        </set>
+        <set name="graveyardAccounts" table="graveyard_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.GraveyardAccount" />
+        </set>
+        <set name="mensAccounts" table="mens_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.MensAccount" />
+        </set>
+        <set name="missionaryAccounts" table="missionary_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.MissionaryAccount" />
+        </set>
+        <set name="pcAccounts" table="pc_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.PCAccount" />
+        </set>
+        <set name="primarySchoolAccounts" table="primary_school_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.PrimarySchoolAccount" />
+        </set>
+        <set name="stoAccounts" table="sto_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.SpecialThanksOfferingAccount" />
+        </set>
+        <set name="sundaySchoolAccounts" table="sunday_school_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.SundaySchoolAccount" />
+        </set>
+        <set name="womensAccounts" table="womens_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.WomensAccount" />
+        </set>
+        <set name="youthAccounts" table="youth_account" 
+				inverse="true" lazy="true" fetch="subselect">
+            <key>
+                <column name="no" not-null="true" />
+            </key>
+            <one-to-many class="com.ccf.persistence.classes.YouthAccount" />
+        </set>
+	</class>
+</hibernate-mapping>

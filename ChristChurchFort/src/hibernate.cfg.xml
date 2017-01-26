@@ -35,5 +35,6 @@
         <mapping resource="com/ccf/hibernate/bankPrimarySchoolAccount.hbm.xml"></mapping>
         <mapping resource="com/ccf/hibernate/accountsBalance.hbm.xml"></mapping>
         <mapping resource="com/ccf/hibernate/cheque.hbm.xml"></mapping>
+        <mapping resource="com/ccf/hibernate/ledger.hbm.xml"></mapping>
     </session-factory>
 </hibernate-configuration>

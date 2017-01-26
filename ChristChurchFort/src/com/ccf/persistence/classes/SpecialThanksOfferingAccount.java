@@ -5,7 +5,8 @@ import java.util.Date;
 import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
 import com.ccf.vo.Account;
 
-public class SpecialThanksOfferingAccount implements Account,ISpecialThanksOfferingAccount {
+public class SpecialThanksOfferingAccount implements Account,
+		ISpecialThanksOfferingAccount {
 
 	private int id;
 	private float amount;
@@ -14,6 +15,15 @@ public class SpecialThanksOfferingAccount implements Account,ISpecialThanksOffer
 	private ServiceOffering serviceOffering;
 	private Santha santha;
 	private Date date;
+	private Ledger ledger;
+
+	public Ledger getLedger() {
+		return ledger;
+	}
+
+	public void setLedger(Ledger ledger) {
+		this.ledger = ledger;
+	}
 
 	public Date getDate() {
 		return date;
@@ -38,7 +48,6 @@ public class SpecialThanksOfferingAccount implements Account,ISpecialThanksOffer
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
-
 
 	public String getDescription() {
 		return description;

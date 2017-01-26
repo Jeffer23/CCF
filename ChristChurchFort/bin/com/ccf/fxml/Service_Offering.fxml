@@ -214,7 +214,7 @@
 									onMouseClicked="#onCashButtonPressed" mnemonicParsing="false"
 									text="Cash" style="-fx-padding: 6px;" selected="true">
 								</RadioButton>
-								<RadioButton fx:id="cheque" onAction="#onChequeButtonPressed"
+								<RadioButton fx:id="chequeBtn" onAction="#onChequeButtonPressed"
 									onMouseClicked="#onChequeButtonPressed" mnemonicParsing="false"
 									text="Cheque" style="-fx-padding:6px 0px 0px 10px;">
 								</RadioButton>

@@ -16,6 +16,15 @@ public class BankYouthAccount implements Account, IYouthAccount {
 	private Santha santha;
 	private Date date;
 	private Set<Cheque> cheques = new HashSet<>();
+	private Ledger ledger;
+
+	public Ledger getLedger() {
+		return ledger;
+	}
+
+	public void setLedger(Ledger ledger) {
+		this.ledger = ledger;
+	}
 
 	public Set<Cheque> getCheques() {
 		return cheques;

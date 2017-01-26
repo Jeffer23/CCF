@@ -194,6 +194,17 @@ public class MenuController {
 		}
 		logger.info("loadAccountStatement method Ends...");
 	}
+	
+	public void loadAccumulatedAccountStatement(){
+		logger.info("loadAccumulatedAccountStatement method Starts...");
+		try {
+			replaceSceneContent("/com/ccf/fxml/Template.fxml",
+					"/com/ccf/fxml/Accumulated_Account_Statement.fxml");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("loadAccumulatedAccountStatement method Ends...");
+	}
 	public void showMemberSanthaReport(){
 		logger.info("showMemberSanthaReport method Starts...");
 		try {

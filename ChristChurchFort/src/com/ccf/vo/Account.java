@@ -2,6 +2,8 @@ package com.ccf.vo;
 
 import java.util.Date;
 
+import com.ccf.persistence.classes.Ledger;
+
 public interface Account {
 
 	void setAmount(float amount);
@@ -12,4 +14,6 @@ public interface Account {
 	float getAmount();
 	String getDescription();
 	String getCr_dr();
+	public Ledger getLedger();
+	public void setLedger(Ledger ledger);
 }

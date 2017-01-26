@@ -16,6 +16,15 @@ public class BankSundaySchoolAccount implements Account, ISundaySchoolAccount {
 	private ServiceOffering serviceOffering;
 	private Date date;
 	private Set<Cheque> cheques = new HashSet<>();
+	private Ledger ledger;
+
+	public Ledger getLedger() {
+		return ledger;
+	}
+
+	public void setLedger(Ledger ledger) {
+		this.ledger = ledger;
+	}
 
 	public Set<Cheque> getCheques() {
 		return cheques;

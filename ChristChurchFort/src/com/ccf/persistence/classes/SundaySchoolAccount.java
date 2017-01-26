@@ -5,7 +5,7 @@ import java.util.Date;
 import com.ccf.persistence.interfaces.ISundaySchoolAccount;
 import com.ccf.vo.Account;
 
-public class SundaySchoolAccount implements Account,ISundaySchoolAccount {
+public class SundaySchoolAccount implements Account, ISundaySchoolAccount {
 
 	private int id;
 	private float amount;
@@ -13,6 +13,15 @@ public class SundaySchoolAccount implements Account,ISundaySchoolAccount {
 	private String cr_dr;
 	private ServiceOffering serviceOffering;
 	private Date date;
+	private Ledger ledger;
+
+	public Ledger getLedger() {
+		return ledger;
+	}
+
+	public void setLedger(Ledger ledger) {
+		this.ledger = ledger;
+	}
 
 	public Date getDate() {
 		return date;
@@ -37,7 +46,6 @@ public class SundaySchoolAccount implements Account,ISundaySchoolAccount {
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
-
 
 	public String getDescription() {
 		return description;

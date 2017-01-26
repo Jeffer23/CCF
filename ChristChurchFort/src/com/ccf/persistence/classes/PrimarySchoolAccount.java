@@ -13,6 +13,15 @@ public class PrimarySchoolAccount implements Account, IPrimarySchoolAccount {
 	private String cr_dr;
 	private Santha santha;
 	private Date date;
+	private Ledger ledger;
+
+	public Ledger getLedger() {
+		return ledger;
+	}
+
+	public void setLedger(Ledger ledger) {
+		this.ledger = ledger;
+	}
 
 	public Date getDate() {
 		return date;
@@ -37,7 +46,6 @@ public class PrimarySchoolAccount implements Account, IPrimarySchoolAccount {
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
-
 
 	public String getDescription() {
 		return description;

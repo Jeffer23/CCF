@@ -14,6 +14,15 @@ public class MissionaryAccount implements Account, IMissionaryAccount {
 	private ServiceOffering serviceOffering;
 	private Santha santha;
 	private Date date;
+	private Ledger ledger;
+
+	public Ledger getLedger() {
+		return ledger;
+	}
+
+	public void setLedger(Ledger ledger) {
+		this.ledger = ledger;
+	}
 
 	public Date getDate() {
 		return date;

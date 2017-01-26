@@ -14,6 +14,7 @@ import com.ccf.persistence.classes.BankPCAccount;
 import com.ccf.persistence.classes.BankSpecialThanksOfferingAccount;
 import com.ccf.persistence.classes.BankSundaySchoolAccount;
 import com.ccf.persistence.classes.Cheque;
+import com.ccf.persistence.classes.Ledger;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
 import com.ccf.persistence.classes.ServiceOffering;
@@ -23,6 +24,7 @@ import com.ccf.persistence.interfaces.IMissionaryAccount;
 import com.ccf.persistence.interfaces.IPCAccount;
 import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
 import com.ccf.persistence.interfaces.ISundaySchoolAccount;
+import com.ccf.vo.Account;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -211,10 +213,13 @@ public class ServiceOfferingController {
 				cheque.setChequeNumber(this.chequeNumber.getText());
 				cheque.setChequeDate(chequeDate.getSelectedDate());
 			}
-
+			
+			Ledger ledger = null;
+			AccountsDao accountImpl = new AccountsDaoImpl();
 			IMissionaryAccount missionaryAccount = null;
 			if (missionary.getText() != null
 					&& !missionary.getText().equals("0")) {
+				ledger = accountImpl.getLedger("Service - Missionary Offering");
 				if (cash.isSelected()) {
 					missionaryAccount = new MissionaryAccount();
 					so.getMissionaryAccounts().add(missionaryAccount);
@@ -230,14 +235,16 @@ public class ServiceOfferingController {
 				missionaryAccount.setAmount(Float.parseFloat(missionary
 						.getText()));
 				missionaryAccount.setCr_dr("CR");
-				missionaryAccount.setDescription("Missionary Offering");
+				missionaryAccount.setDescription("Service - Missionary Offering");
 				missionaryAccount.setServiceOffering(so);
 				missionaryAccount.setDate(date.getSelectedDate());
+				((Account)missionaryAccount).setLedger(ledger);
 			}
 
 			IPCAccount pcAccount = null;
 			if (serviceOffering.getText() != null
 					&& !serviceOffering.getText().equals("0")) {
+				ledger = accountImpl.getLedger("Service - Service Offering");
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
@@ -252,14 +259,15 @@ public class ServiceOfferingController {
 				pcAccount
 						.setAmount(Float.parseFloat(serviceOffering.getText()));
 				pcAccount.setCr_dr("CR");
-				pcAccount.setDescription("Service Offering");
+				pcAccount.setDescription("Service - Service Offering");
 				pcAccount.setServiceOffering(so);
 				pcAccount.setDate(date.getSelectedDate());
-				// so.getPcAccounts().add(pcAccount);
+				((Account)pcAccount).setLedger(ledger);
 			}
 
 			if (auctionAmt.getText() != null
 					&& !auctionAmt.getText().equals("0")) {
+				ledger = accountImpl.getLedger("Service - Auction Offering");
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
@@ -273,13 +281,14 @@ public class ServiceOfferingController {
 
 				pcAccount.setAmount(Float.parseFloat(auctionAmt.getText()));
 				pcAccount.setCr_dr("CR");
-				pcAccount.setDescription("Auction Offering");
+				pcAccount.setDescription("Service - Auction Offering");
 				pcAccount.setServiceOffering(so);
 				pcAccount.setDate(date.getSelectedDate());
-				// so.getPcAccounts().add(pcAccount);
+				((Account)pcAccount).setLedger(ledger);
 			}
 
 			if (marriage.getText() != null && !marriage.getText().equals("0")) {
+				ledger = accountImpl.getLedger("Service - Marriage Offering");
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
@@ -293,14 +302,15 @@ public class ServiceOfferingController {
 
 				pcAccount.setAmount(Float.parseFloat(marriage.getText()));
 				pcAccount.setCr_dr("CR");
-				pcAccount.setDescription("Marriage Offering");
+				pcAccount.setDescription("Service - Marriage Offering");
 				pcAccount.setDate(date.getSelectedDate());
 				pcAccount.setServiceOffering(so);
-				// so.getPcAccounts().add(pcAccount);
+				((Account)pcAccount).setLedger(ledger);
 			}
 
 			if (confirmation.getText() != null
 					&& !confirmation.getText().equals("0")) {
+				ledger = accountImpl.getLedger("Service - Confirmation Offering");
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
@@ -314,15 +324,16 @@ public class ServiceOfferingController {
 
 				pcAccount.setAmount(Float.parseFloat(confirmation.getText()));
 				pcAccount.setCr_dr("CR");
-				pcAccount.setDescription("Confirmation Offering");
+				pcAccount.setDescription("Service - Confirmation Offering");
 				pcAccount.setDate(date.getSelectedDate());
 				pcAccount.setServiceOffering(so);
-				// so.getPcAccounts().add(pcAccount);
+				((Account)pcAccount).setLedger(ledger);
 			}
 
 			ISpecialThanksOfferingAccount sto = null;
 			if (thanksOffering.getText() != null
 					&& !thanksOffering.getText().equals("0")) {
+				ledger = accountImpl.getLedger("Service - Thanks Offering");
 				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
@@ -336,13 +347,14 @@ public class ServiceOfferingController {
 
 				sto.setAmount(Float.parseFloat(thanksOffering.getText()));
 				sto.setCr_dr("CR");
-				sto.setDescription("Thanks Offering");
+				sto.setDescription("Service - Thanks Offering");
 				sto.setDate(date.getSelectedDate());
 				sto.setServiceOffering(so);
-
+				((Account)sto).setLedger(ledger);
 			}
 
 			if (this.sto.getText() != null && !this.sto.getText().equals("0")) {
+				ledger = accountImpl.getLedger("Service - Special Thanks Offering");
 				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
@@ -356,12 +368,14 @@ public class ServiceOfferingController {
 
 				sto.setAmount(Float.parseFloat(this.sto.getText()));
 				sto.setCr_dr("CR");
-				sto.setDescription("Special Thanks Offering");
+				sto.setDescription("Service - Special Thanks Offering");
 				sto.setDate(date.getSelectedDate());
 				sto.setServiceOffering(so);
+				((Account)sto).setLedger(ledger);
 			}
 
 			if (otherAmt.getText() != null && !otherAmt.getText().equals("0")) {
+				ledger = accountImpl.getLedger("Service - Other Offering");
 				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
@@ -375,13 +389,15 @@ public class ServiceOfferingController {
 
 				sto.setAmount(Float.parseFloat(otherAmt.getText()));
 				sto.setCr_dr("CR");
-				sto.setDescription("Other Offering - " + otherReason.getText());
+				sto.setDescription("Service - Other Offering - " + otherReason.getText());
 				sto.setDate(date.getSelectedDate());
 				sto.setServiceOffering(so);
+				((Account)sto).setLedger(ledger);
 			}
 
 			if (sundaySchool.getText() != null
 					&& !sundaySchool.getText().equals("0")) {
+				ledger = accountImpl.getLedger("Service - Sunday School Offering");
 				ISundaySchoolAccount ssa = null;
 				if (cash.isSelected()) {
 					ssa = new SundaySchoolAccount();
@@ -396,9 +412,10 @@ public class ServiceOfferingController {
 
 				ssa.setAmount(Float.parseFloat(sundaySchool.getText()));
 				ssa.setCr_dr("CR");
-				ssa.setDescription("Sunday School Offering");
+				ssa.setDescription("Service - Sunday School Offering");
 				ssa.setDate(date.getSelectedDate());
 				ssa.setServiceOffering(so);
+				((Account)ssa).setLedger(ledger);
 			}
 
 			/*

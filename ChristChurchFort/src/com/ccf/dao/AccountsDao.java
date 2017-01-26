@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.GraveyardAccount;
+import com.ccf.persistence.classes.Ledger;
 import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
@@ -35,16 +36,10 @@ public interface AccountsDao {
 	public void updatePrimarySchoolAccount(List<PrimarySchoolAccount> primarySchoolAccounts) throws CcfException; 
 	public void updateYouthAccount(List<YouthAccount> youthAccounts) throws CcfException; 
 	public void updateGraveyardAccount(List<GraveyardAccount> graveyardAccounts) throws CcfException;
-	public List<PCAccount> getPCAccountStatement(Date from, Date to ) throws CcfException;
-	public List<MissionaryAccount> getMissionaryStatement(Date from, Date to ) throws CcfException;
-	public List<MensAccount> getMensStatement(Date from, Date to ) throws CcfException;
-	public List<WomensAccount> getWomensStatement(Date from, Date to ) throws CcfException;
-	public List<SundaySchoolAccount> getSundaySchoolStatement(Date from, Date to ) throws CcfException;
-	public List<YouthAccount> getYouthStatement(Date from, Date to ) throws CcfException;
-	public List<SpecialThanksOfferingAccount> getSTOStatement(Date from, Date to ) throws CcfException;
-	public List<GraveyardAccount> getGraveyardStatement(Date from, Date to ) throws CcfException;
-	public List<PrimarySchoolAccount> getPrimarySchoolStatement(Date from, Date to ) throws CcfException;
-	
+	public List<Account> getAccountStatement(String accountName, Date from, Date to ) throws CcfException;
+	public int addLedger(Ledger ledger) throws CcfException;
+	public List<Ledger> getAllLedgers() throws CcfException;
+	public Ledger getLedger(String ledgerName) throws CcfException;
 	
 	
 }

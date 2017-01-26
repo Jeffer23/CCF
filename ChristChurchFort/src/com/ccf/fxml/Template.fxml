@@ -46,6 +46,7 @@
               <items>
               <MenuItem mnemonicParsing="false" text="Account Details" onAction="#loadAccountDetails"/>
               <MenuItem mnemonicParsing="false" text="Account Statement" onAction="#loadAccountStatement"/>
+              <MenuItem mnemonicParsing="false" text="Accumulated Account Statement" onAction="#loadAccumulatedAccountStatement"/>
               	<MenuItem mnemonicParsing="false" text="Add Expense" onAction="#loadExpensePage"/>
               </items>
             </Menu>

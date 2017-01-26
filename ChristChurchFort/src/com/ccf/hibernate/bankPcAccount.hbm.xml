@@ -23,5 +23,6 @@
 				<column name="cheque_id"></column>
 			</many-to-many>
 		</set>
+		<many-to-one name="ledger" class="com.ccf.persistence.classes.Ledger" column="ledger_id"></many-to-one>
 	</class>
 </hibernate-mapping>
