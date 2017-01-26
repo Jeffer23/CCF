@@ -53,6 +53,9 @@ public class ExpenseController {
 	
 	@FXML
 	private ChoiceBox<Ledger> ledgers;
+	
+	@FXML
+	private DatePicker date;
 
 	@FXML
 	private TextField amount;
@@ -110,6 +113,8 @@ public class ExpenseController {
 		this.addLedger.setVisible(false);
 		this.cancelLedger.setVisible(false);
 		
+		this.date.setSelectedDate(new Date());
+		
 		AccountsDao dao = new AccountsDaoImpl();
 		try {
 			List<Ledger> ledgers = dao.getAllLedgers();
@@ -147,6 +152,9 @@ public class ExpenseController {
 			if (description.getText() == null
 					|| description.getText().trim().equals(""))
 				throw new CcfException("Please provide proper description.");
+			if(this.date.getSelectedDate() == null){
+				throw new CcfException("Please select the date");
+			}
 
 			/*
 			 * Logic
@@ -275,7 +283,7 @@ public class ExpenseController {
 			account.setAmount(amount);
 			account.setCr_dr("DR");
 			account.setDescription(description.getText());
-			account.setDate(new Date());
+			account.setDate(this.date.getSelectedDate());
 			account.setLedger(this.ledgers.getValue());
 			dao.addIncomeorExpense(account,this.accounts.getValue() ,amount);
 

@@ -1,7 +1,11 @@
 package com.ccf.controller;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.log4j.Logger;
 
 import com.ccf.dao.AccountsDao;
@@ -216,10 +220,19 @@ public class ServiceOfferingController {
 			
 			Ledger ledger = null;
 			AccountsDao accountImpl = new AccountsDaoImpl();
+			Map<String, Ledger> ledgerMap = new HashMap<>();
+			/*
+			 * Getting ledger records from DB
+			 */
+			List<Ledger> ledgers = accountImpl.getAllLedgers("Service - ");
+			for(Ledger l : ledgers){
+				ledgerMap.put(l.getLedgerName(), l);
+			}
+			
 			IMissionaryAccount missionaryAccount = null;
 			if (missionary.getText() != null
 					&& !missionary.getText().equals("0")) {
-				ledger = accountImpl.getLedger("Service - Missionary Offering");
+				ledger =  ledgerMap.get("Service - Missionary Offering");
 				if (cash.isSelected()) {
 					missionaryAccount = new MissionaryAccount();
 					so.getMissionaryAccounts().add(missionaryAccount);
@@ -244,7 +257,7 @@ public class ServiceOfferingController {
 			IPCAccount pcAccount = null;
 			if (serviceOffering.getText() != null
 					&& !serviceOffering.getText().equals("0")) {
-				ledger = accountImpl.getLedger("Service - Service Offering");
+				ledger = ledgerMap.get("Service - Service Offering");
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
@@ -267,7 +280,7 @@ public class ServiceOfferingController {
 
 			if (auctionAmt.getText() != null
 					&& !auctionAmt.getText().equals("0")) {
-				ledger = accountImpl.getLedger("Service - Auction Offering");
+				ledger = ledgerMap.get("Service - Auction Offering");
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
@@ -288,7 +301,7 @@ public class ServiceOfferingController {
 			}
 
 			if (marriage.getText() != null && !marriage.getText().equals("0")) {
-				ledger = accountImpl.getLedger("Service - Marriage Offering");
+				ledger = ledgerMap.get("Service - Marriage Offering");
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
@@ -310,7 +323,7 @@ public class ServiceOfferingController {
 
 			if (confirmation.getText() != null
 					&& !confirmation.getText().equals("0")) {
-				ledger = accountImpl.getLedger("Service - Confirmation Offering");
+				ledger = ledgerMap.get("Service - Confirmation Offering");
 				if (cash.isSelected()) {
 					pcAccount = new PCAccount();
 					so.getPcAccounts().add(pcAccount);
@@ -333,7 +346,7 @@ public class ServiceOfferingController {
 			ISpecialThanksOfferingAccount sto = null;
 			if (thanksOffering.getText() != null
 					&& !thanksOffering.getText().equals("0")) {
-				ledger = accountImpl.getLedger("Service - Thanks Offering");
+				ledger = ledgerMap.get("Service - Thanks Offering");
 				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
@@ -354,7 +367,7 @@ public class ServiceOfferingController {
 			}
 
 			if (this.sto.getText() != null && !this.sto.getText().equals("0")) {
-				ledger = accountImpl.getLedger("Service - Special Thanks Offering");
+				ledger = ledgerMap.get("Service - Special Thanks Offering");
 				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
@@ -375,7 +388,7 @@ public class ServiceOfferingController {
 			}
 
 			if (otherAmt.getText() != null && !otherAmt.getText().equals("0")) {
-				ledger = accountImpl.getLedger("Service - Other Offering");
+				ledger = ledgerMap.get("Service - Other Offering");
 				if (cash.isSelected()) {
 					sto = new SpecialThanksOfferingAccount();
 					so.getSpecialThanksOfferingAccounts().add(sto);
@@ -397,7 +410,7 @@ public class ServiceOfferingController {
 
 			if (sundaySchool.getText() != null
 					&& !sundaySchool.getText().equals("0")) {
-				ledger = accountImpl.getLedger("Service - Sunday School Offering");
+				ledger = ledgerMap.get("Service - Sunday School Offering");
 				ISundaySchoolAccount ssa = null;
 				if (cash.isSelected()) {
 					ssa = new SundaySchoolAccount();

@@ -56,6 +56,9 @@ public class AddIncomeController {
 
 	@FXML
 	private ChoiceBox<Ledger> ledgers;
+	
+	@FXML
+	private DatePicker date;
 
 	@FXML
 	private TextArea reason;
@@ -111,6 +114,8 @@ public class AddIncomeController {
 		this.addLedger.setVisible(false);
 		this.cancelLedger.setVisible(false);
 		
+		this.date.setSelectedDate(new Date());
+		
 		AccountsDao dao = new AccountsDaoImpl();
 		try {
 			List<Ledger> ledgers = dao.getAllLedgers();
@@ -138,6 +143,8 @@ public class AddIncomeController {
 			} else if (reason.getText() == null
 					|| reason.getText().trim().equals("")) {
 				throw new CcfException("Reason cannot be empty");
+			} else if(this.date.getSelectedDate() == null){
+				throw new CcfException("Please select the date");
 			}
 
 			Cheque cheque = null;
@@ -259,7 +266,7 @@ public class AddIncomeController {
 			account.setAmount(Float.valueOf(amount.getText()));
 			account.setDescription(reason.getText());
 			account.setCr_dr("CR");
-			account.setDate(new Date());
+			account.setDate(this.date.getSelectedDate());
 			account.setLedger(this.ledgers.getValue());
 			dao.addIncomeorExpense(account, accName, amt);
 

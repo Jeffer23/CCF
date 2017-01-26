@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -430,19 +431,20 @@ public class AccountsDaoImpl implements AccountsDao {
 		Calendar to = Calendar.getInstance();
 		to.set(2017, 0, 31);
 		try {
+			
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
-			Criteria c = session.createCriteria(Class.forName(accountName));
-			c.add(Restrictions.ge("date", from.getTime()));
-			c.add(Restrictions.le("date", to.getTime()));
-			c.createAlias("ledger", "ledger");
-			
-			List<Account> accounts = c.list();
+			Criteria c = session.createCriteria(Ledger.class);
+			c.add(Restrictions.not(Restrictions.like("ledgerName", "Santha - ", MatchMode.START)));
+			c.add(Restrictions.not(Restrictions.like("ledgerName", "Service - ", MatchMode.START)));
+			List<Ledger> ledgers = c.list();
 			session.close();
-			
-			System.out.println(accounts.get(1).getLedger().getLedgerName());
-			logger.debug("getPCAccountStatement method Ends...");
+			logger.debug("getPrimarySchoolStatement method Ends...");
+			for(Ledger l : ledgers){
+				System.out.println(l.getLedgerName());
+			}
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -495,15 +497,17 @@ public class AccountsDaoImpl implements AccountsDao {
 	}
 	
 	@Override
-	public List<Ledger> getAllLedgers() throws CcfException {
+	public List<Ledger> getAllLedgers() throws CcfException{
 		logger.debug("getAllLedgers method starts...");
 		try {
+
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
-			String hql = "From Ledger";
-			Query query = session.createQuery(hql);
-			List<Ledger> ledgers = query.list();
+			Criteria c = session.createCriteria(Ledger.class);
+			c.add(Restrictions.not(Restrictions.like("ledgerName", "Santha - ", MatchMode.START)));
+			c.add(Restrictions.not(Restrictions.like("ledgerName", "Service - ", MatchMode.START)));
+			List<Ledger> ledgers = c.list();
 			session.close();
 			logger.debug("getPrimarySchoolStatement method Ends...");
 			return ledgers;
@@ -514,24 +518,24 @@ public class AccountsDaoImpl implements AccountsDao {
 	}
 	
 	@Override
-	public Ledger getLedger(String ledgerName) throws CcfException {
-		logger.debug("getLedger method Starts...");
+	public List<Ledger> getAllLedgers(String startsWithValue) throws CcfException {
+		logger.debug("getAllLedgers method starts...");
 		try {
+
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
-			String hql = "From Ledger where ledgerName=:ledgerName";
-			Query query = session.createQuery(hql);
-			query.setString("ledgerName", ledgerName);
-			Ledger ledger = (Ledger) query.uniqueResult();
+			Criteria c = session.createCriteria(Ledger.class);
+			c.add(Restrictions.like("ledgerName", startsWithValue, MatchMode.START));
+			List<Ledger> ledgers = c.list();
 			session.close();
-			logger.debug("getLedger method Ends...");
-			return ledger;
+			logger.debug("getPrimarySchoolStatement method Ends...");
+			return ledgers;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
-		
 	}
+	
 
 }

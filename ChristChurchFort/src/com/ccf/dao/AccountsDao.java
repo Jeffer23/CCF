@@ -38,8 +38,13 @@ public interface AccountsDao {
 	public void updateGraveyardAccount(List<GraveyardAccount> graveyardAccounts) throws CcfException;
 	public List<Account> getAccountStatement(String accountName, Date from, Date to ) throws CcfException;
 	public int addLedger(Ledger ledger) throws CcfException;
+	public List<Ledger> getAllLedgers(String startsWithValue) throws CcfException;
+	/**
+	 * This method is used to get all the Ledger records expects that starts with 'Service - ' and 'Santha - '
+	 * @return
+	 * @throws CcfException
+	 */
 	public List<Ledger> getAllLedgers() throws CcfException;
-	public Ledger getLedger(String ledgerName) throws CcfException;
 	
 	
 }

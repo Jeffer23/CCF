@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -783,6 +785,14 @@ public class SanthaController extends Application {
 			AccountsDao impl = new AccountsDaoImpl();
 			IPCAccount pcAccount = null;
 			Ledger ledger = null;
+			Map<String, Ledger> ledgerMap = new HashMap<>();
+			/*
+			 * Getting ledger records from DB
+			 */
+			List<Ledger> ledgers = impl.getAllLedgers("Santha - ");
+			for(Ledger l : ledgers){
+				ledgerMap.put(l.getLedgerName(), l);
+			}
 			
 			/*
 			 * Creating cheque object
@@ -798,7 +808,7 @@ public class SanthaController extends Application {
 			/*
 			 * Adding Subscription amount to PC Account
 			 */
-			ledger = impl.getLedger("Santha - Subscription Amount");
+			ledger = ledgerMap.get("Santha - Subscription Amount");
 			if (this.cash.isSelected()) {
 				pcAccount = new PCAccount();
 				santha.getPcAccounts().add(pcAccount);
@@ -817,7 +827,7 @@ public class SanthaController extends Application {
 			((Account)pcAccount).setLedger(ledger);
 
 			if (harvestFestival != 0.0f) {
-				ledger = impl.getLedger("Santha - Harvest Festival");
+				ledger = ledgerMap.get("Santha - Harvest Festival");
 				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
@@ -838,7 +848,7 @@ public class SanthaController extends Application {
 			}
 
 			if (educationHelp != 0.0f) {
-				ledger = impl.getLedger("Santha - Education Help");
+				ledger = ledgerMap.get("Santha - Education Help");
 				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
@@ -858,7 +868,7 @@ public class SanthaController extends Application {
 			}
 
 			if (poorHelp != 0.0f) {
-				ledger = impl.getLedger("Santha - Poor Help");
+				ledger = ledgerMap.get("Santha - Poor Help");
 				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
@@ -878,7 +888,7 @@ public class SanthaController extends Application {
 			}
 
 			if (bagOffer != 0.0f) {
-				ledger = impl.getLedger("Santha - Bag Offer");
+				ledger = ledgerMap.get("Santha - Bag Offer");
 				if (this.cash.isSelected()) {
 					pcAccount = new PCAccount();
 					santha.getPcAccounts().add(pcAccount);
@@ -899,7 +909,7 @@ public class SanthaController extends Application {
 
 			ISpecialThanksOfferingAccount stoAccount = null;
 			if (thanksOffer != 0.0f) {
-				ledger = impl.getLedger("Santha - Thanks Offering");
+				ledger = ledgerMap.get("Santha - Thanks Offering");
 				if (this.cash.isSelected()) {
 					stoAccount = new SpecialThanksOfferingAccount();
 					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
@@ -920,7 +930,7 @@ public class SanthaController extends Application {
 			}
 
 			if (sto != 0.0f) {
-				ledger = impl.getLedger("Santha - Special Thanks Offering");
+				ledger = ledgerMap.get("Santha - Special Thanks Offering");
 				if (this.cash.isSelected()) {
 					stoAccount = new SpecialThanksOfferingAccount();
 					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
@@ -941,7 +951,7 @@ public class SanthaController extends Application {
 			}
 
 			if (churchRenovation != 0.0f) {
-				ledger = impl.getLedger("Santha - Church Renovation");
+				ledger = ledgerMap.get("Santha - Church Renovation");
 				if (this.cash.isSelected()) {
 					stoAccount = new SpecialThanksOfferingAccount();
 					santha.getSpecialThanksOfferingAccounts().add(stoAccount);
@@ -963,7 +973,7 @@ public class SanthaController extends Application {
 
 			IMissionaryAccount missionaryAccount = null;
 			if (missionary != 0.0f) {
-				ledger = impl.getLedger("Santha - Missionary Offering");
+				ledger = ledgerMap.get("Santha - Missionary Offering");
 				if (this.cash.isSelected()) {
 					missionaryAccount = new MissionaryAccount();
 					santha.getMissionaryAccounts().add(missionaryAccount);
@@ -987,7 +997,7 @@ public class SanthaController extends Application {
 
 			IMensAccount mensAccount = null;
 			if (mensFellowship != 0.0f) {
-				ledger = impl.getLedger("Santha - Men's Fellowship");
+				ledger = ledgerMap.get("Santha - Men's Fellowship");
 				if (this.cash.isSelected()) {
 					mensAccount = new MensAccount();
 					santha.getMensAccounts().add(mensAccount);
@@ -1010,7 +1020,7 @@ public class SanthaController extends Application {
 
 			IWomensAccount womensAccount = null;
 			if (womensFellowship != 0.0f) {
-				ledger = impl.getLedger("Santha - Women's Fellowship");
+				ledger = ledgerMap.get("Santha - Women's Fellowship");
 				if (this.cash.isSelected()) {
 					womensAccount = new WomensAccount();
 					santha.getWomensAccounts().add(womensAccount);
@@ -1033,7 +1043,7 @@ public class SanthaController extends Application {
 
 			IPrimarySchoolAccount primarySchoolAccount = null;
 			if (primarySchool != 0.0f) {
-				ledger = impl.getLedger("Santha - Primary School");
+				ledger = ledgerMap.get("Santha - Primary School");
 				if (this.cash.isSelected()) {
 					primarySchoolAccount = new PrimarySchoolAccount();
 					santha.getPrimarySchoolAccounts().add(primarySchoolAccount);
@@ -1058,7 +1068,7 @@ public class SanthaController extends Application {
 
 			IYouthAccount youthAccount = null;
 			if (youth != 0.0f) {
-				ledger = impl.getLedger("Santha - Youth");
+				ledger = ledgerMap.get("Santha - Youth");
 				if (this.cash.isSelected()) {
 					youthAccount = new YouthAccount();
 					santha.getYouthAccounts().add(youthAccount);
@@ -1081,7 +1091,7 @@ public class SanthaController extends Application {
 
 			IGraveyardAccount graveyardAccount = null;
 			if (graveyard != 0.0f) {
-				ledger = impl.getLedger("Santha - Graveyard");
+				ledger = ledgerMap.get("Santha - Graveyard");
 				if (this.cash.isSelected()) {
 					graveyardAccount = new GraveyardAccount();
 					santha.getGraveyardAccounts().add(graveyardAccount);
