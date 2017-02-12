@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class Santha {
 
 	SimpleIntegerProperty santhaId =  new SimpleIntegerProperty();
+	SimpleIntegerProperty familyNo =  new SimpleIntegerProperty();
 	SimpleStringProperty name = new SimpleStringProperty("");
 	SimpleFloatProperty subscription = new SimpleFloatProperty();
 	SimpleFloatProperty harvestFestival = new SimpleFloatProperty();
@@ -142,6 +143,12 @@ public class Santha {
 	}
 	public void setPaidForDate(String paidForDate) {
 		this.paidForDate.setValue(paidForDate);
+	}
+	public int getFamilyNo() {
+		return this.familyNo.getValue();
+	}
+	public void setFamilyNo(int familyNo) {
+		this.familyNo.setValue(familyNo);
 	}
 	
 	

@@ -48,7 +48,7 @@
                         <Insets top="35.0" />
                      </HBox.margin>
                   </Label>
-                  <DatePicker fx:id="from" layoutX="386.0" layoutY="178.0" prefHeight="38.0" prefWidth="102.0" stylesheets="/com/ccf/css/DatePicker.css">
+                  <DatePicker fx:id="from" layoutX="386.0" layoutY="178.0" prefHeight="38.0" prefWidth="102.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css">
 						 <HBox.margin>
                         <Insets top="40.0" />
                      </HBox.margin>	
@@ -61,7 +61,7 @@
                         <Insets top="35.0" />
                      </HBox.margin>
                   </Label>
-                  <DatePicker fx:id="to" layoutX="386.0" layoutY="178.0" prefHeight="38.0" prefWidth="102.0" stylesheets="/com/ccf/css/DatePicker.css">
+                  <DatePicker fx:id="to" layoutX="386.0" layoutY="178.0" prefHeight="38.0" prefWidth="102.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css">
 						 <HBox.margin>
                         <Insets top="40.0" />
                      </HBox.margin>	
@@ -137,7 +137,7 @@
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
             </Label>
-           <Button layoutX="1094.0" layoutY="287.0" mnemonicParsing="false" onAction="#exportToExcel" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
+           <Button layoutX="1132.0" layoutY="287.0" mnemonicParsing="false" onAction="#exportToExcel" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -150,6 +150,14 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Button layoutX="1019.0" layoutY="287.0" mnemonicParsing="false" onAction="#print" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Print" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

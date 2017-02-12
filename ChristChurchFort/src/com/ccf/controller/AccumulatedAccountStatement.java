@@ -83,6 +83,9 @@ public class AccumulatedAccountStatement {
 		accountNamesList.add(AccountNames.EducationalFundAccount);
 		accountNames.setValue(AccountNames.PCAccount);
 		accountNames.getItems().addAll(accountNamesList);
+		
+		this.from.setDateFormat(ProjectProperties.sdf);
+		this.to.setDateFormat(ProjectProperties.sdf);
 	}
 
 	public void getDetails() {
@@ -292,5 +295,12 @@ public class AccumulatedAccountStatement {
 			message.setText(e.getMessage());
 		}
 		logger.debug("exportToExcel method Ends...");
+	}
+	
+	public void print(){
+		logger.info("print method Starts...");
+		message.setText("Functionality under construction.");
+		message.setTextFill(Paint.valueOf("Red"));
+		logger.info("print method Ends...");
 	}
 }

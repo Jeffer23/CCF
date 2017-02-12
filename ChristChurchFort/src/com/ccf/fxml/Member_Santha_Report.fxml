@@ -31,7 +31,7 @@
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<DatePicker fx:id="fromDate" layoutX="386.0" layoutY="63.0" stylesheets="/com/ccf/css/DatePicker.css" />
+						<DatePicker fx:id="fromDate" promptText="dd-MM-yyyy" layoutX="386.0" layoutY="63.0" stylesheets="/com/ccf/css/DatePicker.css" />
 					</children>
 				</HBox>
 				
@@ -52,7 +52,7 @@
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<DatePicker fx:id="toDate" layoutX="547.0" layoutY="196.0" stylesheets="/com/ccf/css/DatePicker.css" />
+						<DatePicker fx:id="toDate" promptText="dd-MM-yyyy" layoutX="547.0" layoutY="196.0" stylesheets="/com/ccf/css/DatePicker.css" />
 					</children>
 				</HBox>
 				

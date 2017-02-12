@@ -32,12 +32,12 @@
 				</Menu>
 				<Menu mnemonicParsing="false" text="Reports">
 					<items>
-						<MenuItem mnemonicParsing="false" text="Birthday"
+						<MenuItem mnemonicParsing="false" text="Birthday Report"
 							onAction="#showBirthdayReportPage" />
-						<MenuItem mnemonicParsing="false" text="Marriage"
+						<MenuItem mnemonicParsing="false" text="Marriage Report"
 							onAction="#showMarriageReportPage" />
-						<MenuItem mnemonicParsing="false" text="Santha" onAction="#showReportPage" />
-						<MenuItem mnemonicParsing="false" text="Member Santha"
+						<MenuItem mnemonicParsing="false" text="Santha Report" onAction="#showSanthaReportPage" />
+						<MenuItem mnemonicParsing="false" text="Member Santha Report"
 							onAction="#showMemberSanthaReport" />
 					</items>
 				</Menu>
@@ -54,6 +54,10 @@
 							onAction="#showAddIncomePage" />
 						<MenuItem mnemonicParsing="false" text="Add Expense"
 							onAction="#loadExpensePage" />
+						<MenuItem mnemonicParsing="false" text="Deposit"
+							onAction="#loadDepositPage" />
+						<MenuItem mnemonicParsing="false" text="Withdraw"
+							onAction="#loadWithdrawPage" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Statements">

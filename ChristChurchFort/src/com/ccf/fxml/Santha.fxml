@@ -38,7 +38,7 @@
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<DatePicker fx:id="paidDate" layoutX="386.0" layoutY="63.0"
+						<DatePicker fx:id="paidDate" promptText="dd-MM-yyyy" layoutX="386.0" layoutY="63.0"
 							stylesheets="/com/ccf/css/DatePicker.css" />
 					</children>
 				</HBox>
@@ -68,7 +68,7 @@
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<DatePicker fx:id="paidForDate" layoutX="547.0"
+						<DatePicker fx:id="paidForDate" promptText="dd-MM-yyyy" layoutX="547.0"
 							layoutY="196.0" stylesheets="/com/ccf/css/DatePicker.css" />
 					</children>
 				</HBox>
@@ -421,7 +421,7 @@
 						<Font name="Comic Sans MS" size="16.0" />
 					</font>
 				</Label>
-				<Label fx:id="message" layoutX="370.0" layoutY="629.0"
+				<Label fx:id="message" alignment="CENTER" layoutX="370.0" layoutY="629.0"
 					prefHeight="38.0" prefWidth="568.0" textFill="BLACK">
 					<font>
 						<Font name="Comic Sans MS" size="17.0" />
@@ -459,7 +459,7 @@
 										<Font name="Arial Rounded MT Bold" size="14.0" />
 									</font>
 								</Label>
-								<DatePicker fx:id="chequeDate" layoutX="386.0"
+								<DatePicker fx:id="chequeDate" promptText="dd-MM-yyyy" layoutX="386.0"
 									layoutY="63.0" stylesheets="/com/ccf/css/DatePicker.css" />
 							</children>
 						</HBox>

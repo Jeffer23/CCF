@@ -420,4 +420,11 @@ public class AccountsController {
 
 		logger.debug("exportToExcel method Ends...");
 	}
+	
+	public void print(){
+		logger.info("print method Starts...");
+		message.setText("Functionality under construction.");
+		message.setTextFill(Paint.valueOf("Red"));
+		logger.info("print method Ends...");
+	}
 }

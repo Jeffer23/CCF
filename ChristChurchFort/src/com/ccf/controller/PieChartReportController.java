@@ -14,6 +14,7 @@ import com.ccf.dao.impl.SanthaDaoImpl;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.Member;
 import com.ccf.persistence.classes.Santha;
+import com.ccf.util.ProjectProperties;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import javafx.application.Application;
@@ -42,7 +43,7 @@ public class PieChartReportController extends Application {
 
 	@FXML
 	void initialize() {
-		date.setDateFormat(new SimpleDateFormat("MMMM-YYYY"));
+		this.date.setDateFormat(ProjectProperties.sdf);
 	}
 
 	public void getReport() {

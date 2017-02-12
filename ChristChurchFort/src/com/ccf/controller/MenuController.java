@@ -91,16 +91,16 @@ public class MenuController {
 	}
 	
 	
-	public void showReportPage(){
-		logger.debug("showReportPage method Starts...");
+	public void showSanthaReportPage(){
+		logger.debug("showSanthaReportPage method Starts...");
 		try {
 			replaceSceneContent("/com/ccf/fxml/Template.fxml",
-					"/com/ccf/fxml/Report.fxml");
+					"/com/ccf/fxml/SanthaReport.fxml");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		logger.debug("showReportPage method Ends...");
+		logger.debug("showSanthaReportPage method Ends...");
 	}
 	
 	public void showBirthdayReportPage(){
@@ -214,6 +214,28 @@ public class MenuController {
 			e.printStackTrace();
 		}
 		logger.info("showMemberSanthaReport method Ends...");
+	}
+	
+	public void loadDepositPage(){
+		logger.info("loadDepositPage method Starts...");
+		try {
+			replaceSceneContent("/com/ccf/fxml/Template.fxml",
+					"/com/ccf/fxml/Deposit.fxml");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("loadDepositPage method Ends...");
+	}
+	
+	public void loadWithdrawPage(){
+		logger.info("loadWithdrawPage method Starts...");
+		try {
+			replaceSceneContent("/com/ccf/fxml/Template.fxml",
+					"/com/ccf/fxml/Withdraw.fxml");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("loadWithdrawPage method Ends...");
 	}
 	/**
 	 * This method is used to replace the content on the UI. i.e., for

@@ -95,7 +95,7 @@
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="chequeDate" prefHeight="30.0" prefWidth="149.0" style="-fx-padding: 5px 0px 0px 0px; min-height:34px;" stylesheets="/com/ccf/css/DatePicker.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <DatePicker fx:id="chequeDate" promptText="dd-MM-yyyy" prefHeight="30.0" prefWidth="149.0" style="-fx-padding: 5px 0px 0px 0px; min-height:34px;" stylesheets="/com/ccf/css/DatePicker.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <TextField fx:id="chequeNumber" prefHeight="30.0" prefWidth="149.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label prefHeight="30.0" prefWidth="149.0" style="-fx-background-color: #D4D4FC;" text="Ledger : ">
                      <font>
@@ -108,7 +108,7 @@
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="date" prefHeight="30.0" prefWidth="149.0" style="-fx-padding: 5px 0px 0px 0px; min-height:34px;" stylesheets="/com/ccf/css/DatePicker.css" GridPane.columnIndex="1" GridPane.rowIndex="1"></DatePicker>
+                  <DatePicker fx:id="date" promptText="dd-MM-yyyy" prefHeight="30.0" prefWidth="149.0" style="-fx-padding: 5px 0px 0px 0px; min-height:34px;" stylesheets="/com/ccf/css/DatePicker.css" GridPane.columnIndex="1" GridPane.rowIndex="1"></DatePicker>
                </children>
             </GridPane>
             <Button layoutX="515.0" layoutY="541.0" mnemonicParsing="false" onAction="#clear" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Clear" textFill="WHITE">

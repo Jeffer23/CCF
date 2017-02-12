@@ -556,5 +556,25 @@ public class AccountsDaoImpl implements AccountsDao {
 		return chequeExists;
 	}
 	
+	@Override
+	public void withdrawOrDeposit(Account creditAcc, String creditAccName, Account debitAcc, String debitAccName, float amount) throws CcfException {
+		logger.debug("withdrawOrDeposit method Starts...");
+		try {
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			session.getTransaction().begin();
+			session.save(creditAcc);
+			updateAccountBalance(session, creditAcc, creditAccName, amount);
+			session.save(debitAcc);
+			updateAccountBalance(session, debitAcc, debitAccName, amount);
+			session.getTransaction().commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new CcfException(e.getMessage());
+		}
+		logger.debug("withdrawOrDeposit method Ends...");
+	}
 
 }

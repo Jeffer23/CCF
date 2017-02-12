@@ -6,8 +6,8 @@
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import eu.schudt.javafx.controls.calendar.DatePicker?>
 <?import javafx.scene.control.cell.*?>
+<?import eu.schudt.javafx.controls.calendar.DatePicker?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ccf.controller.MarriageReportController">
 	<children>
@@ -58,13 +58,13 @@
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
 				</Label>
-				<DatePicker fx:id="fromDate" layoutX="284.0" layoutY="35.0" stylesheets="/com/ccf/css/DatePicker.css" />
+				<DatePicker fx:id="fromDate" layoutX="284.0" layoutY="35.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" />
 				<Label layoutX="497.0" layoutY="35.0" prefHeight="25.0" prefWidth="96.0" text="To : " textFill="BLACK">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
 				</Label>
-				<DatePicker fx:id="toDate" layoutX="557.0" layoutY="35.0" stylesheets="/com/ccf/css/DatePicker.css" />
+				<DatePicker fx:id="toDate" layoutX="557.0" layoutY="35.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" />
 				<Button alignment="CENTER" layoutX="820.0" layoutY="35.0" mnemonicParsing="false" onAction="#getMarriedMembers" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Get Marriage Details" textFill="WHITE">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
@@ -81,6 +81,11 @@
 					</font>
 				</Label>
             <Button alignment="CENTER" layoutX="1070.0" layoutY="220.0" mnemonicParsing="false" onAction="#exportMarriageReport" prefHeight="27.0" prefWidth="161.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" layoutX="1070.0" layoutY="277.0" mnemonicParsing="false" onAction="#print" prefHeight="27.0" prefWidth="161.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Print" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>

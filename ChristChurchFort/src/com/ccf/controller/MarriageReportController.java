@@ -20,6 +20,7 @@ import com.ccf.dao.MemberDao;
 import com.ccf.dao.impl.MemberDaoImpl;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.Member;
+import com.ccf.util.ProjectProperties;
 import com.ccf.vo.MarriedMembers;
 import com.ccf.vo.Report;
 
@@ -27,6 +28,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.paint.Paint;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 
 public class MarriageReportController {
@@ -44,6 +46,12 @@ public class MarriageReportController {
 
 	@FXML
 	private Label message;
+	
+	@FXML
+	void initialize(){
+		this.fromDate.setDateFormat(ProjectProperties.sdf);
+		this.toDate.setDateFormat(ProjectProperties.sdf);
+	}
 
 	public void getMarriedMembers() {
 		logger.info("getMarriedMembers method Starts...");
@@ -163,5 +171,12 @@ public class MarriageReportController {
 		}
 
 		logger.info("exportMarriageReport method Ends...");
+	}
+	
+	public void print(){
+		logger.info("print method Starts...");
+		message.setText("Functionality under construction.");
+		message.setTextFill(Paint.valueOf("Red"));
+		logger.info("print method Ends...");
 	}
 }

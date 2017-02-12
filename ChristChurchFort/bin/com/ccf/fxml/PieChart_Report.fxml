@@ -19,7 +19,7 @@
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
             </Label>
-            <DatePicker fx:id="date" layoutX="504.0" layoutY="96.0" stylesheets="/com/ccf/css/DatePicker.css"/>
+            <DatePicker fx:id="date" promptText="dd-MM-yyyy" layoutX="504.0" layoutY="96.0" stylesheets="/com/ccf/css/DatePicker.css"/>
             <Button textFill="WHITE" onAction="#getReport" layoutX="779.0" layoutY="96.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Get Report">
                <font>
                   <Font name="Arial Rounded MT Bold" size="12.0" />

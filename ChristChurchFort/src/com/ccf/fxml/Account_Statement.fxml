@@ -49,8 +49,7 @@
                         <Insets top="35.0" />
                      </HBox.margin>
                   </Label>
-                  <DatePicker fx:id="from" layoutX="386.0" layoutY="178.0" prefHeight="38.0" prefWidth="102.0"
-							stylesheets="/com/ccf/css/DatePicker.css" >
+                  <DatePicker fx:id="from" layoutX="386.0" layoutY="178.0" prefHeight="38.0" prefWidth="102.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css">
 						 <HBox.margin>
                         <Insets top="40.0" />
                      </HBox.margin>	
@@ -63,8 +62,7 @@
                         <Insets top="35.0" />
                      </HBox.margin>
                   </Label>
-                  <DatePicker fx:id="to" layoutX="386.0" layoutY="178.0" prefHeight="38.0" prefWidth="102.0"
-							stylesheets="/com/ccf/css/DatePicker.css" >
+                  <DatePicker fx:id="to" layoutX="386.0" layoutY="178.0" prefHeight="38.0" prefWidth="102.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css">
 						 <HBox.margin>
                         <Insets top="40.0" />
                      </HBox.margin>	
@@ -97,17 +95,17 @@
             </HBox>
             <TableView fx:id="income" layoutX="33.0" layoutY="334.0" prefHeight="265.0" prefWidth="592.0">
               <columns>
-                <TableColumn prefWidth="97.0" text="Date" >
+                <TableColumn prefWidth="97.0" text="Date">
                 	<cellValueFactory>
 						<PropertyValueFactory property="date" />
 					</cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="373.0" text="Description" >
+                <TableColumn prefWidth="373.0" text="Description">
                 	<cellValueFactory>
 						<PropertyValueFactory property="description" />
 					</cellValueFactory>
                 </TableColumn>
-                <TableColumn minWidth="0.0" prefWidth="119.0" text="Amount" >
+                <TableColumn minWidth="0.0" prefWidth="119.0" text="Amount">
                 	<cellValueFactory>
 						<PropertyValueFactory property="amount" />
 					</cellValueFactory>
@@ -136,17 +134,17 @@
             </Label>
             <TableView fx:id="expense" layoutX="631.0" layoutY="334.0" prefHeight="265.0" prefWidth="592.0">
                <columns>
-                  <TableColumn prefWidth="97.0" text="Date" >
+                  <TableColumn prefWidth="97.0" text="Date">
                   	<cellValueFactory>
 						<PropertyValueFactory property="date" />
 					</cellValueFactory>
                   </TableColumn>
-                  <TableColumn prefWidth="373.0" text="Description" >
+                  <TableColumn prefWidth="373.0" text="Description">
                   	<cellValueFactory>
 						<PropertyValueFactory property="description" />
 					</cellValueFactory>
                   </TableColumn>
-                  <TableColumn minWidth="0.0" prefWidth="119.0" text="Amount" >
+                  <TableColumn minWidth="0.0" prefWidth="119.0" text="Amount">
                   	<cellValueFactory>
 						<PropertyValueFactory property="amount" />
 					</cellValueFactory>
@@ -163,7 +161,7 @@
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
             </Label>
-           <Button layoutX="1094.0" layoutY="287.0" mnemonicParsing="false" onAction="#exportToExcel" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
+           <Button layoutX="1127.0" layoutY="287.0" mnemonicParsing="false" onAction="#exportToExcel" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -176,6 +174,14 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Button layoutX="1019.0" layoutY="287.0" mnemonicParsing="false" onAction="#print" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Print" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

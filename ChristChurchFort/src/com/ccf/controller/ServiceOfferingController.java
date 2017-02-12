@@ -115,6 +115,9 @@ public class ServiceOfferingController {
 	@FXML
 	void initialize() {
 		logger.info("init method Starts...");
+		this.date.setDateFormat(ProjectProperties.sdf);
+		this.chequeDate.setDateFormat(ProjectProperties.sdf);
+		
 		time.getItems().add("Morning - 6:30");
 		time.getItems().add("Morning - 8:30");
 		time.getItems().add("Evening - 6:30");
@@ -596,11 +599,10 @@ public class ServiceOfferingController {
 				this.sundaySchool.setText(String.valueOf(Float.parseFloat(this.sundaySchool.getText()) + cheque.getChequeAmount()));
 			}
 			
-			SimpleDateFormat sdf = new SimpleDateFormat(ProjectProperties.dateFormat);
 			com.ccf.vo.Cheque chequeUI = new com.ccf.vo.Cheque();
 			chequeUI.setChequeAmount(cheque.getChequeAmount());
 			chequeUI.setChequeNumber(cheque.getChequeNumber());
-			chequeUI.setChequeDate(sdf.format(cheque.getChequeDate()));
+			chequeUI.setChequeDate(ProjectProperties.sdf.format(cheque.getChequeDate()));
 			this.chequeTable.getItems().add(chequeUI);
 			
 			/*

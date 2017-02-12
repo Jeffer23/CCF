@@ -87,6 +87,9 @@ public class AccountStatement {
 		transactionType.getItems().add("Credit");
 		transactionType.getItems().add("Debit");
 		transactionType.setValue("Both-Credit and Debit");
+		
+		this.from.setDateFormat(ProjectProperties.sdf);
+		this.to.setDateFormat(ProjectProperties.sdf);
 	}
 
 	public void getDetails() {
@@ -269,5 +272,12 @@ public class AccountStatement {
 			message.setText(e.getMessage());
 		}
 		logger.debug("exportToExcel method Ends...");
+	}
+	
+	public void print(){
+		logger.info("print method Starts...");
+		message.setText("Functionality under construction.");
+		message.setTextFill(Paint.valueOf("Red"));
+		logger.info("print method Ends...");
 	}
 }

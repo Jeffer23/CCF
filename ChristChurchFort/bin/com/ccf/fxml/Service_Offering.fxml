@@ -110,7 +110,7 @@
 										<Font name="Arial Rounded MT Bold" size="14.0" />
 									</font>
 								</Label>
-								<DatePicker fx:id="date" layoutX="386.0" layoutY="63.0" prefWidth="110.0" promptText="23/04/1990" stylesheets="/com/ccf/css/DatePicker.css" />
+								<DatePicker fx:id="date" layoutX="386.0" layoutY="63.0" prefWidth="110.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" />
 							</children>
 						</HBox>
 						<HBox layoutX="535.0" layoutY="86.0" prefHeight="39.0" prefWidth="203.0">
@@ -201,7 +201,7 @@
                         </Label>
                         <TextField fx:id="chequeNumber" prefHeight="30.0" prefWidth="134.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="chequeAmount" prefHeight="30.0" prefWidth="127.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <DatePicker fx:id="chequeDate" stylesheets="/com/ccf/css/DatePicker.css" GridPane.columnIndex="1" />
+                        <DatePicker fx:id="chequeDate" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                <HBox>

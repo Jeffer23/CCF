@@ -46,6 +46,7 @@ public interface AccountsDao {
 	 */
 	public List<Ledger> getAllLedgers() throws CcfException;
 	public boolean isChequeExists(String accountNumber) throws CcfException;
+	public void withdrawOrDeposit(Account creditAcc, String creditAccName, Account debitAcc, String debitAccName, float amount) throws CcfException;
 	
 	
 }

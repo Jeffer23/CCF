@@ -11,6 +11,7 @@ import com.ccf.dao.impl.FamilyDaoImpl;
 import com.ccf.dao.impl.MemberDaoImpl;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.Member;
+import com.ccf.util.ProjectProperties;
 import com.ccf.vo.Santha;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
@@ -50,6 +51,9 @@ public class MemberSanthaController {
 	@FXML
 	void initialize() {
 		logger.debug("init method Starts...");
+		this.fromDate.setDateFormat(ProjectProperties.sdf);
+		this.toDate.setDateFormat(ProjectProperties.sdf);
+		
 		familyNos.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
 			@Override

@@ -12,6 +12,7 @@ import com.ccf.dao.SanthaDao;
 import com.ccf.dao.impl.SanthaDaoImpl;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.Santha;
+import com.ccf.util.ProjectProperties;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -61,6 +62,10 @@ public class ComparisonReportController extends Application {
 		chart.setLayoutY(187.0);
 		chart.setPrefHeight(456.0);
 		chart.setPrefWidth(1206.0);
+		
+		this.fromDate.setDateFormat(ProjectProperties.sdf);
+		this.toDate.setDateFormat(ProjectProperties.sdf);
+		
 		logger.debug("Initialize method Ends...");
 	}
 

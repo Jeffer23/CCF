@@ -43,6 +43,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 
 import com.ccf.util.AccountNames;
+import com.ccf.util.ProjectProperties;
 
 public class AddIncomeController {
 
@@ -114,6 +115,8 @@ public class AddIncomeController {
 		this.addLedger.setVisible(false);
 		this.cancelLedger.setVisible(false);
 		
+		this.chequeDate.setDateFormat(ProjectProperties.sdf);
+		this.date.setDateFormat(ProjectProperties.sdf);
 		this.date.setSelectedDate(new Date());
 		
 		AccountsDao dao = new AccountsDaoImpl();

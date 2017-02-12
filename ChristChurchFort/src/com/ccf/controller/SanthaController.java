@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +46,7 @@ import com.ccf.persistence.interfaces.IEducationalFundAccount;
 import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
 import com.ccf.persistence.interfaces.IWomensAccount;
 import com.ccf.persistence.interfaces.IYouthAccount;
+import com.ccf.util.ProjectProperties;
 import com.ccf.vo.Account;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
@@ -71,7 +71,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
-public class SanthaController extends Application {
+public class SanthaController {
 
 	final static Logger logger = Logger.getLogger(SanthaController.class);
 
@@ -177,18 +177,18 @@ public class SanthaController extends Application {
 	@FXML
 	private TextField chequeNumber;
 
-	Cheque cheque = null;
-	com.ccf.vo.Santha memberSantha = null;
+	private Cheque cheque = null;
+	private com.ccf.vo.Santha memberSantha = null;
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@FXML
 	void initialize() {
 		logger.debug("init method Starts...");
+		this.paidDate.setDateFormat(ProjectProperties.sdf);
+		this.paidForDate.setDateFormat(ProjectProperties.sdf);
+		this.chequeDate.setDateFormat(ProjectProperties.sdf);
+		
 		paidDate.setDisable(true);
 		familyMembers.setDisable(true);
 		paidForDate.setDisable(true);
@@ -1352,7 +1352,6 @@ public class SanthaController extends Application {
 		clearData();
 		Date selectedDate = this.paidForDate.getSelectedDate();
 		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		SanthaDao santhaDaoImpl = new SanthaDaoImpl();
 		Santha santha = null;
 		if (selectedDate != null) {
@@ -1520,6 +1519,7 @@ public class SanthaController extends Application {
 		this.womensFellowship.setText(String.valueOf(memberSantha
 				.getWomensFellowship()));
 		this.youth.setText(String.valueOf(memberSantha.getYouth()));
+		
 
 		this.saveButton.setVisible(false);
 		this.updateButton.setVisible(true);
@@ -1546,6 +1546,7 @@ public class SanthaController extends Application {
 		}
 
 		validatePaidMembers();
+		this.memberTotal.setText(String.valueOf(memberSantha.getTotal()));
 		this.membersSantha.setSelectionModel(selectionModel);
 		logger.info("Edit Paid Member method Ends...");
 	}
