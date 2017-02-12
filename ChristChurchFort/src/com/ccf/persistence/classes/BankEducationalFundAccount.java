@@ -4,17 +4,15 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
+import com.ccf.persistence.interfaces.IEducationalFundAccount;
 import com.ccf.vo.Account;
 
-public class BankSpecialThanksOfferingAccount implements Account,
-		ISpecialThanksOfferingAccount {
+public class BankEducationalFundAccount implements Account, IEducationalFundAccount {
 
 	private int id;
 	private float amount;
 	private String description;
 	private String cr_dr;
-	private ServiceOffering serviceOffering;
 	private Santha santha;
 	private Date date;
 	private Set<Cheque> cheques = new HashSet<>();
@@ -74,14 +72,6 @@ public class BankSpecialThanksOfferingAccount implements Account,
 
 	public void setCr_dr(String cr_dr) {
 		this.cr_dr = cr_dr;
-	}
-
-	public ServiceOffering getServiceOffering() {
-		return serviceOffering;
-	}
-
-	public void setServiceOffering(ServiceOffering serviceOffering) {
-		this.serviceOffering = serviceOffering;
 	}
 
 	public Santha getSantha() {

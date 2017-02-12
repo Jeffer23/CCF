@@ -14,7 +14,7 @@ public class Santha {
 	SimpleFloatProperty mensFellowship = new SimpleFloatProperty();
 	SimpleFloatProperty womensFellowship = new SimpleFloatProperty();
 	SimpleFloatProperty educationHelp = new SimpleFloatProperty();
-	SimpleFloatProperty primarySchool = new SimpleFloatProperty();
+	SimpleFloatProperty preSchool = new SimpleFloatProperty();
 	SimpleFloatProperty youth = new SimpleFloatProperty();
 	SimpleFloatProperty poorHelp = new SimpleFloatProperty();
 	SimpleFloatProperty churchRenovation = new SimpleFloatProperty();
@@ -70,11 +70,12 @@ public class Santha {
 	public void setEducationHelp(float educationHelp) {
 		this.educationHelp.setValue(educationHelp);
 	}
-	public float getPrimarySchool() {
-		return primarySchool.getValue();
+	
+	public float getPreSchool() {
+		return preSchool.getValue();
 	}
-	public void setPrimarySchool(float primarySchool) {
-		this.primarySchool.setValue(primarySchool);
+	public void setPreSchool(float preSchool) {
+		this.preSchool.setValue(preSchool);
 	}
 	public float getYouth() {
 		return youth.getValue();

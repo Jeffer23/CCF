@@ -24,11 +24,12 @@ import com.ccf.persistence.classes.Ledger;
 import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
-import com.ccf.persistence.classes.PrimarySchoolAccount;
-import com.ccf.persistence.classes.SpecialThanksOfferingAccount;
+import com.ccf.persistence.classes.EducationalFundAccount;
+import com.ccf.persistence.classes.BuildingAccount;
 import com.ccf.persistence.classes.SundaySchoolAccount;
 import com.ccf.persistence.classes.WomensAccount;
 import com.ccf.persistence.classes.YouthAccount;
+import com.ccf.util.AccountNames;
 import com.ccf.util.HibernateSessionFactory;
 import com.ccf.vo.Account;
 
@@ -172,7 +173,7 @@ public class AccountsDaoImpl implements AccountsDao {
 	}
 
 	@Override
-	public List<SpecialThanksOfferingAccount> getSTOAccountsAfter(int id)
+	public List<BuildingAccount> getSTOAccountsAfter(int id)
 			throws CcfException {
 		logger.debug("Special Thanks Offering Account Id : " + id);
 		try {
@@ -182,7 +183,7 @@ public class AccountsDaoImpl implements AccountsDao {
 			String hql = "From SpecialThanksOfferingAccount where id>:id";
 			Query query = session.createQuery(hql);
 			query.setInteger("id", id);
-			List<SpecialThanksOfferingAccount> stoAccounts = query.list();
+			List<BuildingAccount> stoAccounts = query.list();
 			session.close();
 			return stoAccounts;
 		} catch (Exception e) {
@@ -192,20 +193,20 @@ public class AccountsDaoImpl implements AccountsDao {
 	}
 
 	@Override
-	public List<PrimarySchoolAccount> getPrimarySchoolAccountsAfter(int id)
+	public List<EducationalFundAccount> getEducationalFundAccountsAfter(int id)
 			throws CcfException {
-		logger.debug("Primary School Account Id : " + id);
+		logger.debug("Educational Fund Account Id : " + id);
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
-			String hql = "From PrimarySchoolAccount where id>:id";
+			String hql = "From EducationalFundAccount where id>:id";
 			Query query = session.createQuery(hql);
 			query.setInteger("id", id);
-			List<PrimarySchoolAccount> primarySchoolAccountAccounts = query
+			List<EducationalFundAccount> educationalFundAccountAccounts = query
 					.list();
 			session.close();
-			return primarySchoolAccountAccounts;
+			return educationalFundAccountAccounts;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
@@ -338,14 +339,14 @@ public class AccountsDaoImpl implements AccountsDao {
 
 	@Override
 	public void updateSpecialThanksOfferingAccount(
-			List<SpecialThanksOfferingAccount> stoAccounts) throws CcfException {
+			List<BuildingAccount> stoAccounts) throws CcfException {
 
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.getTransaction().begin();
-			for (SpecialThanksOfferingAccount stoAccount : stoAccounts) {
+			for (BuildingAccount stoAccount : stoAccounts) {
 				logger.debug("Special Thanks Offering Account Id : "
 						+ stoAccount.getId());
 				session.update(stoAccount);
@@ -359,8 +360,8 @@ public class AccountsDaoImpl implements AccountsDao {
 	}
 
 	@Override
-	public void updatePrimarySchoolAccount(
-			List<PrimarySchoolAccount> primarySchoolAccounts)
+	public void updateEducationalFundAccount(
+			List<EducationalFundAccount> educationalFundAccounts)
 			throws CcfException {
 
 		try {
@@ -368,10 +369,10 @@ public class AccountsDaoImpl implements AccountsDao {
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			session.getTransaction().begin();
-			for (PrimarySchoolAccount primarySchoolAccount : primarySchoolAccounts) {
-				logger.debug("Primary School Account Id : "
-						+ primarySchoolAccount.getId());
-				session.update(primarySchoolAccount);
+			for (EducationalFundAccount educationalFundAccount : educationalFundAccounts) {
+				logger.debug("Educational Fund Account Id : "
+						+ educationalFundAccount.getId());
+				session.update(educationalFundAccount);
 			}
 			session.getTransaction().commit();
 			session.close();
@@ -440,7 +441,7 @@ public class AccountsDaoImpl implements AccountsDao {
 			c.add(Restrictions.not(Restrictions.like("ledgerName", "Service - ", MatchMode.START)));
 			List<Ledger> ledgers = c.list();
 			session.close();
-			logger.debug("getPrimarySchoolStatement method Ends...");
+			logger.debug("getEducationalFundStatement method Ends...");
 			for(Ledger l : ledgers){
 				System.out.println(l.getLedgerName());
 			}
@@ -454,7 +455,7 @@ public class AccountsDaoImpl implements AccountsDao {
 	@Override
 	public List<Account> getAccountStatement(String accountName, Date from, Date to)
 			throws CcfException {
-		logger.debug("getPCAccountStatement method starts...");
+		logger.debug("getAccountStatement method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
@@ -466,7 +467,7 @@ public class AccountsDaoImpl implements AccountsDao {
 			
 			List<Account> accounts = c.list();
 			session.close();
-			logger.debug("getPCAccountStatement method Ends...");
+			logger.debug("getAccountStatement method Ends...");
 			return accounts;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -509,7 +510,7 @@ public class AccountsDaoImpl implements AccountsDao {
 			c.add(Restrictions.not(Restrictions.like("ledgerName", "Service - ", MatchMode.START)));
 			List<Ledger> ledgers = c.list();
 			session.close();
-			logger.debug("getPrimarySchoolStatement method Ends...");
+			logger.debug("getAllLedgers method Ends...");
 			return ledgers;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -520,6 +521,7 @@ public class AccountsDaoImpl implements AccountsDao {
 	@Override
 	public List<Ledger> getAllLedgers(String startsWithValue) throws CcfException {
 		logger.debug("getAllLedgers method starts...");
+		logger.info("Starts With Value : " + startsWithValue);
 		try {
 
 			SessionFactory sessionFactory = HibernateSessionFactory
@@ -529,12 +531,29 @@ public class AccountsDaoImpl implements AccountsDao {
 			c.add(Restrictions.like("ledgerName", startsWithValue, MatchMode.START));
 			List<Ledger> ledgers = c.list();
 			session.close();
-			logger.debug("getPrimarySchoolStatement method Ends...");
+			logger.debug("getAllLedgers method Ends...");
 			return ledgers;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new CcfException(e.getMessage());
 		}
+	}
+	
+	@Override
+	public boolean isChequeExists(String accountNumber) throws CcfException{
+		logger.debug("isChequeExists method Starts");
+		boolean chequeExists = false;
+		SessionFactory sessionFactory = HibernateSessionFactory
+				.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		String hql = "from Cheque where chequeNumber = '" + accountNumber +"'";
+		Query query = session.createQuery(hql);
+		Cheque cheque = (Cheque) query.uniqueResult();
+		if(cheque!= null)
+			chequeExists = true;
+		session.close();
+		logger.debug("isChequeExists method Ends");
+		return chequeExists;
 	}
 	
 

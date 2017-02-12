@@ -22,12 +22,12 @@
 			</many-to-many>
 		</set>
 		
-		<set name="bankSTOAccounts" fetch="join" table="cheque_bank_sto" cascade="all" lazy="true" inverse="true">
+		<set name="bankSTOAccounts" fetch="join" table="cheque_bank_building" cascade="all" lazy="true" inverse="true">
 			<key>
 				<column name="cheque_id"></column>
 			</key>
-			<many-to-many entity-name="com.ccf.persistence.classes.BankSpecialThanksOfferingAccount" >
-				<column name="bank_sto_account_id"></column>
+			<many-to-many entity-name="com.ccf.persistence.classes.BankBuildingAccount" >
+				<column name="bank_building_account_id"></column>
 			</many-to-many>
 		</set>
 		<set name="bankGraveyardAccounts" fetch="join" table="cheque_bank_graveyard" cascade="all" lazy="true" inverse="true">
@@ -57,12 +57,12 @@
 			</many-to-many>
 		</set>
 		
-		<set name="bankPrimarySchoolAccounts" fetch="join" table="cheque_bank_primary_school" cascade="all" lazy="true" inverse="true">
+		<set name="bankEducationalFundAccounts" fetch="join" table="cheque_bank_educational_fund" cascade="all" lazy="true" inverse="true">
 			<key>
 				<column name="cheque_id"></column>
 			</key>
-			<many-to-many entity-name="com.ccf.persistence.classes.BankPrimarySchoolAccount" >
-				<column name="bank_primary_school_account_id"></column>
+			<many-to-many entity-name="com.ccf.persistence.classes.BankEducationalFundAccount" >
+				<column name="bank_educational_fund_account_id"></column>
 			</many-to-many>
 		</set>
 		

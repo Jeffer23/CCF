@@ -2,17 +2,15 @@ package com.ccf.persistence.classes;
 
 import java.util.Date;
 
-import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
+import com.ccf.persistence.interfaces.IEducationalFundAccount;
 import com.ccf.vo.Account;
 
-public class SpecialThanksOfferingAccount implements Account,
-		ISpecialThanksOfferingAccount {
+public class EducationalFundAccount implements Account, IEducationalFundAccount {
 
 	private int id;
 	private float amount;
 	private String description;
 	private String cr_dr;
-	private ServiceOffering serviceOffering;
 	private Santha santha;
 	private Date date;
 	private Ledger ledger;
@@ -63,14 +61,6 @@ public class SpecialThanksOfferingAccount implements Account,
 
 	public void setCr_dr(String cr_dr) {
 		this.cr_dr = cr_dr;
-	}
-
-	public ServiceOffering getServiceOffering() {
-		return serviceOffering;
-	}
-
-	public void setServiceOffering(ServiceOffering serviceOffering) {
-		this.serviceOffering = serviceOffering;
 	}
 
 	public Santha getSantha() {

@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-   <class name="com.ccf.persistence.classes.PrimarySchoolAccount" table="primary_school_account">
+   <class name="com.ccf.persistence.classes.EducationalFundAccount" table="educational_fund_account">
 		<meta attribute="class-description">
 			This class contains the Primary School account details.
 		</meta>

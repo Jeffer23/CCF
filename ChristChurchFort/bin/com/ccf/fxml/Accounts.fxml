@@ -151,7 +151,7 @@
 							</font>
 						</Label>
 						<Label contentDisplay="CENTER" prefHeight="27.0" prefWidth="295.0"
-							style="-fx-background-color: #D4D4FC;" text="Special Thanks Offering Account"
+							style="-fx-background-color: #D4D4FC;" text="Building Account"
 							GridPane.columnIndex="1" GridPane.rowIndex="7">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
@@ -165,7 +165,7 @@
 							</font>
 						</Label>
 						<Label contentDisplay="CENTER" prefHeight="27.0" prefWidth="295.0"
-							style="-fx-background-color: #D4D4FC;" text="Primary School Account"
+							style="-fx-background-color: #D4D4FC;" text="Educational Fund Account"
 							GridPane.columnIndex="1" GridPane.rowIndex="9">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
@@ -265,7 +265,7 @@
 						<Label fx:id="graveyardAccountBalance" alignment="CENTER_RIGHT"
 							prefHeight="27.0" prefWidth="213.0" style="-fx-background-color: #D4D4FC;"
 							GridPane.columnIndex="3" GridPane.rowIndex="8" />
-						<Label fx:id="primarySchoolAccountBalance" alignment="CENTER_RIGHT"
+						<Label fx:id="educationalFundAccountBalance" alignment="CENTER_RIGHT"
 							prefHeight="27.0" prefWidth="213.0" style="-fx-background-color: #D4D4FC;"
 							GridPane.columnIndex="3" GridPane.rowIndex="9" />
 							
@@ -293,7 +293,7 @@
 						<Label fx:id="bankGraveyardAccountBalance" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="180.0"
 							style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4"
 							GridPane.rowIndex="8" />
-						<Label fx:id="bankPrimarySchoolAccountBalance" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="180.0"
+						<Label fx:id="bankEducationalFundAccountBalance" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="180.0"
 							style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4"
 							GridPane.rowIndex="9" />
 
@@ -322,7 +322,7 @@
 						<Label fx:id="totalGraveyardAccountBalance" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="180.0"
 							style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5"
 							GridPane.rowIndex="8" />
-						<Label fx:id="totalPrimarySchoolAccountBalance" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="180.0"
+						<Label fx:id="totalEducationalFundAccountBalance" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="180.0"
 							style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5"
 							GridPane.rowIndex="9" />
 					</children>

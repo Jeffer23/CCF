@@ -22,9 +22,9 @@ public class Cheque {
 	
 	private Set<BankMissionaryAccount> bankMissionaryAccounts = new HashSet<>();
 	
-	private Set<BankPrimarySchoolAccount> bankPrimarySchoolAccounts = new HashSet<>();
+	private Set<BankEducationalFundAccount> bankEducationalFundAccounts = new HashSet<>();
 	
-	private Set<BankSpecialThanksOfferingAccount> bankSTOAccounts = new HashSet<>();
+	private Set<BankBuildingAccount> bankSTOAccounts = new HashSet<>();
 	
 	private Set<BankWomensAccount> bankWomensAccounts = new HashSet<>();
 	
@@ -72,12 +72,12 @@ public class Cheque {
 		this.bankPCAccounts = bankPCAccounts;
 	}
 
-	public Set<BankSpecialThanksOfferingAccount> getBankSTOAccounts() {
+	public Set<BankBuildingAccount> getBankSTOAccounts() {
 		return bankSTOAccounts;
 	}
 
 	public void setBankSTOAccounts(
-			Set<BankSpecialThanksOfferingAccount> bankSTOAccounts) {
+			Set<BankBuildingAccount> bankSTOAccounts) {
 		this.bankSTOAccounts = bankSTOAccounts;
 	}
 
@@ -107,13 +107,13 @@ public class Cheque {
 		this.bankMissionaryAccounts = bankMissionaryAccounts;
 	}
 
-	public Set<BankPrimarySchoolAccount> getBankPrimarySchoolAccounts() {
-		return bankPrimarySchoolAccounts;
+	public Set<BankEducationalFundAccount> getBankEducationalFundAccounts() {
+		return bankEducationalFundAccounts;
 	}
 
-	public void setBankPrimarySchoolAccounts(
-			Set<BankPrimarySchoolAccount> bankPrimarySchoolAccounts) {
-		this.bankPrimarySchoolAccounts = bankPrimarySchoolAccounts;
+	public void setBankEducationalFundAccounts(
+			Set<BankEducationalFundAccount> bankEducationalFundAccounts) {
+		this.bankEducationalFundAccounts = bankEducationalFundAccounts;
 	}
 
 	public Set<BankWomensAccount> getBankWomensAccounts() {

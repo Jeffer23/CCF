@@ -1,7 +1,6 @@
 package com.ccf.persistence.classes;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -17,7 +16,7 @@ public class Santha {
 	private float mensFellowship;
 	private float womensFellowship;
 	private float educationHelp;
-	private float primarySchool;
+	private float preSchool;
 	private float youth;
 	private float poorHelp;
 	private float churchRenovation;
@@ -40,8 +39,8 @@ public class Santha {
 	private Set<IYouthAccount> bankYouthAccounts =  new LinkedHashSet<>();
 	private Set<IGraveyardAccount> graveyardAccounts = new LinkedHashSet<>();
 	private Set<IGraveyardAccount> bankGraveyardAccounts = new LinkedHashSet<>();
-	private Set<IPrimarySchoolAccount> primarySchoolAccounts = new LinkedHashSet<>();
-	private Set<IPrimarySchoolAccount> bankPrimarySchoolAccounts = new LinkedHashSet<>();
+	private Set<IEducationalFundAccount> educationalFundAccounts = new LinkedHashSet<>();
+	private Set<IEducationalFundAccount> bankEducationalFundAccounts = new LinkedHashSet<>();
 	private Set<ISpecialThanksOfferingAccount> specialThanksOfferingAccounts = new LinkedHashSet<>();
 	private Set<ISpecialThanksOfferingAccount> bankSpecialThanksOfferingAccounts = new LinkedHashSet<>();
 	
@@ -88,11 +87,12 @@ public class Santha {
 	public void setEducationHelp(float educationHelp) {
 		this.educationHelp = educationHelp;
 	}
-	public float getPrimarySchool() {
-		return primarySchool;
+	
+	public float getPreSchool() {
+		return preSchool;
 	}
-	public void setPrimarySchool(float primarySchool) {
-		this.primarySchool = primarySchool;
+	public void setPreSchool(float preSchool) {
+		this.preSchool = preSchool;
 	}
 	public float getYouth() {
 		return youth;
@@ -241,19 +241,19 @@ public class Santha {
 			Set<IGraveyardAccount> bankGraveyardAccounts) {
 		this.bankGraveyardAccounts = bankGraveyardAccounts;
 	}
-	public Set<IPrimarySchoolAccount> getPrimarySchoolAccounts() {
-		return primarySchoolAccounts;
+	public Set<IEducationalFundAccount> getEducationalFundAccounts() {
+		return educationalFundAccounts;
 	}
-	public void setPrimarySchoolAccounts(
-			Set<IPrimarySchoolAccount> primarySchoolAccounts) {
-		this.primarySchoolAccounts = primarySchoolAccounts;
+	public void setEducationalFundAccounts(
+			Set<IEducationalFundAccount> educationalFundAccounts) {
+		this.educationalFundAccounts = educationalFundAccounts;
 	}
-	public Set<IPrimarySchoolAccount> getBankPrimarySchoolAccounts() {
-		return bankPrimarySchoolAccounts;
+	public Set<IEducationalFundAccount> getBankEducationalFundAccounts() {
+		return bankEducationalFundAccounts;
 	}
-	public void setBankPrimarySchoolAccounts(
-			Set<IPrimarySchoolAccount> bankPrimarySchoolAccounts) {
-		this.bankPrimarySchoolAccounts = bankPrimarySchoolAccounts;
+	public void setBankEducationalFundAccounts(
+			Set<IEducationalFundAccount> bankEducationalFundAccounts) {
+		this.bankEducationalFundAccounts = bankEducationalFundAccounts;
 	}
 	public Set<ISpecialThanksOfferingAccount> getSpecialThanksOfferingAccounts() {
 		return specialThanksOfferingAccounts;

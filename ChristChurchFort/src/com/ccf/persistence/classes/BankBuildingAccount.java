@@ -1,18 +1,23 @@
 package com.ccf.persistence.classes;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.ccf.persistence.interfaces.IPrimarySchoolAccount;
+import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
 import com.ccf.vo.Account;
 
-public class PrimarySchoolAccount implements Account, IPrimarySchoolAccount {
+public class BankBuildingAccount implements Account,
+		ISpecialThanksOfferingAccount {
 
 	private int id;
 	private float amount;
 	private String description;
 	private String cr_dr;
+	private ServiceOffering serviceOffering;
 	private Santha santha;
 	private Date date;
+	private Set<Cheque> cheques = new HashSet<>();
 	private Ledger ledger;
 
 	public Ledger getLedger() {
@@ -21,6 +26,14 @@ public class PrimarySchoolAccount implements Account, IPrimarySchoolAccount {
 
 	public void setLedger(Ledger ledger) {
 		this.ledger = ledger;
+	}
+
+	public Set<Cheque> getCheques() {
+		return cheques;
+	}
+
+	public void setCheques(Set<Cheque> cheques) {
+		this.cheques = cheques;
 	}
 
 	public Date getDate() {
@@ -61,6 +74,14 @@ public class PrimarySchoolAccount implements Account, IPrimarySchoolAccount {
 
 	public void setCr_dr(String cr_dr) {
 		this.cr_dr = cr_dr;
+	}
+
+	public ServiceOffering getServiceOffering() {
+		return serviceOffering;
+	}
+
+	public void setServiceOffering(ServiceOffering serviceOffering) {
+		this.serviceOffering = serviceOffering;
 	}
 
 	public Santha getSantha() {

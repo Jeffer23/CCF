@@ -24,8 +24,8 @@ import com.ccf.persistence.classes.BankGraveyardAccount;
 import com.ccf.persistence.classes.BankMensAccount;
 import com.ccf.persistence.classes.BankMissionaryAccount;
 import com.ccf.persistence.classes.BankPCAccount;
-import com.ccf.persistence.classes.BankPrimarySchoolAccount;
-import com.ccf.persistence.classes.BankSpecialThanksOfferingAccount;
+import com.ccf.persistence.classes.BankEducationalFundAccount;
+import com.ccf.persistence.classes.BankBuildingAccount;
 import com.ccf.persistence.classes.BankWomensAccount;
 import com.ccf.persistence.classes.BankYouthAccount;
 import com.ccf.persistence.classes.Cheque;
@@ -37,7 +37,7 @@ import com.ccf.persistence.interfaces.IGraveyardAccount;
 import com.ccf.persistence.interfaces.IMensAccount;
 import com.ccf.persistence.interfaces.IMissionaryAccount;
 import com.ccf.persistence.interfaces.IPCAccount;
-import com.ccf.persistence.interfaces.IPrimarySchoolAccount;
+import com.ccf.persistence.interfaces.IEducationalFundAccount;
 import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
 import com.ccf.persistence.interfaces.IWomensAccount;
 import com.ccf.persistence.interfaces.IYouthAccount;
@@ -209,28 +209,28 @@ public class SanthaDaoImpl implements SanthaDao {
 				session.update(accBalance);
 			}
 
-			// Primary School Account
-			if (santha.getPrimarySchoolAccounts().size() > 0) {
+			// Educational Fund Account
+			if (santha.getEducationalFundAccounts().size() > 0) {
 				accBalance = (AccountsBalance) session.get(
 						AccountsBalance.class,
-						AccountNames.PrimarySchoolAccount);
-				Set<IPrimarySchoolAccount> primarySchoolAccounts = santha
-						.getPrimarySchoolAccounts();
-				for (IPrimarySchoolAccount account : primarySchoolAccounts) {
+						AccountNames.EducationalFundAccount);
+				Set<IEducationalFundAccount> educationalFundAccounts = santha
+						.getEducationalFundAccounts();
+				for (IEducationalFundAccount account : educationalFundAccounts) {
 					accBalance.setBalance(accBalance.getBalance()
 							+ account.getAmount());
 				}
 				session.update(accBalance);
 			}
 
-			// Bank Primary School Account
-			if (santha.getBankPrimarySchoolAccounts().size() > 0) {
+			// Bank Educational Fund Account
+			if (santha.getBankEducationalFundAccounts().size() > 0) {
 				accBalance = (AccountsBalance) session.get(
 						AccountsBalance.class,
-						AccountNames.BankPrimarySchoolAccount);
-				Set<IPrimarySchoolAccount> primarySchoolAccounts = santha
-						.getBankPrimarySchoolAccounts();
-				for (IPrimarySchoolAccount account : primarySchoolAccounts) {
+						AccountNames.BankEducationalFundAccount);
+				Set<IEducationalFundAccount> educationalFundAccounts = santha
+						.getBankEducationalFundAccounts();
+				for (IEducationalFundAccount account : educationalFundAccounts) {
 					accBalance.setBalance(accBalance.getBalance()
 							+ account.getAmount());
 				}
@@ -240,7 +240,7 @@ public class SanthaDaoImpl implements SanthaDao {
 			// Special Thanks Offering Account
 			if (santha.getSpecialThanksOfferingAccounts().size() > 0) {
 				accBalance = (AccountsBalance) session.get(
-						AccountsBalance.class, AccountNames.STOAccount);
+						AccountsBalance.class, AccountNames.BuildingAccount);
 				Set<ISpecialThanksOfferingAccount> stoAccounts = santha
 						.getSpecialThanksOfferingAccounts();
 				for (ISpecialThanksOfferingAccount account : stoAccounts) {
@@ -253,7 +253,7 @@ public class SanthaDaoImpl implements SanthaDao {
 			// Bank Special Thanks Offering Account
 			if (santha.getBankSpecialThanksOfferingAccounts().size() > 0) {
 				accBalance = (AccountsBalance) session.get(
-						AccountsBalance.class, AccountNames.BankSTOAccount);
+						AccountsBalance.class, AccountNames.BankBuildingAccount);
 				Set<ISpecialThanksOfferingAccount> stoAccounts = santha
 						.getBankSpecialThanksOfferingAccounts();
 				for (ISpecialThanksOfferingAccount account : stoAccounts) {
@@ -312,7 +312,7 @@ public class SanthaDaoImpl implements SanthaDao {
 			logger.info("missionary" + santha.getMissionary());
 			logger.info("Subscription" + santha.getSubscriptionAmount());
 			logger.info("poorHelp" + santha.getPoorHelp());
-			logger.info("primarySchool" + santha.getPrimarySchool());
+			logger.info("primarySchool" + santha.getPreSchool());
 			logger.info("sto" + santha.getSto());
 			logger.info("thanksOffer" + santha.getThanksOffer());
 			logger.info("womensFellowship" + santha.getWomensFellowship());
@@ -336,7 +336,7 @@ public class SanthaDaoImpl implements SanthaDao {
 			query.setParameter("missionary", santha.getMissionary());
 			query.setParameter("subscription", santha.getSubscriptionAmount());
 			query.setParameter("poorHelp", santha.getPoorHelp());
-			query.setParameter("primarySchool", santha.getPrimarySchool());
+			query.setParameter("primarySchool", santha.getPreSchool());
 			query.setParameter("sto", santha.getSto());
 			query.setParameter("thanksOffer", santha.getThanksOffer());
 			query.setParameter("womensFellowship", santha.getWomensFellowship());
@@ -379,7 +379,7 @@ public class SanthaDaoImpl implements SanthaDao {
 
 			if (stoAmount > 0.0f) {
 				accountsBalance = (AccountsBalance) session.get(
-						AccountsBalance.class, AccountNames.STOAccount);
+						AccountsBalance.class, AccountNames.BuildingAccount);
 				accountsBalance.setBalance(accountsBalance.getBalance()
 						- stoAmount);
 				session.update(accountsBalance);
@@ -409,12 +409,12 @@ public class SanthaDaoImpl implements SanthaDao {
 				session.update(accountsBalance);
 			}
 
-			if (santha.getPrimarySchool() > 0.0f) {
+			if (santha.getPreSchool() > 0.0f) {
 				accountsBalance = (AccountsBalance) session.get(
 						AccountsBalance.class,
-						AccountNames.PrimarySchoolAccount);
+						AccountNames.EducationalFundAccount);
 				accountsBalance.setBalance(accountsBalance.getBalance()
-						- santha.getPrimarySchool());
+						- santha.getPreSchool());
 				session.update(accountsBalance);
 			}
 
@@ -544,7 +544,7 @@ public class SanthaDaoImpl implements SanthaDao {
 					|| santha.getBankMensAccounts().size() > 0
 					|| santha.getBankMissionaryAccounts().size() > 0
 					|| santha.getBankPCAccounts().size() > 0
-					|| santha.getBankPrimarySchoolAccounts().size() > 0
+					|| santha.getBankEducationalFundAccounts().size() > 0
 					|| santha.getBankSpecialThanksOfferingAccounts()
 							.size() > 0
 					|| santha.getBankWomensAccounts().size() > 0
@@ -566,12 +566,12 @@ public class SanthaDaoImpl implements SanthaDao {
 					BankPCAccount bpcAcc = (BankPCAccount) santha.getBankPCAccounts().iterator().next();
 					cheque = bpcAcc.getCheques().iterator().next();
 				}
-				else if(!santha.getBankPrimarySchoolAccounts().isEmpty()){
-					BankPrimarySchoolAccount bpsAcc = (BankPrimarySchoolAccount) santha.getBankPrimarySchoolAccounts().iterator().next();
+				else if(!santha.getBankEducationalFundAccounts().isEmpty()){
+					BankEducationalFundAccount bpsAcc = (BankEducationalFundAccount) santha.getBankEducationalFundAccounts().iterator().next();
 					cheque = bpsAcc.getCheques().iterator().next();
 				}
 				else if(!santha.getBankSpecialThanksOfferingAccounts().isEmpty()){
-					BankSpecialThanksOfferingAccount bstoAcc = (BankSpecialThanksOfferingAccount) santha.getBankSpecialThanksOfferingAccounts().iterator().next();
+					BankBuildingAccount bstoAcc = (BankBuildingAccount) santha.getBankSpecialThanksOfferingAccounts().iterator().next();
 					cheque = bstoAcc.getCheques().iterator().next();
 				}
 				else if(!santha.getBankWomensAccounts().isEmpty()){

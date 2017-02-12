@@ -78,9 +78,9 @@ public class AccumulatedAccountStatement {
 		accountNamesList.add(AccountNames.WomensAccount);
 		accountNamesList.add(AccountNames.SundaySchoolAccount);
 		accountNamesList.add(AccountNames.YouthAccount);
-		accountNamesList.add(AccountNames.STOAccount);
+		accountNamesList.add(AccountNames.BuildingAccount);
 		accountNamesList.add(AccountNames.GraveyardAccount);
-		accountNamesList.add(AccountNames.PrimarySchoolAccount);
+		accountNamesList.add(AccountNames.EducationalFundAccount);
 		accountNames.setValue(AccountNames.PCAccount);
 		accountNames.getItems().addAll(accountNamesList);
 	}
@@ -130,12 +130,12 @@ public class AccumulatedAccountStatement {
 						from.getSelectedDate(), to.getSelectedDate());
 				accounts.addAll(dao.getAccountStatement("com.ccf.persistence.classes.BankYouthAccount",
 						from.getSelectedDate(), to.getSelectedDate()));
-			} else if (accountNames.getValue().equals(AccountNames.STOAccount)) {
+			} else if (accountNames.getValue().equals(AccountNames.BuildingAccount)) {
 				accounts = dao.getAccountStatement(
-						"com.ccf.persistence.classes.SpecialThanksOfferingAccount", from.getSelectedDate(),
+						"com.ccf.persistence.classes.BuildingAccount", from.getSelectedDate(),
 						to.getSelectedDate());
 				accounts.addAll(dao.getAccountStatement(
-						"com.ccf.persistence.classes.BankSpecialThanksOfferingAccount",
+						"com.ccf.persistence.classes.BankEducationalFundAccount",
 						from.getSelectedDate(), to.getSelectedDate()));
 			} else if (accountNames.getValue().equals(
 					AccountNames.GraveyardAccount)) {
@@ -144,11 +144,11 @@ public class AccumulatedAccountStatement {
 				accounts.addAll(dao.getAccountStatement("com.ccf.persistence.classes.BankGraveyardAccount",
 						from.getSelectedDate(), to.getSelectedDate()));
 			} else if (accountNames.getValue().equals(
-					AccountNames.PrimarySchoolAccount)) {
-				accounts = dao.getAccountStatement("com.ccf.persistence.classes.PrimarySchoolAccount",
+					AccountNames.EducationalFundAccount)) {
+				accounts = dao.getAccountStatement("com.ccf.persistence.classes.EducationalFundAccount",
 						from.getSelectedDate(), to.getSelectedDate());
 				accounts.addAll(dao.getAccountStatement(
-						"com.ccf.persistence.classes.com.ccf.persistence.classes.BankPrimarySchoolAccount", from.getSelectedDate(),
+						"com.ccf.persistence.classes.BankEducationalFundAccount", from.getSelectedDate(),
 						to.getSelectedDate()));
 			}
 

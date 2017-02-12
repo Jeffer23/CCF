@@ -130,7 +130,7 @@ public class ComparisonReportController extends Application {
 					missionary += santha.getMissionary();
 					subscription += santha.getSubscriptionAmount();
 					poorHelp += santha.getPoorHelp();
-					primarySchool += santha.getPrimarySchool();
+					primarySchool += santha.getPreSchool();
 					sto += santha.getSto();
 					thanksOffer += santha.getThanksOffer();
 					womensFelloShip += santha.getWomensFellowship();

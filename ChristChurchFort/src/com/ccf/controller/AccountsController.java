@@ -65,7 +65,7 @@ public class AccountsController {
 	private Label graveyardAccountBalance;
 
 	@FXML
-	private Label primarySchoolAccountBalance;
+	private Label educationalFundAccountBalance;
 
 	@FXML
 	private Label bankPCAccountBalance;
@@ -92,7 +92,7 @@ public class AccountsController {
 	private Label bankGraveyardAccountBalance;
 
 	@FXML
-	private Label bankPrimarySchoolAccountBalance;
+	private Label bankEducationalFundAccountBalance;
 
 	@FXML
 	private Label totalPCAccountBalance;
@@ -119,7 +119,7 @@ public class AccountsController {
 	private Label totalGraveyardAccountBalance;
 
 	@FXML
-	private Label totalPrimarySchoolAccountBalance;
+	private Label totalEducationalFundAccountBalance;
 
 	@FXML
 	private Label overAllCashBalance;
@@ -159,20 +159,20 @@ public class AccountsController {
 					.getAccountBalance(AccountNames.YouthAccount);
 			this.youthAccountBalance.setText(String.valueOf(youthAccBalance));
 			float stoAccBalance = impl
-					.getAccountBalance(AccountNames.STOAccount);
+					.getAccountBalance(AccountNames.BuildingAccount);
 			this.stoAccountBalance.setText(String.valueOf(stoAccBalance));
 			float graveyardAccBalance = impl
 					.getAccountBalance(AccountNames.GraveyardAccount);
 			this.graveyardAccountBalance
 					.setText(String.valueOf(graveyardAccBalance));
-			float primarySchoolAccBalance = impl
-					.getAccountBalance(AccountNames.PrimarySchoolAccount);
-			this.primarySchoolAccountBalance.setText(String
-					.valueOf(primarySchoolAccBalance));
+			float educationalFundAccBalance = impl
+					.getAccountBalance(AccountNames.EducationalFundAccount);
+			this.educationalFundAccountBalance.setText(String
+					.valueOf(educationalFundAccBalance));
 			float overAllBalance = pcAccBalance + missionaryAccBalance
 					+ mensAccBalance + womensAccBalance
 					+ sundaySchoolAccbalance + youthAccBalance + stoAccBalance
-					+ graveyardAccBalance + primarySchoolAccBalance;
+					+ graveyardAccBalance + educationalFundAccBalance;
 			this.overAllCashBalance.setText(String.valueOf(overAllBalance));
 
 			//Bank Balance
@@ -197,28 +197,28 @@ public class AccountsController {
 					.getAccountBalance(AccountNames.BankYouthAccount);
 			this.bankYouthAccountBalance.setText(String.valueOf(bankYouthAccBalance));
 			float bankStoAccBalance = impl
-					.getAccountBalance(AccountNames.BankSTOAccount);
+					.getAccountBalance(AccountNames.BankBuildingAccount);
 			this.bankStoAccountBalance.setText(String.valueOf(bankStoAccBalance));
 			float bankGraveyardAccBalance = impl
 					.getAccountBalance(AccountNames.BankGraveyardAccount);
 			this.bankGraveyardAccountBalance.setText(String
 					.valueOf(bankGraveyardAccBalance));
-			float bankPrimarySchoolAccBalance = impl
-					.getAccountBalance(AccountNames.BankPrimarySchoolAccount);
-			this.bankPrimarySchoolAccountBalance.setText(String
-					.valueOf(bankPrimarySchoolAccBalance));
+			float bankEducationalFundAccBalance = impl
+					.getAccountBalance(AccountNames.BankEducationalFundAccount);
+			this.bankEducationalFundAccountBalance.setText(String
+					.valueOf(bankEducationalFundAccBalance));
 			float overAllBankBalance = bankPcAccBalance
 					+ bankMissionaryAccBalance + bankMensAccBalance
 					+ bankWomensAccBalance + bankSundaySchoolAccbalance
 					+ bankYouthAccBalance + bankStoAccBalance
-					+ bankGraveyardAccBalance + bankPrimarySchoolAccBalance;
+					+ bankGraveyardAccBalance + bankEducationalFundAccBalance;
 			this.overAllBankBalance.setText(String.valueOf(overAllBankBalance));
 			
 			this.totalGraveyardAccountBalance.setText(String.valueOf(graveyardAccBalance + bankGraveyardAccBalance));
 			this.totalMensAccountBalance.setText(String.valueOf(mensAccBalance + bankMensAccBalance));
 			this.totalMissionaryAccountBalance.setText(String.valueOf(missionaryAccBalance + bankMissionaryAccBalance));
 			this.totalPCAccountBalance.setText(String.valueOf(pcAccBalance + bankPcAccBalance));
-			this.totalPrimarySchoolAccountBalance.setText(String.valueOf(primarySchoolAccBalance + bankPrimarySchoolAccBalance));
+			this.totalEducationalFundAccountBalance.setText(String.valueOf(educationalFundAccBalance + bankEducationalFundAccBalance));
 			this.totalStoAccountBalance.setText(String.valueOf(stoAccBalance + bankStoAccBalance));
 			this.totalSundaySchoolAccountBalance.setText(String.valueOf(sundaySchoolAccbalance + bankSundaySchoolAccbalance));
 			this.totalWomenAccountBalance.setText(String.valueOf(womensAccBalance + bankWomensAccBalance));
@@ -333,11 +333,11 @@ public class AccountsController {
 			accountBalance.put("Youth Account",
 					impl.getAccountBalance(AccountNames.YouthAccount));
 			accountBalance.put("Special Thanks Offering Account",
-					impl.getAccountBalance(AccountNames.STOAccount));
+					impl.getAccountBalance(AccountNames.BuildingAccount));
 			accountBalance.put("Graveyard Account",
 					impl.getAccountBalance(AccountNames.GraveyardAccount));
-			accountBalance.put("Primary School Account",
-					impl.getAccountBalance(AccountNames.PrimarySchoolAccount));
+			accountBalance.put("Educational Fund Account",
+					impl.getAccountBalance(AccountNames.EducationalFundAccount));
 			
 			Map<String, Float> bankAccountBalance = new HashMap<>();
 			bankAccountBalance.put("PC Account",
@@ -353,11 +353,11 @@ public class AccountsController {
 			bankAccountBalance.put("Youth Account",
 					impl.getAccountBalance(AccountNames.BankYouthAccount));
 			bankAccountBalance.put("Special Thanks Offering Account",
-					impl.getAccountBalance(AccountNames.BankSTOAccount));
+					impl.getAccountBalance(AccountNames.BankBuildingAccount));
 			bankAccountBalance.put("Graveyard Account",
 					impl.getAccountBalance(AccountNames.BankGraveyardAccount));
-			bankAccountBalance.put("Primary School Account",
-					impl.getAccountBalance(AccountNames.BankPrimarySchoolAccount));
+			bankAccountBalance.put("Educational Fund Account",
+					impl.getAccountBalance(AccountNames.BankEducationalFundAccount));
 
 			Row row = null;
 			int rowCount = 1;

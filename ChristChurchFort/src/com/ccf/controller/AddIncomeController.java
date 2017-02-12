@@ -13,8 +13,8 @@ import com.ccf.persistence.classes.BankGraveyardAccount;
 import com.ccf.persistence.classes.BankMensAccount;
 import com.ccf.persistence.classes.BankMissionaryAccount;
 import com.ccf.persistence.classes.BankPCAccount;
-import com.ccf.persistence.classes.BankPrimarySchoolAccount;
-import com.ccf.persistence.classes.BankSpecialThanksOfferingAccount;
+import com.ccf.persistence.classes.BankEducationalFundAccount;
+import com.ccf.persistence.classes.BankBuildingAccount;
 import com.ccf.persistence.classes.BankSundaySchoolAccount;
 import com.ccf.persistence.classes.BankWomensAccount;
 import com.ccf.persistence.classes.BankYouthAccount;
@@ -24,8 +24,8 @@ import com.ccf.persistence.classes.Ledger;
 import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
-import com.ccf.persistence.classes.PrimarySchoolAccount;
-import com.ccf.persistence.classes.SpecialThanksOfferingAccount;
+import com.ccf.persistence.classes.EducationalFundAccount;
+import com.ccf.persistence.classes.BuildingAccount;
 import com.ccf.persistence.classes.SundaySchoolAccount;
 import com.ccf.persistence.classes.WomensAccount;
 import com.ccf.persistence.classes.YouthAccount;
@@ -99,9 +99,9 @@ public class AddIncomeController {
 		accountNames.add(AccountNames.WomensAccount);
 		accountNames.add(AccountNames.SundaySchoolAccount);
 		accountNames.add(AccountNames.YouthAccount);
-		accountNames.add(AccountNames.STOAccount);
+		accountNames.add(AccountNames.BuildingAccount);
 		accountNames.add(AccountNames.GraveyardAccount);
-		accountNames.add(AccountNames.PrimarySchoolAccount);
+		accountNames.add(AccountNames.EducationalFundAccount);
 		accounts.setValue(AccountNames.PCAccount);
 		accounts.getItems().addAll(accountNames);
 
@@ -225,14 +225,14 @@ public class AddIncomeController {
 					bankYouthAccount.getCheques().add(cheque);
 					cheque.getBankYouthAccounts().add(bankYouthAccount);
 				}
-			} else if (accounts.getValue().equals(AccountNames.STOAccount)) {
+			} else if (accounts.getValue().equals(AccountNames.BuildingAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.STOAccount;
-					account = new SpecialThanksOfferingAccount();
+					accName = AccountNames.BuildingAccount;
+					account = new BuildingAccount();
 				} else if (this.cheque.isSelected()) {
-					accName = AccountNames.BankSTOAccount;
-					account = new BankSpecialThanksOfferingAccount();
-					BankSpecialThanksOfferingAccount bankSTOAccount = (BankSpecialThanksOfferingAccount) account;
+					accName = AccountNames.BankBuildingAccount;
+					account = new BankBuildingAccount();
+					BankBuildingAccount bankSTOAccount = (BankBuildingAccount) account;
 					bankSTOAccount.getCheques().add(cheque);
 					cheque.getBankSTOAccounts().add(bankSTOAccount);
 				}
@@ -249,16 +249,16 @@ public class AddIncomeController {
 					cheque.getBankGraveyardAccounts().add(bankGraveyardAccount);
 				}
 			} else if (accounts.getValue().equals(
-					AccountNames.PrimarySchoolAccount)) {
+					AccountNames.EducationalFundAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.PrimarySchoolAccount;
-					account = new PrimarySchoolAccount();
+					accName = AccountNames.EducationalFundAccount;
+					account = new EducationalFundAccount();
 				} else if (this.cheque.isSelected()) {
-					accName = AccountNames.BankPrimarySchoolAccount;
-					account = new BankPrimarySchoolAccount();
-					BankPrimarySchoolAccount bankPrimarySchoolAccount = (BankPrimarySchoolAccount) account;
-					bankPrimarySchoolAccount.getCheques().add(cheque);
-					cheque.getBankPrimarySchoolAccounts().add(bankPrimarySchoolAccount);
+					accName = AccountNames.BankEducationalFundAccount;
+					account = new BankEducationalFundAccount();
+					BankEducationalFundAccount bankEducationalFundAccount = (BankEducationalFundAccount) account;
+					bankEducationalFundAccount.getCheques().add(cheque);
+					cheque.getBankEducationalFundAccounts().add(bankEducationalFundAccount);
 				}
 			}
 			logger.debug(amount.getText());

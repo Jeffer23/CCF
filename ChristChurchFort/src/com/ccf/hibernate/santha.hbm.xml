@@ -24,7 +24,7 @@
 		<property name="womensFellowship" column="womens_fellowship"
 			type="float" />
 		<property name="educationHelp" column="education_help" type="float" />
-		<property name="primarySchool" column="primary_school" type="float" />
+		<property name="preSchool" column="primary_school" type="float" />
 		<property name="youth" column="youth" type="float" />
 		<property name="poorHelp" column="poor_help" type="float" />
 		<property name="churchRenovation" column="church_renovation"
@@ -70,14 +70,14 @@
 			<key>
 				<column name="santha_id"></column>
 			</key>
-			<one-to-many class="com.ccf.persistence.classes.SpecialThanksOfferingAccount" />
+			<one-to-many class="com.ccf.persistence.classes.BuildingAccount" />
 		</set>
 		
 		<set name="bankSpecialThanksOfferingAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id"></column>
 			</key>
-			<one-to-many class="com.ccf.persistence.classes.BankSpecialThanksOfferingAccount" />
+			<one-to-many class="com.ccf.persistence.classes.BankBuildingAccount" />
 		</set>
 		
 		<set name="mensAccounts" cascade="all" lazy="true">
@@ -136,18 +136,18 @@
 			<one-to-many class="com.ccf.persistence.classes.BankGraveyardAccount" />
 		</set>
 		
-		<set name="primarySchoolAccounts" cascade="all" lazy="true">
+		<set name="educationalFundAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" unique="true"></column>
 			</key>
-			<one-to-many class="com.ccf.persistence.classes.PrimarySchoolAccount" />
+			<one-to-many class="com.ccf.persistence.classes.EducationalFundAccount" />
 		</set>
 		
-		<set name="bankPrimarySchoolAccounts" cascade="all" lazy="true">
+		<set name="bankEducationalFundAccounts" cascade="all" lazy="true">
 			<key>
 				<column name="santha_id" unique="true"></column>
 			</key>
-			<one-to-many class="com.ccf.persistence.classes.BankPrimarySchoolAccount" />
+			<one-to-many class="com.ccf.persistence.classes.BankEducationalFundAccount" />
 		</set>
 		
 		

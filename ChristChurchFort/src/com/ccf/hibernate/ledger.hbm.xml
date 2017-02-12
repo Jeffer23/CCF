@@ -39,19 +39,19 @@
             </key>
             <one-to-many class="com.ccf.persistence.classes.BankPCAccount" />
         </set>
-        <set name="bankPrimarySchoolAccounts" table="bank_primary_school_account" 
+        <set name="bankEducationalFundAccounts" table="bank_educational_fund_account" 
 				inverse="true" lazy="true" fetch="subselect">
             <key>
                 <column name="no" not-null="true" />
             </key>
-            <one-to-many class="com.ccf.persistence.classes.BankPrimarySchoolAccount" />
+            <one-to-many class="com.ccf.persistence.classes.BankEducationalFundAccount" />
         </set>
-        <set name="bankSTOAccounts" table="bank_sto_account" 
+        <set name="bankSTOAccounts" table="bank_building_account" 
 				inverse="true" lazy="true" fetch="subselect">
             <key>
                 <column name="no" not-null="true" />
             </key>
-            <one-to-many class="com.ccf.persistence.classes.BankSpecialThanksOfferingAccount" />
+            <one-to-many class="com.ccf.persistence.classes.BankBuildingAccount" />
         </set>
         <set name="bankSundaySchoolAccounts" table="bank_sunday_school_account" 
 				inverse="true" lazy="true" fetch="subselect">
@@ -102,19 +102,19 @@
             </key>
             <one-to-many class="com.ccf.persistence.classes.PCAccount" />
         </set>
-        <set name="primarySchoolAccounts" table="primary_school_account" 
+        <set name="educationalFundAccounts" table="educational_fund_account" 
 				inverse="true" lazy="true" fetch="subselect">
             <key>
                 <column name="no" not-null="true" />
             </key>
-            <one-to-many class="com.ccf.persistence.classes.PrimarySchoolAccount" />
+            <one-to-many class="com.ccf.persistence.classes.EducationalFundAccount" />
         </set>
-        <set name="stoAccounts" table="sto_account" 
+        <set name="stoAccounts" table="building_account" 
 				inverse="true" lazy="true" fetch="subselect">
             <key>
                 <column name="no" not-null="true" />
             </key>
-            <one-to-many class="com.ccf.persistence.classes.SpecialThanksOfferingAccount" />
+            <one-to-many class="com.ccf.persistence.classes.BuildingAccount" />
         </set>
         <set name="sundaySchoolAccounts" table="sunday_school_account" 
 				inverse="true" lazy="true" fetch="subselect">

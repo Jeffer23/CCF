@@ -93,9 +93,9 @@
 								<PropertyValueFactory property="educationHelp" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="70.0" resizable="false" text="Primary School">
+						<TableColumn editable="false" prefWidth="70.0" resizable="false" text="Pre-School">
 							<cellValueFactory>
-								<PropertyValueFactory property="primarySchool" />
+								<PropertyValueFactory property="preSchool" />
 							</cellValueFactory>
 						</TableColumn>
 						<TableColumn editable="false" prefWidth="58.0" resizable="false" text="Youth">

@@ -1,17 +1,9 @@
 package com.ccf.persistence.classes;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
-import com.ccf.persistence.interfaces.IMissionaryAccount;
-import com.ccf.persistence.interfaces.IPCAccount;
-import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
-import com.ccf.persistence.interfaces.ISundaySchoolAccount;
 
 public class ServiceOffering {
 
@@ -28,14 +20,14 @@ public class ServiceOffering {
 	private float marriage;
 	private float others;
 	private String otherReason;
-	private Set<IPCAccount> pcAccounts = new LinkedHashSet<>();
-	private Set<IPCAccount> bankPCAccounts = new LinkedHashSet<>();
-	private Set<IMissionaryAccount> missionaryAccounts = new LinkedHashSet<>();
-	private Set<IMissionaryAccount> bankMissionaryAccounts = new LinkedHashSet<>();
-	private Set<ISundaySchoolAccount> sundaySchoolAccounts = new LinkedHashSet<>();
-	private Set<ISundaySchoolAccount> bankSundaySchoolAccounts = new LinkedHashSet<>();
-	private Set<ISpecialThanksOfferingAccount> specialThanksOfferingAccounts = new LinkedHashSet<>();
-	private Set<ISpecialThanksOfferingAccount> bankSpecialThanksOfferingAccounts = new LinkedHashSet<>();
+	private Set<PCAccount> pcAccounts = new LinkedHashSet<>();
+	private Set<BankPCAccount> bankPCAccounts = new LinkedHashSet<>();
+	private Set<MissionaryAccount> missionaryAccounts = new LinkedHashSet<>();
+	private Set<BankMissionaryAccount> bankMissionaryAccounts = new LinkedHashSet<>();
+	private Set<SundaySchoolAccount> sundaySchoolAccounts = new LinkedHashSet<>();
+	private Set<BankSundaySchoolAccount> bankSundaySchoolAccounts = new LinkedHashSet<>();
+	private Set<BuildingAccount> specialThanksOfferingAccounts = new LinkedHashSet<>();
+	private Set<BankBuildingAccount> bankSpecialThanksOfferingAccounts = new LinkedHashSet<>();
 	
 
 	public int getId() {
@@ -142,73 +134,75 @@ public class ServiceOffering {
 		this.otherReason = otherReason;
 	}
 
-	public Set<IPCAccount> getPcAccounts() {
+	public Set<PCAccount> getPcAccounts() {
 		return pcAccounts;
 	}
 
-	public Set<IMissionaryAccount> getMissionaryAccounts() {
-		return missionaryAccounts;
-	}
-
-	public Set<ISundaySchoolAccount> getSundaySchoolAccounts() {
-		return sundaySchoolAccounts;
-	}
-
-	public Set<ISpecialThanksOfferingAccount> getSpecialThanksOfferingAccounts() {
-		return specialThanksOfferingAccounts;
-	}
-
-	public void setPcAccounts(Set<IPCAccount> pcAccounts) {
+	public void setPcAccounts(Set<PCAccount> pcAccounts) {
 		this.pcAccounts = pcAccounts;
 	}
 
-	public void setMissionaryAccounts(Set<IMissionaryAccount> missionaryAccounts) {
-		this.missionaryAccounts = missionaryAccounts;
-	}
-
-	public void setSundaySchoolAccounts(
-			Set<ISundaySchoolAccount> sundaySchoolAccounts) {
-		this.sundaySchoolAccounts = sundaySchoolAccounts;
-	}
-
-	public void setSpecialThanksOfferingAccounts(
-			Set<ISpecialThanksOfferingAccount> specialThanksOfferingAccounts) {
-		this.specialThanksOfferingAccounts = specialThanksOfferingAccounts;
-	}
-
-	public Set<IPCAccount> getBankPCAccounts() {
+	public Set<BankPCAccount> getBankPCAccounts() {
 		return bankPCAccounts;
 	}
 
-	public void setBankPCAccounts(Set<IPCAccount> bankPCAccounts) {
+	public void setBankPCAccounts(Set<BankPCAccount> bankPCAccounts) {
 		this.bankPCAccounts = bankPCAccounts;
 	}
 
-	public Set<IMissionaryAccount> getBankMissionaryAccounts() {
+	public Set<MissionaryAccount> getMissionaryAccounts() {
+		return missionaryAccounts;
+	}
+
+	public void setMissionaryAccounts(Set<MissionaryAccount> missionaryAccounts) {
+		this.missionaryAccounts = missionaryAccounts;
+	}
+
+	public Set<BankMissionaryAccount> getBankMissionaryAccounts() {
 		return bankMissionaryAccounts;
 	}
 
 	public void setBankMissionaryAccounts(
-			Set<IMissionaryAccount> bankMissionaryAccounts) {
+			Set<BankMissionaryAccount> bankMissionaryAccounts) {
 		this.bankMissionaryAccounts = bankMissionaryAccounts;
 	}
 
-	public Set<ISundaySchoolAccount> getBankSundaySchoolAccounts() {
+	public Set<SundaySchoolAccount> getSundaySchoolAccounts() {
+		return sundaySchoolAccounts;
+	}
+
+	public void setSundaySchoolAccounts(
+			Set<SundaySchoolAccount> sundaySchoolAccounts) {
+		this.sundaySchoolAccounts = sundaySchoolAccounts;
+	}
+
+	public Set<BankSundaySchoolAccount> getBankSundaySchoolAccounts() {
 		return bankSundaySchoolAccounts;
 	}
 
 	public void setBankSundaySchoolAccounts(
-			Set<ISundaySchoolAccount> bankSundaySchoolAccounts) {
+			Set<BankSundaySchoolAccount> bankSundaySchoolAccounts) {
 		this.bankSundaySchoolAccounts = bankSundaySchoolAccounts;
 	}
 
-	public Set<ISpecialThanksOfferingAccount> getBankSpecialThanksOfferingAccounts() {
+	public Set<BuildingAccount> getSpecialThanksOfferingAccounts() {
+		return specialThanksOfferingAccounts;
+	}
+
+	public void setSpecialThanksOfferingAccounts(
+			Set<BuildingAccount> specialThanksOfferingAccounts) {
+		this.specialThanksOfferingAccounts = specialThanksOfferingAccounts;
+	}
+
+	public Set<BankBuildingAccount> getBankSpecialThanksOfferingAccounts() {
 		return bankSpecialThanksOfferingAccounts;
 	}
 
 	public void setBankSpecialThanksOfferingAccounts(
-			Set<ISpecialThanksOfferingAccount> bankSpecialThanksOfferingAccounts) {
+			Set<BankBuildingAccount> bankSpecialThanksOfferingAccounts) {
 		this.bankSpecialThanksOfferingAccounts = bankSpecialThanksOfferingAccounts;
 	}
+
+	
 
 }

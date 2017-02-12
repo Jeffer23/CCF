@@ -101,7 +101,7 @@ public class ReportController extends Application {
 					report.setPaidDate(sdf.format(santha.getPaidDate()));
 					report.setPaidForDate(sdf.format(santha.getPaidForDate()));
 					report.setPoorHelp(santha.getPoorHelp());
-					report.setPrimarySchool(santha.getPrimarySchool());
+					report.setPreSchool(santha.getPreSchool());
 					report.setSto(santha.getSto());
 					report.setSubscription(santha.getSubscriptionAmount());
 					report.setThanksOffer(santha.getThanksOffer());
@@ -185,7 +185,7 @@ public class ReportController extends Application {
 			float totalMensFellowshipAmt = 0.0f;
 			float totalWomensFellowshipAmt = 0.0f;
 			float totalEducationAmt = 0.0f;
-			float totalPrimarySchoolAmt = 0.0f;
+			float totalPreSchoolAmt = 0.0f;
 			float totalYouthAmt = 0.0f;
 			float totalPoorHelpAmt = 0.0f;
 			float totalChurchRenovationAmt = 0.0f;
@@ -219,7 +219,7 @@ public class ReportController extends Application {
 			firstRow.createCell(8).setCellValue("Mens Fellowship");
 			firstRow.createCell(9).setCellValue("Womens Fellowship");
 			firstRow.createCell(10).setCellValue("Education Help");
-			firstRow.createCell(11).setCellValue("Primary School");
+			firstRow.createCell(11).setCellValue("Pre School");
 			firstRow.createCell(12).setCellValue("Youth");
 			firstRow.createCell(13).setCellValue("Poor Help");
 			firstRow.createCell(14).setCellValue("Church Renovation");
@@ -243,7 +243,7 @@ public class ReportController extends Application {
 				row.createCell(8).setCellValue(report.getMensFellowship());
 				row.createCell(9).setCellValue(report.getWomensFellowship());
 				row.createCell(10).setCellValue(report.getEducationHelp());
-				row.createCell(11).setCellValue(report.getPrimarySchool());
+				row.createCell(11).setCellValue(report.getPreSchool());
 				row.createCell(12).setCellValue(report.getYouth());
 				row.createCell(13).setCellValue(report.getPoorHelp());
 				row.createCell(14).setCellValue(report.getChurchRenovation());
@@ -263,8 +263,8 @@ public class ReportController extends Application {
 						+ report.getWomensFellowship();
 				totalEducationAmt = totalEducationAmt
 						+ report.getEducationHelp();
-				totalPrimarySchoolAmt = totalPrimarySchoolAmt
-						+ report.getPrimarySchool();
+				totalPreSchoolAmt = totalPreSchoolAmt
+						+ report.getPreSchool();
 				totalYouthAmt = totalYouthAmt + report.getYouth();
 				totalPoorHelpAmt = totalPoorHelpAmt + report.getPoorHelp();
 				totalChurchRenovationAmt = totalChurchRenovationAmt
@@ -285,7 +285,7 @@ public class ReportController extends Application {
 			row.createCell(8).setCellValue(totalMensFellowshipAmt);
 			row.createCell(9).setCellValue(totalWomensFellowshipAmt);
 			row.createCell(10).setCellValue(totalEducationAmt);
-			row.createCell(11).setCellValue(totalPrimarySchoolAmt);
+			row.createCell(11).setCellValue(totalPreSchoolAmt);
 			row.createCell(12).setCellValue(totalYouthAmt);
 			row.createCell(13).setCellValue(totalPoorHelpAmt);
 			row.createCell(14).setCellValue(totalChurchRenovationAmt);
@@ -314,8 +314,8 @@ public class ReportController extends Application {
 			row.createCell(10).setCellValue("Education Amount");
 			row.createCell(11).setCellValue(totalEducationAmt);
 			row = sheet.createRow(rownum++);
-			row.createCell(10).setCellValue("Primary School Amount");
-			row.createCell(11).setCellValue(totalPrimarySchoolAmt);
+			row.createCell(10).setCellValue("Pre School Amount");
+			row.createCell(11).setCellValue(totalPreSchoolAmt);
 			row = sheet.createRow(rownum++);
 			row.createCell(10).setCellValue("Youth Amount");
 			row.createCell(11).setCellValue(totalYouthAmt);

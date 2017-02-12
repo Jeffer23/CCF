@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.ccf.persistence.classes.Santha;
 
-public interface IPrimarySchoolAccount {
+public interface IEducationalFundAccount {
 
 	public Date getDate();
 

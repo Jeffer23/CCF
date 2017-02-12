@@ -143,7 +143,7 @@ public class MemberSanthaController {
 				santhaVO.setMensFellowship(santha.getMensFellowship());
 				santhaVO.setWomensFellowship(santha.getWomensFellowship());
 				santhaVO.setEducationHelp(santha.getEducationHelp());
-				santhaVO.setPrimarySchool(santha.getPrimarySchool());
+				santhaVO.setPreSchool(santha.getPreSchool());
 				santhaVO.setYouth(santha.getYouth());
 				santhaVO.setPoorHelp(santha.getPoorHelp());
 				santhaVO.setChurchRenovation(santha.getChurchRenovation());

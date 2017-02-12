@@ -11,8 +11,8 @@ public class Ledger {
 	private Set<BankMensAccount> bankMensAccounts = new HashSet<>();
 	private Set<BankMissionaryAccount> bankMissionaryAccounts = new HashSet<>();
 	private Set<BankPCAccount> bankPCAccounts = new HashSet<>();
-	private Set<BankPrimarySchoolAccount> bankPrimarySchoolAccounts = new HashSet<>();
-	private Set<BankSpecialThanksOfferingAccount> bankSTOAccounts = new HashSet<>();
+	private Set<BankEducationalFundAccount> bankEducationalFundAccounts = new HashSet<>();
+	private Set<BankBuildingAccount> bankSTOAccounts = new HashSet<>();
 	private Set<BankSundaySchoolAccount> bankSundaySchoolAccounts = new HashSet<>();
 	private Set<BankWomensAccount> bankWomensAccounts = new HashSet<>();
 	private Set<BankYouthAccount> bankYouthAccounts = new HashSet<>();
@@ -20,8 +20,8 @@ public class Ledger {
 	private Set<MensAccount> mensAccounts = new HashSet<>();
 	private Set<MissionaryAccount> missionaryAccounts = new HashSet<>();
 	private Set<PCAccount> pcAccounts = new HashSet<>();
-	private Set<PrimarySchoolAccount> primarySchoolAccounts = new HashSet<>();
-	private Set<SpecialThanksOfferingAccount> stoAccounts = new HashSet<>();
+	private Set<EducationalFundAccount> educationalFundAccounts = new HashSet<>();
+	private Set<BuildingAccount> stoAccounts = new HashSet<>();
 	private Set<SundaySchoolAccount> sundaySchoolAccounts = new HashSet<>();
 	private Set<WomensAccount> womensAccounts = new HashSet<>();
 	private Set<YouthAccount> youthAccounts = new HashSet<>();
@@ -54,18 +54,18 @@ public class Ledger {
 	public void setBankPCAccounts(Set<BankPCAccount> bankPCAccounts) {
 		this.bankPCAccounts = bankPCAccounts;
 	}
-	public Set<BankPrimarySchoolAccount> getBankPrimarySchoolAccounts() {
-		return bankPrimarySchoolAccounts;
+	public Set<BankEducationalFundAccount> getBankEducationalFundAccounts() {
+		return bankEducationalFundAccounts;
 	}
-	public void setBankPrimarySchoolAccounts(
-			Set<BankPrimarySchoolAccount> bankPrimarySchoolAccounts) {
-		this.bankPrimarySchoolAccounts = bankPrimarySchoolAccounts;
+	public void setBankEducationalFundAccounts(
+			Set<BankEducationalFundAccount> bankEducationalFundAccounts) {
+		this.bankEducationalFundAccounts = bankEducationalFundAccounts;
 	}
-	public Set<BankSpecialThanksOfferingAccount> getBankSTOAccounts() {
+	public Set<BankBuildingAccount> getBankSTOAccounts() {
 		return bankSTOAccounts;
 	}
 	public void setBankSTOAccounts(
-			Set<BankSpecialThanksOfferingAccount> bankSTOAccounts) {
+			Set<BankBuildingAccount> bankSTOAccounts) {
 		this.bankSTOAccounts = bankSTOAccounts;
 	}
 	public Set<BankSundaySchoolAccount> getBankSundaySchoolAccounts() {
@@ -111,17 +111,17 @@ public class Ledger {
 	public void setPcAccounts(Set<PCAccount> pcAccounts) {
 		this.pcAccounts = pcAccounts;
 	}
-	public Set<PrimarySchoolAccount> getPrimarySchoolAccounts() {
-		return primarySchoolAccounts;
+	public Set<EducationalFundAccount> getEducationalFundAccounts() {
+		return educationalFundAccounts;
 	}
-	public void setPrimarySchoolAccounts(
-			Set<PrimarySchoolAccount> primarySchoolAccounts) {
-		this.primarySchoolAccounts = primarySchoolAccounts;
+	public void setEducationalFundAccounts(
+			Set<EducationalFundAccount> educationalFundAccounts) {
+		this.educationalFundAccounts = educationalFundAccounts;
 	}
-	public Set<SpecialThanksOfferingAccount> getStoAccounts() {
+	public Set<BuildingAccount> getStoAccounts() {
 		return stoAccounts;
 	}
-	public void setStoAccounts(Set<SpecialThanksOfferingAccount> stoAccounts) {
+	public void setStoAccounts(Set<BuildingAccount> stoAccounts) {
 		this.stoAccounts = stoAccounts;
 	}
 	public Set<SundaySchoolAccount> getSundaySchoolAccounts() {

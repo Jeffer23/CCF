@@ -109,7 +109,7 @@
 						<TableColumn editable="false" prefWidth="43.0"
 							resizable="false" text="School">
 							<cellValueFactory>
-								<PropertyValueFactory property="primarySchool" />
+								<PropertyValueFactory property="preSchool" />
 							</cellValueFactory>
 						</TableColumn>
 						<TableColumn editable="false" prefWidth="40.0"

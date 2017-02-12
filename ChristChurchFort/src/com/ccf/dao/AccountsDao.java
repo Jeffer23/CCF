@@ -9,8 +9,8 @@ import com.ccf.persistence.classes.Ledger;
 import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
-import com.ccf.persistence.classes.PrimarySchoolAccount;
-import com.ccf.persistence.classes.SpecialThanksOfferingAccount;
+import com.ccf.persistence.classes.EducationalFundAccount;
+import com.ccf.persistence.classes.BuildingAccount;
 import com.ccf.persistence.classes.SundaySchoolAccount;
 import com.ccf.persistence.classes.WomensAccount;
 import com.ccf.persistence.classes.YouthAccount;
@@ -24,16 +24,16 @@ public interface AccountsDao {
 	public List<MissionaryAccount> getMissionaryAccountsAfter(int id) throws CcfException;
 	public List<MensAccount> getMensAccountsAfter(int id) throws CcfException;
 	public List<WomensAccount> getWomensAccountsAfter(int id) throws CcfException;
-	public List<SpecialThanksOfferingAccount> getSTOAccountsAfter(int id) throws CcfException;
-	public List<PrimarySchoolAccount> getPrimarySchoolAccountsAfter(int id) throws CcfException;
+	public List<BuildingAccount> getSTOAccountsAfter(int id) throws CcfException;
+	public List<EducationalFundAccount> getEducationalFundAccountsAfter(int id) throws CcfException;
 	public List<YouthAccount> getYouthAccountsAfter(int id) throws CcfException;
 	public List<GraveyardAccount> getGraveyardAccountsAfter(int id) throws CcfException;
 	public void updatePCAccount(List<PCAccount> pcAccounts) throws CcfException; 
 	public void updateMissionaryAccount(List<MissionaryAccount> missionaryAccounts) throws CcfException; 
 	public void updateMensAccount(List<MensAccount> mensAccounts) throws CcfException; 
 	public void updateWomensAccount(List<WomensAccount> womensAccounts) throws CcfException; 
-	public void updateSpecialThanksOfferingAccount(List<SpecialThanksOfferingAccount> stoAccounts) throws CcfException; 
-	public void updatePrimarySchoolAccount(List<PrimarySchoolAccount> primarySchoolAccounts) throws CcfException; 
+	public void updateSpecialThanksOfferingAccount(List<BuildingAccount> stoAccounts) throws CcfException; 
+	public void updateEducationalFundAccount(List<EducationalFundAccount> educationalFundAccounts) throws CcfException; 
 	public void updateYouthAccount(List<YouthAccount> youthAccounts) throws CcfException; 
 	public void updateGraveyardAccount(List<GraveyardAccount> graveyardAccounts) throws CcfException;
 	public List<Account> getAccountStatement(String accountName, Date from, Date to ) throws CcfException;
@@ -45,6 +45,7 @@ public interface AccountsDao {
 	 * @throws CcfException
 	 */
 	public List<Ledger> getAllLedgers() throws CcfException;
+	public boolean isChequeExists(String accountNumber) throws CcfException;
 	
 	
 }

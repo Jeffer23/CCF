@@ -2,19 +2,19 @@
 <!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-   <class name="com.ccf.persistence.classes.PrimarySchoolAccount" table="primary_school_account">
+   <class name="com.ccf.persistence.classes.BuildingAccount" table="building_account">
 		<meta attribute="class-description">
-			This class contains the Primary School account details.
+			This class contains the Special Thanks Offering account details.
 		</meta>
 		<id name="id" type="int" column="id">
-			<generator class="identity">
-			</generator>
+			<generator class="identity" />
 		</id>
 		<property name="amount" column="amount" type="float" />
 		<property name="description" column="description" type="string" />
 		<property name="cr_dr" column="cr_dr" type="string" />
 		<property name="date" column="date" type="date" />
 		<many-to-one name="santha" class="com.ccf.persistence.classes.Santha" column="santha_id"></many-to-one>
+		<many-to-one name="serviceOffering" class="com.ccf.persistence.classes.ServiceOffering" column="service_id"></many-to-one>
 		<many-to-one name="ledger" class="com.ccf.persistence.classes.Ledger" column="ledger_id"></many-to-one>
 	</class>
 </hibernate-mapping>

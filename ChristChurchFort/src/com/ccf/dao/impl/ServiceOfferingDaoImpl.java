@@ -12,7 +12,15 @@ import org.hibernate.Transaction;
 import com.ccf.dao.ServiceOfferingDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.AccountsBalance;
+import com.ccf.persistence.classes.BankMissionaryAccount;
+import com.ccf.persistence.classes.BankPCAccount;
+import com.ccf.persistence.classes.BankBuildingAccount;
+import com.ccf.persistence.classes.BankSundaySchoolAccount;
+import com.ccf.persistence.classes.MissionaryAccount;
+import com.ccf.persistence.classes.PCAccount;
 import com.ccf.persistence.classes.ServiceOffering;
+import com.ccf.persistence.classes.BuildingAccount;
+import com.ccf.persistence.classes.SundaySchoolAccount;
 import com.ccf.persistence.interfaces.IMissionaryAccount;
 import com.ccf.persistence.interfaces.IPCAccount;
 import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
@@ -39,8 +47,8 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		if (serviceOffering.getPcAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
 					AccountsBalance.class, AccountNames.PCAccount);
-			Set<IPCAccount> pcAccounts = serviceOffering.getPcAccounts();
-			for (IPCAccount account : pcAccounts) {
+			Set<PCAccount> pcAccounts = serviceOffering.getPcAccounts();
+			for (PCAccount account : pcAccounts) {
 				accountBalance.setBalance(accountBalance.getBalance()
 						+ account.getAmount());
 			}
@@ -51,8 +59,8 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		if (serviceOffering.getBankPCAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
 					AccountsBalance.class, AccountNames.BankPCAccount);
-			Set<IPCAccount> pcAccounts = serviceOffering.getBankPCAccounts();
-			for (IPCAccount account : pcAccounts) {
+			Set<BankPCAccount> pcAccounts = serviceOffering.getBankPCAccounts();
+			for (BankPCAccount account : pcAccounts) {
 				accountBalance.setBalance(accountBalance.getBalance()
 						+ account.getAmount());
 			}
@@ -63,9 +71,9 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		if (serviceOffering.getMissionaryAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
 					AccountsBalance.class, AccountNames.MissionaryAccount);
-			Set<IMissionaryAccount> missionaryAccounts = serviceOffering
+			Set<MissionaryAccount> missionaryAccounts = serviceOffering
 					.getMissionaryAccounts();
-			for (IMissionaryAccount account : missionaryAccounts) {
+			for (MissionaryAccount account : missionaryAccounts) {
 				accountBalance.setBalance(accountBalance.getBalance()
 						+ account.getAmount());
 			}
@@ -76,9 +84,9 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		if (serviceOffering.getBankMissionaryAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
 					AccountsBalance.class, AccountNames.BankMissionaryAccount);
-			Set<IMissionaryAccount> missionaryAccounts = serviceOffering
+			Set<BankMissionaryAccount> missionaryAccounts = serviceOffering
 					.getBankMissionaryAccounts();
-			for (IMissionaryAccount account : missionaryAccounts) {
+			for (BankMissionaryAccount account : missionaryAccounts) {
 				accountBalance.setBalance(accountBalance.getBalance()
 						+ account.getAmount());
 			}
@@ -89,9 +97,9 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		if (serviceOffering.getSundaySchoolAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
 					AccountsBalance.class, AccountNames.SundaySchoolAccount);
-			Set<ISundaySchoolAccount> sundaySchoolAccounts = serviceOffering
+			Set<SundaySchoolAccount> sundaySchoolAccounts = serviceOffering
 					.getSundaySchoolAccounts();
-			for (ISundaySchoolAccount account : sundaySchoolAccounts) {
+			for (SundaySchoolAccount account : sundaySchoolAccounts) {
 				accountBalance.setBalance(accountBalance.getBalance()
 						+ account.getAmount());
 			}
@@ -103,9 +111,9 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 			accountBalance = (AccountsBalance) session
 					.get(AccountsBalance.class,
 							AccountNames.BankSundaySchoolAccount);
-			Set<ISundaySchoolAccount> sundaySchoolAccounts = serviceOffering
+			Set<BankSundaySchoolAccount> sundaySchoolAccounts = serviceOffering
 					.getBankSundaySchoolAccounts();
-			for (ISundaySchoolAccount account : sundaySchoolAccounts) {
+			for (BankSundaySchoolAccount account : sundaySchoolAccounts) {
 				accountBalance.setBalance(accountBalance.getBalance()
 						+ account.getAmount());
 			}
@@ -115,10 +123,10 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		// Special Thanks offering account
 		if (serviceOffering.getSpecialThanksOfferingAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
-					AccountsBalance.class, AccountNames.STOAccount);
-			Set<ISpecialThanksOfferingAccount> stoAccounts = serviceOffering
+					AccountsBalance.class, AccountNames.BuildingAccount);
+			Set<BuildingAccount> stoAccounts = serviceOffering
 					.getSpecialThanksOfferingAccounts();
-			for (ISpecialThanksOfferingAccount account : stoAccounts) {
+			for (BuildingAccount account : stoAccounts) {
 				accountBalance.setBalance(accountBalance.getBalance()
 						+ account.getAmount());
 			}
@@ -128,10 +136,10 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		// Bank Special Thanks offering account
 		if (serviceOffering.getBankSpecialThanksOfferingAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
-					AccountsBalance.class, AccountNames.BankSTOAccount);
-			Set<ISpecialThanksOfferingAccount> stoAccounts = serviceOffering
+					AccountsBalance.class, AccountNames.BankBuildingAccount);
+			Set<BankBuildingAccount> stoAccounts = serviceOffering
 					.getBankSpecialThanksOfferingAccounts();
-			for (ISpecialThanksOfferingAccount account : stoAccounts) {
+			for (BankBuildingAccount account : stoAccounts) {
 				accountBalance.setBalance(accountBalance.getBalance()
 						+ account.getAmount());
 			}
