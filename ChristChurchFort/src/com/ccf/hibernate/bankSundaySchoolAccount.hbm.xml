@@ -13,8 +13,9 @@
 		<property name="description" column="description" type="string" />
 		<property name="cr_dr" column="cr_dr" type="string" />
 		<property name="date" column="date" type="date" />
+		<property name="balance" column="balance" type="float" />
 		<many-to-one name="serviceOffering" class="com.ccf.persistence.classes.ServiceOffering" column="service_id"></many-to-one>
-		<set name="cheques" fetch="join" table="cheque_bank_sunday_school" cascade="all" lazy="true" inverse="false">
+		<set name="cheques" fetch="join" table="cheque_bank_sunday_school" cascade="save-update" lazy="true" inverse="false">
 			<key>
 				<column name="bank_sunday_school_account_id"></column>
 			</key>

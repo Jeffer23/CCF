@@ -11,178 +11,276 @@
 <?import javafx.scene.control.cell.*?>
 <?import eu.schudt.javafx.controls.calendar.DatePicker?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ccf.controller.AccountStatement">
-   <children>
-     <AnchorPane prefHeight="775.0" prefWidth="1280.0" style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
-         <children>
-          <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0" pickOnBounds="true" preserveRatio="true" style="-fx-box-shadow: 10px 10px 5px #888888;">
-               <image>
-                  <Image url="/com/ccf/images/logo.png" />
-               </image>
-            </ImageView>
-             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" layoutY="67.0" prefHeight="66.0" prefWidth="533.0" text="Account Statements" textAlignment="CENTER">
-               <font>
-                  <Font name="Times New Roman" size="36.0" />
-               </font>
-            </Label>
-            
-            <HBox layoutX="32.0" layoutY="178.0" prefHeight="93.0" prefWidth="1211.0">
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="114.0" text="Account Type :">
-                     <font>
-                        <Font name="Comic Sans MS" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="35.0" />
-                     </HBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="accountNames" prefHeight="35.0" prefWidth="181.0">
-                     <HBox.margin>
-                        <Insets top="35.0" />
-                     </HBox.margin>
-                  </ChoiceBox>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="102.0" text="From : ">
-                     <font>
-                        <Font name="Comic Sans MS" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="35.0" />
-                     </HBox.margin>
-                  </Label>
-                  <DatePicker fx:id="from" layoutX="386.0" layoutY="178.0" prefHeight="38.0" prefWidth="102.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css">
-						 <HBox.margin>
-                        <Insets top="40.0" />
-                     </HBox.margin>	
-				</DatePicker>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="96.0" text="To : ">
-                     <font>
-                        <Font name="Comic Sans MS" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="35.0" />
-                     </HBox.margin>
-                  </Label>
-                  <DatePicker fx:id="to" layoutX="386.0" layoutY="178.0" prefHeight="38.0" prefWidth="102.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css">
-						 <HBox.margin>
-                        <Insets top="40.0" />
-                     </HBox.margin>	
-				</DatePicker>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="153.0" text="Transaction Type : ">
-                     <font>
-                        <Font name="Comic Sans MS" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="35.0" />
-                     </HBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="transactionType" prefHeight="37.0" prefWidth="160.0">
-                     <HBox.margin>
-                        <Insets top="35.0" />
-                     </HBox.margin>
-                  </ChoiceBox>
-                  <Button mnemonicParsing="false" onAction="#getDetails" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Go" textFill="WHITE">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <HBox.margin>
-                        <Insets left="50.0" top="35.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <TableView fx:id="income" layoutX="33.0" layoutY="334.0" prefHeight="265.0" prefWidth="592.0">
-              <columns>
-                <TableColumn prefWidth="97.0" text="Date">
-                	<cellValueFactory>
-						<PropertyValueFactory property="date" />
-					</cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="373.0" text="Description">
-                	<cellValueFactory>
-						<PropertyValueFactory property="description" />
-					</cellValueFactory>
-                </TableColumn>
-                <TableColumn minWidth="0.0" prefWidth="119.0" text="Amount">
-                	<cellValueFactory>
-						<PropertyValueFactory property="amount" />
-					</cellValueFactory>
-                </TableColumn>
-              </columns>
-            </TableView>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="397.0" layoutY="599.0" prefHeight="38.0" prefWidth="102.0" text="Total : ">
-               <font>
-                  <Font name="Comic Sans MS" size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="996.0" layoutY="599.0" prefHeight="38.0" prefWidth="102.0" text="Total : ">
-               <font>
-                  <Font name="Comic Sans MS" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="totalIncomeLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="523.0" layoutY="599.0" prefHeight="38.0" prefWidth="102.0">
-               <font>
-                  <Font name="Comic Sans MS" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="totalExpenseLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="1121.0" layoutY="599.0" prefHeight="38.0" prefWidth="102.0">
-               <font>
-                  <Font name="Comic Sans MS" size="14.0" />
-               </font>
-            </Label>
-            <TableView fx:id="expense" layoutX="631.0" layoutY="334.0" prefHeight="265.0" prefWidth="592.0">
-               <columns>
-                  <TableColumn prefWidth="97.0" text="Date">
-                  	<cellValueFactory>
-						<PropertyValueFactory property="date" />
-					</cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="373.0" text="Description">
-                  	<cellValueFactory>
-						<PropertyValueFactory property="description" />
-					</cellValueFactory>
-                  </TableColumn>
-                  <TableColumn minWidth="0.0" prefWidth="119.0" text="Amount">
-                  	<cellValueFactory>
-						<PropertyValueFactory property="amount" />
-					</cellValueFactory>
-                  </TableColumn>
-               </columns>
-            </TableView>
-            <Label alignment="CENTER" layoutX="237.0" layoutY="300.0" prefHeight="34.0" prefWidth="184.0" text="Income">
-               <font>
-                  <Font name="Comic Sans MS" size="18.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="835.0" layoutY="300.0" prefHeight="34.0" prefWidth="184.0" text="Expense">
-               <font>
-                  <Font name="Comic Sans MS" size="18.0" />
-               </font>
-            </Label>
-           <Button layoutX="1127.0" layoutY="287.0" mnemonicParsing="false" onAction="#exportToExcel" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="14.0" />
-               </font>
-            </Button>
-             <Label fx:id="message" alignment="CENTER_RIGHT" layoutX="32.0" layoutY="261.0" prefHeight="20.0" prefWidth="1188.0" textAlignment="RIGHT">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Button layoutX="1019.0" layoutY="287.0" mnemonicParsing="false" onAction="#print" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Print" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-   </children>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+	minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.ccf.controller.AccountStatement">
+	<children>
+		<AnchorPane prefHeight="775.0" prefWidth="1280.0">
+			<children>
+				<ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0"
+					pickOnBounds="true" preserveRatio="true"
+					style="-fx-box-shadow: 10px 10px 5px #888888;">
+					<image>
+						<Image url="/com/ccf/images/logo.png" />
+					</image>
+				</ImageView>
+				<Label alignment="CENTER" contentDisplay="CENTER" layoutX="385.0"
+					layoutY="34.0" prefHeight="66.0" prefWidth="533.0" text="Account Statements"
+					textAlignment="CENTER">
+					<font>
+						<Font name="Times New Roman" size="36.0" />
+					</font>
+				</Label>
+
+				<HBox layoutX="35.0" layoutY="107.0" prefHeight="93.0"
+					prefWidth="1211.0">
+					<children>
+						<Label alignment="CENTER" contentDisplay="CENTER"
+							prefHeight="38.0" prefWidth="114.0" text="Account Type :">
+							<font>
+								<Font name="Comic Sans MS" size="14.0" />
+							</font>
+							<HBox.margin>
+								<Insets top="35.0" />
+							</HBox.margin>
+						</Label>
+						<ChoiceBox fx:id="accountNames" prefHeight="35.0"
+							prefWidth="181.0">
+							<HBox.margin>
+								<Insets top="35.0" />
+							</HBox.margin>
+						</ChoiceBox>
+						<Label alignment="CENTER" contentDisplay="CENTER"
+							prefHeight="38.0" prefWidth="102.0" text="From : ">
+							<font>
+								<Font name="Comic Sans MS" size="14.0" />
+							</font>
+							<HBox.margin>
+								<Insets top="35.0" />
+							</HBox.margin>
+						</Label>
+						<DatePicker fx:id="from" layoutX="386.0" layoutY="178.0"
+							prefHeight="38.0" prefWidth="102.0" promptText="dd-MM-yyyy"
+							stylesheets="/com/ccf/css/DatePicker.css">
+							<HBox.margin>
+								<Insets top="40.0" />
+							</HBox.margin>
+						</DatePicker>
+						<Label alignment="CENTER" contentDisplay="CENTER"
+							prefHeight="34.0" prefWidth="96.0" text="To : ">
+							<font>
+								<Font name="Comic Sans MS" size="14.0" />
+							</font>
+							<HBox.margin>
+								<Insets top="35.0" />
+							</HBox.margin>
+						</Label>
+						<DatePicker fx:id="to" layoutX="386.0" layoutY="178.0"
+							prefHeight="38.0" prefWidth="102.0" promptText="dd-MM-yyyy"
+							stylesheets="/com/ccf/css/DatePicker.css">
+							<HBox.margin>
+								<Insets top="40.0" />
+							</HBox.margin>
+						</DatePicker>
+						<Label alignment="CENTER" contentDisplay="CENTER"
+							prefHeight="34.0" prefWidth="153.0" text="Transaction Type : ">
+							<font>
+								<Font name="Comic Sans MS" size="14.0" />
+							</font>
+							<HBox.margin>
+								<Insets top="35.0" />
+							</HBox.margin>
+						</Label>
+						<ChoiceBox fx:id="transactionType" prefHeight="37.0"
+							prefWidth="160.0">
+							<HBox.margin>
+								<Insets top="35.0" />
+							</HBox.margin>
+						</ChoiceBox>
+						<Button mnemonicParsing="false" onAction="#getDetails"
+							prefHeight="22.0" prefWidth="91.0"
+							style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
+							text="Go" textFill="WHITE">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+							<HBox.margin>
+								<Insets left="50.0" top="35.0" />
+							</HBox.margin>
+						</Button>
+					</children>
+				</HBox>
+				<TableView fx:id="income" layoutX="33.0" layoutY="306.0"
+					prefHeight="265.0" prefWidth="592.0">
+					<columns>
+						<TableColumn prefWidth="97.0" text="Date">
+							<cellValueFactory>
+								<PropertyValueFactory property="date" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn prefWidth="373.0" text="Description">
+							<cellValueFactory>
+								<PropertyValueFactory property="description" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn minWidth="0.0" prefWidth="119.0" text="Amount">
+							<cellValueFactory>
+								<PropertyValueFactory property="amount" />
+							</cellValueFactory>
+						</TableColumn>
+					</columns>
+				</TableView>
+				<Label alignment="CENTER" contentDisplay="CENTER" layoutX="400.0"
+					layoutY="571.0" prefHeight="38.0" prefWidth="102.0" text="Total : ">
+					<font>
+						<Font name="Comic Sans MS" size="14.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" contentDisplay="CENTER" layoutX="996.0"
+					layoutY="571.0" prefHeight="38.0" prefWidth="102.0" text="Total : ">
+					<font>
+						<Font name="Comic Sans MS" size="14.0" />
+					</font>
+				</Label>
+				<Label fx:id="totalIncomeLbl" alignment="CENTER"
+					contentDisplay="CENTER" layoutX="523.0" layoutY="571.0" prefHeight="38.0"
+					prefWidth="102.0">
+					<font>
+						<Font name="Comic Sans MS" size="14.0" />
+					</font>
+				</Label>
+				<Label fx:id="totalExpenseLbl" alignment="CENTER"
+					contentDisplay="CENTER" layoutX="1122.0" layoutY="571.0"
+					prefHeight="38.0" prefWidth="102.0">
+					<font>
+						<Font name="Comic Sans MS" size="14.0" />
+					</font>
+				</Label>
+				<TableView fx:id="expense" layoutX="631.0" layoutY="306.0"
+					prefHeight="265.0" prefWidth="592.0">
+					<columns>
+						<TableColumn prefWidth="97.0" text="Date">
+							<cellValueFactory>
+								<PropertyValueFactory property="date" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn prefWidth="373.0" text="Description">
+							<cellValueFactory>
+								<PropertyValueFactory property="description" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn minWidth="0.0" prefWidth="119.0" text="Amount">
+							<cellValueFactory>
+								<PropertyValueFactory property="amount" />
+							</cellValueFactory>
+						</TableColumn>
+					</columns>
+				</TableView>
+				<Label alignment="CENTER" layoutX="237.0" layoutY="270.0"
+					prefHeight="34.0" prefWidth="184.0" text="Income">
+					<font>
+						<Font name="Comic Sans MS" size="18.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="835.0" layoutY="270.0"
+					prefHeight="34.0" prefWidth="184.0" text="Expense">
+					<font>
+						<Font name="Comic Sans MS" size="18.0" />
+					</font>
+				</Label>
+				<Button layoutX="1127.0" layoutY="226.0" mnemonicParsing="false"
+					onAction="#exportToExcel" prefHeight="22.0" prefWidth="91.0"
+					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
+					text="Save" textFill="WHITE">
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<font>
+						<Font name="Arial Rounded MT Bold" size="14.0" />
+					</font>
+				</Button>
+				<Label fx:id="message" alignment="CENTER_RIGHT" layoutX="189.0"
+					layoutY="200.0" prefHeight="25.0" prefWidth="1030.0" textAlignment="RIGHT" textFill="GREEN">
+					<font>
+						<Font name="Comic Sans MS" size="16.0" />
+					</font>
+				</Label>
+				<Button layoutX="1019.0" layoutY="226.0" mnemonicParsing="false"
+					onAction="#print" prefHeight="22.0" prefWidth="91.0"
+					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
+					text="Print" textFill="WHITE">
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<font>
+						<Font name="Arial Rounded MT Bold" size="14.0" />
+					</font>
+				</Button>
+				<Label alignment="CENTER" layoutX="31.0" layoutY="203.0"
+					prefHeight="34.0" prefWidth="129.0" text="Opening Balance : ">
+					<font>
+						<Font name="Comic Sans MS Bold" size="14.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="200.0" layoutY="216.0"
+					prefHeight="20.0" prefWidth="42.0" text="Cash">
+					<font>
+						<Font name="Comic Sans MS Bold" size="10.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="296.0" layoutY="216.0"
+					prefHeight="20.0" prefWidth="42.0" text="Bank">
+					<font>
+						<Font name="Comic Sans MS" size="10.0" />
+					</font>
+				</Label>
+				<Label fx:id="openingCashAmt" alignment="CENTER" layoutX="184.0"
+					layoutY="236.0" prefHeight="20.0" prefWidth="75.0">
+					<font>
+						<Font name="Comic Sans MS Bold" size="10.0" />
+					</font>
+				</Label>
+				<Label fx:id="openingBankAmt" alignment="CENTER" layoutX="280.0"
+					layoutY="236.0" prefHeight="20.0" prefWidth="75.0">
+					<font>
+						<Font name="Comic Sans MS Bold" size="10.0" />
+					</font>
+				</Label>
+				<Label fx:id="closingBankAmt" alignment="CENTER" layoutX="862.0"
+					layoutY="599.0" prefHeight="20.0" prefWidth="75.0">
+					<font>
+						<Font name="Comic Sans MS Bold" size="10.0" />
+					</font>
+				</Label>
+				<Label fx:id="closingCashAmt" alignment="CENTER" layoutX="769.0"
+					layoutY="599.0" prefHeight="20.0" prefWidth="75.0">
+					<font>
+						<Font name="Comic Sans MS Bold" size="10.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="777.0" layoutY="580.0"
+					prefHeight="20.0" prefWidth="58.0" text="Cash">
+					<font>
+						<Font name="Comic Sans MS" size="10.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="878.0" layoutY="580.0"
+					prefHeight="20.0" prefWidth="42.0" text="Bank">
+					<font>
+						<Font name="Comic Sans MS Bold" size="10.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="631.0" layoutY="573.0"
+					prefHeight="34.0" prefWidth="129.0" text="Closing Balance : ">
+					<font>
+						<Font name="Comic Sans MS Bold" size="14.0" />
+					</font>
+				</Label>
+			</children>
+		</AnchorPane>
+	</children>
 </VBox>

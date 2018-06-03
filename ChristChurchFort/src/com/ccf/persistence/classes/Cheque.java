@@ -6,6 +6,8 @@ import java.util.Set;
 
 public class Cheque {
 
+	private boolean isNew = true;
+	
 	private int chequeId;
 	
 	private String chequeNumber;
@@ -141,7 +143,14 @@ public class Cheque {
 		this.bankYouthAccounts = bankYouthAccounts;
 	}
 
-	
+	public boolean isNew() {
+		return isNew;
+	}
+
+	public void setNew(boolean isNew) {
+		this.isNew = isNew;
+	}
+
 	
 	
 }

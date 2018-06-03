@@ -3,11 +3,14 @@ package application;
 import java.io.IOException;
 
 import com.ccf.controller.MenuController;
+import com.ccf.util.BalanceUpdator;
 import com.ccf.util.HibernateSessionFactory;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
@@ -29,6 +32,12 @@ public class Main extends Application {
 			primaryStage.setTitle("Christ Church Fort");
 			primaryStage.setScene(new Scene(root));
 			primaryStage.show();
+			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		          public void handle(WindowEvent we) {
+		              BalanceUpdator balanceUpdator = BalanceUpdator.getInstance();
+		              balanceUpdator.updateAllBalances();
+		          }
+		      });
 			MenuController menuController = new MenuController();
 			menuController.paySantha();
 		} catch (IOException e) {

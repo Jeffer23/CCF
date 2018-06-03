@@ -28,7 +28,7 @@ import com.ccf.persistence.classes.BuildingAccount;
 import com.ccf.persistence.classes.SundaySchoolAccount;
 import com.ccf.persistence.classes.WomensAccount;
 import com.ccf.persistence.classes.YouthAccount;
-import com.ccf.vo.Account;
+import com.ccf.persistence.interfaces.Account;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -40,7 +40,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 
-import com.ccf.util.AccountNames;
+import com.ccf.util.BalanceUpdator;
+import com.ccf.util.Constants;
 import com.ccf.util.ProjectProperties;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
@@ -94,16 +95,16 @@ public class ExpenseController {
 	@FXML
 	void initialize() {
 		logger.debug("init method Starts...");
-		accounts.getItems().add(AccountNames.PCAccount);
-		accounts.getItems().add(AccountNames.MissionaryAccount);
-		accounts.getItems().add(AccountNames.MensAccount);
-		accounts.getItems().add(AccountNames.WomensAccount);
-		accounts.getItems().add(AccountNames.SundaySchoolAccount);
-		accounts.getItems().add(AccountNames.YouthAccount);
-		accounts.getItems().add(AccountNames.BuildingAccount);
-		accounts.getItems().add(AccountNames.GraveyardAccount);
-		accounts.getItems().add(AccountNames.EducationalFundAccount);
-		accounts.setValue(AccountNames.PCAccount);
+		accounts.getItems().add(Constants.PCAccount);
+		accounts.getItems().add(Constants.MissionaryAccount);
+		accounts.getItems().add(Constants.MensAccount);
+		accounts.getItems().add(Constants.WomensAccount);
+		accounts.getItems().add(Constants.SundaySchoolAccount);
+		accounts.getItems().add(Constants.YouthAccount);
+		accounts.getItems().add(Constants.BuildingAccount);
+		accounts.getItems().add(Constants.GraveyardAccount);
+		accounts.getItems().add(Constants.EducationalFundAccount);
+		accounts.setValue(Constants.PCAccount);
 		
 		grid.getChildren().get(8).setVisible(false);
 		grid.getChildren().get(9).setVisible(false);
@@ -165,6 +166,15 @@ public class ExpenseController {
 			Account account = null;
 			Cheque cheque = null;
 			String accName = null;
+			
+			/*
+			 * Validate Cheque Exists
+			 */
+			boolean chequeExists = dao.isChequeExists(this.chequeNumber.getText());
+			if(chequeExists){
+				throw new CcfException("This Cheque details already entered");
+			}
+			
 			if (this.chequeBtn.isSelected()) {
 				cheque = new Cheque();
 				cheque.setChequeNumber(this.chequeNumber.getText());
@@ -173,104 +183,104 @@ public class ExpenseController {
 
 			float amt = Float.valueOf(amount.getText());
 			logger.debug("Account Name : " + accounts.getValue());
-			if (accounts.getValue().equals(AccountNames.PCAccount)) {
+			if (accounts.getValue().equals(Constants.PCAccount)) {
 				if (this.cash.isSelected()) {
 					account = new PCAccount();
-					accName = AccountNames.PCAccount;
+					accName = Constants.PCAccount;
 				} else if (this.chequeBtn.isSelected()) {
-					accName = AccountNames.BankPCAccount;
+					accName = Constants.BankPCAccount;
 					account = new BankPCAccount();
 					BankPCAccount bankPCAccount = (BankPCAccount) account;
 					bankPCAccount.getCheques().add(cheque);
 					cheque.getBankPCAccounts().add(bankPCAccount);
 				}
 			} else if (accounts.getValue().equals(
-					AccountNames.MissionaryAccount)) {
+					Constants.MissionaryAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.MissionaryAccount;
+					accName = Constants.MissionaryAccount;
 					account = new MissionaryAccount();
 				} else if (this.chequeBtn.isSelected()) {
-					accName = AccountNames.BankMissionaryAccount;
+					accName = Constants.BankMissionaryAccount;
 					account = new BankMissionaryAccount();
 					BankMissionaryAccount bankMissionaryAccount = (BankMissionaryAccount) account;
 					bankMissionaryAccount.getCheques().add(cheque);
 					cheque.getBankMissionaryAccounts().add(bankMissionaryAccount);
 				}
-			} else if (accounts.getValue().equals(AccountNames.MensAccount)) {
+			} else if (accounts.getValue().equals(Constants.MensAccount)) {
 				if (this.cash.isSelected()) {
 					account = new MensAccount();
-					accName = AccountNames.MensAccount;
+					accName = Constants.MensAccount;
 				} else if (this.chequeBtn.isSelected()) {
-					accName = AccountNames.BankMensAccount;
+					accName = Constants.BankMensAccount;
 					account = new BankMensAccount();
 					BankMensAccount bankMensAccount = (BankMensAccount) account;
 					bankMensAccount.getCheques().add(cheque);
 					cheque.getBankMensAccounts().add(bankMensAccount);
 				}
-			} else if (accounts.getValue().equals(AccountNames.WomensAccount)) {
+			} else if (accounts.getValue().equals(Constants.WomensAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.WomensAccount;
+					accName = Constants.WomensAccount;
 					account = new WomensAccount();
 				} else if (this.chequeBtn.isSelected()) {
-					accName = AccountNames.BankWomensAccount;
+					accName = Constants.BankWomensAccount;
 					account = new BankWomensAccount();
 					BankWomensAccount bankWomensAccount = (BankWomensAccount) account;
 					bankWomensAccount.getCheques().add(cheque);
 					cheque.getBankWomensAccounts().add(bankWomensAccount);
 				}
 			} else if (accounts.getValue().equals(
-					AccountNames.SundaySchoolAccount)) {
+					Constants.SundaySchoolAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.SundaySchoolAccount;
+					accName = Constants.SundaySchoolAccount;
 					account = new SundaySchoolAccount();
 				} else if (this.chequeBtn.isSelected()) {
-					accName = AccountNames.BankSundaySchoolAccount;
+					accName = Constants.BankSundaySchoolAccount;
 					account = new BankSundaySchoolAccount();
 					BankSundaySchoolAccount bankSundaySchoolAccount = (BankSundaySchoolAccount) account;
 					bankSundaySchoolAccount.getCheques().add(cheque);
 					cheque.getBankSundaySchoolAccounts().add(bankSundaySchoolAccount);
 				}
-			} else if (accounts.getValue().equals(AccountNames.YouthAccount)) {
+			} else if (accounts.getValue().equals(Constants.YouthAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.YouthAccount;
+					accName = Constants.YouthAccount;
 					account = new YouthAccount();
 				} else if (this.chequeBtn.isSelected()) {
-					accName = AccountNames.BankYouthAccount;
+					accName = Constants.BankYouthAccount;
 					account = new BankYouthAccount();
 					BankYouthAccount bankYouthAccount = (BankYouthAccount) account;
 					bankYouthAccount.getCheques().add(cheque);
 					cheque.getBankYouthAccounts().add(bankYouthAccount);
 				}
-			} else if (accounts.getValue().equals(AccountNames.BuildingAccount)) {
+			} else if (accounts.getValue().equals(Constants.BuildingAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.BuildingAccount;
+					accName = Constants.BuildingAccount;
 					account = new BuildingAccount();
 				} else if (this.chequeBtn.isSelected()) {
-					accName = AccountNames.BankBuildingAccount;
+					accName = Constants.BankBuildingAccount;
 					account = new BankBuildingAccount();
 					BankBuildingAccount bankSTOAccount = (BankBuildingAccount) account;
 					bankSTOAccount.getCheques().add(cheque);
 					cheque.getBankSTOAccounts().add(bankSTOAccount);
 				}
 			} else if (accounts.getValue()
-					.equals(AccountNames.GraveyardAccount)) {
+					.equals(Constants.GraveyardAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.GraveyardAccount;
+					accName = Constants.GraveyardAccount;
 					account = new GraveyardAccount();
 				} else if (this.chequeBtn.isSelected()) {
-					accName = AccountNames.BankGraveyardAccount;
+					accName = Constants.BankGraveyardAccount;
 					account = new BankGraveyardAccount();
 					BankGraveyardAccount bankGraveyardAccount = (BankGraveyardAccount) account;
 					bankGraveyardAccount.getCheques().add(cheque);
 					cheque.getBankGraveyardAccounts().add(bankGraveyardAccount);
 				}
 			} else if (accounts.getValue().equals(
-					AccountNames.EducationalFundAccount)) {
+					Constants.EducationalFundAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.EducationalFundAccount;
+					accName = Constants.EducationalFundAccount;
 					account = new EducationalFundAccount();
 				} else if (this.chequeBtn.isSelected()) {
-					accName = AccountNames.BankEducationalFundAccount;
+					accName = Constants.BankEducationalFundAccount;
 					account = new BankEducationalFundAccount();
 					BankEducationalFundAccount bankEducationalFundAccount = (BankEducationalFundAccount) account;
 					bankEducationalFundAccount.getCheques().add(cheque);
@@ -279,16 +289,27 @@ public class ExpenseController {
 			}
 
 			float amount = Float.parseFloat(this.amount.getText());
-			float currentBalance = dao.getAccountBalance(this.accounts.getValue());
-			if (currentBalance < amount) {
-				throw new CcfException("Sorry!! No Enough Money to withdraw (Balance : " + currentBalance + ")");
+			float currBalance = dao.getAccountBalance(account.getClass(), this.date.getSelectedDate());
+			System.out.println("Current Balance : " + currBalance);
+			if (currBalance < amount) {
+				throw new CcfException("Sorry!! No Enough Money to withdraw (Balance : " + currBalance + ")");
 			}
+			
+			
+			float balance = currBalance - amount;
 			account.setAmount(amount);
 			account.setCr_dr("DR");
 			account.setDescription(description.getText());
 			account.setDate(this.date.getSelectedDate());
 			account.setLedger(this.ledgers.getValue());
+			account.setBalance(balance);
 			dao.addIncomeorExpense(account,this.accounts.getValue() ,amount);
+			
+			/*
+			 * Running Thread to update the balances
+			 */
+			BalanceUpdator balanceUpdator = BalanceUpdator.getInstance();
+			balanceUpdator.updateAllBalances();
 
 			message.setText("Expense Added Successfully..");
 			message.setTextFill(Paint.valueOf("GREEN"));
@@ -358,7 +379,7 @@ public class ExpenseController {
 	}
 	
 	public void clear(){
-		this.accounts.setValue(AccountNames.PCAccount);
+		this.accounts.setValue(Constants.PCAccount);
 		this.amount.setText("");
 		this.description.setText("");
 		this.cash.setSelected(true);

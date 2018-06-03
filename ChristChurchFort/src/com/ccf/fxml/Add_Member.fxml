@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import eu.schudt.javafx.controls.calendar.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import eu.schudt.javafx.controls.calendar.DatePicker?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ccf.controller.FamilyController">
+	<children>
+		<AnchorPane prefHeight="775.0" prefWidth="1280.0">
+   <children>
+   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0" pickOnBounds="true" preserveRatio="true" style="-fx-box-shadow: 10px 10px 5px #888888;">
+					<image>
+						<Image url="/com/ccf/images/logo.png" />
+					</image>
+				</ImageView>
+	<Label alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="61.0" prefHeight="66.0" prefWidth="533.0" text="Add Member" textAlignment="CENTER">
+					<font>
+						<Font name="Times New Roman" size="36.0" />
+					</font>
+				</Label>
+      <GridPane fx:id="addMemberGridPane" layoutX="457.0" layoutY="183.0" prefHeight="158.0" prefWidth="320.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="161.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="159.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: #D4D4FC;" text="Name : " textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font></Label>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: #D4D4FC;" text="Eligibility : " GridPane.rowIndex="3">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font></Label>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: #D4D4FC;" text="D.O.B : " GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="memberName" prefHeight="30.0" GridPane.columnIndex="1">
+               </TextField>
+            <!-- <TextField fx:id="memberDob" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               </TextField> -->
+               <DatePicker fx:id="memberDob" prefHeight="30.0" prefWidth="159.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <HBox fx:id="addMemberHBox" prefHeight="30.0" prefWidth="132.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <RadioButton fx:id="yesButton" layoutX="123.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#yesButtonPressed" selected="true" text="Yes" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="14.0" />
+                     </font></RadioButton>
+                  <RadioButton fx:id="noButton" layoutX="175.0" layoutY="187.0" mnemonicParsing="false" onMouseClicked="#noButtonPressed" text="No" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="14.0" />
+                     </font></RadioButton>
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </HBox>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="161.0" style="-fx-background-color: #D4D4FC;" text="Subscription Amount :" textAlignment="CENTER" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="subscriptionAmount" prefHeight="30.0" prefWidth="159.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: #D4D4FC;" text="Marriage Date : " GridPane.rowIndex="4">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="marriageDate" prefHeight="30.0" prefWidth="159.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <Button layoutX="649.0" layoutY="367.0" mnemonicParsing="false" onAction="#saveMember" prefHeight="27.0" prefWidth="86.0" style="-fx-background-radius: 15; -fx-background-color: #0077cc;" text="Save" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+            </Button>
+      <Button layoutX="492.0" layoutY="367.0" mnemonicParsing="false" onAction="#cancelAddMember" prefHeight="27.0" prefWidth="83.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Cancel" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+            </Button>
+   </children>
+</AnchorPane>
+</children>
+</VBox>

@@ -8,8 +8,7 @@
 
 <VBox fx:controller="com.ccf.controller.MenuController" maxHeight="-Infinity"
 	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-	prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1">
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<MenuBar>
 			<menus>
@@ -36,7 +35,8 @@
 							onAction="#showBirthdayReportPage" />
 						<MenuItem mnemonicParsing="false" text="Marriage Report"
 							onAction="#showMarriageReportPage" />
-						<MenuItem mnemonicParsing="false" text="Santha Report" onAction="#showSanthaReportPage" />
+						<MenuItem mnemonicParsing="false" text="Santha Report"
+							onAction="#showSanthaReportPage" />
 						<MenuItem mnemonicParsing="false" text="Member Santha Report"
 							onAction="#showMemberSanthaReport" />
 					</items>
@@ -50,7 +50,7 @@
 				</Menu>
 				<Menu mnemonicParsing="false" text="Accounts">
 					<items>
-						<MenuItem mnemonicParsing="false" text="Add Income"
+						<MenuItem mnemonicParsing="false" text="Receipts"
 							onAction="#showAddIncomePage" />
 						<MenuItem mnemonicParsing="false" text="Add Expense"
 							onAction="#loadExpensePage" />
@@ -64,6 +64,8 @@
 					<items>
 						<MenuItem mnemonicParsing="false" text="Account Details"
 							onAction="#loadAccountDetails" />
+						<MenuItem mnemonicParsing="false" text="Account Balance"
+							onAction="#loadAccountBalance" />
 						<MenuItem mnemonicParsing="false" text="Account Statement"
 							onAction="#loadAccountStatement" />
 						<MenuItem mnemonicParsing="false" text="Accumulated Account Statement"

@@ -2,8 +2,8 @@ package com.ccf.persistence.classes;
 
 import java.util.Date;
 
+import com.ccf.persistence.interfaces.Account;
 import com.ccf.persistence.interfaces.IGraveyardAccount;
-import com.ccf.vo.Account;
 
 public class GraveyardAccount implements Account, IGraveyardAccount {
 
@@ -14,6 +14,7 @@ public class GraveyardAccount implements Account, IGraveyardAccount {
 	private Santha santha;
 	private Date date;
 	private Ledger ledger;
+	private float balance;
 
 	public Ledger getLedger() {
 		return ledger;
@@ -70,4 +71,13 @@ public class GraveyardAccount implements Account, IGraveyardAccount {
 	public void setSantha(Santha santha) {
 		this.santha = santha;
 	}
+
+	public float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(float balance) {
+		this.balance = balance;
+	}
+	
 }

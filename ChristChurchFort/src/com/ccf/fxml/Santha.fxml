@@ -6,273 +6,201 @@
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import eu.schudt.javafx.controls.calendar.DatePicker?>
 <?import javafx.scene.control.cell.*?>
+<?import eu.schudt.javafx.controls.calendar.DatePicker?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-	minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0"
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="com.ccf.controller.SanthaController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ccf.controller.SanthaController">
 	<children>
-		<AnchorPane prefHeight="778.0" prefWidth="1280.0"
-			style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
+		<AnchorPane prefHeight="778.0" prefWidth="1280.0">
 			<children>
 
 				<HBox layoutX="31.0" layoutY="23.0">
 					<children>
-						<Label layoutX="361.0" layoutY="28.0" text="Family No:"
-							textFill="BLACK">
+						<Label layoutX="361.0" layoutY="28.0" text="Family No:" textFill="BLACK">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<ComboBox fx:id="familyNos" editable="true" onKeyTyped="#filterFamilyNos"
-							prefWidth="150.0" />
+						<ComboBox fx:id="familyNos" editable="true" onKeyTyped="#filterFamilyNos" prefWidth="150.0" />
 					</children>
 				</HBox>
 				<HBox layoutX="330.0" layoutY="23.0">
 					<children>
-						<Label layoutX="333.0" layoutY="71.0" text="Paid Date : "
-							textFill="BLACK">
+						<Label layoutX="333.0" layoutY="71.0" text="Paid Date : " textFill="BLACK">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<DatePicker fx:id="paidDate" promptText="dd-MM-yyyy" layoutX="386.0" layoutY="63.0"
-							stylesheets="/com/ccf/css/DatePicker.css" />
+						<DatePicker fx:id="paidDate" layoutX="386.0" layoutY="63.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" />
 					</children>
 				</HBox>
-				<Label fx:id="paidDateError" layoutX="386.0" layoutY="50.0"
-					prefHeight="17.0" prefWidth="222.0" textFill="RED">
+				<Label fx:id="paidDateError" layoutX="386.0" layoutY="50.0" prefHeight="25.0" prefWidth="222.0" textFill="RED">
 					<font>
 						<Font name="Comic Sans MS" size="16.0" />
 					</font>
 				</Label>
 				<HBox layoutX="623.0" layoutY="23.0">
 					<children>
-						<Label layoutX="422.0" layoutY="114.0" text="Family Member :"
-							textFill="BLACK">
+						<Label layoutX="422.0" layoutY="114.0" text="Family Member :" textFill="BLACK">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<ChoiceBox fx:id="familyMembers" layoutX="521.0"
-							layoutY="109.0" prefWidth="150.0" />
+						<ChoiceBox fx:id="familyMembers" layoutX="521.0" layoutY="109.0" prefWidth="150.0" />
 					</children>
 				</HBox>
 				<HBox layoutX="963.0" layoutY="23.0">
 					<children>
-						<Label layoutX="441.0" layoutY="201.0" text="Paid For : "
-							textFill="BLACK">
+						<Label layoutX="441.0" layoutY="201.0" text="Paid For : " textFill="BLACK">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<DatePicker fx:id="paidForDate" promptText="dd-MM-yyyy" layoutX="547.0"
-							layoutY="196.0" stylesheets="/com/ccf/css/DatePicker.css" />
+						<DatePicker fx:id="paidForDate" layoutX="547.0" layoutY="196.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" />
 					</children>
 				</HBox>
-				<Label fx:id="paidForDateError" layoutX="1020.0" layoutY="50.0"
-					prefHeight="17.0" prefWidth="222.0" textFill="RED">
+				<Label fx:id="paidForDateError" layoutX="1020.0" layoutY="50.0" prefHeight="25.0" prefWidth="222.0" textFill="RED">
 					<font>
 						<Font name="Comic Sans MS" size="16.0" />
 					</font>
 				</Label>
-				<GridPane layoutX="14.0" layoutY="386.0" prefHeight="210.0"
-					prefWidth="1252.0">
+				<GridPane layoutX="14.0" layoutY="386.0" prefHeight="210.0" prefWidth="1252.0">
 					<columnConstraints>
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0"
-							minWidth="10.0" prefWidth="115.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="124.0"
-							minWidth="10.0" prefWidth="112.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0"
-							minWidth="10.0" prefWidth="106.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0"
-							minWidth="10.0" prefWidth="145.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="106.0"
-							minWidth="10.0" prefWidth="99.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0"
-							minWidth="10.0" prefWidth="89.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0"
-							minWidth="10.0" prefWidth="118.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0"
-							minWidth="10.0" prefWidth="112.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0"
-							minWidth="10.0" prefWidth="82.0" />
-						<ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0"
-							minWidth="10.0" prefWidth="140.0" />
-						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-							prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="115.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="124.0" minWidth="10.0" prefWidth="112.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="106.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="145.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="99.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="89.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="118.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="112.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="82.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="140.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 					</columnConstraints>
 					<rowConstraints>
-						<RowConstraints minHeight="10.0" prefHeight="30.0"
-							vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0"
-							vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0"
-							vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0"
-							vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0"
-							vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0"
-							vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0"
-							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 					</rowConstraints>
 					<children>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="120.0"
-							text="Harvest Festival :" textFill="BLACK">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="120.0" text="Harvest Festival :" textFill="BLACK">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
 						<TextField fx:id="harvestFestival" GridPane.columnIndex="1">
 						</TextField>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="113.0"
-							style="-fx-text-fill: BLACK;" text="Missionary :" textFill="BLACK"
-							GridPane.columnIndex="3">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="113.0" style="-fx-text-fill: BLACK;" text="Missionary :" textFill="BLACK" GridPane.columnIndex="3">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
 						<TextField fx:id="missionary" GridPane.columnIndex="4">
 						</TextField>
-						<Label prefHeight="17.0" prefWidth="117.0" text="Men's Felloship :"
-							textFill="BLACK" GridPane.columnIndex="6">
+						<Label prefHeight="17.0" prefWidth="117.0" text="Men's Felloship :" textFill="BLACK" GridPane.columnIndex="6">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
 						<TextField fx:id="mensFellowship" GridPane.columnIndex="7" />
-						<Label style="-fx-text-fill: BLACK;" text="Women's Felloship :"
-							textFill="BLACK" GridPane.columnIndex="9">
+						<Label style="-fx-text-fill: BLACK;" text="Women's Felloship :" textFill="BLACK" GridPane.columnIndex="9">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="womensFellowship"
-							GridPane.columnIndex="10">
+						<TextField fx:id="womensFellowship" GridPane.columnIndex="10">
 						</TextField>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="114.0"
-							text="Education Help :" textFill="BLACK" GridPane.rowIndex="2">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="114.0" text="Education Help :" textFill="BLACK" GridPane.rowIndex="2">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="educationHelp" GridPane.columnIndex="1"
-							GridPane.rowIndex="2">
+						<TextField fx:id="educationHelp" GridPane.columnIndex="1" GridPane.rowIndex="2">
 						</TextField>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="112.0"
-							text="Pre school :" textFill="BLACK" GridPane.columnIndex="3"
-							GridPane.rowIndex="2">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="112.0" text="Pre school :" textFill="BLACK" GridPane.columnIndex="3" GridPane.rowIndex="2">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="preSchool" GridPane.columnIndex="4"
-							GridPane.rowIndex="2">
+						<TextField fx:id="preSchool" GridPane.columnIndex="4" GridPane.rowIndex="2">
 						</TextField>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="119.0"
-							text="youth :" textFill="BLACK" GridPane.columnIndex="6"
-							GridPane.rowIndex="2">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="119.0" text="youth :" textFill="BLACK" GridPane.columnIndex="6" GridPane.rowIndex="2">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="youth" GridPane.columnIndex="7"
-							GridPane.rowIndex="2">
+						<TextField fx:id="youth" GridPane.columnIndex="7" GridPane.rowIndex="2">
 						</TextField>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="140.0"
-							text="Poor help :" textFill="BLACK" GridPane.columnIndex="9"
-							GridPane.rowIndex="2">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="140.0" text="Poor help :" textFill="BLACK" GridPane.columnIndex="9" GridPane.rowIndex="2">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="poorHelp" GridPane.columnIndex="10"
-							GridPane.rowIndex="2">
+						<TextField fx:id="poorHelp" GridPane.columnIndex="10" GridPane.rowIndex="2">
 						</TextField>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="118.0"
-							text="Graveyard :" textFill="BLACK" GridPane.rowIndex="4">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="118.0" text="Graveyard :" textFill="BLACK" GridPane.rowIndex="4">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="graveyard" GridPane.columnIndex="1"
-							GridPane.rowIndex="4">
+						<TextField fx:id="graveyard" GridPane.columnIndex="1" GridPane.rowIndex="4">
 						</TextField>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="158.0"
-							text="Church Renovation :" textFill="BLACK" GridPane.columnIndex="3"
-							GridPane.rowIndex="4">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="158.0" text="Church Renovation :" textFill="BLACK" GridPane.columnIndex="3" GridPane.rowIndex="4">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="churchRenovation"
-							GridPane.columnIndex="4" GridPane.rowIndex="4">
+						<TextField fx:id="churchRenovation" GridPane.columnIndex="4" GridPane.rowIndex="4">
 						</TextField>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="122.0"
-							text="Bag  offer :" textFill="BLACK" GridPane.columnIndex="6"
-							GridPane.rowIndex="4">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="122.0" text="Bag  offer :" textFill="BLACK" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="6">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="bagOffer" prefHeight="25.0" prefWidth="127.0"
-							GridPane.columnIndex="7" GridPane.rowIndex="4">
+						<TextField fx:id="bagOffer" prefHeight="25.0" prefWidth="127.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="6">
 						</TextField>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="143.0"
-							text="Thanks Offer :" textFill="BLACK" GridPane.columnIndex="9"
-							GridPane.rowIndex="4">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="143.0" text="Thanks Offer :" textFill="BLACK" visible="false" GridPane.columnIndex="9" GridPane.rowIndex="4">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="thanksOffer" GridPane.columnIndex="10"
-							GridPane.rowIndex="4">
+						<TextField fx:id="thanksOffer" visible="false" GridPane.columnIndex="10" GridPane.rowIndex="4">
 						</TextField>
 
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="123.0"
-							text="STO :" textFill="BLACK" GridPane.rowIndex="6">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="123.0" text="STO :" textFill="BLACK" visible="false" GridPane.rowIndex="6">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="sto" GridPane.columnIndex="1"
-							GridPane.rowIndex="6">
+						<TextField fx:id="sto" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="6">
 						</TextField>
-						<Label alignment="CENTER" prefHeight="17.0" prefWidth="151.0"
-							text="Subscription Amount : " textFill="BLACK"
-							GridPane.columnIndex="3" GridPane.rowIndex="6">
+						<Label alignment="CENTER" prefHeight="17.0" prefWidth="151.0" text="Subscription Amount : " textFill="BLACK" GridPane.columnIndex="6" GridPane.rowIndex="4">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<TextField fx:id="subscriptionAmt" GridPane.columnIndex="4"
-							GridPane.rowIndex="6">
+						<TextField fx:id="subscriptionAmt" GridPane.columnIndex="7" GridPane.rowIndex="4">
 						</TextField>
-						<Label alignment="CENTER" prefHeight="24.0" prefWidth="140.0"
-							text="Total : " textFill="BLACK" GridPane.columnIndex="9"
-							GridPane.rowIndex="6">
+						<Label alignment="CENTER" prefHeight="24.0" prefWidth="140.0" text="Total : " textFill="BLACK" GridPane.columnIndex="9" GridPane.rowIndex="6">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<Label fx:id="memberTotal" alignment="CENTER" prefHeight="24.0"
-							prefWidth="140.0" text="0.00" textFill="BLACK"
-							GridPane.columnIndex="10" GridPane.rowIndex="6">
+						<Label fx:id="memberTotal" alignment="CENTER" prefHeight="24.0" prefWidth="140.0" text="0.00" textFill="BLACK" GridPane.columnIndex="10" GridPane.rowIndex="6">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
 					</children>
 				</GridPane>
-				<TableView fx:id="membersSantha" layoutX="14.0" layoutY="153.0"
-					prefHeight="175.0" prefWidth="1252.0">
+				<TableView fx:id="membersSantha" layoutX="14.0" layoutY="153.0" prefHeight="175.0" prefWidth="1252.0">
 					<columns>
-						<TableColumn editable="false" prefWidth="112.0"
-							resizable="false" text="Name">
+						<TableColumn editable="false" prefWidth="200.0" resizable="false" text="Name">
 							<cellValueFactory>
 								<PropertyValueFactory property="name" />
 							</cellValueFactory>
@@ -282,67 +210,57 @@
 								<PropertyValueFactory property="subscription" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="76.0"
-							resizable="false" text="Harvest Festival">
+						<TableColumn editable="false" prefWidth="100.0" resizable="false" text="Harvest Festival">
 							<cellValueFactory>
 								<PropertyValueFactory property="harvestFestival" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="70.0"
-							resizable="false" text="Missionary">
+						<TableColumn editable="false" prefWidth="85.0" resizable="false" text="Missionary">
 							<cellValueFactory>
 								<PropertyValueFactory property="missionary" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="59.0"
-							resizable="false" text="MF">
+						<TableColumn editable="false" prefWidth="85.0" resizable="false" text="MF">
 							<cellValueFactory>
 								<PropertyValueFactory property="mensFellowship" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="55.0"
-							resizable="false" text="WF">
+						<TableColumn editable="false" prefWidth="85.0" resizable="false" text="WF">
 							<cellValueFactory>
 								<PropertyValueFactory property="womensFellowship" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="67.0"
-							resizable="false" text="Edu. Help">
+						<TableColumn editable="false" prefWidth="85.0" resizable="false" text="Edu. Help">
 							<cellValueFactory>
 								<PropertyValueFactory property="educationHelp" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="94.0"
-							resizable="false" text="Pre School">
+						<TableColumn editable="false" prefWidth="80.0" resizable="false" text="Pre School">
 							<cellValueFactory>
 								<PropertyValueFactory property="preSchool" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="60.0"
-							resizable="false" text="Youth">
+						<TableColumn editable="false" prefWidth="80.0" resizable="false" text="Youth">
 							<cellValueFactory>
 								<PropertyValueFactory property="youth" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="71.0"
-							resizable="false" text="Poor Help">
+						<TableColumn editable="false" prefWidth="80.0" resizable="false" text="Poor Help">
 							<cellValueFactory>
 								<PropertyValueFactory property="poorHelp" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="95.0"
-							resizable="false" text="Church Renovation">
+						<TableColumn editable="false" prefWidth="120.0" resizable="false" text="Church Renovation">
 							<cellValueFactory>
 								<PropertyValueFactory property="churchRenovation" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="79.0"
-							resizable="false" text="Graveyard">
+						<TableColumn editable="false" prefWidth="80.0" resizable="false" text="Graveyard">
 							<cellValueFactory>
 								<PropertyValueFactory property="graveyard" />
 							</cellValueFactory>
 						</TableColumn>
-						<TableColumn editable="false" prefWidth="77.0"
+					<!-- 	<TableColumn editable="false" prefWidth="77.0"
 							resizable="false" text="Bag Offer">
 							<cellValueFactory>
 								<PropertyValueFactory property="bagOffer" />
@@ -359,10 +277,9 @@
 							<cellValueFactory>
 								<PropertyValueFactory property="sto" />
 							</cellValueFactory>
-						</TableColumn>
+						</TableColumn> -->
 
-						<TableColumn editable="false" prefWidth="78.0"
-							resizable="false" text="Total">
+						<TableColumn editable="false" prefWidth="85.0" resizable="false" text="Total">
 							<cellValueFactory>
 								<PropertyValueFactory property="total" />
 							</cellValueFactory>
@@ -371,112 +288,88 @@
 					<contextMenu>
 						<ContextMenu>
 							<items>
-								<MenuItem mnemonicParsing="false" onAction="#editPaidMember"
-									text="Edit" />
-								<MenuItem mnemonicParsing="false" onAction="#deletePaidMember"
-									text="Delete" />
+								<MenuItem mnemonicParsing="false" onAction="#editPaidMember" text="Edit" />
+								<MenuItem mnemonicParsing="false" onAction="#deletePaidMember" text="Delete" />
 							</items>
 						</ContextMenu>
 					</contextMenu>
 				</TableView>
-				<Label fx:id="total" alignment="CENTER" layoutX="1194.0"
-					layoutY="328.0" prefHeight="38.0" prefWidth="72.0"
-					style="-fx-background-color: WHITE" text="0.00" />
-				<Label layoutX="1119.0" layoutY="334.0" prefHeight="25.0"
-					prefWidth="56.0" style="-fx-text-fill: BLACK;" text="Total :">
+				<Label fx:id="total" alignment="CENTER" layoutX="1194.0" layoutY="328.0" prefHeight="38.0" prefWidth="72.0" style="-fx-background-color: WHITE" text="0.00" />
+				<Label layoutX="1119.0" layoutY="334.0" prefHeight="25.0" prefWidth="56.0" style="-fx-text-fill: BLACK;" text="Total :">
 					<font>
 						<Font size="18.0" />
 					</font>
 				</Label>
-				<Button fx:id="saveButton" alignment="CENTER" layoutX="1069.0"
-					layoutY="624.0" mnemonicParsing="false" onAction="#save"
-					prefHeight="25.0" prefWidth="138.0"
-					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
-					text="Save" textFill="WHITE">
+				<Button fx:id="saveButton" alignment="CENTER" layoutX="1069.0" layoutY="624.0" mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="138.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
 				</Button>
-				<Button fx:id="updateButton" alignment="CENTER" layoutX="1000.0"
-					layoutY="624.0" mnemonicParsing="false" onAction="#updatePayment"
-					prefHeight="25.0" prefWidth="100.0"
-					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
-					text="Update" textFill="WHITE" visible="false">
+				<Button fx:id="updateButton" alignment="CENTER" layoutX="1000.0" layoutY="624.0" mnemonicParsing="false" onAction="#updatePayment" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Update" textFill="WHITE" visible="false">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
 				</Button>
-				<Button fx:id="cancelButton" alignment="CENTER" layoutX="1125.0"
-					layoutY="624.0" mnemonicParsing="false" onAction="#cancelEditSantha"
-					prefHeight="25.0" prefWidth="75.0"
-					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
-					text="Cancel" textFill="WHITE" visible="false">
+				<Button fx:id="cancelButton" alignment="CENTER" layoutX="1125.0" layoutY="624.0" mnemonicParsing="false" onAction="#cancelEditSantha" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Cancel" textFill="WHITE" visible="false">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
 				</Button>
-				<Label fx:id="error" layoutX="31.0" layoutY="50.0" prefHeight="17.0"
-					prefWidth="222.0" textFill="RED">
+				<Label fx:id="error" layoutX="31.0" layoutY="50.0" prefHeight="25.0" prefWidth="222.0" textFill="RED">
 					<font>
 						<Font name="Comic Sans MS" size="16.0" />
 					</font>
 				</Label>
-				<Label fx:id="message" alignment="CENTER" layoutX="370.0" layoutY="629.0"
-					prefHeight="38.0" prefWidth="568.0" textFill="BLACK">
-					<font>
-						<Font name="Comic Sans MS" size="17.0" />
-					</font>
-				</Label>
-				<Label fx:id="familyMemberError" layoutX="70.0" layoutY="50.0"
-					prefHeight="25.0" prefWidth="262.0" textFill="RED">
+				<Label fx:id="message" alignment="CENTER" layoutX="370.0" layoutY="629.0" prefHeight="25.0" prefWidth="568.0" textFill="GREEN">
 					<font>
 						<Font name="Comic Sans MS" size="16.0" />
 					</font>
 				</Label>
-				<HBox layoutX="29.0" layoutY="95.0" prefHeight="17.0"
-					prefWidth="275.0">
+				<Label fx:id="familyMemberError" layoutX="640.0" layoutY="63.0" prefHeight="25.0" prefWidth="262.0" textFill="RED">
+					<font>
+						<Font name="Comic Sans MS" size="16.0" />
+					</font>
+				</Label>
+				<HBox layoutX="29.0" layoutY="95.0" prefHeight="17.0" prefWidth="275.0">
 					<children>
-						<Label layoutX="333.0" layoutY="71.0" text="Account Type : "
-							textFill="BLACK">
+						<Label layoutX="333.0" layoutY="71.0" text="Account Type : " textFill="BLACK">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<RadioButton fx:id="cash" onAction="#onCashButtonPressed" onMouseClicked="#onCashButtonPressed"
-							selected="true" mnemonicParsing="false" text="Cash" />
-						<RadioButton fx:id="chequeBtn" onAction="#onChequeButtonPressed" onMouseClicked="#onChequeButtonPressed"
-							mnemonicParsing="false" text="Cheque"
-							style="-fx-padding:0px 0px 0px 10px;" />
+						<RadioButton fx:id="cash" mnemonicParsing="false" onAction="#onCashButtonPressed" onMouseClicked="#onCashButtonPressed" selected="true" text="Cash" />
+						<RadioButton fx:id="chequeBtn" mnemonicParsing="false" onAction="#onChequeButtonPressed" onMouseClicked="#onChequeButtonPressed" style="-fx-padding:0px 0px 0px 10px;" text="Cheque" />
 					</children>
 				</HBox>
-				<HBox fx:id="chequeDetails" visible="false" layoutX="325.0" layoutY="91.0">
+				<HBox fx:id="chequeDetails" layoutX="325.0" layoutY="91.0" visible="false">
 					<children>
 						<HBox layoutX="330.0" layoutY="91.0">
 							<children>
-								<Label layoutX="333.0" layoutY="71.0" text="Cheque Date : "
-									textFill="BLACK">
+								<Label layoutX="333.0" layoutY="71.0" text="Cheque Date : " textFill="BLACK">
 									<font>
 										<Font name="Arial Rounded MT Bold" size="14.0" />
 									</font>
 								</Label>
-								<DatePicker fx:id="chequeDate" promptText="dd-MM-yyyy" layoutX="386.0"
-									layoutY="63.0" stylesheets="/com/ccf/css/DatePicker.css" />
+								<DatePicker fx:id="chequeDate" layoutX="386.0" layoutY="63.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" />
 							</children>
 						</HBox>
-						<HBox style="-fx-padding:6px 0px 0px 50px;" layoutX="623.0" layoutY="91.0">
+						<HBox layoutX="623.0" layoutY="91.0" style="-fx-padding:6px 0px 0px 50px;">
 							<children>
-								<Label layoutX="623.0" layoutY="91.0" text="Cheque Number : "
-									textFill="BLACK">
+								<Label layoutX="623.0" layoutY="91.0" text="Cheque Number : " textFill="BLACK">
 									<font>
 										<Font name="Arial Rounded MT Bold" size="14.0" />
 									</font>
 								</Label>
-								<TextField fx:id="chequeNumber" layoutX="754.0" layoutY="91.0" prefHeight="25.0"
-									prefWidth="425.0" />
+								<TextField fx:id="chequeNumber" layoutX="754.0" layoutY="91.0" prefHeight="25.0" prefWidth="243.0" />
 							</children>
 						</HBox>
 					</children>
 				</HBox>
+				<Button fx:id="print" alignment="CENTER" layoutX="1084.0" layoutY="90.0" mnemonicParsing="false" onAction="#print" prefHeight="25.0" prefWidth="138.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Print" textFill="WHITE">
+					<font>
+						<Font name="Arial Rounded MT Bold" size="14.0" />
+					</font>
+				</Button>
 			</children>
 		</AnchorPane>
 	</children>

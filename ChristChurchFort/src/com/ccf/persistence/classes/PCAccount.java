@@ -2,8 +2,8 @@ package com.ccf.persistence.classes;
 
 import java.util.Date;
 
+import com.ccf.persistence.interfaces.Account;
 import com.ccf.persistence.interfaces.IPCAccount;
-import com.ccf.vo.Account;
 
 public class PCAccount implements Account, IPCAccount {
 
@@ -15,6 +15,7 @@ public class PCAccount implements Account, IPCAccount {
 	private Santha santha;
 	private Date date;
 	private Ledger ledger;
+	private float balance;
 
 	public Ledger getLedger() {
 		return ledger;
@@ -80,4 +81,12 @@ public class PCAccount implements Account, IPCAccount {
 		this.santha = santha;
 	}
 
+	public float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(float balance) {
+		this.balance = balance;
+	}
+	
 }

@@ -1,6 +1,7 @@
 package com.ccf.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +30,14 @@ import com.ccf.persistence.classes.PCAccount;
 import com.ccf.persistence.classes.SundaySchoolAccount;
 import com.ccf.persistence.classes.WomensAccount;
 import com.ccf.persistence.classes.YouthAccount;
-import com.ccf.util.AccountNames;
+import com.ccf.persistence.interfaces.Account;
+import com.ccf.util.BalanceUpdator;
+import com.ccf.util.Constants;
 import com.ccf.util.ProjectProperties;
-import com.ccf.vo.Account;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -68,27 +72,22 @@ public class DepositController {
 	@FXML
 	void initialize() {
 		List<String> accountNames = new ArrayList<>();
-		accountNames.add(AccountNames.PCAccount);
-		accountNames.add(AccountNames.MissionaryAccount);
-		accountNames.add(AccountNames.MensAccount);
-		accountNames.add(AccountNames.WomensAccount);
-		accountNames.add(AccountNames.SundaySchoolAccount);
-		accountNames.add(AccountNames.YouthAccount);
-		accountNames.add(AccountNames.BuildingAccount);
-		accountNames.add(AccountNames.GraveyardAccount);
-		accountNames.add(AccountNames.EducationalFundAccount);
-		accountType.setValue(AccountNames.PCAccount);
+		accountNames.add(Constants.PCAccount);
+		accountNames.add(Constants.MissionaryAccount);
+		accountNames.add(Constants.MensAccount);
+		accountNames.add(Constants.WomensAccount);
+		accountNames.add(Constants.SundaySchoolAccount);
+		accountNames.add(Constants.YouthAccount);
+		accountNames.add(Constants.BuildingAccount);
+		accountNames.add(Constants.GraveyardAccount);
+		accountNames.add(Constants.EducationalFundAccount);
+		accountType.setValue(Constants.PCAccount);
 		accountType.getItems().addAll(accountNames);
+		
+		this.date.setDateFormat(ProjectProperties.sdf);
+		this.date.setSelectedDate(new Date());
 
-		try {
-			float balance = impl.getAccountBalance(AccountNames.PCAccount);
-			this.cashAmt.setText(String.valueOf(balance));
-		} catch (CcfException e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
-			message.setText(e.getMessage());
-			message.setTextFill(Paint.valueOf("RED"));
-		}
+		getBalance();
 
 		/*
 		 * Getting ledger records from DB
@@ -104,7 +103,7 @@ public class DepositController {
 		}
 		
 		
-		this.date.setDateFormat(ProjectProperties.sdf);
+		
 
 		this.accountType.getSelectionModel().selectedItemProperty()
 				.addListener(new ChangeListener<String>() {
@@ -113,19 +112,19 @@ public class DepositController {
 					public void changed(ObservableValue<? extends String> arg0,
 							String oldValue, String newValue) {
 						logger.info("accountType change Starts...");
-						try {
-							float balance = impl.getAccountBalance(newValue);
-							cashAmt.setText(String.valueOf(balance));
-						} catch (CcfException e) {
-							e.printStackTrace();
-							logger.error(e.getMessage());
-							message.setText(e.getMessage());
-							message.setTextFill(Paint.valueOf("RED"));
-						}
+						getBalance();
 						logger.info("accountType change Ends...");
 					}
 
 				});
+		
+		this.date.selectedDateProperty().addListener(new InvalidationListener() {
+			public void invalidated(Observable observable) {
+				logger.debug("Date change listener Starts...");
+				getBalance();
+				logger.debug("Date change listener Ends...");
+			}
+		});
 	}
 
 	public void deposit() {
@@ -147,64 +146,79 @@ public class DepositController {
 						+ this.cashAmt.getText());
 			}
 
-			if (debitAccName.equals(AccountNames.PCAccount)) {
-				creditAccName = AccountNames.BankPCAccount;
+			if (debitAccName.equals(Constants.PCAccount)) {
+				creditAccName = Constants.BankPCAccount;
 				debitAcc = new PCAccount();
 				creditAcc = new BankPCAccount();
-			} else if (debitAccName.equals(AccountNames.EducationalFundAccount)) {
-				creditAccName = AccountNames.BankEducationalFundAccount;
+			} else if (debitAccName.equals(Constants.EducationalFundAccount)) {
+				creditAccName = Constants.BankEducationalFundAccount;
 				debitAcc = new EducationalFundAccount();
 				creditAcc = new BankEducationalFundAccount();
-			} else if (debitAccName.equals(AccountNames.GraveyardAccount)) {
-				creditAccName = AccountNames.BankGraveyardAccount;
+			} else if (debitAccName.equals(Constants.GraveyardAccount)) {
+				creditAccName = Constants.BankGraveyardAccount;
 				debitAcc = new GraveyardAccount();
 				creditAcc = new BankGraveyardAccount();
-			} else if (debitAccName.equals(AccountNames.MensAccount)) {
-				creditAccName = AccountNames.BankMensAccount;
+			} else if (debitAccName.equals(Constants.MensAccount)) {
+				creditAccName = Constants.BankMensAccount;
 				debitAcc = new MensAccount();
 				creditAcc = new BankMensAccount();
-			} else if (debitAccName.equals(AccountNames.MissionaryAccount)) {
-				creditAccName = AccountNames.BankMissionaryAccount;
+			} else if (debitAccName.equals(Constants.MissionaryAccount)) {
+				creditAccName = Constants.BankMissionaryAccount;
 				debitAcc = new MissionaryAccount();
 				creditAcc = new BankMissionaryAccount();
-			} else if (debitAccName.equals(AccountNames.SundaySchoolAccount)) {
-				creditAccName = AccountNames.BankSundaySchoolAccount;
+			} else if (debitAccName.equals(Constants.SundaySchoolAccount)) {
+				creditAccName = Constants.BankSundaySchoolAccount;
 				debitAcc = new SundaySchoolAccount();
 				creditAcc = new BankSundaySchoolAccount();
-			} else if (debitAccName.equals(AccountNames.WomensAccount)) {
-				creditAccName = AccountNames.BankWomensAccount;
+			} else if (debitAccName.equals(Constants.WomensAccount)) {
+				creditAccName = Constants.BankWomensAccount;
 				debitAcc = new WomensAccount();
 				creditAcc = new BankWomensAccount();
-			} else if (debitAccName.equals(AccountNames.YouthAccount)) {
-				creditAccName = AccountNames.BankYouthAccount;
+			} else if (debitAccName.equals(Constants.YouthAccount)) {
+				creditAccName = Constants.BankYouthAccount;
 				debitAcc = new YouthAccount();
 				creditAcc = new BankYouthAccount();
-			} else if (debitAccName.equals(AccountNames.BuildingAccount)) {
-				creditAccName = AccountNames.BankBuildingAccount;
+			} else if (debitAccName.equals(Constants.BuildingAccount)) {
+				creditAccName = Constants.BankBuildingAccount;
 				debitAcc = new BuildingAccount();
 				creditAcc = new BankBuildingAccount();
 			}
 
 			Ledger ledger = ledgerMap.get("Withdrawal");
 
+			float debitAccCurrentBalance = impl.getAccountBalance(debitAcc.getClass(), date.getSelectedDate());
+			float balance = debitAccCurrentBalance - amount;
+			
 			debitAcc.setAmount(amount);
 			debitAcc.setCr_dr("DR");
 			debitAcc.setDate(date.getSelectedDate());
 			debitAcc.setDescription("Withdrawal");
+			debitAcc.setBalance(balance);
 			debitAcc.setLedger(ledger);
 
+			float creditAccCurrentBalance = impl.getAccountBalance(creditAcc.getClass(), date.getSelectedDate());
+			balance = creditAccCurrentBalance + amount;
+			
 			ledger = ledgerMap.get("Deposited");
 			creditAcc.setAmount(amount);
 			creditAcc.setCr_dr("CR");
 			creditAcc.setDate(date.getSelectedDate());
 			creditAcc.setDescription("Deposited");
+			creditAcc.setBalance(balance);
 			creditAcc.setLedger(ledger);
 
 			impl.withdrawOrDeposit(creditAcc, creditAccName, debitAcc,
 					debitAccName, amount);
 
-			this.cashAmt.setText(String.valueOf(impl.getAccountBalance(debitAccName)));
+			getBalance();
 			clear();
+			
+			/*
+			 * Running Thread to update the balances
+			 */
+			BalanceUpdator balanceUpdator = BalanceUpdator.getInstance();
+			balanceUpdator.updateAllBalances();
+			
 			message.setText("Cash deposited Successfully");
 			message.setTextFill(Paint.valueOf("GREEN"));
 		} catch (CcfException e) {
@@ -221,5 +235,38 @@ public class DepositController {
 		this.date.setSelectedDate(null);
 		this.amount.setText(null);
 		logger.info("clear method Ends...");
+	}
+	
+	public void getBalance(){
+		logger.debug("getBalance method Starts...");
+		Class entity = null;
+		if(this.accountType.getValue().equals(Constants.PCAccount))
+			entity = PCAccount.class;
+		else if(this.accountType.getValue().equals(Constants.MissionaryAccount))
+			entity = MissionaryAccount.class;
+		else if(this.accountType.getValue().equals(Constants.MensAccount))
+			entity = MensAccount.class;
+		else if(this.accountType.getValue().equals(Constants.WomensAccount))
+			entity = WomensAccount.class;
+		else if(this.accountType.getValue().equals(Constants.SundaySchoolAccount))
+			entity = SundaySchoolAccount.class;
+		else if(this.accountType.getValue().equals(Constants.YouthAccount))
+			entity = YouthAccount.class;
+		else if(this.accountType.getValue().equals(Constants.BuildingAccount))
+			entity = BuildingAccount.class;
+		else if(this.accountType.getValue().equals(Constants.GraveyardAccount))
+			entity = GraveyardAccount.class;
+		else if(this.accountType.getValue().equals(Constants.EducationalFundAccount))
+			entity = EducationalFundAccount.class;
+		try {
+			float balance = impl.getAccountBalance(entity, date.getSelectedDate());
+			this.cashAmt.setText(String.valueOf(balance));
+		} catch (CcfException e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			message.setText(e.getMessage());
+			message.setTextFill(Paint.valueOf("RED"));
+		}
+		logger.debug("getBalance method Ends...");
 	}
 }

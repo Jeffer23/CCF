@@ -29,7 +29,7 @@ import com.ccf.persistence.classes.BuildingAccount;
 import com.ccf.persistence.classes.SundaySchoolAccount;
 import com.ccf.persistence.classes.WomensAccount;
 import com.ccf.persistence.classes.YouthAccount;
-import com.ccf.vo.Account;
+import com.ccf.persistence.interfaces.Account;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import javafx.fxml.FXML;
@@ -42,7 +42,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 
-import com.ccf.util.AccountNames;
+import com.ccf.thread.BalanceUpdateThread;
+import com.ccf.util.BalanceUpdator;
+import com.ccf.util.Constants;
 import com.ccf.util.ProjectProperties;
 
 public class AddIncomeController {
@@ -94,16 +96,16 @@ public class AddIncomeController {
 	@FXML
 	void initialize() {
 		List<String> accountNames = new ArrayList<>();
-		accountNames.add(AccountNames.PCAccount);
-		accountNames.add(AccountNames.MissionaryAccount);
-		accountNames.add(AccountNames.MensAccount);
-		accountNames.add(AccountNames.WomensAccount);
-		accountNames.add(AccountNames.SundaySchoolAccount);
-		accountNames.add(AccountNames.YouthAccount);
-		accountNames.add(AccountNames.BuildingAccount);
-		accountNames.add(AccountNames.GraveyardAccount);
-		accountNames.add(AccountNames.EducationalFundAccount);
-		accounts.setValue(AccountNames.PCAccount);
+		accountNames.add(Constants.PCAccount);
+		accountNames.add(Constants.MissionaryAccount);
+		accountNames.add(Constants.MensAccount);
+		accountNames.add(Constants.WomensAccount);
+		accountNames.add(Constants.SundaySchoolAccount);
+		accountNames.add(Constants.YouthAccount);
+		accountNames.add(Constants.BuildingAccount);
+		accountNames.add(Constants.GraveyardAccount);
+		accountNames.add(Constants.EducationalFundAccount);
+		accounts.setValue(Constants.PCAccount);
 		accounts.getItems().addAll(accountNames);
 
 		grid.getChildren().get(9).setVisible(false);
@@ -152,6 +154,15 @@ public class AddIncomeController {
 
 			Cheque cheque = null;
 			String accName = null;
+			
+			/*
+			 * Validate Cheque Exists
+			 */
+			boolean chequeExists = dao.isChequeExists(this.chequeNumber.getText());
+			if(chequeExists){
+				throw new CcfException("This Cheque details already entered");
+			}
+			
 			if (this.cheque.isSelected()) {
 				cheque = new Cheque();
 				cheque.setChequeNumber(this.chequeNumber.getText());
@@ -160,104 +171,104 @@ public class AddIncomeController {
 
 			float amt = Float.valueOf(amount.getText());
 			logger.debug("Account Name : " + accounts.getValue());
-			if (accounts.getValue().equals(AccountNames.PCAccount)) {
+			if (accounts.getValue().equals(Constants.PCAccount)) {
 				if (this.cash.isSelected()) {
 					account = new PCAccount();
-					accName = AccountNames.PCAccount;
+					accName = Constants.PCAccount;
 				} else if (this.cheque.isSelected()) {
-					accName = AccountNames.BankPCAccount;
+					accName = Constants.BankPCAccount;
 					account = new BankPCAccount();
 					BankPCAccount bankPCAccount = (BankPCAccount) account;
 					bankPCAccount.getCheques().add(cheque);
 					cheque.getBankPCAccounts().add(bankPCAccount);
 				}
 			} else if (accounts.getValue().equals(
-					AccountNames.MissionaryAccount)) {
+					Constants.MissionaryAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.MissionaryAccount;
+					accName = Constants.MissionaryAccount;
 					account = new MissionaryAccount();
 				} else if (this.cheque.isSelected()) {
-					accName = AccountNames.BankMissionaryAccount;
+					accName = Constants.BankMissionaryAccount;
 					account = new BankMissionaryAccount();
 					BankMissionaryAccount bankMissionaryAccount = (BankMissionaryAccount) account;
 					bankMissionaryAccount.getCheques().add(cheque);
 					cheque.getBankMissionaryAccounts().add(bankMissionaryAccount);
 				}
-			} else if (accounts.getValue().equals(AccountNames.MensAccount)) {
+			} else if (accounts.getValue().equals(Constants.MensAccount)) {
 				if (this.cash.isSelected()) {
 					account = new MensAccount();
-					accName = AccountNames.MensAccount;
+					accName = Constants.MensAccount;
 				} else if (this.cheque.isSelected()) {
-					accName = AccountNames.BankMensAccount;
+					accName = Constants.BankMensAccount;
 					account = new BankMensAccount();
 					BankMensAccount bankMensAccount = (BankMensAccount) account;
 					bankMensAccount.getCheques().add(cheque);
 					cheque.getBankMensAccounts().add(bankMensAccount);
 				}
-			} else if (accounts.getValue().equals(AccountNames.WomensAccount)) {
+			} else if (accounts.getValue().equals(Constants.WomensAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.WomensAccount;
+					accName = Constants.WomensAccount;
 					account = new WomensAccount();
 				} else if (this.cheque.isSelected()) {
-					accName = AccountNames.BankWomensAccount;
+					accName = Constants.BankWomensAccount;
 					account = new BankWomensAccount();
 					BankWomensAccount bankWomensAccount = (BankWomensAccount) account;
 					bankWomensAccount.getCheques().add(cheque);
 					cheque.getBankWomensAccounts().add(bankWomensAccount);
 				}
 			} else if (accounts.getValue().equals(
-					AccountNames.SundaySchoolAccount)) {
+					Constants.SundaySchoolAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.SundaySchoolAccount;
+					accName = Constants.SundaySchoolAccount;
 					account = new SundaySchoolAccount();
 				} else if (this.cheque.isSelected()) {
-					accName = AccountNames.BankSundaySchoolAccount;
+					accName = Constants.BankSundaySchoolAccount;
 					account = new BankSundaySchoolAccount();
 					BankSundaySchoolAccount bankSundaySchoolAccount = (BankSundaySchoolAccount) account;
 					bankSundaySchoolAccount.getCheques().add(cheque);
 					cheque.getBankSundaySchoolAccounts().add(bankSundaySchoolAccount);
 				}
-			} else if (accounts.getValue().equals(AccountNames.YouthAccount)) {
+			} else if (accounts.getValue().equals(Constants.YouthAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.YouthAccount;
+					accName = Constants.YouthAccount;
 					account = new YouthAccount();
 				} else if (this.cheque.isSelected()) {
-					accName = AccountNames.BankYouthAccount;
+					accName = Constants.BankYouthAccount;
 					account = new BankYouthAccount();
 					BankYouthAccount bankYouthAccount = (BankYouthAccount) account;
 					bankYouthAccount.getCheques().add(cheque);
 					cheque.getBankYouthAccounts().add(bankYouthAccount);
 				}
-			} else if (accounts.getValue().equals(AccountNames.BuildingAccount)) {
+			} else if (accounts.getValue().equals(Constants.BuildingAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.BuildingAccount;
+					accName = Constants.BuildingAccount;
 					account = new BuildingAccount();
 				} else if (this.cheque.isSelected()) {
-					accName = AccountNames.BankBuildingAccount;
+					accName = Constants.BankBuildingAccount;
 					account = new BankBuildingAccount();
 					BankBuildingAccount bankSTOAccount = (BankBuildingAccount) account;
 					bankSTOAccount.getCheques().add(cheque);
 					cheque.getBankSTOAccounts().add(bankSTOAccount);
 				}
 			} else if (accounts.getValue()
-					.equals(AccountNames.GraveyardAccount)) {
+					.equals(Constants.GraveyardAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.GraveyardAccount;
+					accName = Constants.GraveyardAccount;
 					account = new GraveyardAccount();
 				} else if (this.cheque.isSelected()) {
-					accName = AccountNames.BankGraveyardAccount;
+					accName = Constants.BankGraveyardAccount;
 					account = new BankGraveyardAccount();
 					BankGraveyardAccount bankGraveyardAccount = (BankGraveyardAccount) account;
 					bankGraveyardAccount.getCheques().add(cheque);
 					cheque.getBankGraveyardAccounts().add(bankGraveyardAccount);
 				}
 			} else if (accounts.getValue().equals(
-					AccountNames.EducationalFundAccount)) {
+					Constants.EducationalFundAccount)) {
 				if (this.cash.isSelected()) {
-					accName = AccountNames.EducationalFundAccount;
+					accName = Constants.EducationalFundAccount;
 					account = new EducationalFundAccount();
 				} else if (this.cheque.isSelected()) {
-					accName = AccountNames.BankEducationalFundAccount;
+					accName = Constants.BankEducationalFundAccount;
 					account = new BankEducationalFundAccount();
 					BankEducationalFundAccount bankEducationalFundAccount = (BankEducationalFundAccount) account;
 					bankEducationalFundAccount.getCheques().add(cheque);
@@ -266,12 +277,23 @@ public class AddIncomeController {
 			}
 			logger.debug(amount.getText());
 			logger.debug(account);
-			account.setAmount(Float.valueOf(amount.getText()));
+			
+			float amount = Float.valueOf(this.amount.getText());
+			float currentBalance = dao.getAccountBalance(account.getClass(),  this.date.getSelectedDate());
+			float balance = currentBalance + amount;
+			account.setAmount(amount);
 			account.setDescription(reason.getText());
 			account.setCr_dr("CR");
 			account.setDate(this.date.getSelectedDate());
 			account.setLedger(this.ledgers.getValue());
+			account.setBalance(balance);
 			dao.addIncomeorExpense(account, accName, amt);
+			
+			/*
+			 * Running Thread to update the balances
+			 */
+			BalanceUpdator balanceUpdator = BalanceUpdator.getInstance();
+			balanceUpdator.updateAllBalances();
 
 			message.setTextFill(Paint.valueOf("Green"));
 			message.setText("Income added Successfully");

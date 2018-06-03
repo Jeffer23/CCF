@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ccf.persistence.interfaces.Account;
 import com.ccf.persistence.interfaces.IYouthAccount;
-import com.ccf.vo.Account;
 
 public class BankYouthAccount implements Account, IYouthAccount {
 
@@ -17,6 +17,7 @@ public class BankYouthAccount implements Account, IYouthAccount {
 	private Date date;
 	private Set<Cheque> cheques = new HashSet<>();
 	private Ledger ledger;
+	private float balance;
 
 	public Ledger getLedger() {
 		return ledger;
@@ -81,4 +82,13 @@ public class BankYouthAccount implements Account, IYouthAccount {
 	public void setSantha(Santha santha) {
 		this.santha = santha;
 	}
+
+	public float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(float balance) {
+		this.balance = balance;
+	}
+	
 }

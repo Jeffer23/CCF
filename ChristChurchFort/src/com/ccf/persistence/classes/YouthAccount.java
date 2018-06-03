@@ -2,9 +2,13 @@ package com.ccf.persistence.classes;
 
 import java.util.Date;
 
+import com.ccf.persistence.interfaces.Account;
 import com.ccf.persistence.interfaces.IYouthAccount;
-import com.ccf.vo.Account;
 
+/**
+ * @author Jeffer
+ *
+ */
 public class YouthAccount implements Account, IYouthAccount {
 
 	private int id;
@@ -14,6 +18,7 @@ public class YouthAccount implements Account, IYouthAccount {
 	private Santha santha;
 	private Date date;
 	private Ledger ledger;
+	private float balance;
 
 	public Ledger getLedger() {
 		return ledger;
@@ -70,4 +75,13 @@ public class YouthAccount implements Account, IYouthAccount {
 	public void setSantha(Santha santha) {
 		this.santha = santha;
 	}
+
+	public float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(float balance) {
+		this.balance = balance;
+	}
+	
 }

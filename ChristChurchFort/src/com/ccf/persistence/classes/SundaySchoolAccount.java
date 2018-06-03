@@ -2,8 +2,8 @@ package com.ccf.persistence.classes;
 
 import java.util.Date;
 
+import com.ccf.persistence.interfaces.Account;
 import com.ccf.persistence.interfaces.ISundaySchoolAccount;
-import com.ccf.vo.Account;
 
 public class SundaySchoolAccount implements Account, ISundaySchoolAccount {
 
@@ -14,6 +14,7 @@ public class SundaySchoolAccount implements Account, ISundaySchoolAccount {
 	private ServiceOffering serviceOffering;
 	private Date date;
 	private Ledger ledger;
+	private float balance;
 
 	public Ledger getLedger() {
 		return ledger;
@@ -70,4 +71,13 @@ public class SundaySchoolAccount implements Account, ISundaySchoolAccount {
 	public void setServiceOffering(ServiceOffering serviceOffering) {
 		this.serviceOffering = serviceOffering;
 	}
+
+	public float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(float balance) {
+		this.balance = balance;
+	}
+	
 }

@@ -23,13 +23,28 @@ import org.apache.poi.ss.usermodel.Row;
 import com.ccf.dao.AccountsDao;
 import com.ccf.dao.impl.AccountsDaoImpl;
 import com.ccf.exception.CcfException;
+import com.ccf.persistence.classes.BankBuildingAccount;
+import com.ccf.persistence.classes.BankEducationalFundAccount;
+import com.ccf.persistence.classes.BankGraveyardAccount;
+import com.ccf.persistence.classes.BankMensAccount;
+import com.ccf.persistence.classes.BankMissionaryAccount;
+import com.ccf.persistence.classes.BankPCAccount;
+import com.ccf.persistence.classes.BankSundaySchoolAccount;
+import com.ccf.persistence.classes.BankWomensAccount;
+import com.ccf.persistence.classes.BankYouthAccount;
+import com.ccf.persistence.classes.BuildingAccount;
+import com.ccf.persistence.classes.EducationalFundAccount;
+import com.ccf.persistence.classes.GraveyardAccount;
 import com.ccf.persistence.classes.MensAccount;
 import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
-import com.ccf.util.AccountNames;
+import com.ccf.persistence.classes.SundaySchoolAccount;
+import com.ccf.persistence.classes.WomensAccount;
+import com.ccf.persistence.classes.YouthAccount;
+import com.ccf.persistence.interfaces.Account;
+import com.ccf.util.Constants;
 import com.ccf.util.ProjectProperties;
 import com.ccf.vo.AccStatement;
-import com.ccf.vo.Account;
 import com.ccf.vo.AccumulatedAccStmt;
 
 import eu.schudt.javafx.controls.calendar.DatePicker;
@@ -43,7 +58,8 @@ import javafx.scene.paint.Paint;
 
 public class AccumulatedAccountStatement {
 
-	final static Logger logger = Logger.getLogger(AccumulatedAccountStatement.class);
+	final static Logger logger = Logger
+			.getLogger(AccumulatedAccountStatement.class);
 
 	@FXML
 	private Label message;
@@ -64,6 +80,18 @@ public class AccumulatedAccountStatement {
 	private TableView<AccumulatedAccStmt> expense;
 
 	@FXML
+	private Label openingBankAmt;
+
+	@FXML
+	private Label openingCashAmt;
+
+	@FXML
+	private Label closingBankAmt;
+
+	@FXML
+	private Label closingCashAmt;
+
+	@FXML
 	private Label totalIncomeLbl;
 
 	@FXML
@@ -72,87 +100,164 @@ public class AccumulatedAccountStatement {
 	@FXML
 	void initialize() {
 		List<String> accountNamesList = new ArrayList<>();
-		accountNamesList.add(AccountNames.PCAccount);
-		accountNamesList.add(AccountNames.MissionaryAccount);
-		accountNamesList.add(AccountNames.MensAccount);
-		accountNamesList.add(AccountNames.WomensAccount);
-		accountNamesList.add(AccountNames.SundaySchoolAccount);
-		accountNamesList.add(AccountNames.YouthAccount);
-		accountNamesList.add(AccountNames.BuildingAccount);
-		accountNamesList.add(AccountNames.GraveyardAccount);
-		accountNamesList.add(AccountNames.EducationalFundAccount);
-		accountNames.setValue(AccountNames.PCAccount);
+		accountNamesList.add(Constants.PCAccount);
+		accountNamesList.add(Constants.MissionaryAccount);
+		accountNamesList.add(Constants.MensAccount);
+		accountNamesList.add(Constants.WomensAccount);
+		accountNamesList.add(Constants.SundaySchoolAccount);
+		accountNamesList.add(Constants.YouthAccount);
+		accountNamesList.add(Constants.BuildingAccount);
+		accountNamesList.add(Constants.GraveyardAccount);
+		accountNamesList.add(Constants.EducationalFundAccount);
+		accountNames.setValue(Constants.PCAccount);
 		accountNames.getItems().addAll(accountNamesList);
-		
+
 		this.from.setDateFormat(ProjectProperties.sdf);
 		this.to.setDateFormat(ProjectProperties.sdf);
 	}
 
 	public void getDetails() {
 		logger.debug("getDetails method starts...");
-		income.getItems().clear();
-		expense.getItems().clear();
-		AccountsDao dao = new AccountsDaoImpl();
-		float totalIncome = 0.0f;
-		float totalExpense = 0.0f;
+		this.message.setText(null);
 		try {
+			if (this.from.getSelectedDate() == null)
+				throw new CcfException("Select From Date");
+			else if (this.to.getSelectedDate() == null)
+				throw new CcfException("Select To Date");
+			else if (this.from.getSelectedDate().after(
+					this.to.getSelectedDate()))
+				throw new CcfException(
+						"'To' date should not be before 'From' date");
+			income.getItems().clear();
+			expense.getItems().clear();
+			AccountsDao dao = new AccountsDaoImpl();
+			float totalIncome = 0.0f;
+			float totalExpense = 0.0f;
+			
+			float cashOpenbal = 0.0f;
+			float cashclosebal = 0.0f;
+			float bankOpenbal = 0.0f;
+			float bankClosebal = 0.0f;
+
 			List<Account> accounts = null;
-			if (accountNames.getValue().equals(AccountNames.PCAccount)) {
-				accounts = dao.getAccountStatement("com.ccf.persistence.classes.PCAccount",
+			if (accountNames.getValue().equals(Constants.PCAccount)) {
+				accounts = dao.getAccountStatement(PCAccount.class,
 						from.getSelectedDate(), to.getSelectedDate());
-				accounts.addAll(dao.getAccountStatement("com.ccf.persistence.classes.BankPCAccount",
+				accounts.addAll(dao.getAccountStatement(BankPCAccount.class,
 						from.getSelectedDate(), to.getSelectedDate()));
+							
+				Map<String, Float> balances = dao.getOpeningAndClosingBalance(PCAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				cashOpenbal = balances.get(Constants.OpeningBalance);
+				cashclosebal = balances.get(Constants.ClosingBalance);
+				balances = dao.getOpeningAndClosingBalance(BankPCAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				bankOpenbal = balances.get(Constants.OpeningBalance);
+				bankClosebal = balances.get(Constants.ClosingBalance);
+				
 			} else if (accountNames.getValue().equals(
-					AccountNames.MissionaryAccount)) {
-				accounts = dao.getAccountStatement("com.ccf.persistence.classes.MissionaryAccount",
+					Constants.MissionaryAccount)) {
+				accounts = dao.getAccountStatement(MissionaryAccount.class,
 						from.getSelectedDate(), to.getSelectedDate());
-				accounts.addAll(dao.getAccountStatement(
-						"com.ccf.persistence.classes.BankMissionaryAccount", from.getSelectedDate(),
-						to.getSelectedDate()));
-			} else if (accountNames.getValue().equals(AccountNames.MensAccount)) {
-				accounts = dao.getAccountStatement("com.ccf.persistence.classes.MensAccount",
-						from.getSelectedDate(), to.getSelectedDate());
-				accounts.addAll(dao.getAccountStatement("com.ccf.persistence.classes.BankMensAccount",
+				accounts.addAll(dao.getAccountStatement(BankMissionaryAccount.class,
 						from.getSelectedDate(), to.getSelectedDate()));
-			} else if (accountNames.getValue().equals(
-					AccountNames.WomensAccount)) {
-				accounts = dao.getAccountStatement("com.ccf.persistence.classes.WomensAccount",
+				
+				Map<String, Float> balances = dao.getOpeningAndClosingBalance(MissionaryAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				cashOpenbal = balances.get(Constants.OpeningBalance);
+				cashclosebal = balances.get(Constants.ClosingBalance);
+				balances = dao.getOpeningAndClosingBalance(BankMissionaryAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				bankOpenbal = balances.get(Constants.OpeningBalance);
+				bankClosebal = balances.get(Constants.ClosingBalance);
+			} else if (accountNames.getValue().equals(Constants.MensAccount)) {
+				accounts = dao.getAccountStatement(MensAccount.class,
 						from.getSelectedDate(), to.getSelectedDate());
-				accounts.addAll(dao.getAccountStatement("com.ccf.persistence.classes.BankWomensAccount",
+				accounts.addAll(dao.getAccountStatement(BankMensAccount.class,
 						from.getSelectedDate(), to.getSelectedDate()));
+				
+				Map<String, Float> balances = dao.getOpeningAndClosingBalance(MensAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				cashOpenbal = balances.get(Constants.OpeningBalance);
+				cashclosebal = balances.get(Constants.ClosingBalance);
+				balances = dao.getOpeningAndClosingBalance(BankMensAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				bankOpenbal = balances.get(Constants.OpeningBalance);
+				bankClosebal = balances.get(Constants.ClosingBalance);
 			} else if (accountNames.getValue().equals(
-					AccountNames.SundaySchoolAccount)) {
-				accounts = dao.getAccountStatement("com.ccf.persistence.classes.SundaySchoolAccount",
+					Constants.WomensAccount)) {
+				accounts = dao.getAccountStatement(WomensAccount.class,
 						from.getSelectedDate(), to.getSelectedDate());
-				accounts.addAll(dao.getAccountStatement(
-						"com.ccf.persistence.classes.BankSundaySchoolAccount", from.getSelectedDate(),
-						to.getSelectedDate()));
+				accounts.addAll(dao.getAccountStatement(BankWomensAccount.class,
+						from.getSelectedDate(), to.getSelectedDate()));
+				
+				Map<String, Float> balances = dao.getOpeningAndClosingBalance(WomensAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				cashOpenbal = balances.get(Constants.OpeningBalance);
+				cashclosebal = balances.get(Constants.ClosingBalance);
+				balances = dao.getOpeningAndClosingBalance(BankWomensAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				bankOpenbal = balances.get(Constants.OpeningBalance);
+				bankClosebal = balances.get(Constants.ClosingBalance);
+			} else if (accountNames.getValue().equals(
+					Constants.SundaySchoolAccount)) {
+				accounts = dao.getAccountStatement(SundaySchoolAccount.class,
+						from.getSelectedDate(), to.getSelectedDate());
+				accounts.addAll(dao.getAccountStatement(BankSundaySchoolAccount.class,
+						from.getSelectedDate(), to.getSelectedDate()));
+				
+				Map<String, Float> balances = dao.getOpeningAndClosingBalance(SundaySchoolAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				cashOpenbal = balances.get(Constants.OpeningBalance);
+				cashclosebal = balances.get(Constants.ClosingBalance);
+				balances = dao.getOpeningAndClosingBalance(BankSundaySchoolAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				bankOpenbal = balances.get(Constants.OpeningBalance);
+				bankClosebal = balances.get(Constants.ClosingBalance);
 			} else if (accountNames.getValue()
-					.equals(AccountNames.YouthAccount)) {
-				accounts = dao.getAccountStatement("com.ccf.persistence.classes.YouthAccount",
+					.equals(Constants.YouthAccount)) {
+				accounts = dao.getAccountStatement(YouthAccount.class,
 						from.getSelectedDate(), to.getSelectedDate());
-				accounts.addAll(dao.getAccountStatement("com.ccf.persistence.classes.BankYouthAccount",
+				accounts.addAll(dao.getAccountStatement(BankYouthAccount.class,
 						from.getSelectedDate(), to.getSelectedDate()));
-			} else if (accountNames.getValue().equals(AccountNames.BuildingAccount)) {
-				accounts = dao.getAccountStatement(
-						"com.ccf.persistence.classes.BuildingAccount", from.getSelectedDate(),
-						to.getSelectedDate());
-				accounts.addAll(dao.getAccountStatement(
-						"com.ccf.persistence.classes.BankEducationalFundAccount",
-						from.getSelectedDate(), to.getSelectedDate()));
+				
+				Map<String, Float> balances = dao.getOpeningAndClosingBalance(YouthAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				cashOpenbal = balances.get(Constants.OpeningBalance);
+				cashclosebal = balances.get(Constants.ClosingBalance);
+				balances = dao.getOpeningAndClosingBalance(BankYouthAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				bankOpenbal = balances.get(Constants.OpeningBalance);
+				bankClosebal = balances.get(Constants.ClosingBalance);
 			} else if (accountNames.getValue().equals(
-					AccountNames.GraveyardAccount)) {
-				accounts = dao.getAccountStatement("com.ccf.persistence.classes.GraveyardAccount",
+					Constants.BuildingAccount)) {
+				accounts = dao.getAccountStatement(BuildingAccount.class,
 						from.getSelectedDate(), to.getSelectedDate());
-				accounts.addAll(dao.getAccountStatement("com.ccf.persistence.classes.BankGraveyardAccount",
-						from.getSelectedDate(), to.getSelectedDate()));
+				accounts.addAll(dao
+						.getAccountStatement(BankBuildingAccount.class,
+								from.getSelectedDate(), to.getSelectedDate()));
+
+				Map<String, Float> balances = dao.getOpeningAndClosingBalance(BuildingAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				cashOpenbal = balances.get(Constants.OpeningBalance);
+				cashclosebal = balances.get(Constants.ClosingBalance);
+				balances = dao.getOpeningAndClosingBalance(BankBuildingAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				bankOpenbal = balances.get(Constants.OpeningBalance);
+				bankClosebal = balances.get(Constants.ClosingBalance);
 			} else if (accountNames.getValue().equals(
-					AccountNames.EducationalFundAccount)) {
-				accounts = dao.getAccountStatement("com.ccf.persistence.classes.EducationalFundAccount",
+					Constants.GraveyardAccount)) {
+				accounts = dao.getAccountStatement(GraveyardAccount.class,
 						from.getSelectedDate(), to.getSelectedDate());
-				accounts.addAll(dao.getAccountStatement(
-						"com.ccf.persistence.classes.BankEducationalFundAccount", from.getSelectedDate(),
-						to.getSelectedDate()));
+				accounts.addAll(dao.getAccountStatement(BankGraveyardAccount.class,
+						from.getSelectedDate(), to.getSelectedDate()));
+				
+				Map<String, Float> balances = dao.getOpeningAndClosingBalance(GraveyardAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				cashOpenbal = balances.get(Constants.OpeningBalance);
+				cashclosebal = balances.get(Constants.ClosingBalance);
+				balances = dao.getOpeningAndClosingBalance(BankGraveyardAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				bankOpenbal = balances.get(Constants.OpeningBalance);
+				bankClosebal = balances.get(Constants.ClosingBalance);
+			} else if (accountNames.getValue().equals(
+					Constants.EducationalFundAccount)) {
+				accounts = dao.getAccountStatement(EducationalFundAccount.class,
+						from.getSelectedDate(), to.getSelectedDate());
+				accounts.addAll(dao
+						.getAccountStatement(BankEducationalFundAccount.class,
+								from.getSelectedDate(), to.getSelectedDate()));
+				
+				Map<String, Float> balances = dao.getOpeningAndClosingBalance(EducationalFundAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				cashOpenbal = balances.get(Constants.OpeningBalance);
+				cashclosebal = balances.get(Constants.ClosingBalance);
+				balances = dao.getOpeningAndClosingBalance(BankEducationalFundAccount.class, this.from.getSelectedDate(), this.to.getSelectedDate());
+				bankOpenbal = balances.get(Constants.OpeningBalance);
+				bankClosebal = balances.get(Constants.ClosingBalance);
 			}
 
 			logger.debug("Record Count : " + accounts.size());
@@ -161,50 +266,58 @@ public class AccumulatedAccountStatement {
 			Map<String, Float> expenseAccountsMap = new HashMap<>();
 			for (Account account : accounts) {
 				String ledgerName = account.getLedger().getLedgerName();
-				if(account.getCr_dr().equals("CR")){
+				if (account.getCr_dr().equals("CR")) {
 					totalIncome += account.getAmount();
 					if (incomeAccountsMap.keySet().contains(ledgerName)) {
-						incomeAccountsMap.put(ledgerName, incomeAccountsMap.get(ledgerName)
-								+ account.getAmount());
+						incomeAccountsMap.put(
+								ledgerName,
+								incomeAccountsMap.get(ledgerName)
+										+ account.getAmount());
 					} else {
-						incomeAccountsMap.put(ledgerName,
-								account.getAmount());
+						incomeAccountsMap.put(ledgerName, account.getAmount());
 					}
-				} else if(account.getCr_dr().equals("DR")){
+				} else if (account.getCr_dr().equals("DR")) {
 					totalExpense += account.getAmount();
 					if (expenseAccountsMap.keySet().contains(ledgerName)) {
-						expenseAccountsMap.put(ledgerName, expenseAccountsMap.get(ledgerName)
-								+ account.getAmount());
+						expenseAccountsMap.put(
+								ledgerName,
+								expenseAccountsMap.get(ledgerName)
+										+ account.getAmount());
 					} else {
-						expenseAccountsMap.put(ledgerName,
-								account.getAmount());
+						expenseAccountsMap.put(ledgerName, account.getAmount());
 					}
 				}
-				
+
 			}
-			
+
 			income.getItems().clear();
 			AccumulatedAccStmt stmt = null;
-			for(Entry<String, Float> entry : incomeAccountsMap.entrySet()){
+			for (Entry<String, Float> entry : incomeAccountsMap.entrySet()) {
 				stmt = new AccumulatedAccStmt();
 				stmt.setLedgerName(entry.getKey());
 				stmt.setAmount(entry.getValue());
 				income.getItems().add(stmt);
 			}
-			
+
 			expense.getItems().clear();
-			for(Entry<String, Float> entry : expenseAccountsMap.entrySet()){
+			for (Entry<String, Float> entry : expenseAccountsMap.entrySet()) {
 				stmt = new AccumulatedAccStmt();
 				stmt.setLedgerName(entry.getKey());
 				stmt.setAmount(entry.getValue());
 				expense.getItems().add(stmt);
 			}
-			
 
 			this.totalIncomeLbl.setText(String.valueOf(totalIncome));
 			this.totalExpenseLbl.setText(String.valueOf(totalExpense));
+			
+			this.openingBankAmt.setText(String.valueOf(bankOpenbal));
+			this.openingCashAmt.setText(String.valueOf(cashOpenbal));
+			this.closingBankAmt.setText(String.valueOf(bankClosebal));
+			this.closingCashAmt.setText(String.valueOf(cashclosebal));
 
 		} catch (CcfException e) {
+			this.message.setText(e.getMessage());
+			this.message.setTextFill(Paint.valueOf("Red"));
 			e.printStackTrace();
 		}
 
@@ -273,14 +386,15 @@ public class AccumulatedAccountStatement {
 			// load a properties file
 			prop.load(input);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			File file = new File(prop.getProperty("export_path")
-					+ "Christ Church Fort - Accumulated Account Statement Details - "
-					+ sdf.format(new Date()) + ".xls");
+			File file = new File(
+					prop.getProperty("export_path")
+							+ "Christ Church Fort - Accumulated Account Statement Details - "
+							+ sdf.format(new Date()) + ".xls");
 
 			FileOutputStream out = new FileOutputStream(file);
 			workbook.write(out);
 			out.close();
-			
+
 			message.setTextFill(Paint.valueOf("Green"));
 			message.setText("Saved at " + file.getAbsolutePath());
 		} catch (FileNotFoundException e) {
@@ -296,8 +410,8 @@ public class AccumulatedAccountStatement {
 		}
 		logger.debug("exportToExcel method Ends...");
 	}
-	
-	public void print(){
+
+	public void print() {
 		logger.info("print method Starts...");
 		message.setText("Functionality under construction.");
 		message.setTextFill(Paint.valueOf("Red"));

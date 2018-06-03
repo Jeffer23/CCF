@@ -2,13 +2,16 @@ package com.ccf.dao.impl;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -16,8 +19,6 @@ import org.hibernate.criterion.Restrictions;
 import com.ccf.dao.AccountsDao;
 import com.ccf.exception.CcfException;
 import com.ccf.persistence.classes.AccountsBalance;
-import com.ccf.persistence.classes.BankGraveyardAccount;
-import com.ccf.persistence.classes.BankPCAccount;
 import com.ccf.persistence.classes.Cheque;
 import com.ccf.persistence.classes.GraveyardAccount;
 import com.ccf.persistence.classes.Ledger;
@@ -26,44 +27,21 @@ import com.ccf.persistence.classes.MissionaryAccount;
 import com.ccf.persistence.classes.PCAccount;
 import com.ccf.persistence.classes.EducationalFundAccount;
 import com.ccf.persistence.classes.BuildingAccount;
-import com.ccf.persistence.classes.SundaySchoolAccount;
 import com.ccf.persistence.classes.WomensAccount;
 import com.ccf.persistence.classes.YouthAccount;
-import com.ccf.util.AccountNames;
+import com.ccf.persistence.interfaces.Account;
+import com.ccf.util.Constants;
 import com.ccf.util.HibernateSessionFactory;
-import com.ccf.vo.Account;
 
 public class AccountsDaoImpl implements AccountsDao {
 
 	final static Logger logger = Logger.getLogger(AccountsDaoImpl.class);
 
-	@Override
-	public float getAccountBalance(String accountName) throws CcfException {
-		logger.info("getPCAccountBalance method start...");
-		float balance = 0.0f;
-		try {
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			String hql = "Select balance from AccountsBalance where accountName='"
-					+ accountName + "'";
-			Query query = session.createQuery(hql);
-			Object result = query.uniqueResult();
-			if (result != null)
-				balance = (float) result;
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CcfException(e.getMessage());
-		}
-		logger.info("getPCAccountBalance method Ends");
-		return balance;
-	}
-
+	
 	/*
 	 * Helper method to update the Account balance.
 	 */
-	public static void updateAccountBalance(Session session,Account account, String accountName,
+	private static void updateAccountBalance(Session session,Account account, String accountName,
 			float amount) {
 
 		AccountsBalance accountsBalance = (AccountsBalance) session.get(
@@ -73,6 +51,7 @@ public class AccountsDaoImpl implements AccountsDao {
 		else if(account.getCr_dr().equals("DR"))
 			accountsBalance.setBalance(accountsBalance.getBalance() - amount);
 		session.update(accountsBalance);
+		
 
 	}
 
@@ -426,26 +405,14 @@ public class AccountsDaoImpl implements AccountsDao {
 	}
 
 	public static void main(String[] args) {
-		String accountName = "com.ccf.persistence.classes.PCAccount";
-		Calendar from = Calendar.getInstance();
-		from.set(2017, 0, 01);
-		Calendar to = Calendar.getInstance();
-		to.set(2017, 0, 31);
-		try {
-			
-			SessionFactory sessionFactory = HibernateSessionFactory
-					.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			Criteria c = session.createCriteria(Ledger.class);
-			c.add(Restrictions.not(Restrictions.like("ledgerName", "Santha - ", MatchMode.START)));
-			c.add(Restrictions.not(Restrictions.like("ledgerName", "Service - ", MatchMode.START)));
-			List<Ledger> ledgers = c.list();
-			session.close();
-			logger.debug("getEducationalFundStatement method Ends...");
-			for(Ledger l : ledgers){
-				System.out.println(l.getLedgerName());
-			}
+		AccountsDaoImpl impl = new AccountsDaoImpl();
 		
+		Calendar from = Calendar.getInstance();
+		from.set(2017, 4, 01);
+		Calendar to = Calendar.getInstance();
+		to.set(2017, 4, 30);
+		try {
+			impl.updateBalance(PCAccount.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -453,14 +420,14 @@ public class AccountsDaoImpl implements AccountsDao {
 	}
 
 	@Override
-	public List<Account> getAccountStatement(String accountName, Date from, Date to)
+	public List<Account> getAccountStatement(Class entity, Date from, Date to)
 			throws CcfException {
 		logger.debug("getAccountStatement method starts...");
 		try {
 			SessionFactory sessionFactory = HibernateSessionFactory
 					.getSessionFactory();
 			Session session = sessionFactory.openSession();
-			Criteria c = session.createCriteria(Class.forName(accountName));
+			Criteria c = session.createCriteria(entity);
 			c.add(Restrictions.ge("date", from));
 			c.add(Restrictions.le("date", to));
 			c.createAlias("ledger", "ledger");
@@ -540,13 +507,13 @@ public class AccountsDaoImpl implements AccountsDao {
 	}
 	
 	@Override
-	public boolean isChequeExists(String accountNumber) throws CcfException{
+	public boolean isChequeExists(String chequeNumber) throws CcfException{
 		logger.debug("isChequeExists method Starts");
 		boolean chequeExists = false;
 		SessionFactory sessionFactory = HibernateSessionFactory
 				.getSessionFactory();
 		Session session = sessionFactory.openSession();
-		String hql = "from Cheque where chequeNumber = '" + accountNumber +"'";
+		String hql = "from Cheque where chequeNumber = '" + chequeNumber +"'";
 		Query query = session.createQuery(hql);
 		Cheque cheque = (Cheque) query.uniqueResult();
 		if(cheque!= null)
@@ -555,6 +522,8 @@ public class AccountsDaoImpl implements AccountsDao {
 		logger.debug("isChequeExists method Ends");
 		return chequeExists;
 	}
+	
+	
 	
 	@Override
 	public void withdrawOrDeposit(Account creditAcc, String creditAccName, Account debitAcc, String debitAccName, float amount) throws CcfException {
@@ -575,6 +544,127 @@ public class AccountsDaoImpl implements AccountsDao {
 			throw new CcfException(e.getMessage());
 		}
 		logger.debug("withdrawOrDeposit method Ends...");
+	}
+	
+	
+
+	@Override
+	public float getCurrentAccountBalance(Class entity) throws CcfException {
+		logger.debug("getCurrentAccountBalance method Starts...");
+		try {
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Criteria c = session.createCriteria(entity);
+			c.addOrder(Order.desc("date"));
+			c.addOrder(Order.desc("id"));
+			c.setMaxResults(1);
+			Account account = (Account) c.uniqueResult();
+			if(account == null) // First time no record will be in database.
+				return 0.0f;
+			logger.debug("Id : " + account.getDescription());
+			session.close();
+			logger.debug("getCurrentAccountBalance method Ends...");
+			return account.getBalance();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new CcfException(e.getMessage());
+		}
+	}
+
+	@Override
+	public Map<String, Float> getOpeningAndClosingBalance(Class entity, Date startDate, Date endDate)
+			throws CcfException {
+		Map<String, Float> balances = new HashMap<>();
+		try {
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Criteria c = session.createCriteria(entity);
+			c.add(Restrictions.between("date", startDate, endDate));
+			c.addOrder(Order.asc("date"));
+			c.addOrder(Order.asc("id"));
+			c.setMaxResults(1);
+			Account account = (Account) c.uniqueResult();
+			if(account == null) // First time no record will be in database.
+				balances.put(Constants.OpeningBalance, 0.0f);
+			else
+				balances.put(Constants.OpeningBalance, account.getBalance() - account.getAmount());
+			
+			c = session.createCriteria(entity);
+			c.add(Restrictions.between("date", startDate, endDate));
+			c.addOrder(Order.desc("date"));
+			c.addOrder(Order.desc("id"));
+			c.setMaxResults(1);
+			account = (Account) c.uniqueResult();
+			if(account == null) // First time no record will be in database.
+				balances.put(Constants.ClosingBalance, 0.0f);
+			else
+				balances.put(Constants.ClosingBalance, account.getBalance());
+			session.close();
+			logger.debug("getCurrentAccountBalance method Ends...");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new CcfException(e.getMessage());
+		}
+		return balances;
+	}
+
+	@Override
+	public float getAccountBalance(Class entity, Date date) throws CcfException{
+		float balance = 0.0f;
+		try {
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Criteria c = session.createCriteria(entity);
+			c.add(Restrictions.le("date", date));
+			c.addOrder(Order.desc("date"));
+			c.addOrder(Order.desc("id"));
+			c.setMaxResults(1);
+			Account account = (Account) c.uniqueResult();
+			if(account != null) // First time no record will be in database, returns null.
+				balance = account.getBalance();
+			
+			session.close();
+			logger.debug("getCurrentAccountBalance method Ends...");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new CcfException(e.getMessage());
+		}
+		return balance;
+	}
+
+	@Override
+	public void updateBalance(Class entity) throws CcfException {
+		logger.debug("updateBalance method Starts...");
+		
+		try {
+			SessionFactory sessionFactory = HibernateSessionFactory
+					.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Transaction tnx = session.beginTransaction();
+			Criteria c = session.createCriteria(entity);
+			c.addOrder(Order.asc("date"));
+			c.addOrder(Order.asc("id"));
+			List<Account> accounts = c.list();
+			float balance = 0.0f;
+			for(Account account : accounts){
+				if(account.getCr_dr().equals("CR"))
+					balance += account.getAmount();
+				else if(account.getCr_dr().equals("DR"))
+					balance -= account.getAmount();
+				account.setBalance(balance);
+			}
+			
+			tnx.commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new CcfException(e.getMessage());
+		}
+		
+		logger.debug("updateBalance method Ends...");
 	}
 
 }

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+<?import eu.schudt.javafx.controls.calendar.DatePicker?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ccf.controller.AccountBalanceController">
+	<children>
+		<AnchorPane prefHeight="775.0" prefWidth="1280.0">
+			<children>
+				<ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0" pickOnBounds="true" preserveRatio="true" style="-fx-box-shadow: 10px 10px 5px #888888;">
+					<image>
+						<Image url="/com/ccf/images/logo.png" />
+					</image>
+				</ImageView>
+				<Label alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" layoutY="34.0" prefHeight="66.0" prefWidth="533.0" text="Account Balance" textAlignment="CENTER">
+					<font>
+						<Font name="Times New Roman" size="36.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" layoutY="538.0" prefHeight="66.0" prefWidth="533.0" text="Overall Record" textAlignment="CENTER">
+					<font>
+						<Font name="Times New Roman" size="36.0" />
+					</font>
+				</Label>
+				<GridPane gridLinesVisible="true" layoutX="81.0" layoutY="209.0" prefHeight="329.0" prefWidth="960.0">
+					<columnConstraints>
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="50.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="250.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="50.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="175.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="175.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="175.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="175.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="1" GridPane.rowIndex="2" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="2" GridPane.rowIndex="3" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="3" GridPane.rowIndex="4" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="4" GridPane.rowIndex="5" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="5" GridPane.rowIndex="6" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="6" GridPane.rowIndex="7" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="7" GridPane.rowIndex="8" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="8" GridPane.rowIndex="9" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="9" GridPane.rowIndex="10" />
+						<Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #D4D4FC;" text="PC Account" GridPane.columnIndex="1" GridPane.rowIndex="2">
+							<GridPane.margin>
+								<Insets />
+							</GridPane.margin>
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #D4D4FC;" text="Missionary Account" GridPane.columnIndex="1" GridPane.rowIndex="3">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #D4D4FC;" text="Men's Account" GridPane.columnIndex="1" GridPane.rowIndex="4">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #D4D4FC;" text="Women's Account" GridPane.columnIndex="1" GridPane.rowIndex="5">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #D4D4FC;" text="Sunday School Account" GridPane.columnIndex="1" GridPane.rowIndex="6">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #D4D4FC;" text="Youth Account" GridPane.columnIndex="1" GridPane.rowIndex="7">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #D4D4FC;" text="Building Account" GridPane.columnIndex="1" GridPane.rowIndex="8">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #D4D4FC;" text="Graveyard Account" GridPane.columnIndex="1" GridPane.rowIndex="9">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #D4D4FC;" text="Educational Fund Account" GridPane.columnIndex="1" GridPane.rowIndex="10">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #C6C6FF;" text="No">
+							<font>
+								<Font name="Arial Black" size="13.0" />
+							</font>
+						</Label>
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #C6C6FF;" text="Account Name" GridPane.columnIndex="1" GridPane.columnSpan="2">
+							<font>
+								<Font name="Arial Black" size="13.0" />
+							</font>
+						</Label>
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #C6C6FF;" text="CCY" GridPane.columnIndex="2">
+							<font>
+								<Font name="Arial Black" size="13.0" />
+							</font>
+						</Label>
+						<Label alignment="CENTER" prefHeight="29.0" prefWidth="329.0" style="-fx-background-color: #C6C6FF;" text="Cash Balance" GridPane.columnIndex="3" GridPane.columnSpan="2">
+							<font>
+								<Font name="Arial Black" size="13.0" />
+							</font>
+						</Label>
+						<Label alignment="CENTER" prefHeight="29.0" prefWidth="329.0" style="-fx-background-color: #C6C6FF;" text="Bank Balance" GridPane.columnIndex="5" GridPane.columnSpan="2">
+							<font>
+								<Font name="Arial Black" size="13.0" />
+							</font>
+						</Label>
+						
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="INR" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="INR" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="INR" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="INR" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="INR" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="INR" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="INR" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="INR" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="INR" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+							
+						<Label fx:id="pcCashOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+						<Label fx:id="missionaryCashOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+						<Label fx:id="mensCashOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+						<Label fx:id="womensCashOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+						<Label fx:id="sundaySchoolCashOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+						<Label fx:id="youthCashOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+						<Label fx:id="stoCashOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+						<Label fx:id="graveyardCashOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+						<Label fx:id="eduFundCashOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+							
+						<Label fx:id="pcBankOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+						<Label fx:id="missionaryBankOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+						<Label fx:id="mensBankOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+						<Label fx:id="womensBankOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+						<Label fx:id="sundaySchoolBankOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+						<Label fx:id="youthBankOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+						<Label fx:id="stoBankOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+						<Label fx:id="graveyardBankOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5" GridPane.rowIndex="9" />
+						<Label fx:id="eduFundBankOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5" GridPane.rowIndex="10" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" text="Opening Balance" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Arial Black" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" text="Closing Balance" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Arial Black" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" text="Opening Balance" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Arial Black" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" text="Closing Balance" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Arial Black" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="pcCashCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <Label fx:id="missionaryCashCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <Label fx:id="mensCashCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                  <Label fx:id="womensCashCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <Label fx:id="sundaySchoolCashCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                  <Label fx:id="youthCashCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                  <Label fx:id="stoCashCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+                  <Label fx:id="graveyardCashCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+                  <Label fx:id="eduFundCashCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+                  
+                  <Label fx:id="pcBankCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                  <Label fx:id="missionaryBankCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                  <Label fx:id="mensBankCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                  <Label fx:id="womensBankCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                  <Label fx:id="sundaySchoolBankCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                  <Label fx:id="youthBankCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+                  <Label fx:id="stoBankCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="6" GridPane.rowIndex="8" />
+                  <Label fx:id="graveyardBankCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="6" GridPane.rowIndex="9" />
+                  <Label fx:id="eduFundBankCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="6" GridPane.rowIndex="10" />
+					</children>
+				</GridPane>
+				<GridPane gridLinesVisible="true" layoutX="79.0" layoutY="590.0" prefHeight="28.0" prefWidth="965.0">
+					<children>
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="10" />
+						<Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #D4D4FC;" text="All Account" GridPane.columnIndex="1">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="14.0" />
+							</font>
+						</Label>
+						<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #D4D4FC;" text="INR" GridPane.columnIndex="2" />
+						<Label fx:id="overAllCashOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="3" />
+						<Label fx:id="overAllBankOpenBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="5" />
+                  <Label fx:id="overAllCashCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="4" />
+                  <Label fx:id="overAllBankCloseBal" alignment="CENTER" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #D4D4FC;" GridPane.columnIndex="6" />
+					</children>
+					<columnConstraints>
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="50.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="250.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="50.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="175.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="175.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="175.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="175.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+					</rowConstraints>
+				</GridPane>
+
+				<Button layoutX="1114.0" layoutY="352.0" mnemonicParsing="false" onAction="#exportToExcel" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
+					<font>
+						<Font name="Arial Rounded MT Bold" size="14.0" />
+					</font>
+					<cursor>
+						<Cursor fx:constant="HAND" />
+					</cursor>
+					<HBox.margin>
+						<Insets left="50.0" top="35.0" />
+					</HBox.margin>
+				</Button>
+				<Label fx:id="message" alignment="CENTER" layoutX="77.0" layoutY="170.0" prefHeight="25.0" prefWidth="1126.0" textFill="RED">
+					<font>
+						<Font name="Comic Sans MS" size="16.0" />
+					</font>
+				</Label>
+            <Button layoutX="1114.0" layoutY="424.0" mnemonicParsing="false" onAction="#print" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Print" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Button>
+            <HBox layoutX="376.0" layoutY="122.0">
+               <children>
+                  <Label layoutX="137.0" layoutY="189.0" text="From :">
+                     <font>
+                        <Font name="Comic Sans MS" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <DatePicker fx:id="from" layoutX="258.0" layoutY="185.0" prefHeight="38.0" prefWidth="102.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" />
+                  <Label layoutX="451.0" layoutY="189.0" text="To :">
+                     <font>
+                        <Font name="Comic Sans MS" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" right="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <DatePicker fx:id="to" layoutX="537.0" layoutY="185.0" prefHeight="38.0" prefWidth="102.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" />
+                  <Button layoutX="751.0" layoutY="184.0" mnemonicParsing="false" onAction="#getDetails" prefHeight="27.0" prefWidth="123.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Get Details" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+			</children>
+		</AnchorPane>
+	</children>
+</VBox>

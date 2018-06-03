@@ -25,14 +25,15 @@ import com.ccf.persistence.classes.PCAccount;
 import com.ccf.persistence.classes.ServiceOffering;
 import com.ccf.persistence.classes.BuildingAccount;
 import com.ccf.persistence.classes.SundaySchoolAccount;
+import com.ccf.persistence.interfaces.Account;
 import com.ccf.persistence.interfaces.IMissionaryAccount;
 import com.ccf.persistence.interfaces.IPCAccount;
 import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
 import com.ccf.persistence.interfaces.ISundaySchoolAccount;
-import com.ccf.util.AccountNames;
+import com.ccf.util.BalanceUpdator;
+import com.ccf.util.Constants;
 import com.ccf.util.ProjectProperties;
 import com.ccf.vo.AccStatement;
-import com.ccf.vo.Account;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -102,14 +103,16 @@ public class ServiceOfferingController {
 	private OfferingType offeringType = null;
 	private Map<String, Ledger> ledgerMap = new HashMap<>();
 	
-	private BankMissionaryAccount missionaryOfferingAcc = new BankMissionaryAccount();
-	private BankPCAccount serviceOfferingAcc = new BankPCAccount();
-	private BankPCAccount auctionOfferingAcc = new BankPCAccount();
-	private BankPCAccount marriageOfferingAcc = new BankPCAccount();
-	private BankPCAccount baptismOfferingAcc = new BankPCAccount();
-	private BankPCAccount thanksOfferingAcc = new BankPCAccount();
-	private BankBuildingAccount stoOfferingAcc = new BankBuildingAccount();
-	private BankSundaySchoolAccount sundaySchoolOfferingAcc = new BankSundaySchoolAccount();
+	private float totalMissionaryAmount;
+	private float totalServiceAmount;
+	private float totalAuctionAmount;
+	private float totalMarriageAmount;
+	private float totalBaptismAmount;
+	private float totalThanksOfferingAmount;
+	private float totalstoOfferingAmount;
+	private float totalSundaySchoolAmount;
+	
+	private AccountsDao accountsDao = new AccountsDaoImpl();
 	
 
 	@FXML
@@ -238,30 +241,20 @@ public class ServiceOfferingController {
 			if (this.missionary.getText() != null
 					&& !this.missionary.getText().equals("0")) {
 				ledger = ledgerMap.get("Service - Missionary Offering");
-				float totalChequeAmount = 0.0f;
-				if(this.missionaryOfferingAcc.getCheques().size() > 0){
-					for(Cheque c : this.missionaryOfferingAcc.getCheques()){
-						totalChequeAmount += c.getChequeAmount();
-					}
-					this.missionaryOfferingAcc.setAmount(totalChequeAmount);
-					this.missionaryOfferingAcc.setCr_dr("CR");
-					this.missionaryOfferingAcc.setDescription("Service - Missionary Offering");
-					this.missionaryOfferingAcc.setServiceOffering(so);
-					this.missionaryOfferingAcc.setDate(date.getSelectedDate());
-					this.missionaryOfferingAcc.setLedger(ledger);
-					this.so.getBankMissionaryAccounts().add(this.missionaryOfferingAcc);
-					
-				}
 				
-				float totalCashAmount = Float.parseFloat(this.missionary.getText()) - totalChequeAmount;
+				float totalCashAmount = Float.parseFloat(this.missionary.getText()) - this.totalMissionaryAmount;
 				if(totalCashAmount > 0.0f){
 					MissionaryAccount missionaryAccount = new MissionaryAccount();
+					float currentBalance = this.accountsDao.getCurrentAccountBalance(missionaryAccount.getClass());
+					float balance = currentBalance + totalCashAmount;
+					
 					missionaryAccount.setAmount(totalCashAmount);
 					missionaryAccount.setCr_dr("CR");
 					missionaryAccount.setDescription("Service - Missionary Offering");
 					missionaryAccount.setServiceOffering(so);
 					missionaryAccount.setDate(date.getSelectedDate());
 					missionaryAccount.setLedger(ledger);
+					missionaryAccount.setBalance(balance);
 					so.getMissionaryAccounts().add(missionaryAccount);
 				}
 			}
@@ -269,30 +262,23 @@ public class ServiceOfferingController {
 			if (serviceOffering.getText() != null
 					&& !serviceOffering.getText().equals("0")) {
 				ledger = ledgerMap.get("Service - Service Offering");
-				float totalChequeAmount = 0.0f;
-				if(this.serviceOfferingAcc.getCheques().size() > 0){
-					for(Cheque c : this.serviceOfferingAcc.getCheques()){
-						totalChequeAmount += c.getChequeAmount();
-					}
-					this.serviceOfferingAcc.setAmount(totalChequeAmount);
-					this.serviceOfferingAcc.setCr_dr("CR");
-					this.serviceOfferingAcc.setDescription("Service - Service Offering");
-					this.serviceOfferingAcc.setServiceOffering(so);
-					this.serviceOfferingAcc.setDate(date.getSelectedDate());
-					this.serviceOfferingAcc.setLedger(ledger);
-					this.so.getBankPCAccounts().add(this.serviceOfferingAcc);
-					
-				}
 				
-				float totalCashAmount = Float.parseFloat(this.serviceOffering.getText()) - totalChequeAmount;
+				float totalCashAmount = Float.parseFloat(this.serviceOffering.getText()) - this.totalServiceAmount;
 				if(totalCashAmount > 0.0f){
 					PCAccount pcAccount = new PCAccount();
+					float currentBalance = this.accountsDao.getCurrentAccountBalance(pcAccount.getClass());
+					for(PCAccount pca : so.getPcAccounts()){
+						currentBalance += pca.getAmount();
+					}
+					float balance = currentBalance + totalCashAmount;
+					
 					pcAccount.setAmount(totalCashAmount);
 					pcAccount.setCr_dr("CR");
 					pcAccount.setDescription("Service - Service Offering");
 					pcAccount.setServiceOffering(so);
 					pcAccount.setDate(date.getSelectedDate());
 					pcAccount.setLedger(ledger);
+					pcAccount.setBalance(balance);
 					so.getPcAccounts().add(pcAccount);
 				}
 			}
@@ -300,60 +286,45 @@ public class ServiceOfferingController {
 			if (auctionAmt.getText() != null
 					&& !auctionAmt.getText().equals("0")) {
 				ledger = ledgerMap.get("Service - Auction Offering");
-				float totalChequeAmount = 0.0f;
-				if(this.auctionOfferingAcc.getCheques().size() > 0){
-					for(Cheque c : this.auctionOfferingAcc.getCheques()){
-						totalChequeAmount += c.getChequeAmount();
-					}
-					this.auctionOfferingAcc.setAmount(totalChequeAmount);
-					this.auctionOfferingAcc.setCr_dr("CR");
-					this.auctionOfferingAcc.setDescription("Service - Auction Offering");
-					this.auctionOfferingAcc.setServiceOffering(so);
-					this.auctionOfferingAcc.setDate(date.getSelectedDate());
-					this.auctionOfferingAcc.setLedger(ledger);
-					this.so.getBankPCAccounts().add(this.auctionOfferingAcc);
-					
-				}
-				
-				float totalCashAmount = Float.parseFloat(this.auctionAmt.getText()) - totalChequeAmount;
+				float totalCashAmount = Float.parseFloat(this.auctionAmt.getText()) - totalAuctionAmount;
 				if(totalCashAmount > 0.0f){
 					PCAccount pcAccount = new PCAccount();
+					float currentBalance = this.accountsDao.getCurrentAccountBalance(pcAccount.getClass());
+					for(PCAccount pca : so.getPcAccounts()){
+						currentBalance += pca.getAmount();
+					}
+					float balance = currentBalance + totalCashAmount;
+					
 					pcAccount.setAmount(totalCashAmount);
 					pcAccount.setCr_dr("CR");
 					pcAccount.setDescription("Service - Auction Offering");
 					pcAccount.setServiceOffering(so);
 					pcAccount.setDate(date.getSelectedDate());
 					pcAccount.setLedger(ledger);
+					pcAccount.setBalance(balance);
 					so.getPcAccounts().add(pcAccount);
 				}
 			}
 
 			if (marriage.getText() != null && !marriage.getText().equals("0")) {
 				ledger = ledgerMap.get("Service - Marriage Offering");
-				float totalChequeAmount = 0.0f;
-				if(this.marriageOfferingAcc.getCheques().size() > 0){
-					for(Cheque c : this.marriageOfferingAcc.getCheques()){
-						totalChequeAmount += c.getChequeAmount();
-					}
-					this.marriageOfferingAcc.setAmount(totalChequeAmount);
-					this.marriageOfferingAcc.setCr_dr("CR");
-					this.marriageOfferingAcc.setDescription("Service - Marriage Offering");
-					this.marriageOfferingAcc.setServiceOffering(so);
-					this.marriageOfferingAcc.setDate(date.getSelectedDate());
-					this.marriageOfferingAcc.setLedger(ledger);
-					this.so.getBankPCAccounts().add(this.marriageOfferingAcc);
-					
-				}
 				
-				float totalCashAmount = Float.parseFloat(this.marriage.getText()) - totalChequeAmount;
+				float totalCashAmount = Float.parseFloat(this.marriage.getText()) - totalMarriageAmount;
 				if(totalCashAmount > 0.0f){
 					PCAccount pcAccount = new PCAccount();
+					float currentBalance = this.accountsDao.getCurrentAccountBalance(pcAccount.getClass());
+					for(PCAccount pca : so.getPcAccounts()){
+						currentBalance += pca.getAmount();
+					}
+					float balance = currentBalance + totalCashAmount;
+					
 					pcAccount.setAmount(totalCashAmount);
 					pcAccount.setCr_dr("CR");
 					pcAccount.setDescription("Service - Marriage Offering");
 					pcAccount.setServiceOffering(so);
 					pcAccount.setDate(date.getSelectedDate());
 					pcAccount.setLedger(ledger);
+					pcAccount.setBalance(balance);
 					so.getPcAccounts().add(pcAccount);
 				}
 			}
@@ -361,30 +332,23 @@ public class ServiceOfferingController {
 			if (baptism.getText() != null
 					&& !baptism.getText().equals("0")) {
 				ledger = ledgerMap.get("Service - Baptism Offering");
-				float totalChequeAmount = 0.0f;
-				if(this.baptismOfferingAcc.getCheques().size() > 0){
-					for(Cheque c : this.baptismOfferingAcc.getCheques()){
-						totalChequeAmount += c.getChequeAmount();
-					}
-					this.baptismOfferingAcc.setAmount(totalChequeAmount);
-					this.baptismOfferingAcc.setCr_dr("CR");
-					this.baptismOfferingAcc.setDescription("Service - Baptism Offering");
-					this.baptismOfferingAcc.setServiceOffering(so);
-					this.baptismOfferingAcc.setDate(date.getSelectedDate());
-					this.baptismOfferingAcc.setLedger(ledger);
-					this.so.getBankPCAccounts().add(this.baptismOfferingAcc);
-					
-				}
 				
-				float totalCashAmount = Float.parseFloat(this.baptism.getText()) - totalChequeAmount;
+				float totalCashAmount = Float.parseFloat(this.baptism.getText()) - totalBaptismAmount;
 				if(totalCashAmount > 0.0f){
 					PCAccount pcAccount = new PCAccount();
+					float currentBalance = this.accountsDao.getCurrentAccountBalance(pcAccount.getClass());
+					for(PCAccount pca : so.getPcAccounts()){
+						currentBalance += pca.getAmount();
+					}
+					float balance = currentBalance + totalCashAmount;
+					
 					pcAccount.setAmount(totalCashAmount);
 					pcAccount.setCr_dr("CR");
 					pcAccount.setDescription("Service - Baptism Offering");
 					pcAccount.setServiceOffering(so);
 					pcAccount.setDate(date.getSelectedDate());
 					pcAccount.setLedger(ledger);
+					pcAccount.setBalance(balance);
 					so.getPcAccounts().add(pcAccount);
 				}
 			}
@@ -392,60 +356,43 @@ public class ServiceOfferingController {
 			if (thanksOffering.getText() != null
 					&& !thanksOffering.getText().equals("0")) {
 				ledger = ledgerMap.get("Service - Thanks Offering");
-				float totalChequeAmount = 0.0f;
-				if(this.thanksOfferingAcc.getCheques().size() > 0){
-					for(Cheque c : this.thanksOfferingAcc.getCheques()){
-						totalChequeAmount += c.getChequeAmount();
-					}
-					this.thanksOfferingAcc.setAmount(totalChequeAmount);
-					this.thanksOfferingAcc.setCr_dr("CR");
-					this.thanksOfferingAcc.setDescription("Service - Thanks Offering");
-					this.thanksOfferingAcc.setServiceOffering(so);
-					this.thanksOfferingAcc.setDate(date.getSelectedDate());
-					this.thanksOfferingAcc.setLedger(ledger);
-					this.so.getBankPCAccounts().add(this.thanksOfferingAcc);
-					
-				}
 				
-				float totalCashAmount = Float.parseFloat(this.thanksOffering.getText()) - totalChequeAmount;
+				float totalCashAmount = Float.parseFloat(this.thanksOffering.getText()) - totalThanksOfferingAmount;
 				if(totalCashAmount > 0.0f){
 					PCAccount pcAccount = new PCAccount();
+					float currentBalance = this.accountsDao.getCurrentAccountBalance(pcAccount.getClass());
+					for(PCAccount pca : so.getPcAccounts()){
+						currentBalance += pca.getAmount();
+					}
+					float balance = currentBalance + totalCashAmount;
+					
 					pcAccount.setAmount(totalCashAmount);
 					pcAccount.setCr_dr("CR");
 					pcAccount.setDescription("Service - Thanks Offering");
 					pcAccount.setServiceOffering(so);
 					pcAccount.setDate(date.getSelectedDate());
 					pcAccount.setLedger(ledger);
+					pcAccount.setBalance(balance);
 					so.getPcAccounts().add(pcAccount);
 				}
 			}
 
 			if (this.sto.getText() != null && !this.sto.getText().equals("0")) {
 				ledger = ledgerMap.get("Service - Special Thanks Offering");
-				float totalChequeAmount = 0.0f;
-				if(this.stoOfferingAcc.getCheques().size() > 0){
-					for(Cheque c : this.stoOfferingAcc.getCheques()){
-						totalChequeAmount += c.getChequeAmount();
-					}
-					this.stoOfferingAcc.setAmount(totalChequeAmount);
-					this.stoOfferingAcc.setCr_dr("CR");
-					this.stoOfferingAcc.setDescription("Service - Special Thanks Offering");
-					this.stoOfferingAcc.setServiceOffering(so);
-					this.stoOfferingAcc.setDate(date.getSelectedDate());
-					this.stoOfferingAcc.setLedger(ledger);
-					this.so.getBankSpecialThanksOfferingAccounts().add(this.stoOfferingAcc);
-					
-				}
 				
-				float totalCashAmount = Float.parseFloat(this.sto.getText()) - totalChequeAmount;
+				float totalCashAmount = Float.parseFloat(this.sto.getText()) - totalstoOfferingAmount;
 				if(totalCashAmount > 0.0f){
 					BuildingAccount stoAccount = new BuildingAccount();
+					float currentBalance = this.accountsDao.getCurrentAccountBalance(stoAccount.getClass());
+					float balance = currentBalance + totalCashAmount;
+					
 					stoAccount.setAmount(totalCashAmount);
 					stoAccount.setCr_dr("CR");
 					stoAccount.setDescription("Service - Special Thanks Offering");
 					stoAccount.setServiceOffering(so);
 					stoAccount.setDate(date.getSelectedDate());
 					stoAccount.setLedger(ledger);
+					stoAccount.setBalance(balance);
 					so.getSpecialThanksOfferingAccounts().add(stoAccount);
 				}
 			}
@@ -454,30 +401,20 @@ public class ServiceOfferingController {
 			if (sundaySchool.getText() != null
 					&& !sundaySchool.getText().equals("0")) {
 				ledger = ledgerMap.get("Service - Sunday School Offering");
-				float totalChequeAmount = 0.0f;
-				if(this.sundaySchoolOfferingAcc.getCheques().size() > 0){
-					for(Cheque c : this.sundaySchoolOfferingAcc.getCheques()){
-						totalChequeAmount += c.getChequeAmount();
-					}
-					this.sundaySchoolOfferingAcc.setAmount(totalChequeAmount);
-					this.sundaySchoolOfferingAcc.setCr_dr("CR");
-					this.sundaySchoolOfferingAcc.setDescription("Service - Sunday School Offering");
-					this.sundaySchoolOfferingAcc.setServiceOffering(so);
-					this.sundaySchoolOfferingAcc.setDate(date.getSelectedDate());
-					this.sundaySchoolOfferingAcc.setLedger(ledger);
-					this.so.getBankSundaySchoolAccounts().add(this.sundaySchoolOfferingAcc);
-					
-				}
 				
-				float totalCashAmount = Float.parseFloat(this.sundaySchool.getText()) - totalChequeAmount;
+				float totalCashAmount = Float.parseFloat(this.sundaySchool.getText()) - totalSundaySchoolAmount;
 				if(totalCashAmount > 0.0f){
 					SundaySchoolAccount sundaySchoolAccount = new SundaySchoolAccount();
+					float currentBalance = this.accountsDao.getCurrentAccountBalance(sundaySchoolAccount.getClass());
+					float balance = currentBalance + totalCashAmount;
+					
 					sundaySchoolAccount.setAmount(totalCashAmount);
 					sundaySchoolAccount.setCr_dr("CR");
 					sundaySchoolAccount.setDescription("Service - Sunday School Offering");
 					sundaySchoolAccount.setServiceOffering(so);
 					sundaySchoolAccount.setDate(date.getSelectedDate());
 					sundaySchoolAccount.setLedger(ledger);
+					sundaySchoolAccount.setBalance(balance);
 					so.getSundaySchoolAccounts().add(sundaySchoolAccount);
 				}
 			}
@@ -486,6 +423,12 @@ public class ServiceOfferingController {
 			 * Persisting the data
 			 */
 			serviceImpl.saveServiceOffering(so);
+			
+			/*
+			 * Running Thread to update the balances
+			 */
+			BalanceUpdator balanceUpdator = BalanceUpdator.getInstance();
+			balanceUpdator.updateAllBalances();
 
 			message.setText("Service Offerings saved Successfully");
 			message.setTextFill(Paint.valueOf("GREEN"));
@@ -518,6 +461,12 @@ public class ServiceOfferingController {
 			/*
 			 * Validation
 			 */
+			if(this.chequeDate == null)
+				throw new CcfException("Select the cheque date");
+			if(this.chequeAmount == null)
+				throw new CcfException("Select the cheque Amount");
+			if(this.chequeNumber == null)
+				throw new CcfException("Select the cheque Number");
 			if (this.chequeDate.getSelectedDate() == null)
 				throw new CcfException("Please select the Cheque Date.");
 			if (this.chequeAmount.getText().matches(".*[a-zA-Z]+.*"))
@@ -527,15 +476,43 @@ public class ServiceOfferingController {
 				throw new CcfException("Please enter the cheque number.");
 			validateCheque();
 
+			/*
+			 * Validate Cheque Exists
+			 */
+			AccountsDao dao = new AccountsDaoImpl();
+			boolean chequeExists = dao.isChequeExists(this.chequeNumber.getText());
+			if(chequeExists){
+				throw new CcfException("This Cheque details already entered");
+			}
+			
+			float chequeAmount = Float.parseFloat(this.chequeAmount.getText());
 			Cheque cheque = new Cheque();
-			cheque.setChequeAmount(Float.parseFloat(this.chequeAmount.getText()));
+			cheque.setChequeAmount(chequeAmount);
 			cheque.setChequeDate(this.chequeDate.getSelectedDate());
 			cheque.setChequeNumber(this.chequeNumber.getText());
 
 			if (this.offeringType.equals(OfferingType.MissionaryOffering)) {
 				if (this.missionary.getText().equals(""))
 					this.missionary.setText("0");
-				this.missionaryOfferingAcc.getCheques().add(cheque);
+				Ledger ledger = ledgerMap.get("Service - Missionary Offering");
+				BankMissionaryAccount bankMissionaryAccount = new BankMissionaryAccount();
+				float currentBalance = this.accountsDao.getCurrentAccountBalance(bankMissionaryAccount.getClass());
+				for(BankMissionaryAccount bma : this.so.getBankMissionaryAccounts()){
+						currentBalance += bma.getAmount();
+				}
+				float balance = currentBalance + chequeAmount;
+			
+				bankMissionaryAccount.setAmount(chequeAmount);
+				bankMissionaryAccount.setCr_dr("CR");
+				bankMissionaryAccount.setDescription("Service - Missionary Offering");
+				bankMissionaryAccount.setServiceOffering(so);
+				bankMissionaryAccount.setDate(date.getSelectedDate());
+				bankMissionaryAccount.setBalance(balance);
+				bankMissionaryAccount.setLedger(ledger);
+				bankMissionaryAccount.getCheques().add(cheque);
+				this.so.getBankMissionaryAccounts().add(bankMissionaryAccount);
+				
+				this.totalMissionaryAmount += chequeAmount;
 				this.missionary.setDisable(true);
 				this.missionary.setText(String.valueOf(Float.parseFloat(this.missionary.getText()) + cheque.getChequeAmount()));
 				
@@ -544,8 +521,25 @@ public class ServiceOfferingController {
 			else if (this.offeringType.equals(OfferingType.ServiceOffering)) {
 				if (this.serviceOffering.getText().equals(""))
 					this.serviceOffering.setText("0");
+				Ledger ledger = ledgerMap.get("Service - Service Offering");
+				BankPCAccount bankPCAccount = new BankPCAccount();
+				float currentBalance = this.accountsDao.getCurrentAccountBalance(bankPCAccount.getClass());
+				for(BankPCAccount bpca : this.so.getBankPCAccounts()){
+					currentBalance += bpca.getAmount();
+				}
+				float balance = currentBalance + chequeAmount;
 				
-				this.serviceOfferingAcc.getCheques().add(cheque);
+				bankPCAccount.setAmount(chequeAmount);
+				bankPCAccount.setCr_dr("CR");
+				bankPCAccount.setDescription("Service - Service Offering");
+				bankPCAccount.setServiceOffering(so);
+				bankPCAccount.setDate(date.getSelectedDate());
+				bankPCAccount.setLedger(ledger);
+				bankPCAccount.setBalance(balance);
+				bankPCAccount.getCheques().add(cheque);
+				this.so.getBankPCAccounts().add(bankPCAccount);
+					
+				this.totalServiceAmount += chequeAmount;
 				this.serviceOffering.setDisable(true);
 				this.serviceOffering.setText(String.valueOf(Float.parseFloat(this.serviceOffering.getText()) + cheque.getChequeAmount()));
 			}
@@ -553,7 +547,25 @@ public class ServiceOfferingController {
 			else if (this.offeringType.equals(OfferingType.AuctionOffering)) {
 				if (this.auctionAmt.getText().equals(""))
 					this.auctionAmt.setText("0");
-				this.auctionOfferingAcc.getCheques().add(cheque);
+				Ledger ledger = ledgerMap.get("Service - Auction Offering");
+				BankPCAccount bankPCAccount = new BankPCAccount();
+				float currentBalance = this.accountsDao.getCurrentAccountBalance(bankPCAccount.getClass());
+				for(BankPCAccount bpca : this.so.getBankPCAccounts()){
+					currentBalance += bpca.getAmount();
+				}
+				float balance = currentBalance + chequeAmount;
+				
+				bankPCAccount.setAmount(chequeAmount);
+				bankPCAccount.setCr_dr("CR");
+				bankPCAccount.setDescription("Service - Auction Offering");
+				bankPCAccount.setServiceOffering(so);
+				bankPCAccount.setDate(date.getSelectedDate());
+				bankPCAccount.setLedger(ledger);
+				bankPCAccount.setBalance(balance);
+				bankPCAccount.getCheques().add(cheque);
+				this.so.getBankPCAccounts().add(bankPCAccount);
+					
+				this.totalAuctionAmount += chequeAmount;
 				this.auctionAmt.setDisable(true);
 				this.auctionAmt.setText(String.valueOf(Float.parseFloat(this.auctionAmt.getText()) + cheque.getChequeAmount()));
 			}
@@ -561,7 +573,25 @@ public class ServiceOfferingController {
 			else if (this.offeringType.equals(OfferingType.MarriageOffering)) {
 				if (this.marriage.getText().equals(""))
 					this.marriage.setText("0");
-				this.marriageOfferingAcc.getCheques().add(cheque);
+				Ledger ledger = ledgerMap.get("Service - Marriage Offering");
+				BankPCAccount bankPCAccount = new BankPCAccount();
+				float currentBalance = this.accountsDao.getCurrentAccountBalance(bankPCAccount.getClass());
+				for(BankPCAccount bpca : this.so.getBankPCAccounts()){
+					currentBalance += bpca.getAmount();
+				}
+				float balance = currentBalance + chequeAmount;
+				
+				bankPCAccount.setAmount(chequeAmount);
+				bankPCAccount.setCr_dr("CR");
+				bankPCAccount.setDescription("Service - Marriage Offering");
+				bankPCAccount.setServiceOffering(so);
+				bankPCAccount.setDate(date.getSelectedDate());
+				bankPCAccount.setLedger(ledger);
+				bankPCAccount.setBalance(balance);
+				bankPCAccount.getCheques().add(cheque);
+				this.so.getBankPCAccounts().add(bankPCAccount);
+				
+				this.totalMarriageAmount += chequeAmount;
 				this.marriage.setDisable(true);
 				this.marriage.setText(String.valueOf(Float.parseFloat(this.marriage.getText()) + cheque.getChequeAmount()));
 			}
@@ -569,7 +599,25 @@ public class ServiceOfferingController {
 			else if (this.offeringType.equals(OfferingType.BaptismOffering)) {
 				if (this.baptism.getText().equals(""))
 					this.baptism.setText("0");
-				this.baptismOfferingAcc.getCheques().add(cheque);
+				Ledger ledger = ledgerMap.get("Service - Baptism Offering");
+				BankPCAccount bankPCAccount = new BankPCAccount();
+				float currentBalance = this.accountsDao.getCurrentAccountBalance(bankPCAccount.getClass());
+				for(BankPCAccount bpca : this.so.getBankPCAccounts()){
+					currentBalance += bpca.getAmount();
+				}
+				float balance = currentBalance + chequeAmount;
+				
+				bankPCAccount.setAmount(chequeAmount);
+				bankPCAccount.setCr_dr("CR");
+				bankPCAccount.setDescription("Service - Baptism Offering");
+				bankPCAccount.setServiceOffering(so);
+				bankPCAccount.setDate(date.getSelectedDate());
+				bankPCAccount.setLedger(ledger);
+				bankPCAccount.setBalance(balance);
+				bankPCAccount.getCheques().add(cheque);
+				this.so.getBankPCAccounts().add(bankPCAccount);
+				
+				this.totalBaptismAmount += chequeAmount;
 				this.baptism.setDisable(true);
 				this.baptism.setText(String.valueOf(Float.parseFloat(this.baptism.getText()) + cheque.getChequeAmount()));
 			}
@@ -577,7 +625,25 @@ public class ServiceOfferingController {
 			else if (this.offeringType.equals(OfferingType.ThanksOffering)) {
 				if (this.thanksOffering.getText().equals(""))
 					this.thanksOffering.setText("0");
-				this.thanksOfferingAcc.getCheques().add(cheque);
+				Ledger ledger = ledgerMap.get("Service - Thanks Offering");
+				BankPCAccount bankPCAccount = new BankPCAccount();
+				float currentBalance = this.accountsDao.getCurrentAccountBalance(bankPCAccount.getClass());
+				for(BankPCAccount bpca : this.so.getBankPCAccounts()){
+					currentBalance += bpca.getAmount();
+				}
+				float balance = currentBalance + chequeAmount;
+				
+				bankPCAccount.setAmount(chequeAmount);
+				bankPCAccount.setCr_dr("CR");
+				bankPCAccount.setDescription("Service - Thanks Offering");
+				bankPCAccount.setServiceOffering(so);
+				bankPCAccount.setDate(date.getSelectedDate());
+				bankPCAccount.setLedger(ledger);
+				bankPCAccount.setBalance(balance);
+				bankPCAccount.getCheques().add(cheque);
+				this.so.getBankPCAccounts().add(bankPCAccount);
+				
+				this.totalThanksOfferingAmount += chequeAmount;
 				this.thanksOffering.setDisable(true);
 				this.thanksOffering.setText(String.valueOf(Float.parseFloat(this.thanksOffering.getText()) + cheque.getChequeAmount()));
 			}
@@ -585,7 +651,25 @@ public class ServiceOfferingController {
 			else if (this.offeringType.equals(OfferingType.SpecialThanksOffering)) {
 				if (this.sto.getText().equals(""))
 					this.sto.setText("0");
-				this.stoOfferingAcc.getCheques().add(cheque);
+				Ledger ledger = ledgerMap.get("Service - Special Thanks Offering");
+				BankBuildingAccount bankBuildingAccount = new BankBuildingAccount();
+				float currentBalance = this.accountsDao.getCurrentAccountBalance(bankBuildingAccount.getClass());
+				for(BankBuildingAccount bba : this.so.getBankSpecialThanksOfferingAccounts()){
+					currentBalance += bba.getAmount();
+				}
+				float balance = currentBalance + chequeAmount;
+				
+				bankBuildingAccount.setAmount(chequeAmount);
+				bankBuildingAccount.setCr_dr("CR");
+				bankBuildingAccount.setDescription("Service - Special Thanks Offering");
+				bankBuildingAccount.setServiceOffering(so);
+				bankBuildingAccount.setDate(date.getSelectedDate());
+				bankBuildingAccount.setLedger(ledger);
+				bankBuildingAccount.setBalance(balance);
+				bankBuildingAccount.getCheques().add(cheque);
+				this.so.getBankSpecialThanksOfferingAccounts().add(bankBuildingAccount);
+				
+				this.totalstoOfferingAmount +=chequeAmount;
 				this.sto.setDisable(true);
 				this.sto.setText(String.valueOf(Float.parseFloat(this.sto.getText()) + cheque.getChequeAmount()));
 			}
@@ -594,11 +678,29 @@ public class ServiceOfferingController {
 			else if (this.offeringType.equals(OfferingType.SundaySchoolOffering)) {
 				if (this.sundaySchool.getText().equals(""))
 					this.sundaySchool.setText("0");
-				this.sundaySchoolOfferingAcc.getCheques().add(cheque);
+				Ledger ledger = ledgerMap.get("Service - Sunday School Offering");
+				BankSundaySchoolAccount bankSundaySchoolAccount =new BankSundaySchoolAccount();
+				float currentBalance = this.accountsDao.getCurrentAccountBalance(bankSundaySchoolAccount.getClass());
+				for(BankSundaySchoolAccount bssa : this.so.getBankSundaySchoolAccounts()){
+					currentBalance += bssa.getAmount();
+				}
+				float balance = currentBalance + chequeAmount;
+				
+				bankSundaySchoolAccount.setAmount(chequeAmount);
+				bankSundaySchoolAccount.setCr_dr("CR");
+				bankSundaySchoolAccount.setDescription("Service - Sunday School Offering");
+				bankSundaySchoolAccount.setServiceOffering(so);
+				bankSundaySchoolAccount.setDate(date.getSelectedDate());
+				bankSundaySchoolAccount.setLedger(ledger);
+				bankSundaySchoolAccount.setBalance(balance);
+				bankSundaySchoolAccount.getCheques().add(cheque);
+				this.so.getBankSundaySchoolAccounts().add(bankSundaySchoolAccount);
+				
+				this.totalSundaySchoolAmount += chequeAmount;
 				this.sundaySchool.setDisable(true);
 				this.sundaySchool.setText(String.valueOf(Float.parseFloat(this.sundaySchool.getText()) + cheque.getChequeAmount()));
 			}
-			
+		
 			com.ccf.vo.Cheque chequeUI = new com.ccf.vo.Cheque();
 			chequeUI.setChequeAmount(cheque.getChequeAmount());
 			chequeUI.setChequeNumber(cheque.getChequeNumber());
@@ -739,6 +841,24 @@ public class ServiceOfferingController {
 		sundaySchool.setText("");
 		marriage.setText("");
 		message.setText("");
+		this.chequeTable.getItems().clear();
+		this.sundaySchool.setDisable(false);
+		this.marriage.setDisable(false);
+		this.thanksOffering.setDisable(false);
+		this.sto.setDisable(false);
+		this.missionary.setDisable(false);
+		this.auctionAmt.setDisable(false);
+		this.baptism.setDisable(false);
+		this.sundaySchool.setDisable(false);
+		this.marriage.setDisable(false);
+		this.totalMissionaryAmount = 0.0f;
+		this.totalServiceAmount = 0.0f;
+		this.totalAuctionAmount = 0.0f;
+		this.totalMarriageAmount = 0.0f;
+		this.totalBaptismAmount = 0.0f;
+		this.totalThanksOfferingAmount = 0.0f;
+		this.totalstoOfferingAmount = 0.0f;
+		this.totalSundaySchoolAmount = 0.0f;
 		logger.info("clear method Ends...");
 	}
 }

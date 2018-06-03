@@ -237,6 +237,17 @@ public class MenuController {
 		}
 		logger.info("loadWithdrawPage method Ends...");
 	}
+	
+	public void loadAccountBalance() {
+		logger.info("loadAccountBalance method Starts...");
+		try {
+			replaceSceneContent("/com/ccf/fxml/Template.fxml",
+					"/com/ccf/fxml/Account_Balance.fxml");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("loadAccountBalance method Ends...");
+	}
 	/**
 	 * This method is used to replace the content on the UI. i.e., for
 	 * Templating.

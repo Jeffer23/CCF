@@ -25,7 +25,7 @@ import com.ccf.persistence.interfaces.IMissionaryAccount;
 import com.ccf.persistence.interfaces.IPCAccount;
 import com.ccf.persistence.interfaces.ISpecialThanksOfferingAccount;
 import com.ccf.persistence.interfaces.ISundaySchoolAccount;
-import com.ccf.util.AccountNames;
+import com.ccf.util.Constants;
 import com.ccf.util.HibernateSessionFactory;
 
 public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
@@ -46,7 +46,7 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		// PCAccount
 		if (serviceOffering.getPcAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
-					AccountsBalance.class, AccountNames.PCAccount);
+					AccountsBalance.class, Constants.PCAccount);
 			Set<PCAccount> pcAccounts = serviceOffering.getPcAccounts();
 			for (PCAccount account : pcAccounts) {
 				accountBalance.setBalance(accountBalance.getBalance()
@@ -58,7 +58,7 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		// Bank PC Account
 		if (serviceOffering.getBankPCAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
-					AccountsBalance.class, AccountNames.BankPCAccount);
+					AccountsBalance.class, Constants.BankPCAccount);
 			Set<BankPCAccount> pcAccounts = serviceOffering.getBankPCAccounts();
 			for (BankPCAccount account : pcAccounts) {
 				accountBalance.setBalance(accountBalance.getBalance()
@@ -70,7 +70,7 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		// Missionary Account
 		if (serviceOffering.getMissionaryAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
-					AccountsBalance.class, AccountNames.MissionaryAccount);
+					AccountsBalance.class, Constants.MissionaryAccount);
 			Set<MissionaryAccount> missionaryAccounts = serviceOffering
 					.getMissionaryAccounts();
 			for (MissionaryAccount account : missionaryAccounts) {
@@ -83,7 +83,7 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		// Bank Missionary Account
 		if (serviceOffering.getBankMissionaryAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
-					AccountsBalance.class, AccountNames.BankMissionaryAccount);
+					AccountsBalance.class, Constants.BankMissionaryAccount);
 			Set<BankMissionaryAccount> missionaryAccounts = serviceOffering
 					.getBankMissionaryAccounts();
 			for (BankMissionaryAccount account : missionaryAccounts) {
@@ -96,7 +96,7 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		// Sunday School Account
 		if (serviceOffering.getSundaySchoolAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
-					AccountsBalance.class, AccountNames.SundaySchoolAccount);
+					AccountsBalance.class, Constants.SundaySchoolAccount);
 			Set<SundaySchoolAccount> sundaySchoolAccounts = serviceOffering
 					.getSundaySchoolAccounts();
 			for (SundaySchoolAccount account : sundaySchoolAccounts) {
@@ -110,7 +110,7 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		if (serviceOffering.getBankSundaySchoolAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session
 					.get(AccountsBalance.class,
-							AccountNames.BankSundaySchoolAccount);
+							Constants.BankSundaySchoolAccount);
 			Set<BankSundaySchoolAccount> sundaySchoolAccounts = serviceOffering
 					.getBankSundaySchoolAccounts();
 			for (BankSundaySchoolAccount account : sundaySchoolAccounts) {
@@ -123,7 +123,7 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		// Special Thanks offering account
 		if (serviceOffering.getSpecialThanksOfferingAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
-					AccountsBalance.class, AccountNames.BuildingAccount);
+					AccountsBalance.class, Constants.BuildingAccount);
 			Set<BuildingAccount> stoAccounts = serviceOffering
 					.getSpecialThanksOfferingAccounts();
 			for (BuildingAccount account : stoAccounts) {
@@ -136,7 +136,7 @@ public class ServiceOfferingDaoImpl implements ServiceOfferingDao {
 		// Bank Special Thanks offering account
 		if (serviceOffering.getBankSpecialThanksOfferingAccounts().size() > 0) {
 			accountBalance = (AccountsBalance) session.get(
-					AccountsBalance.class, AccountNames.BankBuildingAccount);
+					AccountsBalance.class, Constants.BankBuildingAccount);
 			Set<BankBuildingAccount> stoAccounts = serviceOffering
 					.getBankSpecialThanksOfferingAccounts();
 			for (BankBuildingAccount account : stoAccounts) {

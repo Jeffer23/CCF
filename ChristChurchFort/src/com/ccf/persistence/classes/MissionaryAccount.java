@@ -2,8 +2,8 @@ package com.ccf.persistence.classes;
 
 import java.util.Date;
 
+import com.ccf.persistence.interfaces.Account;
 import com.ccf.persistence.interfaces.IMissionaryAccount;
-import com.ccf.vo.Account;
 
 public class MissionaryAccount implements Account, IMissionaryAccount {
 
@@ -15,6 +15,7 @@ public class MissionaryAccount implements Account, IMissionaryAccount {
 	private Santha santha;
 	private Date date;
 	private Ledger ledger;
+	private float balance;
 
 	public Ledger getLedger() {
 		return ledger;
@@ -80,4 +81,12 @@ public class MissionaryAccount implements Account, IMissionaryAccount {
 		this.santha = santha;
 	}
 
+	public float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(float balance) {
+		this.balance = balance;
+	}
+	
 }

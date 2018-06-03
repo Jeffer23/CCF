@@ -34,7 +34,25 @@ import application.Main;
 import com.ccf.dao.AccountsDao;
 import com.ccf.dao.impl.AccountsDaoImpl;
 import com.ccf.exception.CcfException;
-import com.ccf.util.AccountNames;
+import com.ccf.persistence.classes.BankBuildingAccount;
+import com.ccf.persistence.classes.BankEducationalFundAccount;
+import com.ccf.persistence.classes.BankGraveyardAccount;
+import com.ccf.persistence.classes.BankMensAccount;
+import com.ccf.persistence.classes.BankMissionaryAccount;
+import com.ccf.persistence.classes.BankPCAccount;
+import com.ccf.persistence.classes.BankSundaySchoolAccount;
+import com.ccf.persistence.classes.BankWomensAccount;
+import com.ccf.persistence.classes.BankYouthAccount;
+import com.ccf.persistence.classes.BuildingAccount;
+import com.ccf.persistence.classes.EducationalFundAccount;
+import com.ccf.persistence.classes.GraveyardAccount;
+import com.ccf.persistence.classes.MensAccount;
+import com.ccf.persistence.classes.MissionaryAccount;
+import com.ccf.persistence.classes.PCAccount;
+import com.ccf.persistence.classes.SundaySchoolAccount;
+import com.ccf.persistence.classes.WomensAccount;
+import com.ccf.persistence.classes.YouthAccount;
+import com.ccf.util.Constants;
 
 public class AccountsController {
 
@@ -139,34 +157,34 @@ public class AccountsController {
 		AccountsDao impl = new AccountsDaoImpl();
 		try {
 			// Cash Balance
-			float pcAccBalance = impl.getAccountBalance(AccountNames.PCAccount);
+			float pcAccBalance = impl.getCurrentAccountBalance(PCAccount.class);
 			this.pcAccountBalance.setText(String.valueOf(pcAccBalance));
 			float missionaryAccBalance = impl
-					.getAccountBalance(AccountNames.MissionaryAccount);
+					.getCurrentAccountBalance(MissionaryAccount.class);
 			this.missionaryAccountBalance.setText(String
 					.valueOf(missionaryAccBalance));
 			float mensAccBalance = impl
-					.getAccountBalance(AccountNames.MensAccount);
+					.getCurrentAccountBalance(MensAccount.class);
 			this.mensAccountBalance.setText(String.valueOf(mensAccBalance));
 			float womensAccBalance = impl
-					.getAccountBalance(AccountNames.WomensAccount);
+					.getCurrentAccountBalance(WomensAccount.class);
 			this.womensAccountBalance.setText(String.valueOf(womensAccBalance));
 			float sundaySchoolAccbalance = impl
-					.getAccountBalance(AccountNames.SundaySchoolAccount);
+					.getCurrentAccountBalance(SundaySchoolAccount.class);
 			this.sundaySchoolAccountBalance.setText(String
 					.valueOf(sundaySchoolAccbalance));
 			float youthAccBalance = impl
-					.getAccountBalance(AccountNames.YouthAccount);
+					.getCurrentAccountBalance(YouthAccount.class);
 			this.youthAccountBalance.setText(String.valueOf(youthAccBalance));
 			float stoAccBalance = impl
-					.getAccountBalance(AccountNames.BuildingAccount);
+					.getCurrentAccountBalance(BuildingAccount.class);
 			this.stoAccountBalance.setText(String.valueOf(stoAccBalance));
 			float graveyardAccBalance = impl
-					.getAccountBalance(AccountNames.GraveyardAccount);
+					.getCurrentAccountBalance(GraveyardAccount.class);
 			this.graveyardAccountBalance
 					.setText(String.valueOf(graveyardAccBalance));
 			float educationalFundAccBalance = impl
-					.getAccountBalance(AccountNames.EducationalFundAccount);
+					.getCurrentAccountBalance(EducationalFundAccount.class);
 			this.educationalFundAccountBalance.setText(String
 					.valueOf(educationalFundAccBalance));
 			float overAllBalance = pcAccBalance + missionaryAccBalance
@@ -177,34 +195,34 @@ public class AccountsController {
 
 			//Bank Balance
 			float bankPcAccBalance = impl
-					.getAccountBalance(AccountNames.BankPCAccount);
+					.getCurrentAccountBalance(BankPCAccount.class);
 			this.bankPCAccountBalance.setText(String.valueOf(bankPcAccBalance));
 			float bankMissionaryAccBalance = impl
-					.getAccountBalance(AccountNames.BankMissionaryAccount);
+					.getCurrentAccountBalance(BankMissionaryAccount.class);
 			this.bankMissionaryAccountBalance.setText(String
 					.valueOf(bankMissionaryAccBalance));
 			float bankMensAccBalance = impl
-					.getAccountBalance(AccountNames.BankMensAccount);
+					.getCurrentAccountBalance(BankMensAccount.class);
 			this.bankMensAccountBalance.setText(String.valueOf(bankMensAccBalance));
 			float bankWomensAccBalance = impl
-					.getAccountBalance(AccountNames.BankWomensAccount);
+					.getCurrentAccountBalance(BankWomensAccount.class);
 			this.bankWomensAccountBalance.setText(String.valueOf(bankWomensAccBalance));
 			float bankSundaySchoolAccbalance = impl
-					.getAccountBalance(AccountNames.BankSundaySchoolAccount);
+					.getCurrentAccountBalance(BankSundaySchoolAccount.class);
 			this.bankSundaySchoolAccountBalance.setText(String
 					.valueOf(bankSundaySchoolAccbalance));
 			float bankYouthAccBalance = impl
-					.getAccountBalance(AccountNames.BankYouthAccount);
+					.getCurrentAccountBalance(BankYouthAccount.class);
 			this.bankYouthAccountBalance.setText(String.valueOf(bankYouthAccBalance));
 			float bankStoAccBalance = impl
-					.getAccountBalance(AccountNames.BankBuildingAccount);
+					.getCurrentAccountBalance(BankBuildingAccount.class);
 			this.bankStoAccountBalance.setText(String.valueOf(bankStoAccBalance));
 			float bankGraveyardAccBalance = impl
-					.getAccountBalance(AccountNames.BankGraveyardAccount);
+					.getCurrentAccountBalance(BankGraveyardAccount.class);
 			this.bankGraveyardAccountBalance.setText(String
 					.valueOf(bankGraveyardAccBalance));
 			float bankEducationalFundAccBalance = impl
-					.getAccountBalance(AccountNames.BankEducationalFundAccount);
+					.getCurrentAccountBalance(BankEducationalFundAccount.class);
 			this.bankEducationalFundAccountBalance.setText(String
 					.valueOf(bankEducationalFundAccBalance));
 			float overAllBankBalance = bankPcAccBalance
@@ -321,43 +339,43 @@ public class AccountsController {
 			AccountsDao impl = new AccountsDaoImpl();
 			Map<String, Float> accountBalance = new HashMap<>();
 			accountBalance.put("PC Account",
-					impl.getAccountBalance(AccountNames.PCAccount));
+					impl.getCurrentAccountBalance(PCAccount.class));
 			accountBalance.put("Missionary Account",
-					impl.getAccountBalance(AccountNames.MissionaryAccount));
+					impl.getCurrentAccountBalance(MissionaryAccount.class));
 			accountBalance.put("Men's Account",
-					impl.getAccountBalance(AccountNames.MensAccount));
+					impl.getCurrentAccountBalance(MensAccount.class));
 			accountBalance.put("Women's Account",
-					impl.getAccountBalance(AccountNames.WomensAccount));
+					impl.getCurrentAccountBalance(WomensAccount.class));
 			accountBalance.put("Sunday School Account",
-					impl.getAccountBalance(AccountNames.SundaySchoolAccount));
+					impl.getCurrentAccountBalance(SundaySchoolAccount.class));
 			accountBalance.put("Youth Account",
-					impl.getAccountBalance(AccountNames.YouthAccount));
+					impl.getCurrentAccountBalance(YouthAccount.class));
 			accountBalance.put("Special Thanks Offering Account",
-					impl.getAccountBalance(AccountNames.BuildingAccount));
+					impl.getCurrentAccountBalance(BuildingAccount.class));
 			accountBalance.put("Graveyard Account",
-					impl.getAccountBalance(AccountNames.GraveyardAccount));
+					impl.getCurrentAccountBalance(GraveyardAccount.class));
 			accountBalance.put("Educational Fund Account",
-					impl.getAccountBalance(AccountNames.EducationalFundAccount));
+					impl.getCurrentAccountBalance(EducationalFundAccount.class));
 			
 			Map<String, Float> bankAccountBalance = new HashMap<>();
 			bankAccountBalance.put("PC Account",
-					impl.getAccountBalance(AccountNames.BankPCAccount));
+					impl.getCurrentAccountBalance(BankPCAccount.class));
 			bankAccountBalance.put("Missionary Account",
-					impl.getAccountBalance(AccountNames.BankMissionaryAccount));
+					impl.getCurrentAccountBalance(BankMissionaryAccount.class));
 			bankAccountBalance.put("Men's Account",
-					impl.getAccountBalance(AccountNames.BankMensAccount));
+					impl.getCurrentAccountBalance(BankMensAccount.class));
 			bankAccountBalance.put("Women's Account",
-					impl.getAccountBalance(AccountNames.BankWomensAccount));
+					impl.getCurrentAccountBalance(BankWomensAccount.class));
 			bankAccountBalance.put("Sunday School Account",
-					impl.getAccountBalance(AccountNames.BankSundaySchoolAccount));
+					impl.getCurrentAccountBalance(BankSundaySchoolAccount.class));
 			bankAccountBalance.put("Youth Account",
-					impl.getAccountBalance(AccountNames.BankYouthAccount));
+					impl.getCurrentAccountBalance(BankYouthAccount.class));
 			bankAccountBalance.put("Special Thanks Offering Account",
-					impl.getAccountBalance(AccountNames.BankBuildingAccount));
+					impl.getCurrentAccountBalance(BankBuildingAccount.class));
 			bankAccountBalance.put("Graveyard Account",
-					impl.getAccountBalance(AccountNames.BankGraveyardAccount));
+					impl.getCurrentAccountBalance(BankGraveyardAccount.class));
 			bankAccountBalance.put("Educational Fund Account",
-					impl.getAccountBalance(AccountNames.BankEducationalFundAccount));
+					impl.getCurrentAccountBalance(BankEducationalFundAccount.class));
 
 			Row row = null;
 			int rowCount = 1;

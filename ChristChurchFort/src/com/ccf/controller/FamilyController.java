@@ -37,6 +37,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 public class FamilyController extends Application {
@@ -102,12 +103,15 @@ public class FamilyController extends Application {
 
 								} catch (NumberFormatException e) {
 									error.setText("Please Enter a valid number");
+									error.setTextFill(Paint.valueOf("Red"));
 									e.printStackTrace();
 								} catch (CcfException e) {
 									message.setText(e.getMessage());
+									message.setTextFill(Paint.valueOf("Red"));
 									e.printStackTrace();
 								} catch (Exception e){
 									message.setText(e.getMessage());
+									message.setTextFill(Paint.valueOf("Red"));
 									e.printStackTrace();
 								}
 							}
@@ -181,6 +185,7 @@ public class FamilyController extends Application {
 												}
 											}
 										} else {
+											error.setTextFill(Paint.valueOf("Red"));
 											error.setText("This family not registered!!");
 											address.setText("");
 											phoneNo.setText("");
@@ -190,13 +195,16 @@ public class FamilyController extends Application {
 										}
 									} catch (NumberFormatException e) {
 										error.setText("Only Numbers are allowed");
+										error.setTextFill(Paint.valueOf("Red"));
 										logger.error("Only Numbers are allowed");
 										e.printStackTrace();
 									} catch (CcfException e) {
+										error.setTextFill(Paint.valueOf("Red"));
 										error.setText(e.getMessage());
 										logger.error(e.getMessage());
 										e.printStackTrace();
 									} catch (Exception e) {
+										error.setTextFill(Paint.valueOf("Red"));
 										error.setText(e.getMessage());
 										logger.error(e.getMessage());
 										e.printStackTrace();
@@ -226,6 +234,7 @@ public class FamilyController extends Application {
 			logger.error(e.getMessage());
 			e.printStackTrace();
 			message.setText(e.getMessage());
+			message.setTextFill(Paint.valueOf("Red"));
 		}
 
 		Scene scene = new Scene(root);
@@ -253,6 +262,7 @@ public class FamilyController extends Application {
 			logger.debug(e.getMessage());
 			e.printStackTrace();
 			message.setText(e.getMessage());
+			message.setTextFill(Paint.valueOf("Red"));
 		}
 
 		Scene scene = new Scene(root);
@@ -305,18 +315,25 @@ public class FamilyController extends Application {
 				logger.info(selectedMember.getName() + " has deleted.");
 			} catch (ParseException e) {
 				logger.debug(e.getMessage());
+				message.setTextFill(Paint.valueOf("Red"));
+				message.setText("Check Family Number entered");
 				e.printStackTrace();
 			} catch (CcfException e) {
 				logger.debug(e.getMessage());
+				message.setTextFill(Paint.valueOf("Red"));
+				message.setText(e.getMessage());
 				e.printStackTrace();
 			} catch (Exception e) {
 				logger.error(e.getMessage());
+				message.setTextFill(Paint.valueOf("Red"));
+				message.setText(e.getMessage());
 				e.printStackTrace();
 			}
 		} else {
 			logger.info("Deleting member from Add Family");
 			logger.info("Selected Member Id is " + selectedMember.getId());
 			members.getItems().remove(selectedMember);
+			message.setTextFill(Paint.valueOf("GREEN"));
 			message.setText(selectedMember.getName() + " has deleted.");
 		}
 		logger.debug("Delete Member method Ends...");
@@ -375,15 +392,18 @@ public class FamilyController extends Application {
 			phoneNo.setText("");
 			members.getItems().removeAll(memberList);
 
+			message.setTextFill(Paint.valueOf("GREEN"));
 			message.setText("Family Added Successfully");
 			logger.info("Family " + familyNo.getText() + " added successfully.");
 
 		} catch (ParseException e) {
 			message.setText(e.getMessage());
+			message.setTextFill(Paint.valueOf("Red"));
 			logger.error(e.getMessage());
 			e.printStackTrace();
 		} catch (CcfException e) {
 			message.setText(e.getMessage());
+			message.setTextFill(Paint.valueOf("Red"));
 			logger.error(e.getMessage());
 			e.printStackTrace();
 		}
@@ -408,6 +428,8 @@ public class FamilyController extends Application {
 			}
 		} catch (CcfException e) {
 			logger.error(e.getMessage());
+			message.setText(e.getMessage());
+			message.setTextFill(Paint.valueOf("Red"));
 			e.printStackTrace();
 		}
 		logger.debug("filterFamilyNos method Ends...");
@@ -421,10 +443,10 @@ public class FamilyController extends Application {
 				throw new CcfException("Enter Family no");
 			if(address.getText() == null)
 				throw new CcfException("Enter the address");
-			if(phoneNo.getText() == null)
+			/*if(phoneNo.getText() == null)
 				throw new CcfException("Enter the Phone No");
 			if(phoneNo.getText().length() != 10 || !Pattern.matches("[0-9]+", phoneNo.getText()))
-				throw new CcfException("Enter correct Phone No.");
+				throw new CcfException("Enter correct Phone No.");*/
 			if(address.getText().length() >=100)
 				throw new CcfException("Address is too long.");
 			
@@ -491,17 +513,24 @@ public class FamilyController extends Application {
 				}
 			}
 
+			message.setTextFill(Paint.valueOf("GREEN"));
 			message.setText("Family updated Successfully");
 			logger.info("Family " + familyNos.getEditor().getText() + " Updated Successfully.");
 
 		} catch (CcfException e) {
 			logger.error(e.getMessage());
+			message.setTextFill(Paint.valueOf("Red"));
+			message.setText(e.getMessage());
 			e.printStackTrace();
 		} catch (ParseException e) {
 			logger.error(e.getMessage());
+			message.setTextFill(Paint.valueOf("Red"));
+			message.setText(e.getMessage());
 			e.printStackTrace();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
+			message.setTextFill(Paint.valueOf("Red"));
+			message.setText(e.getMessage());
 			e.printStackTrace();
 		}
 

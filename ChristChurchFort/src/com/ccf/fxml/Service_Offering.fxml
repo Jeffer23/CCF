@@ -11,16 +11,23 @@
 <?import javafx.scene.control.cell.*?>
 <?import eu.schudt.javafx.controls.calendar.DatePicker?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ccf.controller.ServiceOfferingController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+	minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.ccf.controller.ServiceOfferingController">
 	<children>
-		<AnchorPane prefHeight="775.0" prefWidth="1280.0" style="-fx-background-image: url('com/ccf/images/background.gif');-fx-background-repeat:repeat;">
+		<AnchorPane prefHeight="775.0" prefWidth="1280.0">
 			<children>
-				<ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0" pickOnBounds="true" preserveRatio="true">
+				<ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1047.0"
+					pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="/com/ccf/images/logo.png" />
 					</image>
 				</ImageView>
-				<Button layoutX="293.0" layoutY="529.0" mnemonicParsing="false" onAction="#save" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Save" textFill="WHITE">
+				<Button layoutX="293.0" layoutY="529.0" mnemonicParsing="false"
+					onAction="#save" prefHeight="22.0" prefWidth="91.0"
+					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
+					text="Save" textFill="WHITE">
 					<font>
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
@@ -28,92 +35,146 @@
 						<Cursor fx:constant="HAND" />
 					</cursor>
 				</Button>
-				<Label alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="14.0" prefHeight="72.0" prefWidth="532.0" text="Service Offering" textAlignment="CENTER">
+				<Label alignment="CENTER" contentDisplay="CENTER" layoutX="348.0"
+					layoutY="14.0" prefHeight="72.0" prefWidth="532.0" text="Service Offering"
+					textAlignment="CENTER">
 					<font>
 						<Font name="Times New Roman" size="36.0" />
 					</font>
 				</Label>
-				<GridPane layoutX="54.0" layoutY="216.0" prefHeight="289.0" prefWidth="362.0">
+				<GridPane layoutX="54.0" layoutY="216.0" prefHeight="289.0"
+					prefWidth="362.0">
 					<columnConstraints>
-						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
-						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+							prefWidth="30.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+							prefWidth="20.0" />
 					</columnConstraints>
 					<rowConstraints>
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
 					</rowConstraints>
 					<children>
-						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Service Offering" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Service Offering"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Thanks Offering" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="1">
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Thanks Offering"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="1">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Missionary" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="3">
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Missionary"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="3">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Special Thanks Offering" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="2">
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Special Thanks Offering"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="2">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Auction " textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="4">
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Auction "
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="4">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Marriage" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="7">
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Marriage"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="7">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Sunday School" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="6">
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Sunday School"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="6">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Baptism" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="5">
+						<Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0"
+							style="-fx-background-color: #D4D4FC;" text="Baptism"
+							textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+							GridPane.rowIndex="5">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="14.0" />
 							</font>
 						</Label>
-						
-						<TextField fx:id="serviceOffering" prefHeight="32.0" prefWidth="208.0" promptText="Service Offering" GridPane.columnIndex="1" />
-						<TextField fx:id="thanksOffering" prefHeight="32.0" prefWidth="208.0" promptText="Thanks Offering" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-						<TextField fx:id="sto" prefHeight="32.0" prefWidth="208.0" promptText="Special Thanks Offering" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-						<TextField fx:id="missionary" prefHeight="32.0" prefWidth="208.0" promptText="Missionary" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-						<TextField fx:id="auctionAmt" prefHeight="32.0" prefWidth="208.0" promptText="Auction Amount" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-						<TextField fx:id="baptism" prefHeight="32.0" prefWidth="208.0" promptText="Baptism" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-						<TextField fx:id="sundaySchool" prefHeight="32.0" prefWidth="208.0" promptText="Sunday School" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-						<TextField fx:id="marriage" prefHeight="32.0" prefWidth="208.0" promptText="Marriage" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-						
+
+						<TextField fx:id="serviceOffering" prefHeight="32.0"
+							prefWidth="208.0" promptText="Service Offering"
+							GridPane.columnIndex="1" />
+						<TextField fx:id="thanksOffering" prefHeight="32.0"
+							prefWidth="208.0" promptText="Thanks Offering"
+							GridPane.columnIndex="1" GridPane.rowIndex="1" />
+						<TextField fx:id="sto" prefHeight="32.0" prefWidth="208.0"
+							promptText="Special Thanks Offering" GridPane.columnIndex="1"
+							GridPane.rowIndex="2" />
+						<TextField fx:id="missionary" prefHeight="32.0"
+							prefWidth="208.0" promptText="Missionary" GridPane.columnIndex="1"
+							GridPane.rowIndex="3" />
+						<TextField fx:id="auctionAmt" prefHeight="32.0"
+							prefWidth="208.0" promptText="Auction Amount"
+							GridPane.columnIndex="1" GridPane.rowIndex="4" />
+						<TextField fx:id="baptism" prefHeight="32.0" prefWidth="208.0"
+							promptText="Baptism" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+						<TextField fx:id="sundaySchool" prefHeight="32.0"
+							prefWidth="208.0" promptText="Sunday School"
+							GridPane.columnIndex="1" GridPane.rowIndex="6" />
+						<TextField fx:id="marriage" prefHeight="32.0" prefWidth="208.0"
+							promptText="Marriage" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
 					</children>
 				</GridPane>
-				<HBox layoutX="52.0" layoutY="147.0" prefHeight="39.0" prefWidth="362.0">
+				<HBox layoutX="52.0" layoutY="147.0" prefHeight="39.0"
+					prefWidth="362.0">
 					<children>
-						<HBox layoutX="302.0" layoutY="86.0" prefHeight="39.0" prefWidth="159.0">
+						<HBox layoutX="302.0" layoutY="86.0" prefHeight="39.0"
+							prefWidth="159.0">
 							<children>
 								<Label prefHeight="25.0" prefWidth="44.0" text="Date : ">
 									<font>
 										<Font name="Arial Rounded MT Bold" size="14.0" />
 									</font>
 								</Label>
-								<DatePicker fx:id="date" layoutX="386.0" layoutY="63.0" prefWidth="110.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" />
+								<DatePicker fx:id="date" layoutX="386.0" layoutY="63.0"
+									prefWidth="110.0" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" />
 							</children>
 						</HBox>
-						<HBox layoutX="535.0" layoutY="86.0" prefHeight="39.0" prefWidth="203.0">
+						<HBox layoutX="535.0" layoutY="86.0" prefHeight="39.0"
+							prefWidth="203.0">
 							<children>
 								<Label prefHeight="25.0" prefWidth="47.0" text="Time : ">
 									<font>
@@ -125,7 +186,10 @@
 						</HBox>
 					</children>
 				</HBox>
-				<Button layoutX="111.0" layoutY="529.0" mnemonicParsing="false" onAction="#clear" prefHeight="22.0" prefWidth="91.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Clear" textFill="WHITE">
+				<Button layoutX="111.0" layoutY="529.0" mnemonicParsing="false"
+					onAction="#clear" prefHeight="22.0" prefWidth="91.0"
+					style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
+					text="Clear" textFill="WHITE">
 					<cursor>
 						<Cursor fx:constant="HAND" />
 					</cursor>
@@ -133,122 +197,163 @@
 						<Font name="Arial Rounded MT Bold" size="14.0" />
 					</font>
 				</Button>
-				<Label fx:id="message" alignment="CENTER" layoutX="50.0" layoutY="587.0" prefHeight="33.0" prefWidth="1201.0">
+				<Label fx:id="message" alignment="CENTER" layoutX="50.0"
+					layoutY="587.0" prefHeight="25.0" prefWidth="1201.0" textFill="GREEN">
 					<font>
 						<Font name="Comic Sans MS" size="16.0" />
 					</font>
 				</Label>
-            <TableView fx:id="chequeTable" layoutX="871.0" layoutY="216.0" prefHeight="289.0" prefWidth="379.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="Date">
-                <cellValueFactory>
-						<PropertyValueFactory property="chequeDate" />
-					</cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="100.0" text="Amount">
-                <cellValueFactory>
-						<PropertyValueFactory property="chequeAmount" />
-					</cellValueFactory>
-                </TableColumn>
-                  <TableColumn prefWidth="200.0" text="Cheque Number">
-                  <cellValueFactory>
-						<PropertyValueFactory property="chequeNumber" />
-					</cellValueFactory>
-                  </TableColumn>
-              </columns>
-            </TableView>
-            <Hyperlink layoutX="422.0" layoutY="223.0" onAction="#addChequeForServiceOffering" onMouseClicked="#addChequeForServiceOffering" text="Add Cheque" />
-            <Hyperlink layoutX="422.0" layoutY="263.0" onAction="#addChequeForThanksOffering" onMouseClicked="#addChequeForThanksOffering" text="Add Cheque" />
-            <Hyperlink layoutX="422.0" layoutY="297.0" onAction="#addChequeForSTOOffering" onMouseClicked="#addChequeForSTOOffering" text="Add Cheque" />
-            <Hyperlink layoutX="422.0" layoutY="331.0" onAction="#addChequeForMissionary" onMouseClicked="#addChequeForMissionary" text="Add Cheque" />
-            <Hyperlink layoutX="422.0" layoutY="368.0" onAction="#addChequeForAuction" onMouseClicked="#addChequeForAuction" text="Add Cheque" />
-            <Hyperlink layoutX="422.0" layoutY="407.0" onAction="#addChequeForBaptism" onMouseClicked="#addChequeForBaptism" text="Add Cheque" />
-            <Hyperlink layoutX="422.0" layoutY="442.0" onAction="#addChequeForSundaySchool" onMouseClicked="#addChequeForSundaySchool" text="Add Cheque" />
-            <Hyperlink layoutX="422.0" layoutY="477.0" onAction="#addChequeForMarriage" onMouseClicked="#addChequeForMarriage" text="Add Cheque" />
-           
-            <VBox fx:id="chequeDetails" layoutX="542.0" layoutY="235.0">
-               <children>
-                  <Label alignment="CENTER" layoutX="542.0" layoutY="235.0" prefHeight="33.0" prefWidth="281.0" text="Cheque Details" textAlignment="CENTER">
-                     <font>
-                        <Font name="Times New Roman Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <GridPane layoutX="542.0" layoutY="274.0" prefHeight="106.0" prefWidth="281.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Cheque Date" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
-                           <font>
-                              <Font name="Arial Rounded MT Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Cheque Number" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Arial Rounded MT Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Cheque Amount" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Arial Rounded MT Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="chequeNumber" prefHeight="30.0" prefWidth="134.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="chequeAmount" prefHeight="30.0" prefWidth="127.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <DatePicker fx:id="chequeDate" promptText="dd-MM-yyyy" stylesheets="/com/ccf/css/DatePicker.css" GridPane.columnIndex="1" />
-                     </children>
-                  </GridPane>
-               <HBox>
-                     <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#cancelCheque" prefHeight="27.0" prefWidth="105.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Cancel" textAlignment="RIGHT" textFill="WHITE">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <font>
-                              <Font name="Arial Rounded MT Bold" size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="20.0" />
-                           </VBox.margin>
-                           <HBox.margin>
-                              <Insets left="30.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#addCheque" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #0077cc; -fx-background-radius: 15;" text="Add Cheque" textFill="WHITE">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <font>
-                              <Font name="Arial Rounded MT Bold" size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="150.0" top="30.0" />
-                           </VBox.margin>
-                           <HBox.margin>
-                              <Insets left="30.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets top="20.0" />
-               </padding>
-            </VBox>
-            <Label alignment="CENTER" layoutX="871.0" layoutY="176.0" prefHeight="33.0" prefWidth="379.0" text="Cheques" textAlignment="CENTER">
-               <font>
-                  <Font name="Times New Roman Bold" size="18.0" />
-               </font>
-            </Label>
+				<TableView fx:id="chequeTable" layoutX="871.0" layoutY="216.0"
+					prefHeight="289.0" prefWidth="379.0">
+					<columns>
+						<TableColumn prefWidth="75.0" text="Date">
+							<cellValueFactory>
+								<PropertyValueFactory property="chequeDate" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn prefWidth="100.0" text="Amount">
+							<cellValueFactory>
+								<PropertyValueFactory property="chequeAmount" />
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn prefWidth="200.0" text="Cheque Number">
+							<cellValueFactory>
+								<PropertyValueFactory property="chequeNumber" />
+							</cellValueFactory>
+						</TableColumn>
+					</columns>
+				</TableView>
+				<Hyperlink layoutX="422.0" layoutY="223.0"
+					onAction="#addChequeForServiceOffering" onMouseClicked="#addChequeForServiceOffering"
+					text="Add Cheque" />
+				<Hyperlink layoutX="422.0" layoutY="263.0"
+					onAction="#addChequeForThanksOffering" onMouseClicked="#addChequeForThanksOffering"
+					text="Add Cheque" />
+				<Hyperlink layoutX="422.0" layoutY="297.0"
+					onAction="#addChequeForSTOOffering" onMouseClicked="#addChequeForSTOOffering"
+					text="Add Cheque" />
+				<Hyperlink layoutX="422.0" layoutY="331.0"
+					onAction="#addChequeForMissionary" onMouseClicked="#addChequeForMissionary"
+					text="Add Cheque" />
+				<Hyperlink layoutX="422.0" layoutY="368.0" onAction="#addChequeForAuction"
+					onMouseClicked="#addChequeForAuction" text="Add Cheque" />
+				<Hyperlink layoutX="422.0" layoutY="407.0" onAction="#addChequeForBaptism"
+					onMouseClicked="#addChequeForBaptism" text="Add Cheque" />
+				<Hyperlink layoutX="422.0" layoutY="442.0"
+					onAction="#addChequeForSundaySchool" onMouseClicked="#addChequeForSundaySchool"
+					text="Add Cheque" />
+				<Hyperlink layoutX="422.0" layoutY="477.0" onAction="#addChequeForMarriage"
+					onMouseClicked="#addChequeForMarriage" text="Add Cheque" />
+
+				<VBox fx:id="chequeDetails" layoutX="542.0" layoutY="235.0">
+					<children>
+						<Label alignment="CENTER" layoutX="542.0" layoutY="235.0"
+							prefHeight="33.0" prefWidth="281.0" text="Cheque Details"
+							textAlignment="CENTER">
+							<font>
+								<Font name="Times New Roman Bold" size="18.0" />
+							</font>
+						</Label>
+						<GridPane layoutX="542.0" layoutY="274.0" prefHeight="106.0"
+							prefWidth="281.0">
+							<columnConstraints>
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+									prefWidth="100.0" />
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+									prefWidth="100.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints minHeight="10.0" prefHeight="30.0"
+									vgrow="SOMETIMES" />
+								<RowConstraints minHeight="10.0" prefHeight="30.0"
+									vgrow="SOMETIMES" />
+								<RowConstraints minHeight="10.0" prefHeight="30.0"
+									vgrow="SOMETIMES" />
+							</rowConstraints>
+							<children>
+								<Label contentDisplay="CENTER" prefHeight="34.0"
+									prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Cheque Date"
+									textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+								</Label>
+								<Label contentDisplay="CENTER" prefHeight="34.0"
+									prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Cheque Number"
+									textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+									GridPane.rowIndex="1">
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+								</Label>
+								<Label contentDisplay="CENTER" prefHeight="34.0"
+									prefWidth="208.0" style="-fx-background-color: #D4D4FC;" text="Cheque Amount"
+									textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"
+									GridPane.rowIndex="2">
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+								</Label>
+								<TextField fx:id="chequeNumber" prefHeight="30.0"
+									prefWidth="134.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+								<TextField fx:id="chequeAmount" prefHeight="30.0"
+									prefWidth="127.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+								<DatePicker fx:id="chequeDate" promptText="dd-MM-yyyy"
+									stylesheets="/com/ccf/css/DatePicker.css" GridPane.columnIndex="1" />
+							</children>
+						</GridPane>
+						<HBox>
+							<children>
+								<Button alignment="CENTER" mnemonicParsing="false"
+									onAction="#cancelCheque" prefHeight="27.0" prefWidth="105.0"
+									style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
+									text="Cancel" textAlignment="RIGHT" textFill="WHITE">
+									<cursor>
+										<Cursor fx:constant="HAND" />
+									</cursor>
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+									<VBox.margin>
+										<Insets left="20.0" />
+									</VBox.margin>
+									<HBox.margin>
+										<Insets left="30.0" />
+									</HBox.margin>
+								</Button>
+								<Button mnemonicParsing="false" onAction="#addCheque"
+									prefHeight="27.0" prefWidth="115.0"
+									style="-fx-background-color: #0077cc; -fx-background-radius: 15;"
+									text="Add Cheque" textFill="WHITE">
+									<cursor>
+										<Cursor fx:constant="HAND" />
+									</cursor>
+									<font>
+										<Font name="Arial Rounded MT Bold" size="14.0" />
+									</font>
+									<VBox.margin>
+										<Insets left="150.0" top="30.0" />
+									</VBox.margin>
+									<HBox.margin>
+										<Insets left="30.0" />
+									</HBox.margin>
+								</Button>
+							</children>
+							<VBox.margin>
+								<Insets top="20.0" />
+							</VBox.margin>
+						</HBox>
+					</children>
+					<padding>
+						<Insets top="20.0" />
+					</padding>
+				</VBox>
+				<Label alignment="CENTER" layoutX="871.0" layoutY="176.0"
+					prefHeight="33.0" prefWidth="379.0" text="Cheques" textAlignment="CENTER">
+					<font>
+						<Font name="Times New Roman Bold" size="18.0" />
+					</font>
+				</Label>
 			</children>
 		</AnchorPane>
 	</children>
